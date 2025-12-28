@@ -10,7 +10,7 @@ export default function ProjectsPage() {
         title="Projekti / Reference"
         subtitle="Selekcija projekata kroz različite tipove objekata, sa jasnim statusom i obimom radova."
       />
-      <section className="section-divider bg-grey-100 section">
+      <section className="section-divider section section-surface">
         <Container>
           <ProjectsGrid />
         </Container>

@@ -11,9 +11,15 @@ export default function CompanyPage() {
         title="Kontinuitet i odgovornost od 1993."
         subtitle={`${company.name} razvija se kroz stabilne projekte i dugoročna partnerstva. Fokus ostaje na preciznoj realizaciji i tehničkoj pouzdanosti.`}
       />
-      <section className="section-divider bg-grey-100 section">
+      <section className="section-divider section section-surface">
         <Container>
-          <Timeline items={timeline} />
+          <div className="surface-elevated p-8">
+            <p className="eyebrow">Timeline</p>
+            <h2 className="mt-3 section-title">Razvoj kroz ključne faze.</h2>
+            <div className="mt-10">
+              <Timeline items={timeline} />
+            </div>
+          </div>
         </Container>
       </section>
     </>

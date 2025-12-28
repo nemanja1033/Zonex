@@ -30,7 +30,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
   return (
     <>
       <CaseHero project={project} />
-      <section className="section-divider bg-grey-100 section">
+      <section className="section-divider section section-surface">
         <Container className="grid gap-10 md:grid-cols-[1fr_280px] md:items-start">
           <div className="space-y-12">
             <div id="overview" className="space-y-6">
@@ -40,15 +40,15 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
             <div id="scope" className="space-y-6">
               <h2 className="section-title">Challenge / Our role / Solution</h2>
               <div className="grid gap-6 md:grid-cols-3">
-                <div className="surface p-6">
+                <div className="surface-elevated p-6">
                   <p className="eyebrow">Challenge</p>
                   <p className="mt-3 body-muted">{project.challenge}</p>
                 </div>
-                <div className="surface p-6">
+                <div className="surface-elevated p-6">
                   <p className="eyebrow">Our role</p>
                   <p className="mt-3 body-muted">{project.role}</p>
                 </div>
-                <div className="surface p-6">
+                <div className="surface-elevated p-6">
                   <p className="eyebrow">Solution</p>
                   <p className="mt-3 body-muted">{project.solution}</p>
                 </div>
@@ -69,7 +69,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
                 ))}
               </div>
             </div>
-            <div className="surface grid gap-6 p-6 md:grid-cols-2">
+            <div className="surface-elevated grid gap-6 p-6 md:grid-cols-2">
               <div>
                 <p className="eyebrow">Previous</p>
                 <Link className="mt-3 block font-display text-h4" href={`/projects/${prev.slug}`}>
