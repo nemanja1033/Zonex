@@ -78,9 +78,9 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
           <button
             key={item}
             onClick={() => onChange(item)}
-            className={`border px-3 py-1.5 text-micro font-mono uppercase tracking-micro transition-colors focus:outline-none focus:ring-1 focus:ring-accent ${
+            className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-colors focus:outline-none focus:ring-1 focus:ring-accent ${
               value === item
-                ? 'border-accent bg-grey-100 text-textDark'
+                ? 'border-accent bg-grey-100 text-textDark shadow-[0_6px_16px_rgba(47,128,237,0.18)]'
                 : 'border-border bg-white text-muted hover:bg-grey-100 hover:text-textDark'
             }`}
           >

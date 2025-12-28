@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 type PageTransitionProps = {
   children: ReactNode
@@ -11,6 +11,10 @@ type PageTransitionProps = {
 export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname()
   const reduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <AnimatePresence mode="wait">

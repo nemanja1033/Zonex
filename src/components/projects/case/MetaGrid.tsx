@@ -7,7 +7,7 @@ type MetaGridProps = {
 
 export default function MetaGrid({ project }: MetaGridProps) {
   return (
-    <div className="surface grid gap-6 p-6 md:grid-cols-3">
+    <div className="surface-elevated grid gap-6 p-6 md:grid-cols-3">
       <ProjectMeta label="Scope" value={project.scope ?? '—'} />
       <ProjectMeta label="Delivery model" value={project.deliveryModel ?? '—'} />
       <ProjectMeta label="Works performed" value={project.works ?? '—'} />

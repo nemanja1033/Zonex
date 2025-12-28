@@ -13,6 +13,9 @@ export default function HomeHero() {
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -40])
   const driftSlow = useTransform(scrollYProgress, [0, 0.4], [0, -20])
   const panelShift = useTransform(scrollYProgress, [0, 0.4], [0, -24])
+  const cardDrift = useTransform(scrollYProgress, [0, 0.4], [0, -12])
+  const orbDrift = useTransform(scrollYProgress, [0, 0.4], [0, 16])
+  const glowShift = useTransform(scrollYProgress, [0, 0.4], [0, -10])
   const titleWords = 'Inženjering visokog standarda za objekte koji traju.'.split(' ')
   const stats = [
     { label: 'Godina osnivanja', value: 1993, suffix: '' },
@@ -28,9 +31,31 @@ export default function HomeHero() {
       transition: { duration: 0.7, delay: index * 0.06, ease: [0.32, 0.72, 0, 1] },
     }),
   }
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: [0.22, 0.7, 0.1, 1] },
+    },
+  }
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
+      <motion.div
+        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(47,128,237,0.35),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
+        animate={reduceMotion ? undefined : { rotate: 360 }}
+        transition={reduceMotion ? undefined : { duration: 60, repeat: Infinity, ease: 'linear' }}
+        aria-hidden="true"
+      />
       <motion.div
         className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/12 via-white/6 to-transparent"
         style={{ y: drift }}
@@ -47,13 +72,33 @@ export default function HomeHero() {
         transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
+      <motion.div
+        className="pointer-events-none absolute left-[8%] top-[18%] h-[180px] w-[180px] rounded-[40%] border border-white/10 bg-white/5 blur-[1px]"
+        animate={reduceMotion ? undefined : { rotate: [0, 12, 0], scale: [1, 1.06, 1] }}
+        transition={reduceMotion ? undefined : { duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
       <Container className="relative z-10 py-[calc(var(--section-padding)+3.5rem)]">
         <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-10">
             <Reveal>
-              <div className="space-y-4">
-                <p className="eyebrow-light">Founded {company.founded}</p>
+              <motion.div
+                className="space-y-4"
+                variants={containerVariants}
+                initial={reduceMotion ? undefined : 'hidden'}
+                animate={reduceMotion ? undefined : 'visible'}
+              >
+                <motion.div variants={fadeUp} className="flex items-center gap-3">
+                  <span className="eyebrow-light">Founded {company.founded}</span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-micro font-mono uppercase tracking-micro text-white/70">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/50" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                    </span>
+                    Active build
+                  </span>
+                </motion.div>
                 <motion.h1
                   className="text-h1 font-display text-white"
                   initial={reduceMotion ? undefined : 'hidden'}
@@ -70,35 +115,62 @@ export default function HomeHero() {
                     </motion.span>
                   ))}
                 </motion.h1>
-              </div>
+                <motion.div
+                  variants={fadeUp}
+                  className="h-[2px] w-32 rounded-full bg-gradient-to-r from-white/70 via-white/30 to-transparent"
+                  animate={reduceMotion ? undefined : { scaleX: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
+                  transition={reduceMotion ? undefined : { duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </motion.div>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="max-w-xl text-body text-white/90">
+              <motion.p
+                className="max-w-xl text-body text-white/90"
+                variants={fadeUp}
+                initial={reduceMotion ? undefined : 'hidden'}
+                animate={reduceMotion ? undefined : 'visible'}
+              >
                 Više od 30 godina vodimo projekte sa jasnim obimom, kontrolom kvaliteta i disciplinom izvođenja. Fokus je
                 na predvidivoj realizaciji i trajnoj vrednosti.
-              </p>
+              </motion.p>
             </Reveal>
             <Reveal delay={0.2} className="flex flex-wrap items-center gap-6">
-              <Button href="/projects">Pogledajte projekte</Button>
-              <Button href="/contact" variant="ghost">
-                Kontaktirajte tim
-              </Button>
+              <motion.div
+                className="flex flex-wrap items-center gap-6"
+                variants={containerVariants}
+                initial={reduceMotion ? undefined : 'hidden'}
+                animate={reduceMotion ? undefined : 'visible'}
+              >
+                <motion.div variants={fadeUp} whileHover={reduceMotion ? undefined : { y: -2 }}>
+                  <Button href="/projects">Pogledajte projekte</Button>
+                </motion.div>
+                <motion.div variants={fadeUp} whileHover={reduceMotion ? undefined : { y: -2 }}>
+                  <Button href="/contact" variant="ghost">
+                    Kontaktirajte tim
+                  </Button>
+                </motion.div>
+              </motion.div>
             </Reveal>
             <Reveal delay={0.3}>
-              <div className="grid gap-6 border-t border-white/20 pt-6 text-small text-white/85 md:grid-cols-3">
-                <div>
+              <motion.div
+                className="grid gap-6 border-t border-white/20 pt-6 text-small text-white/85 md:grid-cols-3"
+                variants={containerVariants}
+                initial={reduceMotion ? undefined : 'hidden'}
+                animate={reduceMotion ? undefined : 'visible'}
+              >
+                <motion.div variants={fadeUp}>
                   <p className="eyebrow-light">Sedište</p>
                   <p>{company.location}</p>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div variants={fadeUp}>
                   <p className="eyebrow-light">Model rada</p>
                   <p>Turnkey i završni radovi</p>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div variants={fadeUp}>
                   <p className="eyebrow-light">Fokus</p>
                   <p>Retail i hospitality objekti</p>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </Reveal>
           </div>
           <Reveal delay={0.15}>
@@ -122,11 +194,32 @@ export default function HomeHero() {
                     }
               }
             >
-              <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),transparent_55%)]" />
-                <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-white/10" />
-                <div className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(47,128,237,0.2)]" />
+              <motion.div
+                className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur"
+                whileHover={reduceMotion ? undefined : { y: -6, boxShadow: '0 48px 120px rgba(11,28,45,0.5)' }}
+                transition={reduceMotion ? undefined : { duration: 0.4, ease: 'easeOut' }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]"
+                  style={{ y: glowShift }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),transparent_55%)]"
+                  style={{ y: cardDrift }}
+                />
+                <motion.div
+                  className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-white/10"
+                  style={{ y: cardDrift }}
+                />
+                <motion.div
+                  className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(47,128,237,0.2)]"
+                  style={{ y: orbDrift }}
+                />
+                <motion.div
+                  className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full border border-white/10"
+                  animate={reduceMotion ? undefined : { rotate: [0, -12, 0], opacity: [0.4, 0.7, 0.4] }}
+                  transition={reduceMotion ? undefined : { duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                />
                 <motion.svg
                   className="pointer-events-none absolute left-6 top-6 h-16 w-24 text-white/40"
                   viewBox="0 0 120 80"
@@ -166,22 +259,40 @@ export default function HomeHero() {
                     </div>
                   </div>
                   <div className="grid gap-4 md:grid-cols-3">
-                    {stats.map((stat) => (
-                      <div
+                    {stats.map((stat, index) => (
+                      <motion.div
                         key={stat.label}
                         className="relative overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 backdrop-blur"
+                        initial={reduceMotion ? undefined : { opacity: 0, y: 14 }}
+                        animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                        transition={
+                          reduceMotion
+                            ? undefined
+                            : {
+                                duration: 0.6,
+                                delay: 0.2 + index * 0.08,
+                                ease: [0.22, 0.7, 0.1, 1],
+                              }
+                        }
+                        whileHover={reduceMotion ? undefined : { y: -4 }}
                       >
                         <div className="absolute inset-x-0 top-0 h-[1px] bg-white/30" />
                         <p className="text-h3 font-display text-white">
                           <CountUp end={stat.value} suffix={stat.suffix} />
                         </p>
                         <p className="mt-2 text-micro font-mono uppercase tracking-micro text-white/70">{stat.label}</p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
-              </div>
-              <div className="rounded-2xl border border-white/15 bg-white/7 p-5 text-white/85 backdrop-blur">
+              </motion.div>
+              <motion.div
+                className="rounded-2xl border border-white/15 bg-white/7 p-5 text-white/85 backdrop-blur"
+                initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+                animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={reduceMotion ? undefined : { duration: 0.6, delay: 0.25 }}
+                whileHover={reduceMotion ? undefined : { y: -3 }}
+              >
                 <div className="flex items-center justify-between">
                   <p className="text-micro font-mono uppercase tracking-micro text-white/70">Kontrolne tačke</p>
                   <span className="text-micro font-mono uppercase tracking-micro text-white/70">24/7</span>
@@ -189,7 +300,7 @@ export default function HomeHero() {
                 <p className="mt-2 text-small text-white/80">
                   Dnevno praćenje kvaliteta, dinamike i bezbednosti kroz definisane protokole.
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           </Reveal>
         </div>
