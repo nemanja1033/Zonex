@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageTransition from '@/components/layout/PageTransition'
+import CursorAura from '@/components/ui/CursorAura'
 
 type SiteLayoutProps = {
   children: ReactNode
@@ -16,6 +17,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
       </div>
       <div className="site-sheen" aria-hidden="true" />
       <div className="site-noise" aria-hidden="true" />
+      <CursorAura />
       <Navbar />
       <PageTransition>
         <main className="relative z-10">{children}</main>

@@ -1,13 +1,19 @@
+"use client"
+
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { timeline } from '@/content/content'
 import Link from 'next/link'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function HistoryTeaser() {
+  const sectionRef = useRef<HTMLElement | null>(null)
   const items = timeline.slice(0, 3)
 
   return (
-    <section className="section-divider section section-surface relative overflow-hidden">
+    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="left" />
       <div className="pointer-events-none absolute left-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.18),transparent_70%)]" />
       <Container>
         <div className="section-head">

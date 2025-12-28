@@ -15,6 +15,8 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
   })
   const y = useTransform(scrollYProgress, [0, 1], [40, -40])
   const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0, 1, 0])
+  const yStrong = useTransform(scrollYProgress, [0, 1], [80, -80])
+  const opacityStrong = useTransform(scrollYProgress, [0, 0.3, 1], [0, 0.9, 0])
   const x = variant === 'left' ? '-6%' : '6%'
 
   return (
@@ -25,6 +27,13 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
         aria-hidden="true"
       >
         <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.2),transparent_70%)]" />
+      </motion.div>
+      <motion.div
+        className={`pointer-events-none absolute ${variant === 'left' ? 'left-[-4%]' : 'right-[-4%]'} top-[30%] h-72 w-72`}
+        style={{ y: yStrong, opacity: opacityStrong }}
+        aria-hidden="true"
+      >
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.22),transparent_70%)]" />
       </motion.div>
       <motion.svg
         className={`pointer-events-none absolute ${variant === 'left' ? 'left-[6%]' : 'right-[6%]'} top-[20%] h-16 w-40 text-textDark/25`}

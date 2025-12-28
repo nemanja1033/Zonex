@@ -62,6 +62,8 @@
   --font-inter: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-jetbrains-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --font-plex-sans: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --cursor-x: 50%;
+  --cursor-y: 50%;
 }
 
 * {
@@ -428,6 +430,24 @@ body::after {
     overflow: hidden;
   }
 
+  .lux-sheen::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(
+      180px circle at var(--cursor-x) var(--cursor-y),
+      rgba(255, 255, 255, 0.14),
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .lux-sheen:hover::before {
+    opacity: 0.9;
+  }
+
   .lux-sheen::after {
     content: "";
     position: absolute;
@@ -438,6 +458,27 @@ body::after {
     mix-blend-mode: screen;
     opacity: 0.75;
     pointer-events: none;
+  }
+
+  .cursor-aura {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 24px rgba(155, 14, 28, 0.25);
+    transform: translate(calc(var(--cursor-x) - 50%), calc(var(--cursor-y) - 50%));
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .cursor-aura--hidden {
+    opacity: 0;
   }
 
   .glow-orb {
@@ -496,6 +537,12 @@ body::after {
   }
   100% {
     background-position: 420px 0;
+  }
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-aura {
+    display: none;
   }
 }
 
