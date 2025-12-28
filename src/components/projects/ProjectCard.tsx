@@ -17,8 +17,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       className="lux-border lux-sheen group relative overflow-hidden rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] transition-all duration-300 hover:shadow-[0_30px_70px_rgba(5,5,5,0.2)]"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="absolute -right-12 top-4 h-40 w-40 rounded-full bg-[rgba(155,14,28,0.28)] blur-3xl" />
-        <div className="absolute -left-16 bottom-4 h-48 w-48 rounded-full bg-[rgba(10,10,12,0.22)] blur-3xl" />
+        <div className="absolute -right-12 top-4 h-40 w-40 rounded-full bg-[rgba(96,10,16,0.2)] blur-3xl" />
+        <div className="absolute -left-16 bottom-4 h-48 w-48 rounded-full bg-[rgba(18,18,22,0.2)] blur-3xl" />
       </div>
       <div className="relative h-52 overflow-hidden bg-[linear-gradient(135deg,rgba(11,28,45,0.05),rgba(11,28,45,0.0))]">
         <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.75),rgba(12,12,14,0.85),rgba(155,14,28,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

@@ -40,17 +40,17 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
             <div id="scope" className="space-y-6">
               <h2 className="section-title">Challenge / Our role / Solution</h2>
               <div className="grid gap-6 md:grid-cols-3">
-                <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
+                <div className="lux-border lux-sheen relative overflow-hidden rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.7),rgba(155,14,28,0))]" />
                   <p className="eyebrow">Challenge</p>
                   <p className="mt-3 body-muted">{project.challenge}</p>
                 </div>
-                <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
+                <div className="lux-border lux-sheen relative overflow-hidden rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.7),rgba(155,14,28,0))]" />
                   <p className="eyebrow">Our role</p>
                   <p className="mt-3 body-muted">{project.role}</p>
                 </div>
-                <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
+                <div className="lux-border lux-sheen relative overflow-hidden rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.7),rgba(155,14,28,0))]" />
                   <p className="eyebrow">Solution</p>
                   <p className="mt-3 body-muted">{project.solution}</p>
@@ -72,7 +72,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
                 ))}
               </div>
             </div>
-            <div className="grid gap-6 rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)] md:grid-cols-2">
+            <div className="lux-border lux-sheen grid gap-6 rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)] md:grid-cols-2">
               <div>
                 <p className="eyebrow">Previous</p>
                 <Link className="mt-3 block font-display text-h4" href={`/projects/${prev.slug}`}>

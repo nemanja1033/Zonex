@@ -59,16 +59,16 @@ export default function HomeHero() {
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <div className="scanline-overlay" aria-hidden="true" />
-      <div className="glow-orb left-[6%] top-[12%] h-44 w-44 bg-[radial-gradient(circle,rgba(155,14,28,0.5),transparent_65%)]" aria-hidden="true" />
-      <div className="glow-orb right-[10%] bottom-[18%] h-56 w-56 bg-[radial-gradient(circle,rgba(155,14,28,0.35),transparent_65%)]" aria-hidden="true" />
+      <div className="glow-orb left-[6%] top-[12%] h-44 w-44 bg-[radial-gradient(circle,rgba(96,10,16,0.32),transparent_68%)]" aria-hidden="true" />
+      <div className="glow-orb right-[10%] bottom-[18%] h-56 w-56 bg-[radial-gradient(circle,rgba(40,8,10,0.28),transparent_70%)]" aria-hidden="true" />
       <motion.div
-        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(155,14,28,0.5),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.18),transparent_38%,rgba(96,10,16,0.38),transparent_68%,rgba(255,255,255,0.18))] opacity-55 blur-2xl"
         animate={reduceMotion ? undefined : { rotate: 360 }}
         transition={reduceMotion ? undefined : { duration: 60, repeat: Infinity, ease: 'linear' }}
         aria-hidden="true"
       />
       <motion.div
-        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(155,14,28,0.35),rgba(10,10,12,0.16),transparent)] opacity-70 blur-3xl"
+        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(96,10,16,0.28),rgba(12,12,14,0.18),transparent)] opacity-60 blur-3xl"
         style={{ x: beamShift }}
         aria-hidden="true"
       />
@@ -193,11 +193,12 @@ export default function HomeHero() {
             </Reveal>
             <Reveal delay={0.3}>
               <motion.div
-                className="grid gap-6 border-t border-white/20 pt-6 text-small text-white/85 md:grid-cols-3"
+                className="relative grid gap-6 pt-6 text-small text-white/85 md:grid-cols-3"
                 variants={containerVariants}
                 initial={reduceMotion ? undefined : 'hidden'}
                 animate={reduceMotion ? undefined : 'visible'}
               >
+                <div className="divider-glow-light absolute left-0 right-0 top-0" aria-hidden="true" />
                 <motion.div variants={fadeUp}>
                   <p className="eyebrow-light">Sedište</p>
                   <p>{company.location}</p>

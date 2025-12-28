@@ -92,14 +92,14 @@ body::after {
 }
 
 body::before {
-  background: radial-gradient(circle at 20% 30%, rgba(155, 14, 28, 0.36), transparent 55%);
+  background: radial-gradient(circle at 20% 30%, rgba(96, 10, 16, 0.26), transparent 58%);
   animation: drift-slow 12s ease-in-out infinite;
 }
 
 body::after {
   inset: auto -15% -25%;
   height: 55vh;
-  background: radial-gradient(circle at 70% 60%, rgba(10, 10, 12, 0.34), transparent 55%);
+  background: radial-gradient(circle at 70% 60%, rgba(10, 10, 12, 0.24), transparent 60%);
   animation: drift-slow 14s ease-in-out infinite reverse;
 }
 
@@ -350,6 +350,20 @@ body::after {
   .section-surface > * {
     position: relative;
     z-index: 1;
+  }
+
+  .divider-glow {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(155, 14, 28, 0.6), rgba(5, 5, 5, 0.25), transparent);
+    opacity: 0.7;
+  }
+
+  .divider-glow-light {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.25), transparent);
+    opacity: 0.7;
   }
 
   .site-noise {

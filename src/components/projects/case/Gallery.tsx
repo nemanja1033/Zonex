@@ -13,7 +13,7 @@ export default function Gallery({ title = 'Gallery' }: GalleryProps) {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="relative h-48 overflow-hidden rounded-2xl border border-border/70 bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200"
+            className="lux-border lux-sheen relative h-48 overflow-hidden rounded-2xl bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200"
           />
         ))}
       </div>

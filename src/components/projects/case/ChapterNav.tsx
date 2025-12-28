@@ -41,7 +41,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
   }, [chapters])
 
   return (
-    <div className="sticky top-28 space-y-6 rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 shadow-[0_24px_55px_rgba(12,17,23,0.14)] backdrop-blur">
+    <div className="lux-border lux-sheen sticky top-28 space-y-6 rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 shadow-[0_24px_55px_rgba(12,17,23,0.14)] backdrop-blur">
       <div>
         <p className="eyebrow">Chapters</p>
         <div className="mt-2 h-[2px] w-full bg-grey-200">
