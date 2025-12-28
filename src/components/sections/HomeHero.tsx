@@ -16,12 +16,15 @@ export default function HomeHero() {
   const cardDrift = useTransform(scrollYProgress, [0, 0.4], [0, -12])
   const orbDrift = useTransform(scrollYProgress, [0, 0.4], [0, 16])
   const glowShift = useTransform(scrollYProgress, [0, 0.4], [0, -10])
+  const beamShift = useTransform(scrollYProgress, [0, 0.4], [-60, 60])
+  const sheenShift = useTransform(scrollYProgress, [0, 0.4], [24, -24])
   const titleWords = 'Inženjering visokog standarda za objekte koji traju.'.split(' ')
   const stats = [
     { label: 'Godina osnivanja', value: 1993, suffix: '' },
     { label: 'Iskustvo', value: 30, suffix: '+' },
     { label: 'Projekti', value: 480, suffix: '+' },
   ]
+  const focusPills = ['Projektovanje', 'Izvođenje', 'Nadzor', 'Rokovi']
   const wordVariants = {
     hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
     visible: (index: number) => ({
@@ -57,6 +60,11 @@ export default function HomeHero() {
         aria-hidden="true"
       />
       <motion.div
+        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(47,128,237,0.28),transparent)] opacity-70 blur-3xl"
+        style={{ x: beamShift }}
+        aria-hidden="true"
+      />
+      <motion.div
         className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/12 via-white/6 to-transparent"
         style={{ y: drift }}
         aria-hidden="true"
@@ -76,6 +84,12 @@ export default function HomeHero() {
         className="pointer-events-none absolute left-[8%] top-[18%] h-[180px] w-[180px] rounded-[40%] border border-white/10 bg-white/5 blur-[1px]"
         animate={reduceMotion ? undefined : { rotate: [0, 12, 0], scale: [1, 1.06, 1] }}
         transition={reduceMotion ? undefined : { duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.18),transparent_70%)] opacity-70"
+        animate={reduceMotion ? undefined : { opacity: [0.45, 0.8, 0.45] }}
+        transition={reduceMotion ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
@@ -133,6 +147,24 @@ export default function HomeHero() {
                 Više od 30 godina vodimo projekte sa jasnim obimom, kontrolom kvaliteta i disciplinom izvođenja. Fokus je
                 na predvidivoj realizaciji i trajnoj vrednosti.
               </motion.p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <motion.div
+                className="flex flex-wrap gap-3"
+                variants={containerVariants}
+                initial={reduceMotion ? undefined : 'hidden'}
+                animate={reduceMotion ? undefined : 'visible'}
+              >
+                {focusPills.map((pill) => (
+                  <motion.span
+                    key={pill}
+                    variants={fadeUp}
+                    className="rounded-full border border-white/15 bg-white/6 px-4 py-2 text-micro font-mono uppercase tracking-micro text-white/70"
+                  >
+                    {pill}
+                  </motion.span>
+                ))}
+              </motion.div>
             </Reveal>
             <Reveal delay={0.2} className="flex flex-wrap items-center gap-6">
               <motion.div
@@ -239,7 +271,11 @@ export default function HomeHero() {
                   />
                 </motion.svg>
                 <div className="relative z-10 space-y-6">
-                  <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/6 p-5">
+                  <motion.div
+                    className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/6 p-5"
+                    whileHover={reduceMotion ? undefined : { y: -4 }}
+                    transition={reduceMotion ? undefined : { duration: 0.35, ease: 'easeOut' }}
+                  >
                     <div className="absolute inset-0 hero-sheen opacity-30" />
                     <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/70">
                       <span>Najnoviji projekat</span>
@@ -254,10 +290,14 @@ export default function HomeHero() {
                       <span className="h-3 w-px bg-white/40" />
                       <span>U toku</span>
                     </div>
-                    <div className="mt-5 h-44 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
-                      <div className="h-full w-full bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent)]" />
+                    <div className="relative mt-5 h-44 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
+                      <motion.div
+                        className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent)]"
+                        style={{ x: sheenShift }}
+                      />
+                      <div className="relative h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.2),transparent_55%)]" />
                     </div>
-                  </div>
+                  </motion.div>
                   <div className="grid gap-4 md:grid-cols-3">
                     {stats.map((stat, index) => (
                       <motion.div
