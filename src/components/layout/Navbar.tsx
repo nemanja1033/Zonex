@@ -12,9 +12,6 @@ const navItems = [
   { label: 'Projects', href: '/projects' },
   { label: 'Services', href: '/services' },
   { label: 'Company', href: '/company' },
-  { label: 'Capabilities', href: '/capabilities' },
-  { label: 'Clients', href: '/clients' },
-  { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -23,19 +20,19 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-900/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
-          <LogoLockup theme="light" size="sm" />
+          <LogoLockup theme="dark" size="sm" />
         </Link>
-        <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-white/80 md:flex">
+        <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-textDark/80 md:flex">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative pb-1 transition-colors ${isActive ? 'text-white' : 'hover:text-white'}`}
+                className={`relative pb-1 transition-colors ${isActive ? 'text-textDark' : 'hover:text-textDark'}`}
               >
                 {item.label}
                 <span
@@ -50,7 +47,7 @@ export default function Navbar() {
         </nav>
         <button
           type="button"
-          className="md:hidden text-micro font-mono uppercase tracking-micro text-white/80"
+          className="md:hidden text-micro font-mono uppercase tracking-micro text-textDark/80"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -66,16 +63,16 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-            className="md:hidden border-t border-white/10 bg-navy-900/95"
+            className="md:hidden border-t border-border bg-white/98"
           >
-            <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-white/80">
+            <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-textDark/80">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={isActive ? 'text-white' : 'hover:text-white'}
+                    className={isActive ? 'text-textDark' : 'hover:text-textDark'}
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
