@@ -35,28 +35,6 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
       >
         <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.22),transparent_70%)]" />
       </motion.div>
-      <motion.svg
-        className={`pointer-events-none absolute ${variant === 'left' ? 'left-[6%]' : 'right-[6%]'} top-[20%] h-16 w-40 text-textDark/25`}
-        viewBox="0 0 160 64"
-        fill="none"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: '-10%' }}
-        style={{ x }}
-        aria-hidden="true"
-      >
-        <motion.path
-          d="M4 48L4 12L124 12L124 32L156 32"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, margin: '-10%' }}
-          transition={{ duration: 1.2, ease: [0.32, 0.72, 0, 1] }}
-        />
-      </motion.svg>
     </>
   )
 }

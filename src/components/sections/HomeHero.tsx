@@ -198,7 +198,6 @@ export default function HomeHero() {
                 initial={reduceMotion ? undefined : 'hidden'}
                 animate={reduceMotion ? undefined : 'visible'}
               >
-                <div className="divider-glow-light absolute left-0 right-0 top-0" aria-hidden="true" />
                 <motion.div variants={fadeUp}>
                   <p className="eyebrow-light">Sedište</p>
                   <p>{company.location}</p>
@@ -236,8 +235,8 @@ export default function HomeHero() {
               }
             >
               <motion.div
-                className="lux-border lux-sheen relative overflow-hidden rounded-[28px] bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur"
-                whileHover={reduceMotion ? undefined : { y: -6, boxShadow: '0 48px 120px rgba(11,28,45,0.5)' }}
+                className="lux-border lux-sheen relative overflow-hidden rounded-[28px] bg-white/8 p-6 text-white shadow-[0_20px_50px_rgba(3,8,14,0.28)] backdrop-blur"
+                whileHover={reduceMotion ? undefined : { y: -6, boxShadow: '0 30px 70px rgba(3,8,14,0.38)' }}
                 transition={reduceMotion ? undefined : { duration: 0.4, ease: 'easeOut' }}
               >
                 <motion.div
