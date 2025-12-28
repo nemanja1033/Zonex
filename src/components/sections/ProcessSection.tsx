@@ -4,7 +4,7 @@ import Reveal from '@/components/ui/Reveal'
 
 export default function ProcessSection() {
   return (
-    <section className="section-divider bg-grey-100 section">
+    <section className="section-divider section section-surface">
       <Container>
         <div className="section-head">
           <Reveal>

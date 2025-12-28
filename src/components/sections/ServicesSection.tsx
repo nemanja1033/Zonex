@@ -4,7 +4,7 @@ import Reveal from '@/components/ui/Reveal'
 
 export default function ServicesSection() {
   return (
-    <section className="section-divider bg-white section">
+    <section className="section-divider section section-surface">
       <Container>
         <div className="grid gap-10 md:grid-cols-[1fr_1.3fr]">
           <Reveal>

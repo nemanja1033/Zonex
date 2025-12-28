@@ -256,6 +256,28 @@ body {
     width: 4rem;
     background: linear-gradient(90deg, rgba(47, 128, 237, 1), rgba(47, 128, 237, 0));
   }
+
+  .section-surface {
+    position: relative;
+    background: linear-gradient(180deg, rgba(244, 246, 248, 0.92), rgba(255, 255, 255, 0.75));
+  }
+
+  .section-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14, 26, 37, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14, 26, 37, 0.035) 1px, transparent 1px);
+    background-size: 140px 140px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .section-surface > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 @keyframes grid-drift {

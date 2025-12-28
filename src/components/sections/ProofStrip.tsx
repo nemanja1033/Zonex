@@ -11,7 +11,7 @@ const proofs = [
 
 export default function ProofStrip() {
   return (
-    <section className="section-divider bg-grey-100">
+    <section className="section-divider section-surface">
       <Container className="py-[calc(var(--section-padding)-2rem)]">
         <div className="grid gap-4 md:grid-cols-5">
           {proofs.map((proof, index) => (

@@ -4,7 +4,7 @@ import { about } from '@/content/content'
 
 export default function AboutSection() {
   return (
-    <section className="section-divider bg-grey-100 section relative overflow-hidden">
+    <section className="section-divider section section-surface relative overflow-hidden">
       <div
         className="pointer-events-none absolute right-0 top-0 h-64 w-64 bg-[radial-gradient(circle_at_top,rgba(47,128,237,0.12),transparent_70%)]"
         aria-hidden="true"

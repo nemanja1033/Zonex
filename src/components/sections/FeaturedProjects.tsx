@@ -10,7 +10,7 @@ export default function FeaturedProjects() {
   const featured = projects.slice(0, 3)
 
   return (
-    <section className="section-divider bg-grey-100 section relative overflow-hidden">
+    <section className="section-divider section section-surface relative overflow-hidden">
       <div
         className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(47,128,237,0.12),transparent_70%)]"
         aria-hidden="true"
