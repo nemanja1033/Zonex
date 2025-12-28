@@ -98,7 +98,11 @@ export default function HomeHero() {
                   </div>
                   <div className="grid gap-4 md:grid-cols-3">
                     {stats.map((stat) => (
-                      <div key={stat.label} className="rounded-xl border border-white/10 bg-white/5 p-4">
+                      <div
+                        key={stat.label}
+                        className="relative overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 backdrop-blur"
+                      >
+                        <div className="absolute inset-x-0 top-0 h-[1px] bg-white/30" />
                         <p className="text-h3 font-display text-white">{stat.value}</p>
                         <p className="mt-2 text-micro font-mono uppercase tracking-micro text-white/70">{stat.label}</p>
                       </div>
