@@ -41,12 +41,12 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
   }, [chapters])
 
   return (
-    <div className="sticky top-28 space-y-6 rounded-2xl border border-border bg-white/90 p-6 shadow-[0_20px_45px_rgba(11,28,45,0.12)] backdrop-blur">
+    <div className="sticky top-28 space-y-6 rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 shadow-[0_24px_55px_rgba(12,17,23,0.14)] backdrop-blur">
       <div>
         <p className="eyebrow">Chapters</p>
         <div className="mt-2 h-[2px] w-full bg-grey-200">
           <div
-            className="h-full bg-accent transition-[width] duration-200"
+            className="h-full bg-[linear-gradient(90deg,rgba(255,122,26,0.9),rgba(23,176,168,0.9))] transition-[width] duration-200"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
@@ -57,7 +57,9 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
             key={chapter.id}
             href={`#${chapter.id}`}
             className={`block border-l-2 pl-3 transition-colors ${
-              active === chapter.id ? 'border-accent text-textDark' : 'border-grey-200 text-muted hover:text-textDark'
+              active === chapter.id
+                ? 'border-[rgba(255,122,26,0.9)] text-textDark'
+                : 'border-grey-200 text-muted hover:text-textDark'
             }`}
           >
             {chapter.label}

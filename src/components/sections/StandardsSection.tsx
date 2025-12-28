@@ -4,7 +4,8 @@ import Reveal from '@/components/ui/Reveal'
 
 export default function StandardsSection() {
   return (
-    <section className="section-divider bg-grey-100 section">
+    <section className="section-divider section section-surface relative overflow-hidden">
+      <div className="pointer-events-none absolute right-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(23,176,168,0.16),transparent_70%)]" />
       <Container>
         <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
           <Reveal>
@@ -23,7 +24,7 @@ export default function StandardsSection() {
           <div className="grid gap-6 md:grid-cols-3">
             {standards.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.05}>
-                <div className="surface p-6">
+                <div className="rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(247,242,236,0.88))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)]">
                   <h3 className="font-display text-h4">{item.title}</h3>
                   <p className="mt-3 body-muted">{item.description}</p>
                 </div>

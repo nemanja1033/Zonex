@@ -20,7 +20,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-white/96 backdrop-blur shadow-[0_10px_30px_rgba(11,28,45,0.08)]">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(244,240,234,0.75))] backdrop-blur shadow-[0_16px_40px_rgba(12,17,23,0.12)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(255,122,26,0.7),rgba(23,176,168,0.7),transparent)]" />
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="dark" size="sm" />
@@ -36,10 +37,15 @@ export default function Navbar() {
               >
                 {item.label}
                 <span
-                  className={`absolute left-0 top-full h-[2px] w-full bg-accent transition-transform ${
+                  className={`absolute left-0 top-full h-[2px] w-full bg-[linear-gradient(90deg,rgba(255,122,26,0.9),rgba(23,176,168,0.9))] transition-transform ${
                     isActive ? 'scale-x-100' : 'scale-x-0'
                   }`}
                   style={{ transformOrigin: 'left' }}
+                />
+                <span
+                  className={`absolute -right-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--accent-cool)] transition-opacity ${
+                    isActive ? 'opacity-100' : 'opacity-0'
+                  }`}
                 />
               </Link>
             )
@@ -63,7 +69,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-            className="md:hidden border-t border-border bg-white/98"
+            className="md:hidden border-t border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,240,234,0.9))]"
           >
             <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-muted">
               {navItems.map((item) => {
@@ -72,9 +78,12 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={isActive ? 'text-textDark' : 'hover:text-textDark'}
+                    className={`flex items-center gap-3 ${isActive ? 'text-textDark' : 'hover:text-textDark'}`}
                     onClick={() => setIsOpen(false)}
                   >
+                    <span
+                      className={`h-2 w-2 rounded-full border border-border ${isActive ? 'bg-[var(--accent)]' : ''}`}
+                    />
                     {item.label}
                   </Link>
                 )

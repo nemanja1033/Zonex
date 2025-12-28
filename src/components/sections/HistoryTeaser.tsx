@@ -7,7 +7,8 @@ export default function HistoryTeaser() {
   const items = timeline.slice(0, 3)
 
   return (
-    <section className="section-divider bg-white section">
+    <section className="section-divider section section-surface relative overflow-hidden">
+      <div className="pointer-events-none absolute left-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.16),transparent_70%)]" />
       <Container>
         <div className="section-head">
           <Reveal>
@@ -29,7 +30,7 @@ export default function HistoryTeaser() {
         <div className="mt-10 space-y-6">
           {items.map((item, index) => (
             <Reveal key={item.year} delay={index * 0.05}>
-              <div className="grid gap-4 border-l border-border pl-6 md:grid-cols-[120px_1fr]">
+              <div className="grid gap-4 rounded-3xl border border-border/70 bg-[linear-gradient(145deg,rgba(255,255,255,0.95),rgba(247,242,236,0.86))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)] md:grid-cols-[120px_1fr]">
                 <p className="text-h4 font-display">{item.year}</p>
                 <div>
                   <h3 className="font-display text-h4">{item.title}</h3>

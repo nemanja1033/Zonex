@@ -54,13 +54,13 @@ export default function HomeHero() {
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <motion.div
-        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(47,128,237,0.35),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(255,122,26,0.45),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
         animate={reduceMotion ? undefined : { rotate: 360 }}
         transition={reduceMotion ? undefined : { duration: 60, repeat: Infinity, ease: 'linear' }}
         aria-hidden="true"
       />
       <motion.div
-        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(47,128,237,0.28),transparent)] opacity-70 blur-3xl"
+        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(255,122,26,0.32),rgba(23,176,168,0.12),transparent)] opacity-70 blur-3xl"
         style={{ x: beamShift }}
         aria-hidden="true"
       />
@@ -107,8 +107,8 @@ export default function HomeHero() {
                   <span className="eyebrow-light">Founded {company.founded}</span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-micro font-mono uppercase tracking-micro text-white/70">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/50" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent-soft)]" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
                     </span>
                     Active build
                   </span>
@@ -244,7 +244,7 @@ export default function HomeHero() {
                   style={{ y: cardDrift }}
                 />
                 <motion.div
-                  className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(47,128,237,0.2)]"
+                  className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(255,122,26,0.22)]"
                   style={{ y: orbDrift }}
                 />
                 <motion.div

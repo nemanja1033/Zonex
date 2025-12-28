@@ -28,7 +28,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout
-        className="panel flex flex-wrap items-start gap-8 p-6 text-small"
+        className="flex flex-wrap items-start gap-8 rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 text-small shadow-[0_20px_45px_rgba(12,17,23,0.1)]"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
@@ -78,10 +78,10 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
           <button
             key={item}
             onClick={() => onChange(item)}
-            className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-colors focus:outline-none focus:ring-1 focus:ring-accent ${
+            className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent ${
               value === item
-                ? 'border-accent bg-grey-100 text-textDark shadow-[0_6px_16px_rgba(47,128,237,0.18)]'
-                : 'border-border bg-white text-muted hover:bg-grey-100 hover:text-textDark'
+                ? 'border-[rgba(255,122,26,0.7)] bg-[linear-gradient(135deg,rgba(255,122,26,0.12),rgba(23,176,168,0.12))] text-textDark shadow-[0_8px_20px_rgba(255,122,26,0.2)]'
+                : 'border-border/70 bg-white text-muted hover:bg-grey-100 hover:text-textDark'
             }`}
           >
             {item}

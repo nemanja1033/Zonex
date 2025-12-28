@@ -14,6 +14,8 @@ export default function CaseHero({ project }: CaseHeroProps) {
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.4),transparent_70%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute right-0 top-8 h-72 w-72 bg-[radial-gradient(circle,rgba(23,176,168,0.3),transparent_65%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-white/8"
         animate={reduceMotion ? {} : { y: [0, -16, 0] }}
@@ -62,10 +64,16 @@ export default function CaseHero({ project }: CaseHeroProps) {
             >
               <motion.path
                 d="M10 120 L90 40 L160 90 L230 20"
-                stroke="var(--accent)"
+                stroke="url(#caseGradient)"
                 strokeWidth="2"
                 fill="none"
               />
+              <defs>
+                <linearGradient id="caseGradient" x1="0" y1="0" x2="240" y2="0">
+                  <stop offset="0%" stopColor="#FF7A1A" />
+                  <stop offset="100%" stopColor="#17B0A8" />
+                </linearGradient>
+              </defs>
             </motion.svg>
           </div>
         </div>
