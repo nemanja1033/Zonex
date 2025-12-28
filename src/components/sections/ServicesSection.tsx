@@ -6,7 +6,7 @@ export default function ServicesSection() {
   return (
     <section className="section-divider bg-white section">
       <Container>
-        <div className="grid gap-10 md:grid-cols-[1fr_1.2fr]">
+        <div className="grid gap-10 md:grid-cols-[1fr_1.3fr]">
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
@@ -23,8 +23,11 @@ export default function ServicesSection() {
           <div className="grid gap-6 md:grid-cols-2">
             {services.map((service, index) => (
               <Reveal key={service.title} delay={index * 0.05}>
-                <div className="surface-muted p-6">
-                  <h3 className="font-display text-h4">{service.title}</h3>
+                <div className="panel-muted p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="h-2 w-2 rounded-full bg-accent" />
+                    <h3 className="font-display text-h4">{service.title}</h3>
+                  </div>
                   <p className="mt-3 body-muted">{service.description}</p>
                 </div>
               </Reveal>

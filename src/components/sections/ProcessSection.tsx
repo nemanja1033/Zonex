@@ -26,8 +26,11 @@ export default function ProcessSection() {
         <div className="mt-12 grid gap-6 md:grid-cols-4">
           {processSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.05}>
-              <div className="surface p-6">
-                <p className="eyebrow">0{index + 1}</p>
+              <div className="panel p-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-micro font-mono uppercase tracking-micro text-muted">0{index + 1}</span>
+                  <span className="h-[1px] flex-1 bg-border" />
+                </div>
                 <h3 className="mt-3 font-display text-h4">{step.title}</h3>
                 <p className="mt-2 body-muted">{step.description}</p>
               </div>

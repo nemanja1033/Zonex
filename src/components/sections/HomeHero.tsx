@@ -10,6 +10,7 @@ export default function HomeHero() {
   const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -40])
+  const driftSlow = useTransform(scrollYProgress, [0, 0.4], [0, -20])
   const stats = [
     { label: 'Godina osnivanja', value: '1993' },
     { label: 'Iskustvo', value: '30+ godina' },
@@ -21,6 +22,11 @@ export default function HomeHero() {
       <motion.div
         className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/12 via-white/6 to-transparent"
         style={{ y: drift }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="pointer-events-none absolute left-[-120px] bottom-[-120px] h-80 w-80 rounded-full bg-gradient-to-tr from-white/8 via-white/5 to-transparent"
+        style={{ y: driftSlow }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
@@ -66,19 +72,22 @@ export default function HomeHero() {
           </div>
           <Reveal delay={0.15}>
             <div className="space-y-6">
-              <div className="panel p-6 text-textDark">
-                <div className="relative h-56 w-full overflow-hidden rounded-md bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200">
-                  <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(11,28,45,0.15),transparent)]" />
-                </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <p className="eyebrow">Najnoviji projekat</p>
-                  <span className="text-micro font-mono uppercase tracking-micro text-muted">2024</span>
-                </div>
-                <h3 className="mt-2 font-display text-h3">Knez Petrol – Šimanovci</h3>
-                <p className="mt-2 text-small text-muted">Izgradnja objekta u toku, uz definisane bezbednosne protokole.</p>
-                <div className="mt-4 flex items-center justify-between text-micro font-mono uppercase tracking-micro text-muted">
-                  <span>Energy</span>
-                  <span>U toku</span>
+              <div className="relative">
+                <div className="absolute -left-8 top-6 hidden h-[1px] w-20 bg-white/40 md:block" />
+                <div className="panel p-6 text-textDark">
+                  <div className="relative h-56 w-full overflow-hidden rounded-md bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200">
+                    <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(11,28,45,0.15),transparent)]" />
+                  </div>
+                  <div className="mt-5 flex items-center justify-between">
+                    <p className="eyebrow">Najnoviji projekat</p>
+                    <span className="text-micro font-mono uppercase tracking-micro text-muted">2024</span>
+                  </div>
+                  <h3 className="mt-2 font-display text-h3">Knez Petrol – Šimanovci</h3>
+                  <p className="mt-2 text-small text-muted">Izgradnja objekta u toku, uz definisane bezbednosne protokole.</p>
+                  <div className="mt-4 flex items-center justify-between text-micro font-mono uppercase tracking-micro text-muted">
+                    <span>Energy</span>
+                    <span>U toku</span>
+                  </div>
                 </div>
               </div>
               <div className="grid gap-4 md:grid-cols-3">
@@ -88,6 +97,15 @@ export default function HomeHero() {
                     <p className="mt-2 section-subtitle">{stat.label}</p>
                   </div>
                 ))}
+              </div>
+              <div className="panel-muted p-5 text-textDark">
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">Kontrolne tačke</p>
+                  <span className="text-micro font-mono uppercase tracking-micro text-muted">24/7</span>
+                </div>
+                <p className="mt-2 text-small text-muted">
+                  Dnevno praćenje kvaliteta, dinamike i bezbednosti kroz definisane protokole.
+                </p>
               </div>
             </div>
           </Reveal>

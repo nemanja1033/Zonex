@@ -31,7 +31,7 @@ export default function ProjectsGrid() {
         <FilterGroup label="Status" items={statuses} value={status} onChange={setStatus} />
         <FilterGroup label="Location" items={locations} value={location} onChange={setLocation} />
       </div>
-      <div className="grid gap-6 text-micro font-mono uppercase tracking-micro text-muted md:grid-cols-[180px_1.3fr_0.7fr]">
+      <div className="grid gap-6 text-micro font-mono uppercase tracking-micro text-muted md:grid-cols-[200px_1.2fr_0.8fr]">
         <span>Preview</span>
         <span>Projekat</span>
         <span>Meta</span>
