@@ -32,7 +32,7 @@ export default function ProjectListItem({ project }: ProjectListItemProps) {
           <p>{project.deliveryModel ?? '—'}</p>
         </div>
       </div>
-      <Link href={`/projects/${project.slug}`} className="absolute inset-0" aria-label={project.name} />
+      <Link href={`/projects/${project.slug}`} prefetch className="absolute inset-0" aria-label={project.name} />
       <span className="pointer-events-none absolute left-0 top-0 h-full w-[2px] origin-top scale-y-0 bg-[linear-gradient(180deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-transform duration-300 group-hover:scale-y-100" />
     </motion.div>
   )

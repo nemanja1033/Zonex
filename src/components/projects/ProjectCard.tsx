@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <span className="text-textDark">{project.deliveryModel ?? '—'}</span>
         </div>
       </div>
-      <Link href={`/projects/${project.slug}`} className="absolute inset-0" aria-label={project.name} />
+      <Link href={`/projects/${project.slug}`} prefetch className="absolute inset-0" aria-label={project.name} />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-transform duration-300 group-hover:scale-x-100" />
     </motion.div>
   )

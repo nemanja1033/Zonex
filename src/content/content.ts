@@ -138,6 +138,8 @@ export const projects: Project[] = [
   },
 ]
 
+export const featuredProjectSlugs = ['knez-petrol-simanovci', 'mcdonalds-zrenjanin', 'zlatiborski-konaci']
+
 export const services: Service[] = [
   {
     title: 'Projektovanje i razrada dokumentacije',

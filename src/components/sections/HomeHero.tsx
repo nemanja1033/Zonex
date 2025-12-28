@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
-import { company } from '@/content/content'
+import { company, featuredProjectSlugs, projects } from '@/content/content'
 import Reveal from '@/components/ui/Reveal'
 import CountUp from '@/components/ui/CountUp'
 
@@ -25,6 +25,11 @@ export default function HomeHero() {
     { label: 'Projekti', value: 480, suffix: '+' },
   ]
   const focusPills = ['Projektovanje', 'Izvođenje', 'Nadzor', 'Rokovi']
+  const featuredFromSlugs = featuredProjectSlugs
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter((project): project is (typeof projects)[number] => Boolean(project))
+    .slice(0, 3)
+  const featuredProjects = featuredFromSlugs.length ? featuredFromSlugs : projects.slice(0, 3)
   const wordVariants = {
     hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
     visible: (index: number) => ({
@@ -279,19 +284,32 @@ export default function HomeHero() {
                   >
                     <div className="absolute inset-0 hero-sheen opacity-30" />
                     <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/70">
-                      <span>Najnoviji projekat</span>
-                      <span>2024</span>
+                      <span>Istaknuti projekti</span>
+                      <span>Izbor</span>
                     </div>
-                    <h3 className="mt-3 font-display text-h3 text-white">Knez Petrol – Šimanovci</h3>
-                    <p className="mt-2 text-small text-white/80">
-                      Izgradnja objekta u toku, uz definisane bezbednosne protokole i stabilnu dinamiku radova.
-                    </p>
-                    <div className="mt-4 flex items-center gap-4 text-micro font-mono uppercase tracking-micro text-white/70">
-                      <span>Energy</span>
-                      <span className="h-3 w-px bg-white/40" />
-                      <span>U toku</span>
+                    <div className="mt-4 space-y-4">
+                      {featuredProjects.map((project, index) => (
+                        <motion.div
+                          key={project.name}
+                          className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+                          initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
+                          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                          transition={reduceMotion ? undefined : { duration: 0.5, delay: 0.1 + index * 0.07 }}
+                        >
+                          <div>
+                            <p className="text-small font-display text-white">{project.name}</p>
+                            <div className="mt-2 flex flex-wrap items-center gap-2 text-micro font-mono uppercase tracking-micro text-white/60">
+                              <span className="rounded-full border border-white/15 px-2 py-1">{project.type}</span>
+                              <span className="rounded-full border border-white/15 px-2 py-1">{project.status}</span>
+                            </div>
+                          </div>
+                          <span className="text-micro font-mono uppercase tracking-micro text-white/50">
+                            0{index + 1}
+                          </span>
+                        </motion.div>
+                      ))}
                     </div>
-                    <div className="relative mt-5 h-44 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
+                    <div className="relative mt-5 h-32 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
                       <motion.div
                         className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent)]"
                         style={{ x: sheenShift }}

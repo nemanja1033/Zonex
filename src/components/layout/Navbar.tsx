@@ -33,6 +33,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
                 className={`relative pb-1 transition-colors ${isActive ? 'text-textDark' : 'hover:text-textDark'}`}
               >
                 {item.label}
@@ -78,6 +79,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
+                    prefetch
                     className={`flex items-center gap-3 ${isActive ? 'text-textDark' : 'hover:text-textDark'}`}
                     onClick={() => setIsOpen(false)}
                   >
