@@ -93,7 +93,7 @@ export default function HomeHero() {
           </Reveal>
         </div>
       </Container>
-      <div className="pointer-events-none absolute bottom-10 right-6 text-white/10 font-display text-[10vw] tracking-[0.4em]">
+      <div className="pointer-events-none absolute bottom-10 right-6 hidden text-white/10 font-display text-[10vw] tracking-[0.4em] md:block">
         ZONEX
       </div>
     </section>

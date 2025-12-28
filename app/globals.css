@@ -54,6 +54,10 @@
   --small-lh: 1.6;
   --micro-size: 0.72rem;
   --micro-lh: 1.4;
+
+  --font-space: "Space Grotesk", "IBM Plex Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-inter: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 * {
@@ -88,6 +92,7 @@ body {
 .blueprint-grid {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .blueprint-grid::before {
@@ -100,6 +105,7 @@ body {
   background-size: 48px 48px;
   opacity: 0.22;
   pointer-events: none;
+  z-index: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -184,6 +190,7 @@ body {
 
   .page-hero {
     @apply bg-navy-900 text-white relative overflow-hidden;
+    isolation: isolate;
   }
 
   .page-hero .hero-title {
