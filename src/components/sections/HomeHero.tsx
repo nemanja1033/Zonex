@@ -100,7 +100,25 @@ export default function HomeHero() {
             </Reveal>
           </div>
           <Reveal delay={0.15}>
-            <div className="space-y-6">
+            <motion.div
+              className="space-y-6"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: [0, -8, 0],
+                    }
+              }
+              transition={
+                reduceMotion
+                  ? undefined
+                  : {
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }
+              }
+            >
               <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),transparent_55%)]" />
@@ -167,7 +185,7 @@ export default function HomeHero() {
                   Dnevno praćenje kvaliteta, dinamike i bezbednosti kroz definisane protokole.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </Reveal>
         </div>
       </Container>

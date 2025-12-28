@@ -18,7 +18,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     >
       <div className="relative h-52 overflow-hidden bg-[linear-gradient(135deg,rgba(11,28,45,0.05),rgba(11,28,45,0.0))]">
         <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(47,128,237,0),rgba(47,128,237,0.65),rgba(47,128,237,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="h-full w-full bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200 transition-transform duration-500 group-hover:scale-[1.06]" />
+        <div className="project-shift h-full w-full bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200 transition-transform duration-500 group-hover:scale-[1.06]" />
       </div>
       <div className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-4">
