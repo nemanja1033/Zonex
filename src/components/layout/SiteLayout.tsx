@@ -9,7 +9,13 @@ type SiteLayoutProps = {
 
 export default function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="absolute left-[-10%] top-[10%] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,122,26,0.16),transparent_70%)] blur-3xl" />
+        <div className="absolute right-[-8%] top-[40%] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(23,176,168,0.14),transparent_70%)] blur-3xl" />
+      </div>
+      <div className="site-sheen" aria-hidden="true" />
+      <div className="site-noise" aria-hidden="true" />
       <Navbar />
       <PageTransition>
         <main className="relative z-10">{children}</main>

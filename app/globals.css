@@ -78,6 +78,31 @@ body {
     linear-gradient(180deg, rgba(255, 253, 250, 0.96), rgba(244, 240, 234, 1));
 }
 
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20% -10% auto;
+  height: 60vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+  filter: blur(40px);
+  mix-blend-mode: multiply;
+}
+
+body::before {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 122, 26, 0.35), transparent 55%);
+  animation: drift-slow 18s ease-in-out infinite;
+}
+
+body::after {
+  inset: auto -15% -25%;
+  height: 55vh;
+  background: radial-gradient(circle at 70% 60%, rgba(23, 176, 168, 0.3), transparent 55%);
+  animation: drift-slow 22s ease-in-out infinite reverse;
+}
+
 @layer base {
   h1, h2, h3, h4 {
     @apply font-display text-textDark;
@@ -308,6 +333,27 @@ body {
     position: relative;
     z-index: 1;
   }
+
+  .site-noise {
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .site-sheen {
+    position: fixed;
+    inset: auto -10% -30%;
+    height: 55vh;
+    background: radial-gradient(circle at 30% 50%, rgba(255, 122, 26, 0.18), transparent 60%);
+    filter: blur(50px);
+    opacity: 0.6;
+    animation: float-sheen 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 @keyframes grid-drift {
@@ -316,6 +362,33 @@ body {
   }
   to {
     background-position: 120px 120px, 120px 120px;
+  }
+}
+
+@keyframes drift-slow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes float-sheen {
+  0% {
+    transform: translateX(-10%) translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(10%) translateY(-2%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-10%) translateY(0);
+    opacity: 0.4;
   }
 }
 
