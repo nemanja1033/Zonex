@@ -1,0 +1,130 @@
+.footer {
+  padding: var(--section-padding-desktop) var(--container-padding);
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer::before {
+  opacity: 0.2;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.titleBlock {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.sectionNumber {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.copy {
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 520px;
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  padding-left: 1.5rem;
+}
+
+.contact {
+  display: grid;
+  gap: 1rem;
+  color: var(--text-light);
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding-left: 2rem;
+}
+
+.legalBlock p {
+  margin-top: 0.35rem;
+}
+
+.watermark {
+  position: absolute;
+  right: 6%;
+  bottom: 12%;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 18vw, 12rem);
+  color: rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.2em;
+  pointer-events: none;
+}
+
+.footerBase {
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 900px) {
+  .footer {
+    padding: var(--section-padding-tablet) var(--container-padding);
+  }
+
+  .copy {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: var(--section-padding-mobile) var(--container-padding);
+  }
+
+  .titleBlock {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .copy {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .legal {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .footerBase {
+    flex-direction: column;
+  }
+
+  .watermark {
+    right: 4%;
+    bottom: 6%;
+  }
+}

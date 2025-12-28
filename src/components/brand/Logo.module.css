@@ -1,0 +1,28 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--text-light);
+}
+
+.wordmark {
+  font-family: var(--font-plex-sans);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-feature-settings: 'tnum' 1;
+  /* Neutral, restrained, professional */
+  /* No stylization tricks */
+}
+
+.sm .wordmark {
+  font-size: 0.875rem;
+}
+
+.md .wordmark {
+  font-size: 1rem;
+}
+
+.lg .wordmark {
+  font-size: 1.5rem;
+}

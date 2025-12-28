@@ -1,0 +1,81 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  background-color: var(--text-light);
+  transition: background-color var(--transition-base);
+}
+
+.scrolled {
+  background-color: var(--text-light);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: calc(var(--container-padding) * 1.5);
+    padding-right: calc(var(--container-padding) * 1.5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: calc(var(--container-padding) * 2);
+    padding-right: calc(var(--container-padding) * 2);
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+  }
+}
+
+.navLink {
+  color: var(--text-dark);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--accent);
+}
+
+.borderLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--border);
+  border: none;
+  margin: 0;
+}

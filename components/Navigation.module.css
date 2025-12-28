@@ -1,0 +1,129 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: box-shadow var(--transition-base), backdrop-filter var(--transition-base), background-color var(--transition-base);
+}
+
+.header.navy-grid::before {
+  opacity: 0.18;
+}
+
+.scrolled {
+  backdrop-filter: blur(10px);
+  background-color: rgba(11, 28, 45, 0.92);
+  box-shadow: var(--shadow-nav);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 1.25rem var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-kerning: normal;
+  font-feature-settings: 'kern';
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.brandStrong {
+  font-weight: 600;
+}
+
+.brandLight {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.22em;
+}
+
+.separator {
+  width: 1px;
+  height: 14px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.brandSub {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.link {
+  position: relative;
+  color: var(--text-light);
+  padding-bottom: 0.25rem;
+  transition: color var(--transition-fast);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.link:hover::after,
+.link:focus-visible::after,
+.link[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+.link[aria-current='true'] {
+  color: var(--text-light);
+}
+
+@media (max-width: 800px) {
+  .nav {
+    gap: 1.25rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

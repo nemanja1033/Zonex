@@ -1,0 +1,22 @@
+.card {
+  background-color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: var(--space-xl);
+  transition: border-color var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--navy-900);
+}
+
+/* Card on navy background */
+.navy .card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+.navy .card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}

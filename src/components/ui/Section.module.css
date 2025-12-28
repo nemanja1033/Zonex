@@ -1,0 +1,71 @@
+.section {
+  position: relative;
+  padding-top: var(--section-padding-mobile);
+  padding-bottom: var(--section-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: var(--section-padding-tablet);
+    padding-bottom: var(--section-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-top: var(--section-padding-desktop);
+    padding-bottom: var(--section-padding-desktop);
+  }
+}
+
+/* Section number - architectural anchor */
+.sectionNumber {
+  position: absolute;
+  top: var(--section-padding-mobile);
+  left: var(--container-padding);
+  font-family: var(--font-plex-sans);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(14, 26, 37, 0.05);
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .sectionNumber {
+    top: var(--section-padding-tablet);
+    left: calc(var(--container-padding) * 1.5);
+    font-size: clamp(4rem, 8vw, 8rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionNumber {
+    top: var(--section-padding-desktop);
+    left: calc(var(--container-padding) * 2);
+  }
+}
+
+/* Navy variant */
+.navy {
+  background-color: var(--navy-900);
+  color: var(--text-light);
+}
+
+.navy > *:not(.sectionNumber) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Light variant */
+.light {
+  background-color: var(--text-light);
+  color: var(--text-dark);
+}
+
+.navy .sectionNumber {
+  color: rgba(255, 255, 255, 0.03);
+}

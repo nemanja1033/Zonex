@@ -1,0 +1,136 @@
+.hero {
+  padding: calc(var(--section-padding-desktop) + 3rem) var(--container-padding) var(--section-padding-desktop);
+  background-image: var(--hero-gradient);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero::before {
+  opacity: 0.2;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.wordStrong {
+  font-weight: 600;
+}
+
+.wordLight {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.24em;
+}
+
+.wordSeparator {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.sectionNumber {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.lede {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 520px;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  padding-bottom: 0.2rem;
+}
+
+.stats {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  padding-left: 2rem;
+}
+
+.profileList {
+  display: grid;
+  gap: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 320px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding-top: calc(var(--section-padding-tablet) + 4rem);
+    padding-bottom: var(--section-padding-tablet);
+  }
+
+  .profile {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding-top: calc(var(--section-padding-mobile) + 4rem);
+    padding-bottom: var(--section-padding-mobile);
+  }
+
+  .stats {
+    gap: 1.5rem;
+  }
+}
