@@ -11,11 +11,21 @@ export default function HomeHero() {
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -40])
   const driftSlow = useTransform(scrollYProgress, [0, 0.4], [0, -20])
+  const titleWords = 'Inženjering visokog standarda za objekte koji traju.'.split(' ')
   const stats = [
     { label: 'Godina osnivanja', value: '1993' },
     { label: 'Iskustvo', value: '30+ godina' },
     { label: 'Projekti', value: '480+' },
   ]
+  const wordVariants = {
+    hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
+    visible: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.7, delay: index * 0.06, ease: [0.32, 0.72, 0, 1] },
+    }),
+  }
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
@@ -29,6 +39,12 @@ export default function HomeHero() {
         style={{ y: driftSlow }}
         aria-hidden="true"
       />
+      <motion.div
+        className="pointer-events-none absolute right-[12%] top-[20%] h-24 w-24 rounded-full border border-white/20"
+        animate={reduceMotion ? undefined : { y: [0, -12, 0], x: [0, 8, 0], opacity: [0.4, 0.8, 0.4] }}
+        transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
       <Container className="relative z-10 py-[calc(var(--section-padding)+3.5rem)]">
         <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
@@ -36,9 +52,22 @@ export default function HomeHero() {
             <Reveal>
               <div className="space-y-4">
                 <p className="eyebrow-light">Founded {company.founded}</p>
-                <h1 className="text-h1 font-display text-white">
-                  Inženjering visokog standarda za objekte koji traju.
-                </h1>
+                <motion.h1
+                  className="text-h1 font-display text-white"
+                  initial={reduceMotion ? undefined : 'hidden'}
+                  animate={reduceMotion ? undefined : 'visible'}
+                >
+                  {titleWords.map((word, index) => (
+                    <motion.span
+                      key={`${word}-${index}`}
+                      className="inline-block pr-[0.15em]"
+                      variants={wordVariants}
+                      custom={index}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                </motion.h1>
               </div>
             </Reveal>
             <Reveal delay={0.1}>
@@ -77,8 +106,27 @@ export default function HomeHero() {
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),transparent_55%)]" />
                 <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-white/10" />
                 <div className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(47,128,237,0.2)]" />
+                <motion.svg
+                  className="pointer-events-none absolute left-6 top-6 h-16 w-24 text-white/40"
+                  viewBox="0 0 120 80"
+                  fill="none"
+                  initial={reduceMotion ? undefined : { opacity: 0 }}
+                  animate={reduceMotion ? undefined : { opacity: 1 }}
+                >
+                  <motion.path
+                    d="M6 74L6 10L92 10L92 44L114 44"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={reduceMotion ? undefined : { pathLength: 0 }}
+                    animate={reduceMotion ? undefined : { pathLength: 1 }}
+                    transition={{ duration: 1.6, ease: [0.32, 0.72, 0, 1] }}
+                  />
+                </motion.svg>
                 <div className="relative z-10 space-y-6">
-                  <div className="rounded-2xl border border-white/15 bg-white/6 p-5">
+                  <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/6 p-5">
+                    <div className="absolute inset-0 hero-sheen opacity-30" />
                     <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/70">
                       <span>Najnoviji projekat</span>
                       <span>2024</span>
