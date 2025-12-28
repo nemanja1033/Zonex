@@ -354,6 +354,22 @@ body::after {
     pointer-events: none;
     z-index: 1;
   }
+
+  .scanline-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      90deg,
+      rgba(155, 14, 28, 0.14),
+      rgba(5, 5, 5, 0.05),
+      rgba(155, 14, 28, 0.14)
+    );
+    background-size: 420px 100%;
+    mix-blend-mode: screen;
+    opacity: 0.35;
+    animation: scan-drift 14s linear infinite;
+    pointer-events: none;
+  }
 }
 
 @keyframes grid-drift {
@@ -389,6 +405,15 @@ body::after {
   100% {
     transform: translateX(-10%) translateY(0);
     opacity: 0.4;
+  }
+}
+
+@keyframes scan-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 420px 0;
   }
 }
 
