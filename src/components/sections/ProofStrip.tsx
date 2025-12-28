@@ -41,7 +41,7 @@ export default function ProofStrip() {
           <div className="grid gap-4 md:grid-cols-5">
             {proofs.map((proof, index) => (
               <Reveal key={proof.label} delay={index * 0.05}>
-                <div className="group relative overflow-hidden rounded-2xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.9),rgba(247,242,236,0.85))] p-5 shadow-[0_18px_40px_rgba(12,17,23,0.08)] backdrop-blur">
+                <div className="lux-border lux-sheen group relative overflow-hidden rounded-2xl bg-[linear-gradient(160deg,rgba(255,255,255,0.9),rgba(247,242,236,0.85))] p-5 shadow-[0_18px_40px_rgba(12,17,23,0.08)] backdrop-blur">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.8),rgba(155,14,28,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <p className="text-micro font-mono uppercase tracking-micro text-muted">{proof.label}</p>
                   <p className="mt-3 font-display text-h4 text-textDark">{proof.value}</p>
