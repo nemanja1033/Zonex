@@ -14,9 +14,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       layout
       whileHover={{ y: -6 }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-      className="group relative overflow-hidden border border-border bg-white transition-all duration-300 hover:border-accent/60 hover:shadow-card"
+      className="group relative overflow-hidden border border-border bg-white transition-all duration-300 hover:border-accent hover:shadow-card"
     >
-      <div className="h-52 bg-grey-200/90 overflow-hidden">
+      <div className="h-52 bg-grey-200 overflow-hidden">
         <div className="h-full w-full bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200 transition-transform duration-500 group-hover:scale-[1.05]" />
       </div>
       <div className="space-y-4 p-6">

@@ -72,38 +72,46 @@ export default function HomeHero() {
           </div>
           <Reveal delay={0.15}>
             <div className="space-y-6">
-              <div className="relative">
-                <div className="absolute -left-8 top-6 hidden h-[1px] w-20 bg-white/40 md:block" />
-                <div className="panel p-6 text-textDark">
-                  <div className="relative h-56 w-full overflow-hidden rounded-md bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200">
-                    <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(11,28,45,0.15),transparent)]" />
+              <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),transparent_55%)]" />
+                <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-white/10" />
+                <div className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(47,128,237,0.2)]" />
+                <div className="relative z-10 space-y-6">
+                  <div className="rounded-2xl border border-white/15 bg-white/6 p-5">
+                    <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/70">
+                      <span>Najnoviji projekat</span>
+                      <span>2024</span>
+                    </div>
+                    <h3 className="mt-3 font-display text-h3 text-white">Knez Petrol – Šimanovci</h3>
+                    <p className="mt-2 text-small text-white/80">
+                      Izgradnja objekta u toku, uz definisane bezbednosne protokole i stabilnu dinamiku radova.
+                    </p>
+                    <div className="mt-4 flex items-center gap-4 text-micro font-mono uppercase tracking-micro text-white/70">
+                      <span>Energy</span>
+                      <span className="h-3 w-px bg-white/40" />
+                      <span>U toku</span>
+                    </div>
+                    <div className="mt-5 h-44 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
+                      <div className="h-full w-full bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent)]" />
+                    </div>
                   </div>
-                  <div className="mt-5 flex items-center justify-between">
-                    <p className="eyebrow">Najnoviji projekat</p>
-                    <span className="text-micro font-mono uppercase tracking-micro text-muted">2024</span>
-                  </div>
-                  <h3 className="mt-2 font-display text-h3">Knez Petrol – Šimanovci</h3>
-                  <p className="mt-2 text-small text-muted">Izgradnja objekta u toku, uz definisane bezbednosne protokole.</p>
-                  <div className="mt-4 flex items-center justify-between text-micro font-mono uppercase tracking-micro text-muted">
-                    <span>Energy</span>
-                    <span>U toku</span>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    {stats.map((stat) => (
+                      <div key={stat.label} className="rounded-xl border border-white/10 bg-white/5 p-4">
+                        <p className="text-h3 font-display text-white">{stat.value}</p>
+                        <p className="mt-2 text-micro font-mono uppercase tracking-micro text-white/70">{stat.label}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className="grid gap-4 md:grid-cols-3">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="panel-muted p-4 text-textDark">
-                    <p className="text-h3 font-display">{stat.value}</p>
-                    <p className="mt-2 section-subtitle">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="panel-muted p-5 text-textDark">
+              <div className="rounded-2xl border border-white/15 bg-white/7 p-5 text-white/85 backdrop-blur">
                 <div className="flex items-center justify-between">
-                  <p className="eyebrow">Kontrolne tačke</p>
-                  <span className="text-micro font-mono uppercase tracking-micro text-muted">24/7</span>
+                  <p className="text-micro font-mono uppercase tracking-micro text-white/70">Kontrolne tačke</p>
+                  <span className="text-micro font-mono uppercase tracking-micro text-white/70">24/7</span>
                 </div>
-                <p className="mt-2 text-small text-muted">
+                <p className="mt-2 text-small text-white/80">
                   Dnevno praćenje kvaliteta, dinamike i bezbednosti kroz definisane protokole.
                 </p>
               </div>

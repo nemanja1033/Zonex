@@ -20,12 +20,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-white/96 backdrop-blur shadow-[0_10px_30px_rgba(11,28,45,0.08)]">
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="dark" size="sm" />
         </Link>
-        <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-textDark/80 md:flex">
+        <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-muted md:flex">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
             return (
@@ -47,7 +47,7 @@ export default function Navbar() {
         </nav>
         <button
           type="button"
-          className="md:hidden text-micro font-mono uppercase tracking-micro text-textDark/80"
+          className="md:hidden text-micro font-mono uppercase tracking-micro text-muted"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -65,7 +65,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
             className="md:hidden border-t border-border bg-white/98"
           >
-            <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-textDark/80">
+            <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-muted">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
                 return (
