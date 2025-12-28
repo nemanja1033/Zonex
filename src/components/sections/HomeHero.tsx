@@ -60,8 +60,7 @@ export default function HomeHero() {
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <div className="scanline-overlay" aria-hidden="true" />
       <div className="glow-orb left-[6%] top-[12%] h-44 w-44 bg-[radial-gradient(circle,rgba(155,14,28,0.5),transparent_65%)]" aria-hidden="true" />
-      <div className="glow-orb right-[10%] bottom-[18%] h-56 w-56 bg-[radial-gradient(circle,rgba(10,10,12,0.55),transparent_65%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute right-[18%] top-[10%] h-44 w-44 rounded-full border border-white/15 opacity-60 spin-slow" aria-hidden="true" />
+      <div className="glow-orb right-[10%] bottom-[18%] h-56 w-56 bg-[radial-gradient(circle,rgba(155,14,28,0.35),transparent_65%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(155,14,28,0.5),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
         animate={reduceMotion ? undefined : { rotate: 360 }}
