@@ -12,7 +12,7 @@ const proofs = [
 export default function ProofStrip() {
   return (
     <section className="section-divider bg-grey-100">
-      <Container className="grid gap-6 py-[calc(var(--section-padding)-2.5rem)] md:grid-cols-5">
+      <Container className="grid gap-6 py-[calc(var(--section-padding)-2rem)] md:grid-cols-5">
         {proofs.map((proof, index) => (
           <Reveal key={proof.label} delay={index * 0.05}>
             <div className="border-l border-border pl-4">

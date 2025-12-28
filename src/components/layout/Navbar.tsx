@@ -23,7 +23,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-900/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-900/95 backdrop-blur">
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="light" size="sm" />

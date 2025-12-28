@@ -39,6 +39,17 @@ export const company = {
   tagline: 'Inženjering i izvođenje objekata sa proverljivim rezultatima.',
 }
 
+export const about = {
+  title: 'O nama',
+  description:
+    'Zonex inženjering doo je firma koja preko 30 godina uspešno posluje na polju građevinarstva. Od osnivanja naše firme 1993. godine do danas težimo da brzo, efikasno i kvalitetno pristupamo našim projektima. Naša posvećenost poslu, stručnost i iskustvo su razlozi zašto ispunjavamo svaki zahtev naših klijenata i uspešno realizujemo projekte, od početnih faza planiranja do najsitnijih detalja.',
+  highlights: [
+    '30+ godina iskustva u građevinarstvu',
+    'Brzina, efikasnost i preciznost u realizaciji',
+    'Kompletna odgovornost kroz sve faze projekta',
+  ],
+}
+
 export const projects: Project[] = [
   {
     slug: 'mcdonalds-zrenjanin',

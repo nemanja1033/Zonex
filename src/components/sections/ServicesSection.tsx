@@ -10,7 +10,7 @@ export default function ServicesSection() {
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number">03</span>
+                <span className="section-number">04</span>
                 <span className="section-rule" />
                 <span className="eyebrow">Services + approach</span>
               </div>

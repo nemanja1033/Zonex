@@ -16,7 +16,7 @@ export default function FeaturedProjects() {
           <Reveal>
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">02</span>
+                <span className="section-number">03</span>
                 <span className="section-rule" />
                 <span className="eyebrow">Featured projects</span>
               </div>

@@ -10,7 +10,7 @@ export default function CtaSection() {
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number text-white/80">07</span>
+                <span className="section-number text-white/80">08</span>
                 <span className="section-rule bg-white/60" />
                 <span className="eyebrow-light">Next step</span>
               </div>

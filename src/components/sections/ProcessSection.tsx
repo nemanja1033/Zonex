@@ -10,7 +10,7 @@ export default function ProcessSection() {
           <Reveal>
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">04</span>
+                <span className="section-number">05</span>
                 <span className="section-rule" />
                 <span className="eyebrow">How we work</span>
               </div>
