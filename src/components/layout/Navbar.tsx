@@ -20,8 +20,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(244,240,234,0.75))] backdrop-blur shadow-[0_16px_40px_rgba(12,17,23,0.12)]">
+    <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(244,240,234,0.75))] backdrop-blur shadow-[0_16px_40px_rgba(12,17,23,0.12)]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.7),rgba(10,10,12,0.7),transparent)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.4),rgba(5,5,5,0.25),transparent)]" />
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="dark" size="sm" />

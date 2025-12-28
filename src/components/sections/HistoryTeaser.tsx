@@ -30,7 +30,7 @@ export default function HistoryTeaser() {
         <div className="mt-10 space-y-6">
           {items.map((item, index) => (
             <Reveal key={item.year} delay={index * 0.05}>
-              <div className="grid gap-4 rounded-3xl border border-border/70 bg-[linear-gradient(145deg,rgba(255,255,255,0.95),rgba(247,242,236,0.86))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)] md:grid-cols-[120px_1fr]">
+              <div className="lux-border lux-sheen grid gap-4 rounded-3xl bg-[linear-gradient(145deg,rgba(255,255,255,0.95),rgba(247,242,236,0.86))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)] md:grid-cols-[120px_1fr]">
                 <p className="text-h4 font-display">{item.year}</p>
                 <div>
                   <h3 className="font-display text-h4">{item.title}</h3>

@@ -28,7 +28,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout
-        className="flex flex-wrap items-start gap-8 rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 text-small shadow-[0_20px_45px_rgba(12,17,23,0.1)]"
+        className="lux-border lux-sheen flex flex-wrap items-start gap-8 rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 text-small shadow-[0_20px_45px_rgba(12,17,23,0.1)]"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
@@ -42,7 +42,8 @@ export default function ProjectsGrid() {
         <span>Projekat</span>
         <span>Meta</span>
       </div>
-      <motion.div layout className="border-t border-border">
+      <div className="h-px w-full bg-[linear-gradient(90deg,rgba(155,14,28,0.45),rgba(5,5,5,0.25),transparent)]" />
+      <motion.div layout>
         <AnimatePresence mode="popLayout">
           {filtered.map((project) => (
             <motion.div

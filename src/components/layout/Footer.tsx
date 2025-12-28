@@ -4,7 +4,7 @@ import LogoLockup from '@/components/brand/LogoLockup'
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-navy-900 text-white">
+    <footer className="relative overflow-hidden bg-navy-900 text-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.8),rgba(10,10,12,0.8),transparent)]" />
       <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(155,14,28,0.24),transparent_65%)]" />
       <div className="pointer-events-none absolute right-0 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(10,10,12,0.22),transparent_60%)]" />
@@ -46,7 +46,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-micro font-mono uppercase tracking-micro text-white/70 md:flex-row md:justify-between">
+        <div className="relative mt-12 flex flex-col gap-2 pt-6 text-micro font-mono uppercase tracking-micro text-white/70 md:flex-row md:justify-between">
+          <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.6),rgba(10,10,12,0.6),transparent)]" />
           <span>{company.name}</span>
           <span>Sva prava zadržana.</span>
         </div>

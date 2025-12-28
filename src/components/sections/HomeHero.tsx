@@ -233,7 +233,7 @@ export default function HomeHero() {
               }
             >
               <motion.div
-                className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur"
+                className="lux-border lux-sheen relative overflow-hidden rounded-[28px] bg-white/8 p-6 text-white shadow-[0_40px_90px_rgba(11,28,45,0.35)] backdrop-blur"
                 whileHover={reduceMotion ? undefined : { y: -6, boxShadow: '0 48px 120px rgba(11,28,45,0.5)' }}
                 transition={reduceMotion ? undefined : { duration: 0.4, ease: 'easeOut' }}
               >
@@ -291,7 +291,7 @@ export default function HomeHero() {
                       {featuredProjects.map((project, index) => (
                         <motion.div
                           key={project.name}
-                          className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+                          className="lux-border lux-sheen flex items-start justify-between gap-4 rounded-xl bg-white/5 p-4"
                           initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
                           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                           transition={reduceMotion ? undefined : { duration: 0.5, delay: 0.1 + index * 0.07 }}
@@ -299,8 +299,8 @@ export default function HomeHero() {
                           <div>
                             <p className="text-small font-display text-white">{project.name}</p>
                             <div className="mt-2 flex flex-wrap items-center gap-2 text-micro font-mono uppercase tracking-micro text-white/60">
-                              <span className="rounded-full border border-white/15 px-2 py-1">{project.type}</span>
-                              <span className="rounded-full border border-white/15 px-2 py-1">{project.status}</span>
+                              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">{project.type}</span>
+                              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">{project.status}</span>
                             </div>
                           </div>
                           <span className="text-micro font-mono uppercase tracking-micro text-white/50">
@@ -309,7 +309,7 @@ export default function HomeHero() {
                         </motion.div>
                       ))}
                     </div>
-                    <div className="relative mt-5 h-32 w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/25 via-white/10 to-transparent">
+                    <div className="lux-border lux-sheen relative mt-5 h-32 w-full overflow-hidden rounded-xl bg-gradient-to-br from-white/25 via-white/10 to-transparent">
                       <motion.div
                         className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent)]"
                         style={{ x: sheenShift }}
@@ -321,7 +321,7 @@ export default function HomeHero() {
                     {stats.map((stat, index) => (
                       <motion.div
                         key={stat.label}
-                        className="relative overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 backdrop-blur"
+                        className="lux-border lux-sheen relative overflow-hidden rounded-2xl bg-[linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 backdrop-blur"
                         initial={reduceMotion ? undefined : { opacity: 0, y: 14 }}
                         animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                         transition={
@@ -346,7 +346,7 @@ export default function HomeHero() {
                 </div>
               </motion.div>
               <motion.div
-                className="rounded-2xl border border-white/15 bg-white/7 p-5 text-white/85 backdrop-blur"
+                className="lux-border lux-sheen rounded-2xl bg-white/7 p-5 text-white/85 backdrop-blur"
                 initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
                 animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 transition={reduceMotion ? undefined : { duration: 0.6, delay: 0.25 }}

@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       layout
       whileHover={{ y: -8 }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-      className="group relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] transition-all duration-300 hover:border-[rgba(155,14,28,0.6)] hover:shadow-[0_30px_70px_rgba(5,5,5,0.2)]"
+      className="lux-border lux-sheen group relative overflow-hidden rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] transition-all duration-300 hover:shadow-[0_30px_70px_rgba(5,5,5,0.2)]"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="absolute -right-10 top-6 h-32 w-32 rounded-full bg-[rgba(155,14,28,0.18)] blur-2xl" />
@@ -36,7 +36,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
         <p className="text-small text-textDark">{project.summary}</p>
-        <div className="flex items-center justify-between border-t border-border pt-4 text-micro font-mono uppercase tracking-micro text-muted">
+        <div className="relative flex items-center justify-between pt-4 text-micro font-mono uppercase tracking-micro text-muted">
+          <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(155,14,28,0.45),rgba(5,5,5,0.2),transparent)]" />
           <span>{project.type}</span>
           <span>{project.timeline}</span>
         </div>

@@ -24,7 +24,7 @@ export default function StandardsSection() {
           <div className="grid gap-6 md:grid-cols-3">
             {standards.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.05}>
-                <div className="rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(247,242,236,0.88))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)]">
+                <div className="lux-border lux-sheen rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(247,242,236,0.88))] p-6 shadow-[0_18px_45px_rgba(12,17,23,0.08)]">
                   <h3 className="font-display text-h4">{item.title}</h3>
                   <p className="mt-3 body-muted">{item.description}</p>
                 </div>
