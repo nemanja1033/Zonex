@@ -12,11 +12,15 @@ export default function FeaturedProjects() {
   return (
     <section className="section-divider bg-grey-100 section">
       <Container>
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="section-head">
           <Reveal>
             <div>
-              <p className="eyebrow">02 / Featured projects</p>
-              <h2 className="mt-3 section-title">Projekti sa jasnim ishodom.</h2>
+              <div className="flex items-center gap-4">
+                <span className="section-number">02</span>
+                <span className="section-rule" />
+                <span className="eyebrow">Featured projects</span>
+              </div>
+              <h2 className="mt-4 section-title">Projekti sa jasnim ishodom.</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>

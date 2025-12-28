@@ -9,7 +9,11 @@ export default function CtaSection() {
         <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
             <div className="space-y-4">
-              <p className="eyebrow-light">07 / Next step</p>
+              <div className="flex items-center gap-4">
+                <span className="section-number text-white/80">07</span>
+                <span className="section-rule bg-white/60" />
+                <span className="eyebrow-light">Next step</span>
+              </div>
               <h2 className="section-title-light">Spremni za projekat sa jasnim standardima?</h2>
               <p className="text-small text-white/90">
                 Pošaljite osnovne informacije o projektu, a mi vraćamo strukturu, obim i predlog dinamike.

@@ -9,11 +9,15 @@ export default function HistoryTeaser() {
   return (
     <section className="section-divider bg-white section">
       <Container>
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="section-head">
           <Reveal>
             <div>
-              <p className="eyebrow">05 / History</p>
-              <h2 className="mt-3 section-title">Kontinuitet rada od 1993.</h2>
+              <div className="flex items-center gap-4">
+                <span className="section-number">05</span>
+                <span className="section-rule" />
+                <span className="eyebrow">History</span>
+              </div>
+              <h2 className="mt-4 section-title">Kontinuitet rada od 1993.</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>

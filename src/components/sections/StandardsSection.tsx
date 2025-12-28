@@ -9,7 +9,11 @@ export default function StandardsSection() {
         <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
           <Reveal>
             <div className="space-y-4">
-              <p className="eyebrow">06 / Standards</p>
+              <div className="flex items-center gap-4">
+                <span className="section-number">06</span>
+                <span className="section-rule" />
+                <span className="eyebrow">Standards</span>
+              </div>
               <h2 className="section-title">Kvalitet, bezbednost, dokumentacija.</h2>
               <p className="body-muted">
                 Standardi nisu deo prezentacije već deo svakodnevnog rada. Svi procesi ostavljaju proverljiv trag.

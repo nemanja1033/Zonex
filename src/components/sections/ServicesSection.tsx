@@ -9,7 +9,11 @@ export default function ServicesSection() {
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr]">
           <Reveal>
             <div className="space-y-4">
-              <p className="eyebrow">03 / Services + approach</p>
+              <div className="flex items-center gap-4">
+                <span className="section-number">03</span>
+                <span className="section-rule" />
+                <span className="eyebrow">Services + approach</span>
+              </div>
               <h2 className="section-title">Integrisane usluge sa preciznim obimom rada.</h2>
               <p className="body-muted">
                 Radimo u jasno definisanim fazama, sa transparentnim obavezama i dokumentacijom koja ostaje iza projekta.
