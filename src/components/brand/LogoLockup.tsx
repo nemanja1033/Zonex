@@ -1,3 +1,5 @@
+import styles from './LogoLockup.module.css'
+
 type LogoLockupProps = {
   theme?: 'light' | 'dark'
   size?: 'sm' | 'md'
@@ -5,19 +7,17 @@ type LogoLockupProps = {
 }
 
 export default function LogoLockup({ theme = 'light', size = 'md', className = '' }: LogoLockupProps) {
-  const isLight = theme === 'light'
-  const textColor = isLight ? 'text-white' : 'text-textDark'
-  const muted = isLight ? 'text-white/75' : 'text-muted'
-  const sizeClass = size === 'sm' ? 'text-small' : 'text-body'
+  const themeClass = theme === 'light' ? styles.light : styles.dark
+  const sizeClass = size === 'sm' ? styles.sm : styles.md
 
   return (
-    <div className={`flex flex-col ${className}`}>
-      <span className={`flex items-center gap-3 font-display uppercase ${textColor}`}>
-        <span className={`font-semibold tracking-[0.22em] ${sizeClass}`}>ZONEX</span>
-        <span className={`h-[2px] w-8 ${isLight ? 'bg-white/45' : 'bg-border'}`} />
-        <span className={`font-light tracking-[0.28em] ${sizeClass} ${muted}`}>INŽENJERING</span>
+    <div className={`${styles.lockup} ${themeClass} ${sizeClass} ${className}`}>
+      <span className={styles.line}>
+        <span className={styles.primary}>ZONEX</span>
+        <span className={styles.rule} />
+        <span className={styles.secondary}>INŽENJERING</span>
       </span>
-      <span className={`text-micro font-mono uppercase tracking-micro ${muted}`}>Inženjering d.o.o.</span>
+      <span className={styles.sub}>Inženjering d.o.o.</span>
     </div>
   )
 }
