@@ -17,12 +17,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
   }, [pathname])
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="sync" initial={false}>
       <motion.div
         key={pathname}
         initial={reduceMotion ? { opacity: 0, y: 12 } : { opacity: 0, y: 18, filter: 'blur(6px)' }}
         animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-        exit={reduceMotion ? { opacity: 0, y: -8 } : { opacity: 0, y: -12, filter: 'blur(6px)' }}
+        exit={reduceMotion ? { opacity: 0, y: -6 } : { opacity: 0, y: -10, filter: 'blur(6px)' }}
         transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
         className="relative"
       >
@@ -35,8 +35,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
           transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
           style={{ transformOrigin: 'top' }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.5),transparent_65%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(23,176,168,0.35),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.55),transparent_65%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(10,10,12,0.45),transparent_60%)]" />
           <motion.svg
             className="absolute left-[8%] top-[35%] h-16 w-40 text-white/70"
             viewBox="0 0 160 64"
@@ -59,7 +59,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
         </motion.div>
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(255,122,26,0.9),rgba(23,176,168,0.9),transparent)]"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.9),rgba(10,10,12,0.9),transparent)]"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           exit={{ scaleX: 0 }}

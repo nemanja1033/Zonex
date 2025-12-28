@@ -8,7 +8,7 @@ export default function HistoryTeaser() {
 
   return (
     <section className="section-divider section section-surface relative overflow-hidden">
-      <div className="pointer-events-none absolute left-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.16),transparent_70%)]" />
+      <div className="pointer-events-none absolute left-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.18),transparent_70%)]" />
       <Container>
         <div className="section-head">
           <Reveal>

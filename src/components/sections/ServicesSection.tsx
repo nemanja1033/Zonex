@@ -13,7 +13,7 @@ export default function ServicesSection() {
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
       <SectionOrnament targetRef={sectionRef} variant="right" />
       <div
-        className="pointer-events-none absolute left-[12%] top-0 h-64 w-64 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.15),transparent_70%)]"
+        className="pointer-events-none absolute left-[12%] top-0 h-64 w-64 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.18),transparent_70%)]"
         aria-hidden="true"
       />
       <Container>
@@ -35,10 +35,10 @@ export default function ServicesSection() {
             {services.map((service, index) => (
               <Reveal key={service.title} delay={index * 0.05}>
                 <div className="group relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(150deg,rgba(255,255,255,0.95),rgba(247,242,236,0.88))] p-6 shadow-[0_22px_55px_rgba(12,17,23,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_32px_70px_rgba(12,17,23,0.14)]">
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(255,122,26,0),rgba(255,122,26,0.75),rgba(23,176,168,0.8),rgba(255,122,26,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.75),rgba(12,12,14,0.8),rgba(155,14,28,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="flex items-center justify-between">
                     <span className="text-micro font-mono uppercase tracking-micro text-muted">0{index + 1}</span>
-                    <span className="h-8 w-8 rounded-full border border-border bg-[linear-gradient(140deg,rgba(255,122,26,0.2),rgba(23,176,168,0.2))]" />
+                    <span className="h-8 w-8 rounded-full border border-border bg-[linear-gradient(140deg,rgba(155,14,28,0.22),rgba(12,12,14,0.2))]" />
                   </div>
                   <h3 className="mt-4 font-display text-h4">{service.title}</h3>
                   <p className="mt-3 body-muted">{service.description}</p>

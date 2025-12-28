@@ -80,7 +80,7 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
             onClick={() => onChange(item)}
             className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent ${
               value === item
-                ? 'border-[rgba(255,122,26,0.7)] bg-[linear-gradient(135deg,rgba(255,122,26,0.12),rgba(23,176,168,0.12))] text-textDark shadow-[0_8px_20px_rgba(255,122,26,0.2)]'
+                ? 'border-[rgba(155,14,28,0.7)] bg-[linear-gradient(135deg,rgba(155,14,28,0.12),rgba(12,12,14,0.12))] text-textDark shadow-[0_8px_20px_rgba(155,14,28,0.22)]'
                 : 'border-border/70 bg-white text-muted hover:bg-grey-100 hover:text-textDark'
             }`}
           >

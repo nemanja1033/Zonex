@@ -46,7 +46,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
         <p className="eyebrow">Chapters</p>
         <div className="mt-2 h-[2px] w-full bg-grey-200">
           <div
-            className="h-full bg-[linear-gradient(90deg,rgba(255,122,26,0.9),rgba(23,176,168,0.9))] transition-[width] duration-200"
+            className="h-full bg-[linear-gradient(90deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-[width] duration-200"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
@@ -58,7 +58,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
             href={`#${chapter.id}`}
             className={`block border-l-2 pl-3 transition-colors ${
               active === chapter.id
-                ? 'border-[rgba(255,122,26,0.9)] text-textDark'
+                ? 'border-[rgba(155,14,28,0.9)] text-textDark'
                 : 'border-grey-200 text-muted hover:text-textDark'
             }`}
           >

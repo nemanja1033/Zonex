@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(244,240,234,0.75))] backdrop-blur shadow-[0_16px_40px_rgba(12,17,23,0.12)]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(255,122,26,0.7),rgba(23,176,168,0.7),transparent)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.7),rgba(10,10,12,0.7),transparent)]" />
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="dark" size="sm" />
@@ -37,7 +37,7 @@ export default function Navbar() {
               >
                 {item.label}
                 <span
-                  className={`absolute left-0 top-full h-[2px] w-full bg-[linear-gradient(90deg,rgba(255,122,26,0.9),rgba(23,176,168,0.9))] transition-transform ${
+                  className={`absolute left-0 top-full h-[2px] w-full bg-[linear-gradient(90deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-transform ${
                     isActive ? 'scale-x-100' : 'scale-x-0'
                   }`}
                   style={{ transformOrigin: 'left' }}

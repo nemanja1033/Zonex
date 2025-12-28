@@ -14,11 +14,11 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
 
   return (
     <section className="page-hero">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(255,122,26,0.9),rgba(23,176,168,0.9),transparent)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.9),rgba(10,10,12,0.9),transparent)]" />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
       <div className="absolute inset-0 blueprint-grid opacity-35" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.35),transparent_70%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(23,176,168,0.28),transparent_65%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.4),transparent_70%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(10,10,12,0.32),transparent_65%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute right-[12%] top-[18%] h-32 w-32 rounded-full border border-white/20"
         animate={reduceMotion ? undefined : { y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}

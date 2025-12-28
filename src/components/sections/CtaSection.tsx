@@ -5,8 +5,8 @@ import Reveal from '@/components/ui/Reveal'
 export default function CtaSection() {
   return (
     <section className="relative overflow-hidden bg-navy-900 text-white section">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.35),transparent_70%)]" />
-      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(23,176,168,0.3),transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.45),transparent_70%)]" />
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(10,10,12,0.35),transparent_65%)]" />
       <Container>
         <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr]">
           <Reveal>

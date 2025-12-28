@@ -10,7 +10,7 @@ type TimelineProps = {
 export default function Timeline({ items }: TimelineProps) {
   return (
     <div className="relative space-y-10">
-      <div className="absolute left-3 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(255,122,26,0.85),rgba(23,176,168,0.5),transparent)]" />
+      <div className="absolute left-3 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(155,14,28,0.85),rgba(15,15,17,0.6),transparent)]" />
       {items.map((item) => (
         <motion.div
           key={item.year}
@@ -20,7 +20,7 @@ export default function Timeline({ items }: TimelineProps) {
           transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           className="relative grid gap-4 pl-12 md:grid-cols-[120px_1fr]"
         >
-          <span className="absolute left-0 top-1 h-3 w-3 rounded-full border-2 border-[rgba(255,122,26,0.9)] bg-white shadow-[0_0_0_8px_rgba(255,122,26,0.08)]" />
+          <span className="absolute left-0 top-1 h-3 w-3 rounded-full border-2 border-[rgba(155,14,28,0.9)] bg-white shadow-[0_0_0_8px_rgba(155,14,28,0.08)]" />
           <p className="font-display text-h4">{item.year}</p>
           <div>
             <h3 className="font-display text-h4">{item.title}</h3>

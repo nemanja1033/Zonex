@@ -24,7 +24,7 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
         style={{ y, opacity }}
         aria-hidden="true"
       >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(255,122,26,0.18),transparent_70%)]" />
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.2),transparent_70%)]" />
       </motion.div>
       <motion.svg
         className={`pointer-events-none absolute ${variant === 'left' ? 'left-[6%]' : 'right-[6%]'} top-[20%] h-16 w-40 text-textDark/25`}

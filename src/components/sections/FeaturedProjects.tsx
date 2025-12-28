@@ -16,11 +16,11 @@ export default function FeaturedProjects() {
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
       <SectionOrnament targetRef={sectionRef} variant="left" />
       <div
-        className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(23,176,168,0.18),transparent_70%)]"
+        className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.2),transparent_70%)]"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-[8%] bottom-0 h-64 w-64 bg-[radial-gradient(circle,rgba(255,122,26,0.14),transparent_70%)]"
+        className="pointer-events-none absolute right-[8%] bottom-0 h-64 w-64 bg-[radial-gradient(circle,rgba(155,14,28,0.18),transparent_70%)]"
         aria-hidden="true"
       />
       <Container>

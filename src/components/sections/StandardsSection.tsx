@@ -5,7 +5,7 @@ import Reveal from '@/components/ui/Reveal'
 export default function StandardsSection() {
   return (
     <section className="section-divider section section-surface relative overflow-hidden">
-      <div className="pointer-events-none absolute right-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(23,176,168,0.16),transparent_70%)]" />
+      <div className="pointer-events-none absolute right-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.18),transparent_70%)]" />
       <Container>
         <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
           <Reveal>

@@ -14,14 +14,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       layout
       whileHover={{ y: -8 }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-      className="group relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] transition-all duration-300 hover:border-[rgba(255,122,26,0.6)] hover:shadow-[0_30px_70px_rgba(12,17,23,0.14)]"
+      className="group relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] transition-all duration-300 hover:border-[rgba(155,14,28,0.6)] hover:shadow-[0_30px_70px_rgba(5,5,5,0.2)]"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="absolute -right-10 top-6 h-32 w-32 rounded-full bg-[rgba(255,122,26,0.16)] blur-2xl" />
-        <div className="absolute -left-12 bottom-6 h-40 w-40 rounded-full bg-[rgba(23,176,168,0.14)] blur-2xl" />
+        <div className="absolute -right-10 top-6 h-32 w-32 rounded-full bg-[rgba(155,14,28,0.18)] blur-2xl" />
+        <div className="absolute -left-12 bottom-6 h-40 w-40 rounded-full bg-[rgba(10,10,12,0.16)] blur-2xl" />
       </div>
       <div className="relative h-52 overflow-hidden bg-[linear-gradient(135deg,rgba(11,28,45,0.05),rgba(11,28,45,0.0))]">
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(255,122,26,0),rgba(255,122,26,0.75),rgba(23,176,168,0.85),rgba(255,122,26,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.75),rgba(12,12,14,0.85),rgba(155,14,28,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <div className="project-shift h-full w-full bg-gradient-to-br from-grey-200 via-grey-100 to-grey-200 transition-transform duration-500 group-hover:scale-[1.06]" />
       </div>
       <div className="space-y-4 p-6">
@@ -48,7 +48,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
       <Link href={`/projects/${project.slug}`} className="absolute inset-0" aria-label={project.name} />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,rgba(255,122,26,0.9),rgba(23,176,168,0.9))] transition-transform duration-300 group-hover:scale-x-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-transform duration-300 group-hover:scale-x-100" />
     </motion.div>
   )
 }

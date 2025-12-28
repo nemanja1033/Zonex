@@ -13,8 +13,8 @@ export default function ServicesPage() {
       <section className="section-divider section section-surface">
         <Container className="grid gap-6 md:grid-cols-2">
           {services.map((service) => (
-            <div key={service.title} className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(12,17,23,0.12)]">
-              <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(255,122,26,0),rgba(255,122,26,0.7),rgba(23,176,168,0.8),rgba(255,122,26,0))]" />
+            <div key={service.title} className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]">
+              <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.7),rgba(155,14,28,0))]" />
               <p className="text-micro font-mono uppercase tracking-micro text-muted">Usluga</p>
               <h2 className="mt-3 font-display text-h4">{service.title}</h2>
               <p className="mt-3 body-muted">{service.description}</p>
@@ -29,9 +29,9 @@ export default function ServicesPage() {
             {processSteps.map((step, index) => (
               <div
                 key={step.title}
-                className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(12,17,23,0.12)]"
+                className="relative overflow-hidden rounded-3xl border border-border/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(247,242,236,0.9))] p-6 shadow-[0_22px_55px_rgba(5,5,5,0.14)]"
               >
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(255,122,26,0),rgba(255,122,26,0.7),rgba(23,176,168,0.8),rgba(255,122,26,0))]" />
+                <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(155,14,28,0),rgba(155,14,28,0.7),rgba(12,12,14,0.7),rgba(155,14,28,0))]" />
                 <p className="text-micro font-mono uppercase tracking-micro text-muted">0{index + 1}</p>
                 <h3 className="mt-3 font-display text-h4">{step.title}</h3>
                 <p className="mt-2 body-muted">{step.description}</p>

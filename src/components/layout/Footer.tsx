@@ -5,9 +5,9 @@ import LogoLockup from '@/components/brand/LogoLockup'
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-navy-900 text-white">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(255,122,26,0.8),rgba(23,176,168,0.8),transparent)]" />
-      <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(255,122,26,0.22),transparent_65%)]" />
-      <div className="pointer-events-none absolute right-0 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(23,176,168,0.2),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.8),rgba(10,10,12,0.8),transparent)]" />
+      <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(155,14,28,0.24),transparent_65%)]" />
+      <div className="pointer-events-none absolute right-0 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(10,10,12,0.22),transparent_60%)]" />
       <Container className="py-[var(--section-padding)]">
         <div className="grid gap-10 md:grid-cols-[2fr_1fr]">
           <div className="space-y-6">

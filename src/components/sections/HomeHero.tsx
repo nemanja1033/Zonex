@@ -54,13 +54,13 @@ export default function HomeHero() {
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <motion.div
-        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(255,122,26,0.45),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.2),transparent_35%,rgba(155,14,28,0.5),transparent_65%,rgba(255,255,255,0.2))] opacity-60 blur-2xl"
         animate={reduceMotion ? undefined : { rotate: 360 }}
         transition={reduceMotion ? undefined : { duration: 60, repeat: Infinity, ease: 'linear' }}
         aria-hidden="true"
       />
       <motion.div
-        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(255,122,26,0.32),rgba(23,176,168,0.12),transparent)] opacity-70 blur-3xl"
+        className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(155,14,28,0.35),rgba(10,10,12,0.16),transparent)] opacity-70 blur-3xl"
         style={{ x: beamShift }}
         aria-hidden="true"
       />
@@ -244,7 +244,7 @@ export default function HomeHero() {
                   style={{ y: cardDrift }}
                 />
                 <motion.div
-                  className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(255,122,26,0.22)]"
+                  className="absolute bottom-8 right-8 h-16 w-16 rounded-full bg-[rgba(155,14,28,0.26)]"
                   style={{ y: orbDrift }}
                 />
                 <motion.div
