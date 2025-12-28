@@ -11,7 +11,7 @@ type ButtonProps = {
 export default function Button({ children, href, variant = 'primary', className = '' }: ButtonProps) {
   const styles = variant === 'primary' ? 'button-primary' : 'button-ghost'
 
-  const classes = `inline-flex items-center gap-3 font-mono text-micro uppercase tracking-micro ${styles} ${className}`
+  const classes = `group inline-flex items-center gap-3 font-mono text-micro uppercase tracking-micro ${styles} ${className}`
 
   if (href) {
     return (

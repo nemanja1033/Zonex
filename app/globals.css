@@ -202,7 +202,24 @@ body {
   }
 
   .button-ghost {
-    @apply border-b border-white/80 text-white transition-colors duration-300 hover:text-white/80;
+    @apply relative border-b border-white/80 text-white transition-colors duration-300 hover:text-white/80;
+  }
+
+  .button-ghost::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    background: linear-gradient(90deg, rgba(47, 128, 237, 0), rgba(47, 128, 237, 0.8), rgba(47, 128, 237, 0));
+  }
+
+  .button-ghost:hover::after {
+    transform: scaleX(1);
   }
 
   .page-hero {

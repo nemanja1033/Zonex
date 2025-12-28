@@ -24,6 +24,35 @@ export default function PageTransition({ children }: PageTransitionProps) {
       >
         <motion.div
           aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-20 bg-navy-900"
+          initial={reduceMotion ? { scaleY: 0 } : { scaleY: 1 }}
+          animate={reduceMotion ? { scaleY: 0 } : { scaleY: 0 }}
+          exit={reduceMotion ? { scaleY: 0 } : { scaleY: 1 }}
+          transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+          style={{ transformOrigin: 'top' }}
+        >
+          <motion.svg
+            className="absolute left-[8%] top-[35%] h-16 w-40 text-white/70"
+            viewBox="0 0 160 64"
+            fill="none"
+            initial={reduceMotion ? undefined : { opacity: 0 }}
+            animate={reduceMotion ? undefined : { opacity: 1 }}
+            exit={reduceMotion ? undefined : { opacity: 0 }}
+          >
+            <motion.path
+              d="M4 48L4 12L124 12L124 32L156 32"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={reduceMotion ? undefined : { pathLength: 0 }}
+              animate={reduceMotion ? undefined : { pathLength: 1 }}
+              transition={{ duration: 1.2, ease: [0.32, 0.72, 0, 1] }}
+            />
+          </motion.svg>
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
           className="pointer-events-none absolute left-0 right-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}

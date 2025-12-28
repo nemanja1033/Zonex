@@ -5,17 +5,19 @@ import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import { company } from '@/content/content'
 import Reveal from '@/components/ui/Reveal'
+import CountUp from '@/components/ui/CountUp'
 
 export default function HomeHero() {
   const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -40])
   const driftSlow = useTransform(scrollYProgress, [0, 0.4], [0, -20])
+  const panelShift = useTransform(scrollYProgress, [0, 0.4], [0, -24])
   const titleWords = 'Inženjering visokog standarda za objekte koji traju.'.split(' ')
   const stats = [
-    { label: 'Godina osnivanja', value: '1993' },
-    { label: 'Iskustvo', value: '30+ godina' },
-    { label: 'Projekti', value: '480+' },
+    { label: 'Godina osnivanja', value: 1993, suffix: '' },
+    { label: 'Iskustvo', value: 30, suffix: '+' },
+    { label: 'Projekti', value: 480, suffix: '+' },
   ]
   const wordVariants = {
     hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
@@ -102,6 +104,7 @@ export default function HomeHero() {
           <Reveal delay={0.15}>
             <motion.div
               className="space-y-6"
+              style={{ y: panelShift }}
               animate={
                 reduceMotion
                   ? undefined
@@ -169,7 +172,9 @@ export default function HomeHero() {
                         className="relative overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 backdrop-blur"
                       >
                         <div className="absolute inset-x-0 top-0 h-[1px] bg-white/30" />
-                        <p className="text-h3 font-display text-white">{stat.value}</p>
+                        <p className="text-h3 font-display text-white">
+                          <CountUp end={stat.value} suffix={stat.suffix} />
+                        </p>
                         <p className="mt-2 text-micro font-mono uppercase tracking-micro text-white/70">{stat.label}</p>
                       </div>
                     ))}
