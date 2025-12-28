@@ -1,10 +1,17 @@
+"use client"
+
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 import { about } from '@/content/content'
 
 export default function AboutSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+
   return (
-    <section className="section-divider section section-surface relative overflow-hidden">
+    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="right" />
       <div
         className="pointer-events-none absolute right-0 top-0 h-64 w-64 bg-[radial-gradient(circle_at_top,rgba(47,128,237,0.12),transparent_70%)]"
         aria-hidden="true"

@@ -41,11 +41,14 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
   }, [chapters])
 
   return (
-    <div className="sticky top-28 space-y-6 surface p-6">
+    <div className="sticky top-28 space-y-6 rounded-2xl border border-border bg-white/90 p-6 shadow-[0_20px_45px_rgba(11,28,45,0.12)] backdrop-blur">
       <div>
         <p className="eyebrow">Chapters</p>
         <div className="mt-2 h-[2px] w-full bg-grey-200">
-          <div className="h-full bg-accent" style={{ width: `${Math.round(progress * 100)}%` }} />
+          <div
+            className="h-full bg-accent transition-[width] duration-200"
+            style={{ width: `${Math.round(progress * 100)}%` }}
+          />
         </div>
       </div>
       <div className="space-y-3 text-small">

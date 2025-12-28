@@ -26,26 +26,32 @@ export default function ProjectsGrid() {
 
   return (
     <div className="space-y-10">
-      <div className="panel flex flex-wrap items-start gap-8 p-6 text-small">
+      <motion.div
+        layout
+        className="panel flex flex-wrap items-start gap-8 p-6 text-small"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+      >
         <FilterGroup label="Type" items={types} value={type} onChange={setType} />
         <FilterGroup label="Status" items={statuses} value={status} onChange={setStatus} />
         <FilterGroup label="Location" items={locations} value={location} onChange={setLocation} />
-      </div>
+      </motion.div>
       <div className="grid gap-6 text-micro font-mono uppercase tracking-micro text-muted md:grid-cols-[200px_1.2fr_0.8fr]">
         <span>Preview</span>
         <span>Projekat</span>
         <span>Meta</span>
       </div>
       <motion.div layout className="border-t border-border">
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {filtered.map((project) => (
             <motion.div
               key={project.slug}
               layout
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 18 }}
-              transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
             >
               <ProjectListItem project={project} />
             </motion.div>

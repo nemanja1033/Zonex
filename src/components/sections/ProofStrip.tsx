@@ -1,5 +1,9 @@
+"use client"
+
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 
 const proofs = [
   { label: 'Founded', value: '1993' },
@@ -10,8 +14,11 @@ const proofs = [
 ]
 
 export default function ProofStrip() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+
   return (
-    <section className="section-divider section-surface">
+    <section ref={sectionRef} className="section-divider section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="right" />
       <Container className="py-[calc(var(--section-padding)-2rem)]">
         <div className="grid gap-4 md:grid-cols-5">
           {proofs.map((proof, index) => (

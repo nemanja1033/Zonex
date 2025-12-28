@@ -1,10 +1,17 @@
+"use client"
+
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { processSteps } from '@/content/content'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function ProcessSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+
   return (
-    <section className="section-divider section section-surface">
+    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="left" />
       <Container>
         <div className="section-head">
           <Reveal>

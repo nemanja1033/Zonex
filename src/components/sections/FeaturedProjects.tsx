@@ -1,16 +1,20 @@
 "use client"
 
 import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '@/content/content'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function FeaturedProjects() {
+  const sectionRef = useRef<HTMLElement | null>(null)
   const featured = projects.slice(0, 3)
 
   return (
-    <section className="section-divider section section-surface relative overflow-hidden">
+    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="left" />
       <div
         className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(47,128,237,0.12),transparent_70%)]"
         aria-hidden="true"

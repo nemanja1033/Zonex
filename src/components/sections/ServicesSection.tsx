@@ -1,10 +1,17 @@
+"use client"
+
+import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { services } from '@/content/content'
 import Reveal from '@/components/ui/Reveal'
+import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function ServicesSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+
   return (
-    <section className="section-divider section section-surface">
+    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionOrnament targetRef={sectionRef} variant="right" />
       <Container>
         <div className="grid gap-10 md:grid-cols-[1fr_1.3fr]">
           <Reveal>
