@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import Container from '@/components/ui/Container'
 import LogoLockup from '@/components/brand/LogoLockup'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -18,6 +19,7 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const { locale, setLocale } = useI18n()
 
   return (
     <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(244,240,234,0.75))] backdrop-blur shadow-[0_16px_40px_rgba(12,17,23,0.12)]">
@@ -53,6 +55,21 @@ export default function Navbar() {
             )
           })}
         </nav>
+        <div className="hidden items-center gap-2 md:flex">
+          {(['sr', 'en'] as const).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setLocale(lang)}
+              className={`rounded-full border px-3 py-1 text-micro font-mono uppercase tracking-micro transition-colors ${
+                locale === lang ? 'border-[rgba(155,14,28,0.7)] text-textDark' : 'border-border text-muted'
+              }`}
+              aria-pressed={locale === lang}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
         <button
           type="button"
           className="md:hidden text-micro font-mono uppercase tracking-micro text-muted"
@@ -74,6 +91,21 @@ export default function Navbar() {
             className="md:hidden border-t border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,240,234,0.9))]"
           >
             <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-muted">
+              <div className="flex items-center gap-2">
+                {(['sr', 'en'] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => setLocale(lang)}
+                    className={`rounded-full border px-3 py-1 text-micro font-mono uppercase tracking-micro transition-colors ${
+                      locale === lang ? 'border-[rgba(155,14,28,0.7)] text-textDark' : 'border-border text-muted'
+                    }`}
+                    aria-pressed={locale === lang}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
                 return (
