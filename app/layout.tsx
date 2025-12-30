@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SiteLayout from '@/components/layout/SiteLayout'
-import { I18nProvider } from '@/i18n/I18nProvider'
 
 export const metadata: Metadata = {
   title: 'Zonex Inženjering d.o.o. - Inženjering izvrsnosti od 1993.',
@@ -16,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="sr">
       <body>
-        <I18nProvider>
-          <SiteLayout>{children}</SiteLayout>
-        </I18nProvider>
+        <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
   )

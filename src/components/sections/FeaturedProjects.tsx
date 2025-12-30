@@ -1,16 +1,17 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import ProjectCard from '@/components/projects/ProjectCard'
-import { projects } from '@/content/content'
+import { projects } from '../../../data/projects'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const featured = projects.slice(0, 3)
+  const reduceMotion = useReducedMotion()
+  const featured = projects.slice(0, 5)
 
   return (
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
@@ -30,21 +31,21 @@ export default function FeaturedProjects() {
               <div className="flex items-center gap-4">
                 <span className="section-number">03</span>
                 <span className="section-rule" />
-                <span className="eyebrow">Featured projects</span>
+                <span className="eyebrow">Naši projekti</span>
               </div>
-              <h2 className="mt-4 section-title">Projekti sa jasnim ishodom.</h2>
+              <h2 className="mt-4 section-title">Projekti sa preciznim rokovima i jasnim obimom.</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="max-w-md body-muted">
-              Pregled projekata koji potvrđuju kontinuitet, kvalitet i preciznu realizaciju u različitim tipologijama.
+              Selekcija projekata u kojima su brzina izvođenja, kontrola kvaliteta i standardi investitora bili ključni.
             </p>
           </Reveal>
         </div>
         <motion.div
           className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-3"
-          initial="hidden"
-          whileInView="visible"
+          initial={reduceMotion ? undefined : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'visible'}
           viewport={{ once: true, margin: '-120px' }}
           variants={{
             hidden: { opacity: 0 },
@@ -52,7 +53,10 @@ export default function FeaturedProjects() {
           }}
         >
           {featured.map((project) => (
-            <motion.div key={project.slug} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}>
+            <motion.div
+              key={project.slug}
+              variants={reduceMotion ? undefined : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+            >
               <ProjectCard project={project} />
             </motion.div>
           ))}

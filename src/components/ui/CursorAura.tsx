@@ -5,8 +5,14 @@ import { useEffect, useRef, useState } from 'react'
 export default function CursorAura() {
   const rafRef = useRef<number | null>(null)
   const [hidden, setHidden] = useState(true)
+  const [enabled, setEnabled] = useState(true)
 
   useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handleMotion = () => setEnabled(!media.matches)
+    handleMotion()
+    media.addEventListener('change', handleMotion)
+
     const root = document.documentElement
 
     const update = (x: number, y: number) => {
@@ -32,6 +38,7 @@ export default function CursorAura() {
     window.addEventListener('mouseleave', handleLeave)
 
     return () => {
+      media.removeEventListener('change', handleMotion)
       if (rafRef.current) {
         window.cancelAnimationFrame(rafRef.current)
       }
@@ -39,6 +46,8 @@ export default function CursorAura() {
       window.removeEventListener('mouseleave', handleLeave)
     }
   }, [])
+
+  if (!enabled) return null
 
   return <div className={`cursor-aura ${hidden ? 'cursor-aura--hidden' : ''}`} aria-hidden="true" />
 }

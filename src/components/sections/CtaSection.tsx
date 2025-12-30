@@ -12,16 +12,16 @@ export default function CtaSection() {
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-navy-900 text-white section">
       <SectionOrnament targetRef={sectionRef} variant="right" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.45),transparent_70%)]" />
-      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(10,10,12,0.35),transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(178,30,42,0.45),transparent_70%)]" />
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(12,18,28,0.5),transparent_65%)]" />
       <Container>
         <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number text-white/80">09</span>
+                <span className="section-number text-white/80">06</span>
                 <span className="section-rule bg-white/60" />
-                <span className="eyebrow-light">Next step</span>
+                <span className="eyebrow-light">Kontakt</span>
               </div>
               <h2 className="section-title-light">Spremni za projekat sa jasnim standardima?</h2>
               <p className="text-small text-white/90">

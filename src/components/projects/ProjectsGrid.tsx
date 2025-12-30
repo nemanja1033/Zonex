@@ -1,60 +1,59 @@
 "use client"
 
 import { useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import ProjectListItem from '@/components/projects/ProjectListItem'
-import { projects } from '@/content/content'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import ProjectCard from '@/components/projects/ProjectCard'
+import { projects } from '../../../data/projects'
 
-const types = ['All', 'Retail', 'Hospitality', 'Energy', 'Mixed']
-const statuses = ['All', 'Završeno', 'U toku']
-const locations = ['All', 'Zrenjanin', 'Zlatibor', 'Šimanovci']
+const types = [
+  { label: 'Svi', value: 'All' },
+  { label: 'Fast food', value: 'Fast food' },
+  { label: 'Retail', value: 'Retail' },
+  { label: 'Residential', value: 'Residential' },
+]
 
 export default function ProjectsGrid() {
+  const reduceMotion = useReducedMotion()
   const [type, setType] = useState('All')
-  const [status, setStatus] = useState('All')
   const [location, setLocation] = useState('All')
+
+  const locations = useMemo(() => {
+    const unique = Array.from(new Set(projects.map((project) => project.city)))
+    return [{ label: 'Sve', value: 'All' }, ...unique.map((city) => ({ label: city, value: city }))]
+  }, [])
 
   const filtered = useMemo(() => {
     return projects.filter((project) => {
-      const matchesType = type === 'All' || project.type === type
-      const matchesStatus = status === 'All' || project.status === status
-      const matchesLocation =
-        location === 'All' || project.location.toLowerCase().includes(location.toLowerCase())
-      return matchesType && matchesStatus && matchesLocation
+      const matchesType = type === 'All' || project.category === type
+      const matchesLocation = location === 'All' || project.city === location
+      return matchesType && matchesLocation
     })
-  }, [type, status, location])
+  }, [type, location])
 
   return (
     <div className="space-y-10">
       <motion.div
         layout
-        className="lux-border lux-sheen flex flex-wrap items-start gap-8 rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 text-small shadow-[0_20px_45px_rgba(12,17,23,0.1)]"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-6 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur"
+        initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+        animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
       >
-        <FilterGroup label="Type" items={types} value={type} onChange={setType} />
-        <FilterGroup label="Status" items={statuses} value={status} onChange={setStatus} />
-        <FilterGroup label="Location" items={locations} value={location} onChange={setLocation} />
+        <FilterGroup label="Tip" items={types} value={type} onChange={setType} />
+        <FilterGroup label="Lokacija" items={locations} value={location} onChange={setLocation} />
       </motion.div>
-      <div className="grid gap-6 text-micro font-mono uppercase tracking-micro text-muted md:grid-cols-[200px_1.2fr_0.8fr]">
-        <span>Preview</span>
-        <span>Projekat</span>
-        <span>Meta</span>
-      </div>
-      <div className="h-px w-full bg-[linear-gradient(90deg,rgba(155,14,28,0.45),rgba(5,5,5,0.25),transparent)]" />
-      <motion.div layout>
+      <motion.div layout className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
           {filtered.map((project) => (
             <motion.div
               key={project.slug}
               layout
-              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              initial={reduceMotion ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
+              animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
               transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
             >
-              <ProjectListItem project={project} />
+              <ProjectCard project={project} />
             </motion.div>
           ))}
         </AnimatePresence>
@@ -65,7 +64,7 @@ export default function ProjectsGrid() {
 
 type FilterGroupProps = {
   label: string
-  items: string[]
+  items: Array<{ label: string; value: string }>
   value: string
   onChange: (value: string) => void
 }
@@ -73,19 +72,19 @@ type FilterGroupProps = {
 function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
   return (
     <div>
-      <p className="eyebrow">{label}</p>
+      <p className="text-micro font-mono uppercase tracking-micro text-white/60">{label}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {items.map((item) => (
           <button
-            key={item}
-            onClick={() => onChange(item)}
+            key={item.value}
+            onClick={() => onChange(item.value)}
             className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent ${
-              value === item
-                ? 'border-[rgba(155,14,28,0.7)] bg-[linear-gradient(135deg,rgba(155,14,28,0.12),rgba(12,12,14,0.12))] text-textDark shadow-[0_8px_20px_rgba(155,14,28,0.22)]'
-                : 'border-border/70 bg-white text-muted hover:bg-grey-100 hover:text-textDark'
+              value === item.value
+                ? 'border-[rgba(178,30,42,0.7)] bg-[linear-gradient(135deg,rgba(178,30,42,0.15),rgba(12,12,14,0.2))] text-white shadow-[0_8px_20px_rgba(178,30,42,0.22)]'
+                : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
             }`}
           >
-            {item}
+            {item.label}
           </button>
         ))}
       </div>

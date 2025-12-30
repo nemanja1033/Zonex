@@ -13,36 +13,17 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="page-hero">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,transparent,rgba(155,14,28,0.9),rgba(10,10,12,0.9),transparent)]" />
+    <section className="page-hero blueprint-grid">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,rgba(178,30,42,0.9),rgba(255,255,255,0.3),transparent)]" />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
-      <div className="absolute inset-0 blueprint-grid opacity-35" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.4),transparent_70%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(10,10,12,0.32),transparent_65%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(178,30,42,0.4),transparent_70%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(12,18,28,0.55),transparent_65%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute right-[12%] top-[18%] h-32 w-32 rounded-full border border-white/20"
         animate={reduceMotion ? undefined : { y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}
         transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
-      <motion.div
-        className="pointer-events-none absolute left-[6%] top-[40%] h-20 w-36 text-white/50"
-        initial={reduceMotion ? undefined : { opacity: 0 }}
-        animate={reduceMotion ? undefined : { opacity: 1 }}
-      >
-        <motion.svg viewBox="0 0 160 64" fill="none">
-          <motion.path
-            d="M4 48L4 12L124 12L124 32L156 32"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={reduceMotion ? undefined : { pathLength: 0 }}
-            animate={reduceMotion ? undefined : { pathLength: 1 }}
-            transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
-          />
-        </motion.svg>
-      </motion.div>
       <Container className="relative z-10 py-[calc(var(--section-padding)+2.5rem)]">
         <div className="flex items-center gap-4">
           <span className="section-number text-white/80">01</span>
