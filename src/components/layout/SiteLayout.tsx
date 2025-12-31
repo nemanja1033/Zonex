@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageTransition from '@/components/layout/PageTransition'
 import CursorAura from '@/components/ui/CursorAura'
+import MotionGate from '@/components/layout/MotionGate'
 
 type SiteLayoutProps = {
   children: ReactNode
@@ -19,9 +20,11 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
       <div className="site-noise" aria-hidden="true" />
       <CursorAura />
       <Navbar />
-      <PageTransition>
-        <main className="relative z-10">{children}</main>
-      </PageTransition>
+      <MotionGate>
+        <PageTransition>
+          <main className="relative z-10">{children}</main>
+        </PageTransition>
+      </MotionGate>
       <Footer />
     </div>
   )

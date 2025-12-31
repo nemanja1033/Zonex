@@ -639,6 +639,17 @@ body::after {
 }
 
 @media (max-width: 768px) {
+  .blur-2xl,
+  .blur-3xl,
+  .blur-xl,
+  .blur-lg {
+    filter: none !important;
+  }
+
+  .navy-scrim {
+    backdrop-filter: none;
+  }
+
   body::before,
   body::after {
     opacity: 0;
