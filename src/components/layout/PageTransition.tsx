@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 type PageTransitionProps = {
   children: ReactNode
@@ -11,6 +12,8 @@ type PageTransitionProps = {
 export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname()
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -19,9 +22,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
   return (
     <motion.div
       key={pathname}
-      initial={reduceMotion ? { opacity: 0, y: 8 } : { opacity: 0, y: 14 }}
-      animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+      initial={shouldReduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+      animate={shouldReduce ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+      transition={shouldReduce ? { duration: 0 } : { duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
       className="relative"
     >
       {children}

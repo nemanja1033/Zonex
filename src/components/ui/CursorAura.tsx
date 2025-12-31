@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 export default function CursorAura() {
   const rafRef = useRef<number | null>(null)
   const [hidden, setHidden] = useState(true)
   const [enabled, setEnabled] = useState(true)
+  const isCoarse = useCoarsePointer()
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -47,7 +49,7 @@ export default function CursorAura() {
     }
   }, [])
 
-  if (!enabled) return null
+  if (!enabled || isCoarse) return null
 
   return <div className={`cursor-aura ${hidden ? 'cursor-aura--hidden' : ''}`} aria-hidden="true" />
 }

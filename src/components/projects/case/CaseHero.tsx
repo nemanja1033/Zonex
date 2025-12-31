@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import type { Project } from '../../../../data/projects'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 type CaseHeroProps = {
   project: Project
@@ -11,6 +12,9 @@ type CaseHeroProps = {
 
 export default function CaseHero({ project }: CaseHeroProps) {
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
+  const imageSrc = project.image ?? '/images/project-placeholder.svg'
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
@@ -19,8 +23,8 @@ export default function CaseHero({ project }: CaseHeroProps) {
       <div className="pointer-events-none absolute right-0 top-8 h-72 w-72 bg-[radial-gradient(circle,rgba(10,14,20,0.5),transparent_65%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full bg-white/5"
-        animate={reduceMotion ? undefined : { y: [0, -16, 0] }}
-        transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        animate={shouldReduce ? undefined : { y: [0, -16, 0] }}
+        transition={shouldReduce ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
       <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+2.5rem)]">
         <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
@@ -64,7 +68,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur">
             <div className="relative aspect-[4/3]">
               <Image
-                src="/images/project-placeholder.svg"
+                src={imageSrc}
                 alt={project.name}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

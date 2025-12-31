@@ -1,7 +1,8 @@
 "use client"
 
 import { RefObject } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 type SectionOrnamentProps = {
   targetRef: RefObject<HTMLElement>
@@ -9,6 +10,8 @@ type SectionOrnamentProps = {
 }
 
 export default function SectionOrnament({ targetRef, variant = 'left' }: SectionOrnamentProps) {
+  const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['start end', 'end start'],
@@ -18,6 +21,8 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
   const yStrong = useTransform(scrollYProgress, [0, 1], [80, -80])
   const opacityStrong = useTransform(scrollYProgress, [0, 0.3, 1], [0, 0.9, 0])
   const x = variant === 'left' ? '-6%' : '6%'
+
+  if (reduceMotion || isCoarse) return null
 
   return (
     <>

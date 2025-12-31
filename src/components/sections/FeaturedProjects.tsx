@@ -7,10 +7,13 @@ import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
   const featured = projects.slice(0, 5)
 
   return (
@@ -44,8 +47,8 @@ export default function FeaturedProjects() {
         </div>
         <motion.div
           className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-3"
-          initial={reduceMotion ? undefined : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'visible'}
+          initial={shouldReduce ? undefined : 'hidden'}
+          whileInView={shouldReduce ? undefined : 'visible'}
           viewport={{ once: true, margin: '-120px' }}
           variants={{
             hidden: { opacity: 0 },
@@ -55,7 +58,7 @@ export default function FeaturedProjects() {
           {featured.map((project) => (
             <motion.div
               key={project.slug}
-              variants={reduceMotion ? undefined : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+              variants={shouldReduce ? undefined : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
             >
               <ProjectCard project={project} />
             </motion.div>

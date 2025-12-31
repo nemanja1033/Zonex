@@ -5,9 +5,12 @@ import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import Reveal from '@/components/ui/Reveal'
 import { site } from '../../../data/site'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 export default function HomeHero() {
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -24])
   const glow = useTransform(scrollYProgress, [0, 0.4], [0, -12])
@@ -19,18 +22,18 @@ export default function HomeHero() {
       <div className="glow-orb right-[6%] bottom-[10%] h-64 w-64 bg-[radial-gradient(circle,rgba(12,18,28,0.6),transparent_70%)]" aria-hidden="true" />
       <motion.div
         className="pointer-events-none absolute left-1/2 top-[-220px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,0.16),transparent_38%,rgba(178,30,42,0.3),transparent_68%,rgba(255,255,255,0.16))] opacity-55 blur-2xl"
-        animate={reduceMotion ? undefined : { rotate: 360 }}
-        transition={reduceMotion ? undefined : { duration: 80, repeat: Infinity, ease: 'linear' }}
+        animate={shouldReduce ? undefined : { rotate: 360 }}
+        transition={shouldReduce ? undefined : { duration: 80, repeat: Infinity, ease: 'linear' }}
         aria-hidden="true"
       />
       <motion.div
         className="pointer-events-none absolute left-[10%] top-[35%] h-64 w-[520px] -skew-y-6 rounded-full bg-[linear-gradient(120deg,rgba(178,30,42,0.18),rgba(12,18,28,0.4),transparent)] opacity-60 blur-3xl"
-        style={{ x: glow }}
+        style={shouldReduce ? undefined : { x: glow }}
         aria-hidden="true"
       />
       <motion.div
         className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-transparent"
-        style={{ y: drift }}
+        style={shouldReduce ? undefined : { y: drift }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />

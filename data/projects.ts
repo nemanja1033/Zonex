@@ -15,6 +15,8 @@ export type Project = {
   summary: string
   highlights: string[]
   focus: FocusBadge[]
+  image?: string
+  images?: Array<{ src: string; alt: string }>
 }
 
 export const projects: Project[] = [
@@ -112,5 +114,13 @@ export const projects: Project[] = [
       'Jasno definisan obim i koordinacija sa timom investitora.',
     ],
     focus: ['Vreme', 'Kvalitet', 'Standardi'],
+    image: '/images/projects/kfc-zrenjanin-01.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin-01.jpg', alt: 'KFC Zrenjanin - gradilište' },
+      { src: '/images/projects/kfc-zrenjanin-02.jpg', alt: 'KFC Zrenjanin - konstrukcija u toku' },
+      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: 'KFC Zrenjanin - fasadni radovi' },
+      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: 'KFC Zrenjanin - završni radovi' },
+      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'KFC Zrenjanin - izrada ploča' },
+    ],
   },
 ]

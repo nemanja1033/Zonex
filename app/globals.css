@@ -638,6 +638,17 @@ body::after {
   }
 }
 
+@media (max-width: 768px) {
+  body::before,
+  body::after,
+  .blueprint-grid::before,
+  .scanline-overlay,
+  .glow-orb,
+  .site-sheen {
+    animation: none;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
     --section-padding: 3.25rem;

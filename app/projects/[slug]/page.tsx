@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Container from '@/components/ui/Container'
@@ -62,6 +63,28 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
               </div>
             </div>
           </Reveal>
+          {project.images?.length ? (
+            <div className="space-y-6">
+              <Reveal>
+                <h2 className="text-h3 font-display text-white">Galerija gradnje</h2>
+              </Reveal>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {project.images.map((image, index) => (
+                  <Reveal key={image.src} delay={index * 0.04}>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_18px_45px_rgba(3,6,12,0.4)]">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          ) : null}
           <div className="space-y-6">
             <Reveal>
               <h2 className="text-h3 font-display text-white">Povezani projekti</h2>

@@ -11,6 +11,7 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const reduceMotion = useReducedMotion()
+  const imageSrc = project.image ?? '/images/project-placeholder.svg'
 
   return (
     <motion.div
@@ -21,7 +22,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src="/images/project-placeholder.svg"
+          src={imageSrc}
           alt={project.name}
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
