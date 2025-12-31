@@ -13,15 +13,34 @@ type RevealProps = {
 export default function Reveal({ children, delay = 0, className = '' }: RevealProps) {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
+  const shouldReduce = reduceMotion
+  const isLite = isCoarse && !reduceMotion
 
   return (
     <motion.div
       className={className}
-      initial={shouldReduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
-      whileInView={shouldReduce ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, scale: 1 }}
+      initial={
+        shouldReduce
+          ? { opacity: 1, y: 0 }
+          : isLite
+            ? { opacity: 0, y: 10 }
+            : { opacity: 0, y: 24, scale: 0.98 }
+      }
+      whileInView={
+        shouldReduce
+          ? { opacity: 1, y: 0 }
+          : isLite
+            ? { opacity: 1, y: 0 }
+            : { opacity: 1, y: 0, scale: 1 }
+      }
       viewport={{ once: true, margin: '-120px' }}
-      transition={shouldReduce ? { duration: 0 } : { duration: 0.75, delay, ease: [0.32, 0.72, 0, 1] }}
+      transition={
+        shouldReduce
+          ? { duration: 0 }
+          : isLite
+            ? { duration: 0.35, delay: Math.min(delay, 0.1), ease: [0.22, 0.72, 0, 1] }
+            : { duration: 0.75, delay, ease: [0.32, 0.72, 0, 1] }
+      }
     >
       {children}
     </motion.div>

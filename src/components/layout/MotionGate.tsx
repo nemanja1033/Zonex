@@ -11,5 +11,5 @@ type MotionGateProps = {
 export default function MotionGate({ children }: MotionGateProps) {
   const isCoarse = useCoarsePointer()
 
-  return <MotionConfig reducedMotion={isCoarse ? 'always' : 'never'}>{children}</MotionConfig>
+  return <MotionConfig reducedMotion={isCoarse ? 'user' : 'never'}>{children}</MotionConfig>
 }

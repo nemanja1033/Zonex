@@ -16,7 +16,9 @@ const types = [
 export default function ProjectsGrid() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
+  const shouldReduce = reduceMotion
+  const disableLayout = reduceMotion || isCoarse
+  const isLite = isCoarse && !reduceMotion
   const [type, setType] = useState('All')
   const [location, setLocation] = useState('All')
 
@@ -36,25 +38,37 @@ export default function ProjectsGrid() {
   return (
     <div className="space-y-10">
       <motion.div
-        layout={!shouldReduce}
+        layout={!disableLayout}
         className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
-        initial={shouldReduce ? undefined : { opacity: 0, y: 12 }}
+        initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 8 } : { opacity: 0, y: 12 }}
         animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
-        transition={shouldReduce ? { duration: 0 } : { duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+        transition={
+          shouldReduce
+            ? { duration: 0 }
+            : isLite
+              ? { duration: 0.3, ease: [0.22, 0.72, 0, 1] }
+              : { duration: 0.5, ease: [0.32, 0.72, 0, 1] }
+        }
       >
         <FilterGroup label="Tip" items={types} value={type} onChange={setType} />
         <FilterGroup label="Lokacija" items={locations} value={location} onChange={setLocation} />
       </motion.div>
-      <motion.div layout={!shouldReduce} className="grid gap-8 md:grid-cols-2">
+      <motion.div layout={!disableLayout} className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode={shouldReduce ? 'sync' : 'popLayout'}>
           {filtered.map((project) => (
             <motion.div
               key={project.slug}
-              layout={!shouldReduce}
-              initial={shouldReduce ? undefined : { opacity: 0, y: 24 }}
+              layout={!disableLayout}
+              initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24 }}
               animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
-              exit={shouldReduce ? undefined : { opacity: 0, y: 24 }}
-              transition={shouldReduce ? { duration: 0 } : { duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+              exit={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24 }}
+              transition={
+                shouldReduce
+                  ? { duration: 0 }
+                  : isLite
+                    ? { duration: 0.3, ease: [0.22, 0.72, 0, 1] }
+                    : { duration: 0.45, ease: [0.32, 0.72, 0, 1] }
+              }
             >
               <ProjectCard project={project} />
             </motion.div>

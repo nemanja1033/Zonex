@@ -13,12 +13,13 @@ type ProjectCardProps = {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
+  const shouldReduce = reduceMotion
+  const disableLayout = reduceMotion || isCoarse
   const imageSrc = project.image ?? '/images/project-placeholder.svg'
 
   return (
     <motion.div
-      layout={!shouldReduce}
+      layout={!disableLayout}
       whileHover={shouldReduce ? undefined : { y: -8 }}
       transition={shouldReduce ? { duration: 0 } : { duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
       className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur"

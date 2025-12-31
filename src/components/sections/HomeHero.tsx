@@ -10,7 +10,8 @@ import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 export default function HomeHero() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
+  const shouldReduce = reduceMotion
+  const isLite = isCoarse && !reduceMotion
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -24])
   const glow = useTransform(scrollYProgress, [0, 0.4], [0, -12])
@@ -47,31 +48,31 @@ export default function HomeHero() {
                 animate={shouldReduce ? undefined : 'visible'}
                 variants={{
                   hidden: {},
-                  visible: { transition: { staggerChildren: 0.08 } },
+                  visible: { transition: { staggerChildren: isLite ? 0.05 : 0.08 } },
                 }}
               >
                 <motion.div
                   className="flex items-center gap-3 text-micro font-mono uppercase tracking-micro text-white/70"
-                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
                 >
                   <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
                   Od 1993. godine
                 </motion.div>
                 <motion.h1
                   className="text-h1 font-display text-white"
-                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {site.hero.title}
                 </motion.h1>
                 <motion.p
                   className="max-w-xl text-body text-white/85"
-                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {site.hero.subtitle}
                 </motion.p>
                 <motion.div
                   className="flex flex-col items-stretch gap-4 pt-4 sm:flex-row sm:items-center sm:gap-6"
-                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
                 >
                   <Button href="/projects" className="w-full justify-center sm:w-auto">
                     Naši projekti

@@ -13,7 +13,8 @@ export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
+  const shouldReduce = reduceMotion
+  const isLite = isCoarse && !reduceMotion
   const featured = projects.slice(0, 5)
 
   return (
@@ -52,13 +53,17 @@ export default function FeaturedProjects() {
           viewport={{ once: true, margin: '-120px' }}
           variants={{
             hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+            visible: { opacity: 1, transition: { staggerChildren: isLite ? 0.06 : 0.12 } },
           }}
         >
           {featured.map((project) => (
             <motion.div
               key={project.slug}
-              variants={shouldReduce ? undefined : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+              variants={
+                shouldReduce
+                  ? undefined
+                  : { hidden: { opacity: 0, y: isLite ? 8 : 16 }, visible: { opacity: 1, y: 0 } }
+              }
             >
               <ProjectCard project={project} />
             </motion.div>
