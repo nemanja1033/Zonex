@@ -35,8 +35,8 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
         </div>
         <motion.h1
           className="mt-4 hero-title"
-          initial={shouldReduce ? undefined : { opacity: 0, y: 18, filter: 'blur(6px)' }}
-          animate={shouldReduce ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={shouldReduce ? undefined : { opacity: 0, y: 18 }}
+          animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
         >
           {title}

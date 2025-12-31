@@ -51,9 +51,9 @@ export default function ProjectsGrid() {
             <motion.div
               key={project.slug}
               layout={!shouldReduce}
-              initial={shouldReduce ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
-              animate={shouldReduce ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={shouldReduce ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
+              initial={shouldReduce ? undefined : { opacity: 0, y: 24 }}
+              animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
+              exit={shouldReduce ? undefined : { opacity: 0, y: 24 }}
               transition={shouldReduce ? { duration: 0 } : { duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
             >
               <ProjectCard project={project} />
