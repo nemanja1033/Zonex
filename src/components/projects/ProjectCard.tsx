@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Project } from '../../../data/projects'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 type ProjectCardProps = {
   project: Project
@@ -11,13 +12,15 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
   const imageSrc = project.image ?? '/images/project-placeholder.svg'
 
   return (
     <motion.div
-      layout
-      whileHover={reduceMotion ? undefined : { y: -8 }}
-      transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+      layout={!shouldReduce}
+      whileHover={shouldReduce ? undefined : { y: -8 }}
+      transition={shouldReduce ? { duration: 0 } : { duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
       className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur"
     >
       <div className="relative aspect-[4/3] overflow-hidden">

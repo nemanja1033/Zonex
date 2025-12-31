@@ -640,12 +640,33 @@ body::after {
 
 @media (max-width: 768px) {
   body::before,
+  body::after {
+    opacity: 0;
+    filter: none;
+  }
+
+  .site-noise {
+    display: none;
+  }
+
+  .scanline-overlay {
+    display: none;
+  }
+
+  body::before,
   body::after,
   .blueprint-grid::before,
-  .scanline-overlay,
   .glow-orb,
   .site-sheen {
     animation: none;
+  }
+
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl {
+    backdrop-filter: none !important;
   }
 }
 

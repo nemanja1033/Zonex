@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 type PageHeaderProps = {
   eyebrow: string
@@ -11,6 +12,8 @@ type PageHeaderProps = {
 
 export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
 
   return (
     <section className="page-hero blueprint-grid">
@@ -32,8 +35,8 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
         </div>
         <motion.h1
           className="mt-4 hero-title"
-          initial={reduceMotion ? undefined : { opacity: 0, y: 18, filter: 'blur(6px)' }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={shouldReduce ? undefined : { opacity: 0, y: 18, filter: 'blur(6px)' }}
+          animate={shouldReduce ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
         >
           {title}
@@ -41,8 +44,8 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
         {subtitle ? (
           <motion.p
             className="mt-4 max-w-2xl hero-copy"
-            initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            initial={shouldReduce ? undefined : { opacity: 0, y: 18 }}
+            animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
           >
             {subtitle}

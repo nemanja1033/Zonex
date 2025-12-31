@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
 const types = [
   { label: 'Svi', value: 'All' },
@@ -14,6 +15,8 @@ const types = [
 
 export default function ProjectsGrid() {
   const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const shouldReduce = reduceMotion || isCoarse
   const [type, setType] = useState('All')
   const [location, setLocation] = useState('All')
 
@@ -33,25 +36,25 @@ export default function ProjectsGrid() {
   return (
     <div className="space-y-10">
       <motion.div
-        layout
+        layout={!shouldReduce}
         className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
-        initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
-        animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+        initial={shouldReduce ? undefined : { opacity: 0, y: 12 }}
+        animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
+        transition={shouldReduce ? { duration: 0 } : { duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
       >
         <FilterGroup label="Tip" items={types} value={type} onChange={setType} />
         <FilterGroup label="Lokacija" items={locations} value={location} onChange={setLocation} />
       </motion.div>
-      <motion.div layout className="grid gap-8 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
+      <motion.div layout={!shouldReduce} className="grid gap-8 md:grid-cols-2">
+        <AnimatePresence mode={shouldReduce ? 'sync' : 'popLayout'}>
           {filtered.map((project) => (
             <motion.div
               key={project.slug}
-              layout
-              initial={reduceMotion ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
-              animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
-              transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+              layout={!shouldReduce}
+              initial={shouldReduce ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
+              animate={shouldReduce ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={shouldReduce ? undefined : { opacity: 0, y: 24, filter: 'blur(6px)' }}
+              transition={shouldReduce ? { duration: 0 } : { duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
             >
               <ProjectCard project={project} />
             </motion.div>
