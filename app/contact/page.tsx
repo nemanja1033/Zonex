@@ -11,7 +11,7 @@ export default function ContactPage() {
       />
       <section className="section-divider section section-surface">
         <Container className="grid gap-10 md:grid-cols-[1.2fr_0.8fr]">
-          <form className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur">
+          <form className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur md:p-8">
             <div>
               <label className="text-micro font-mono uppercase tracking-micro text-white/60">Ime i kompanija</label>
               <input
@@ -37,7 +37,7 @@ export default function ContactPage() {
               Pošalji upit
             </button>
           </form>
-          <div className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_20px_50px_rgba(3,6,12,0.45)] backdrop-blur">
+          <div className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_50px_rgba(3,6,12,0.45)] backdrop-blur md:p-8">
             <div>
               <p className="text-micro font-mono uppercase tracking-micro text-white/60">Email</p>
               <p className="mt-2 text-small text-white/80">office@zonex.rs</p>

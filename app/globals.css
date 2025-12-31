@@ -70,6 +70,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   @apply bg-[var(--navy-900)] text-[var(--text-dark)] antialiased font-body;
   font-feature-settings: "kern";
@@ -626,13 +632,27 @@ body::after {
 @media (max-width: 1024px) {
   :root {
     --section-padding: 4.5rem;
+    --h1-size: clamp(2.8rem, 6vw, 4.2rem);
+    --h2-size: clamp(2rem, 4.2vw, 2.8rem);
+    --h3-size: clamp(1.5rem, 3.2vw, 2rem);
   }
 }
 
 @media (max-width: 640px) {
   :root {
-    --section-padding: 3.5rem;
-    --container-padding: 1.25rem;
+    --section-padding: 3.25rem;
+    --container-padding: 1.1rem;
+    --h1-size: clamp(2.2rem, 7.6vw, 3.1rem);
+    --h2-size: clamp(1.7rem, 6vw, 2.3rem);
+    --h3-size: clamp(1.35rem, 4.4vw, 1.8rem);
+    --h4-size: clamp(1.1rem, 3.6vw, 1.35rem);
+    --body-size: 0.98rem;
+    --small-size: 0.92rem;
+    --micro-size: 0.78rem;
+  }
+
+  .input-field {
+    font-size: 1rem;
   }
 }
 

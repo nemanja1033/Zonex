@@ -54,7 +54,7 @@ export default function Navbar() {
         </nav>
         <button
           type="button"
-          className="md:hidden text-micro font-mono uppercase tracking-micro text-white/70"
+          className="md:hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-micro font-mono uppercase tracking-micro text-white/80 transition-colors hover:text-white"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -72,7 +72,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
             className="md:hidden border-t border-white/10 bg-[rgba(7,10,15,0.95)] backdrop-blur"
           >
-            <Container className="flex flex-col gap-4 py-6 text-micro font-mono uppercase tracking-micro text-white/70">
+            <Container className="flex flex-col gap-3 py-6 text-micro font-mono uppercase tracking-micro text-white/70">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
                 return (
@@ -80,7 +80,9 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     prefetch
-                    className={`flex items-center gap-3 ${isActive ? 'text-white' : 'hover:text-white'}`}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
+                      isActive ? 'bg-white/5 text-white' : 'hover:bg-white/5 hover:text-white'
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
                     <span

@@ -22,8 +22,8 @@ export default function CaseHero({ project }: CaseHeroProps) {
         animate={reduceMotion ? undefined : { y: [0, -16, 0] }}
         transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <Container className="relative z-10 py-[calc(var(--section-padding)+2.5rem)]">
-        <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+      <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+2.5rem)]">
+        <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-4 text-micro font-mono uppercase tracking-micro text-white/70">
               <span>{project.location}</span>

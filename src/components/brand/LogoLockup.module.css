@@ -72,3 +72,26 @@
   font-size: 1.05rem;
 }
 
+@media (max-width: 520px) {
+  .sm .primary,
+  .sm .secondary {
+    font-size: 0.8rem;
+  }
+
+  .sm .primary {
+    letter-spacing: 0.14em;
+  }
+
+  .sm .secondary {
+    letter-spacing: 0.18em;
+  }
+
+  .sm .rule {
+    width: 24px;
+  }
+
+  .sm .sub {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+  }
+}

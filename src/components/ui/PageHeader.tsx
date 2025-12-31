@@ -24,8 +24,8 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
         transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
-      <Container className="relative z-10 py-[calc(var(--section-padding)+2.5rem)]">
-        <div className="flex items-center gap-4">
+      <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+2.5rem)]">
+        <div className="flex flex-wrap items-center gap-4">
           <span className="section-number text-white/80">01</span>
           <span className="section-rule bg-white/60" />
           <p className="eyebrow-light">{eyebrow}</p>

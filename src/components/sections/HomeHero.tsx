@@ -34,8 +34,8 @@ export default function HomeHero() {
         aria-hidden="true"
       />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
-      <Container className="relative z-10 py-[calc(var(--section-padding)+3.5rem)]">
-        <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+      <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
+        <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-8">
             <Reveal>
               <motion.div
@@ -50,9 +50,11 @@ export default function HomeHero() {
                 </div>
                 <h1 className="text-h1 font-display text-white">{site.hero.title}</h1>
                 <p className="max-w-xl text-body text-white/85">{site.hero.subtitle}</p>
-                <div className="flex flex-wrap items-center gap-6 pt-4">
-                  <Button href="/projects">Naši projekti</Button>
-                  <Button href="/contact" variant="ghost">
+                <div className="flex flex-col items-stretch gap-4 pt-4 sm:flex-row sm:items-center sm:gap-6">
+                  <Button href="/projects" className="w-full justify-center sm:w-auto">
+                    Naši projekti
+                  </Button>
+                  <Button href="/contact" variant="ghost" className="w-full justify-center sm:w-auto">
                     Kontaktirajte tim
                   </Button>
                 </div>

@@ -31,7 +31,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="space-y-5 border-l border-white/10 pl-6 text-small text-white/85">
+          <div className="space-y-5 border-l-0 pl-0 text-small text-white/85 md:border-l md:pl-6">
             <div>
               <p className="eyebrow-light">Naziv</p>
               <p>{site.company.name}</p>

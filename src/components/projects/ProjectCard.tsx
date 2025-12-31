@@ -29,14 +29,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           priority={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#070A0F] via-transparent to-transparent" />
-        <div className="absolute left-6 top-6 text-micro font-mono uppercase tracking-micro text-white/70">
+        <div className="absolute left-4 top-4 text-micro font-mono uppercase tracking-micro text-white/70 md:left-6 md:top-6">
           {project.category}
         </div>
-        <div className="absolute right-6 top-6 text-micro font-mono uppercase tracking-micro text-white/70">
+        <div className="absolute right-4 top-4 text-micro font-mono uppercase tracking-micro text-white/70 md:right-6 md:top-6">
           {project.timeline}
         </div>
       </div>
-      <div className="space-y-4 p-6">
+      <div className="space-y-4 p-5 md:p-6">
         <div>
           <p className="text-micro font-mono uppercase tracking-micro text-white/60">Projekat</p>
           <h3 className="mt-2 font-display text-h3 text-white">{project.name}</h3>

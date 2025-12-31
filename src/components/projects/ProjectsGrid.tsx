@@ -34,7 +34,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout
-        className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-6 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur"
+        className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
         initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
         animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
@@ -78,7 +78,7 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
           <button
             key={item.value}
             onClick={() => onChange(item.value)}
-            className={`rounded-full border px-4 py-1.5 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent ${
+            className={`rounded-full border px-3 py-2 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent sm:px-4 sm:py-1.5 ${
               value === item.value
                 ? 'border-[rgba(178,30,42,0.7)] bg-[linear-gradient(135deg,rgba(178,30,42,0.15),rgba(12,12,14,0.2))] text-white shadow-[0_8px_20px_rgba(178,30,42,0.22)]'
                 : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'

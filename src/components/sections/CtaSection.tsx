@@ -30,7 +30,9 @@ export default function CtaSection() {
             </div>
           </Reveal>
           <Reveal delay={0.1} className="flex items-center justify-start md:justify-end">
-            <Button href="/contact">Započnite razgovor</Button>
+            <Button href="/contact" className="w-full justify-center sm:w-auto">
+              Započnite razgovor
+            </Button>
           </Reveal>
         </div>
       </Container>
