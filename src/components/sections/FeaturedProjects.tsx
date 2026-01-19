@@ -8,6 +8,7 @@ import { projects } from '../../../data/projects'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import SignalStrip from '@/components/ui/SignalStrip'
 
 export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -29,6 +30,9 @@ export default function FeaturedProjects() {
         aria-hidden="true"
       />
       <Container>
+        <Reveal>
+          <SignalStrip className="mb-8" />
+        </Reveal>
         <div className="section-head">
           <Reveal>
             <div>

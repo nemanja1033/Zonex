@@ -5,6 +5,7 @@ import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
+import SignalStrip from '@/components/ui/SignalStrip'
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -17,6 +18,9 @@ export default function ProcessSection() {
         aria-hidden="true"
       />
       <Container>
+        <Reveal>
+          <SignalStrip className="mb-8" />
+        </Reveal>
         <div className="section-head">
           <Reveal>
             <div>
@@ -36,7 +40,7 @@ export default function ProcessSection() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-4">
           {site.process.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.05}>
+            <Reveal key={step.title} delay={index * 0.05} variant="fadeUp">
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_45px_rgba(3,6,12,0.45)] transition-transform duration-300 hover:-translate-y-1">
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.75),rgba(255,255,255,0.35),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="flex items-center gap-3">

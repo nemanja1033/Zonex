@@ -19,6 +19,7 @@ export default function HomeHero() {
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <div className="scanline-overlay" aria-hidden="true" />
+      <div className="hero-signal-grid" aria-hidden="true" />
       <div className="glow-orb left-[8%] top-[12%] h-44 w-44 bg-[radial-gradient(circle,rgba(178,30,42,0.28),transparent_68%)]" aria-hidden="true" />
       <div className="glow-orb right-[6%] bottom-[10%] h-64 w-64 bg-[radial-gradient(circle,rgba(12,18,28,0.6),transparent_70%)]" aria-hidden="true" />
       <motion.div
@@ -41,7 +42,7 @@ export default function HomeHero() {
       <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
         <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-8">
-            <Reveal>
+            <Reveal variant="fadeUp">
               <motion.div
                 className="space-y-5"
                 initial={shouldReduce ? undefined : 'hidden'}
@@ -84,7 +85,7 @@ export default function HomeHero() {
               </motion.div>
             </Reveal>
           </div>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="scaleIn">
             <motion.div
               className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur"
               initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}

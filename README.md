@@ -74,6 +74,19 @@ Zonex/
 - ✅ Responsive design
 - ✅ Smooth animations with Framer Motion
 
+## Upgrade Plan (Dark Engineering Pass)
+- Audit routing (App Router), styling (Tailwind + globals.css), layout components, and motion stack.
+- Introduce new dark theme tokens (`--bg`, `--surface-*`, `--text`, `--muted`, `--stroke`, `--accent`) and map legacy tokens.
+- Add a motion system layer: IO-based `Reveal`, route transitions with progress bar, reduced-motion handling.
+- Refresh key components (nav, hero, cards, filters, contact) for premium black surfaces and red accents.
+- Apply signature signal/divider treatments and staggered reveals across Home/Projects/Services/Company.
+
+## QA Checklist
+- Keyboard navigation and focus states (nav + form).
+- Mobile menu opens/closes + ESC works.
+- Reduced-motion disables parallax and heavy effects.
+- No console errors; headings remain semantic.
+
 ## Build
 
 ```bash
@@ -86,6 +99,5 @@ npm run build
 - White space and hierarchy do the heavy lifting
 - Everything feels "built", not "decorated"
 - Alternating navy and light grey sections for visual rhythm
-
 
 

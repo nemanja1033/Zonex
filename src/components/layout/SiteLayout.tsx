@@ -1,9 +1,11 @@
 import { ReactNode } from 'react'
+import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageTransition from '@/components/layout/PageTransition'
-import CursorAura from '@/components/ui/CursorAura'
 import MotionGate from '@/components/layout/MotionGate'
+
+const CursorAura = dynamic(() => import('@/components/ui/CursorAura'), { ssr: false })
 
 type SiteLayoutProps = {
   children: ReactNode

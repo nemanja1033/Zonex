@@ -14,6 +14,8 @@ type PageProps = {
 export default function ProjectCaseStudyPage({ params }: PageProps) {
   const project = projects.find((item) => item.slug === params.slug)
   if (!project) return notFound()
+  const blurDataURL =
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMEIwRDEyIi8+PC9zdmc+'
 
   const related = projects.filter((item) => item.slug !== project.slug).slice(0, 3)
   const currentIndex = projects.findIndex((item) => item.slug === project.slug)
@@ -78,6 +80,8 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
                         fill
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                         className="object-cover"
+                        placeholder="blur"
+                        blurDataURL={blurDataURL}
                       />
                     </div>
                   </Reveal>

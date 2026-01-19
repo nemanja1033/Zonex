@@ -18,6 +18,7 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
   return (
     <section className="page-hero blueprint-grid">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,rgba(178,30,42,0.9),rgba(255,255,255,0.3),transparent)]" />
+      <div className="hero-signal-grid" aria-hidden="true" />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(178,30,42,0.4),transparent_70%)]" aria-hidden="true" />
       <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-[radial-gradient(circle,rgba(12,18,28,0.55),transparent_65%)]" aria-hidden="true" />

@@ -55,7 +55,7 @@ export default function ProjectsGrid() {
       </motion.div>
       <motion.div layout={!disableLayout} className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode={shouldReduce ? 'sync' : 'popLayout'}>
-          {filtered.map((project) => (
+          {filtered.map((project, index) => (
             <motion.div
               key={project.slug}
               layout={!disableLayout}
@@ -66,8 +66,8 @@ export default function ProjectsGrid() {
                 shouldReduce
                   ? { duration: 0 }
                   : isLite
-                    ? { duration: 0.3, ease: [0.22, 0.72, 0, 1] }
-                    : { duration: 0.45, ease: [0.32, 0.72, 0, 1] }
+                    ? { duration: 0.3, delay: Math.min(index * 0.04, 0.2), ease: [0.22, 0.72, 0, 1] }
+                    : { duration: 0.45, delay: Math.min(index * 0.05, 0.25), ease: [0.32, 0.72, 0, 1] }
               }
             >
               <ProjectCard project={project} />
@@ -90,18 +90,25 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
   return (
     <div>
       <p className="text-micro font-mono uppercase tracking-micro text-white/60">{label}</p>
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-3 segmented-control" role="group" aria-label={`${label} filter`}>
         {items.map((item) => (
           <button
             key={item.value}
+            type="button"
             onClick={() => onChange(item.value)}
-            className={`rounded-full border px-3 py-2 text-micro font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent sm:px-4 sm:py-1.5 ${
-              value === item.value
-                ? 'border-[rgba(178,30,42,0.7)] bg-[linear-gradient(135deg,rgba(178,30,42,0.15),rgba(12,12,14,0.2))] text-white shadow-[0_8px_20px_rgba(178,30,42,0.22)]'
-                : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+            aria-pressed={value === item.value}
+            className={`segmented-pill relative overflow-hidden border border-transparent px-3 py-2 font-mono uppercase tracking-micro transition-all focus:outline-none focus:ring-1 focus:ring-accent sm:px-4 sm:py-1.5 ${
+              value === item.value ? 'segmented-pill--active text-white' : 'text-white/70 hover:text-white'
             }`}
           >
-            {item.label}
+            {value === item.value && (
+              <motion.span
+                layoutId={`segmented-${label}`}
+                className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(178,30,42,0.25),rgba(12,12,14,0.25))] shadow-[0_8px_20px_rgba(178,30,42,0.25)]"
+                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+              />
+            )}
+            <span className="relative z-10">{item.label}</span>
           </button>
         ))}
       </div>

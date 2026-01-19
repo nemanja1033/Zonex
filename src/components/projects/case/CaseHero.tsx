@@ -15,6 +15,8 @@ export default function CaseHero({ project }: CaseHeroProps) {
   const isCoarse = useCoarsePointer()
   const shouldReduce = reduceMotion || isCoarse
   const imageSrc = project.image ?? '/images/project-placeholder.svg'
+  const blurDataURL =
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMEIwRDEyIi8+PC9zdmc+'
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
@@ -74,6 +76,8 @@ export default function CaseHero({ project }: CaseHeroProps) {
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
                 priority
+                placeholder="blur"
+                blurDataURL={blurDataURL}
               />
             </div>
             <div className="p-6">

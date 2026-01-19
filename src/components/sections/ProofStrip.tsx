@@ -5,6 +5,7 @@ import Container from '@/components/ui/Container'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import { site } from '../../../data/site'
+import SignalStrip from '@/components/ui/SignalStrip'
 
 export default function ProofStrip() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -17,6 +18,7 @@ export default function ProofStrip() {
         aria-hidden="true"
       />
       <Container className="py-[calc(var(--section-padding)-2rem)]">
+        <SignalStrip className="mb-8" />
         <div className="grid gap-8 md:grid-cols-[0.9fr_1.6fr] md:items-center">
           <Reveal>
             <div className="space-y-4">
@@ -33,7 +35,7 @@ export default function ProofStrip() {
           </Reveal>
           <div className="grid gap-4 md:grid-cols-4">
             {site.stats.map((proof, index) => (
-              <Reveal key={proof.label} delay={index * 0.05}>
+              <Reveal key={proof.label} delay={index * 0.05} variant="scaleIn">
                 <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_40px_rgba(3,6,12,0.4)] backdrop-blur">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.25),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <p className="text-micro font-mono uppercase tracking-micro text-white/60">{proof.label}</p>

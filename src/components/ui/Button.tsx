@@ -17,7 +17,22 @@ export default function Button({ children, href, variant = 'primary', className 
   const springY = useSpring(magnetY, { stiffness: 220, damping: 16 })
   const styles = variant === 'primary' ? 'button-primary' : 'button-ghost'
 
-  const classes = `group inline-flex items-center gap-3 font-mono text-micro uppercase tracking-micro ${styles} ${className}`
+  const classes = `group inline-flex items-center gap-3 font-mono text-micro uppercase tracking-micro focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] ${styles} ${className}`
+
+  const content = (
+    <>
+      <span>{children}</span>
+      <span
+        className="inline-flex h-3 w-3 items-center justify-center transition-transform duration-300 group-hover:translate-x-1"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M3.5 8h9" strokeLinecap="round" />
+          <path d="M9 4.5L12.5 8 9 11.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    </>
+  )
 
   const handleMove = (event: MouseEvent<HTMLElement>) => {
     if (reduceMotion) return
@@ -47,7 +62,7 @@ export default function Button({ children, href, variant = 'primary', className 
     return (
       <Wrapper {...wrapperProps}>
         <Link href={href} className={classes}>
-          {children}
+          {content}
         </Link>
       </Wrapper>
     )
@@ -55,7 +70,7 @@ export default function Button({ children, href, variant = 'primary', className 
 
   return (
     <Wrapper {...wrapperProps}>
-      <button className={classes}>{children}</button>
+      <button className={classes}>{content}</button>
     </Wrapper>
   )
 }

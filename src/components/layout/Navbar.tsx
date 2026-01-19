@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Container from '@/components/ui/Container'
 import LogoLockup from '@/components/brand/LogoLockup'
 
@@ -18,6 +19,44 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const mobileNavRef = useRef<HTMLElement | null>(null)
+  const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    firstLinkRef.current?.focus()
+    document.body.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
+
+  const handleTrap = (event: ReactKeyboardEvent<HTMLElement>) => {
+    if (event.key !== 'Tab') return
+    const focusable = mobileNavRef.current?.querySelectorAll<HTMLElement>('a[href], button')
+    if (!focusable || focusable.length === 0) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(7,10,15,0.85)] backdrop-blur">
@@ -66,11 +105,13 @@ export default function Navbar() {
         {isOpen && (
           <motion.nav
             id="mobile-nav"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+            ref={mobileNavRef}
+            initial={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
             className="md:hidden border-t border-white/10 bg-[rgba(7,10,15,0.95)] backdrop-blur"
+            onKeyDown={handleTrap}
           >
             <Container className="flex flex-col gap-3 py-6 text-micro font-mono uppercase tracking-micro text-white/70">
               {navItems.map((item) => {
@@ -84,6 +125,7 @@ export default function Navbar() {
                       isActive ? 'bg-white/5 text-white' : 'hover:bg-white/5 hover:text-white'
                     }`}
                     onClick={() => setIsOpen(false)}
+                    ref={item.href === navItems[0].href ? firstLinkRef : undefined}
                   >
                     <span
                       className={`h-2 w-2 rounded-full border border-white/30 ${isActive ? 'bg-[var(--accent)]' : ''}`}
