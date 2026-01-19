@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Container from '@/components/ui/Container'
 import CaseHero from '@/components/projects/case/CaseHero'
 import ProjectCard from '@/components/projects/ProjectCard'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import { projects } from '../../../data/projects'
 
 type PageProps = {

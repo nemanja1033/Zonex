@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import type { Project } from '../../../data/projects'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import { useEffect, useRef, useState } from 'react'
@@ -23,6 +23,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const cardRef = useRef<HTMLDivElement | null>(null)
   const rafRef = useRef<number | null>(null)
+  const tiltX = useMotionValue(0)
+  const tiltY = useMotionValue(0)
+  const rotateX = useSpring(tiltX, { stiffness: 140, damping: 18 })
+  const rotateY = useSpring(tiltY, { stiffness: 140, damping: 18 })
 
   const handleMove = (event: MouseEvent<HTMLDivElement>) => {
     if (shouldReduce || isCoarse) return
@@ -30,10 +34,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     const rect = cardRef.current.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
+    const normX = (x / rect.width - 0.5) * 2
+    const normY = (y / rect.height - 0.5) * 2
     if (rafRef.current) return
     rafRef.current = window.requestAnimationFrame(() => {
       cardRef.current?.style.setProperty('--card-x', `${x}px`)
       cardRef.current?.style.setProperty('--card-y', `${y}px`)
+      tiltX.set(normY * -4)
+      tiltY.set(normX * 4)
       rafRef.current = null
     })
   }
@@ -42,6 +50,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     if (!cardRef.current) return
     cardRef.current.style.setProperty('--card-x', '50%')
     cardRef.current.style.setProperty('--card-y', '50%')
+    tiltX.set(0)
+    tiltY.set(0)
   }
 
   useEffect(() => {
@@ -61,6 +71,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       ref={cardRef}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
+      style={
+        shouldReduce
+          ? undefined
+          : { rotateX, rotateY, transformStyle: 'preserve-3d' }
+      }
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {!imageLoaded && <div className="absolute inset-0 image-skeleton" aria-hidden="true" />}
@@ -76,12 +91,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           onLoadingComplete={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#070A0F] via-transparent to-transparent" />
-        <div className="absolute left-4 top-4 text-micro font-mono uppercase tracking-micro text-white/70 md:left-6 md:top-6">
-          {project.category}
-        </div>
-        <div className="absolute right-4 top-4 text-micro font-mono uppercase tracking-micro text-white/70 md:right-6 md:top-6">
-          {project.timeline}
-        </div>
       </div>
       <div className="space-y-4 p-5 md:p-6">
         <div>
@@ -96,7 +105,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               <circle cx="8" cy="8" r="5.5" />
               <path d="M8 4.5v3.5l2.5 1.5" strokeLinecap="round" />
             </svg>
-            {project.timeline}
+            Rok: {project.timeline}
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
             <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -104,7 +113,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               <path d="M9.5 6.5l2 1.5-2 1.5" strokeLinecap="round" strokeLinejoin="round" />
               <rect x="2.5" y="5" width="3" height="6" rx="1.2" />
             </svg>
-            {project.delivery}
+            Model: {project.delivery}
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
             <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -112,11 +121,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               <path d="M4 5.5h8v6H4z" />
               <path d="M6 2.5v2M10 2.5v2" strokeLinecap="round" />
             </svg>
-            {project.opened}
+            Datum: {project.opened}
           </span>
         </div>
         <div className="flex flex-wrap gap-2">
-          {project.focus.map((badge) => (
+          {project.focus.slice(0, 2).map((badge) => (
             <span
               key={badge}
               className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-micro font-mono uppercase tracking-micro text-white/70"

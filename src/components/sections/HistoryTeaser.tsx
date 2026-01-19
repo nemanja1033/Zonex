@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { timeline } from '@/content/content'
 import Link from 'next/link'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function HistoryTeaser() {

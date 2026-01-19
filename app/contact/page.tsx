@@ -1,7 +1,7 @@
 import Container from '@/components/ui/Container'
 import PageHeader from '@/components/ui/PageHeader'
 import ContactForm from '@/components/sections/ContactForm'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 
 export default function ContactPage() {
   return (
@@ -13,7 +13,7 @@ export default function ContactPage() {
       />
       <section className="section-divider section section-surface">
         <Container className="grid gap-10 md:grid-cols-[1.2fr_0.8fr]">
-          <Reveal variant="scaleIn">
+          <Reveal variant="scale">
             <ContactForm />
           </Reveal>
           <Reveal delay={0.1} variant="fadeUp">

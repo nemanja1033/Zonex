@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
 import SectionRail from '@/components/ui/SectionRail'
@@ -27,7 +27,7 @@ export default function ServicesSection() {
           <Reveal className="stamp">
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number">02</span>
+                <span className="section-number">03</span>
                 <span className="section-rule" />
                 <span className="eyebrow">Usluge</span>
               </div>

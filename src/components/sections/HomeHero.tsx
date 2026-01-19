@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import { site } from '../../../data/site'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 
@@ -19,6 +19,12 @@ export default function HomeHero() {
   const titleParts = site.hero.title.split(', ')
   const titleLine1 = titleParts[0] ?? site.hero.title
   const titleLine2 = titleParts[1] ?? ''
+  const focusItems = [
+    { label: 'Sedište', value: site.company.location },
+    { label: 'Osnovano', value: String(site.company.founded) },
+    { label: 'Model', value: site.stats[2]?.value ?? 'Ključ u ruke' },
+    { label: 'Fokus', value: 'Rokovi, kvalitet, bezbednost.' },
+  ]
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
@@ -38,6 +44,22 @@ export default function HomeHero() {
         style={shouldReduce ? undefined : { x: glow }}
         aria-hidden="true"
       />
+      <motion.svg
+        className="pointer-events-none absolute left-[6%] top-[18%] hidden h-[360px] w-[520px] text-white/15 md:block"
+        viewBox="0 0 520 360"
+        fill="none"
+        aria-hidden="true"
+      >
+        <motion.path
+          d="M24 40H496V120L472 140H92L68 164V320H24V40Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeDasharray="6 8"
+          initial={shouldReduce ? { pathLength: 1, opacity: 0.4 } : { pathLength: 0, opacity: 0 }}
+          animate={shouldReduce ? { pathLength: 1, opacity: 0.4 } : { pathLength: 1, opacity: 0.8 }}
+          transition={shouldReduce ? { duration: 0 } : { duration: 1.6, ease: [0.32, 0.72, 0, 1] }}
+        />
+      </motion.svg>
       <motion.div
         className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-transparent"
         style={shouldReduce ? undefined : { y: drift }}
@@ -120,7 +142,7 @@ export default function HomeHero() {
               </motion.div>
             </Reveal>
           </div>
-          <Reveal delay={0.1} variant="scaleIn">
+          <Reveal delay={0.1} variant="scale">
             <motion.div
               className="card-surface rounded-3xl p-6 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur"
               initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
@@ -128,17 +150,17 @@ export default function HomeHero() {
               transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
             >
               <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
-                <span>Operativni fokus</span>
-                <span>Stabilna isporuka</span>
+                <span>Kontrolni centar</span>
+                <span>Aktivan nadzor</span>
               </div>
               <div className="mt-6 grid gap-4">
-                {site.values.map((item) => (
-                  <div key={item.title} className="card-surface rounded-2xl p-4">
+                {focusItems.map((item) => (
+                  <div key={item.label} className="card-surface rounded-2xl p-4">
                     <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
-                      <span>{item.title}</span>
-                      <span>Signal</span>
+                      <span>{item.label}</span>
+                      <span>Live</span>
                     </div>
-                    <p className="mt-3 text-small text-white/80">{item.description}</p>
+                    <p className="mt-3 text-small text-white/80">{item.value}</p>
                   </div>
                 ))}
               </div>

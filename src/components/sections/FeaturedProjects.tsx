@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import SignalStrip from '@/components/ui/SignalStrip'
@@ -39,7 +39,7 @@ export default function FeaturedProjects() {
           <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">03</span>
+                <span className="section-number">04</span>
                 <span className="section-rule" />
                 <span className="eyebrow">Naši projekti</span>
               </div>

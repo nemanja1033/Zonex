@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function CtaSection() {
@@ -19,7 +19,7 @@ export default function CtaSection() {
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number text-white/80">06</span>
+                <span className="section-number text-white/80">07</span>
                 <span className="section-rule bg-white/60" />
                 <span className="eyebrow-light">Kontakt</span>
               </div>

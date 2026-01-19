@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import Container from '@/components/ui/Container'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import { site } from '../../../data/site'
 import SignalStrip from '@/components/ui/SignalStrip'

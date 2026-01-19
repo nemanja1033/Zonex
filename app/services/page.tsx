@@ -1,6 +1,6 @@
 import Container from '@/components/ui/Container'
 import PageHeader from '@/components/ui/PageHeader'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SignalStrip from '@/components/ui/SignalStrip'
 import { site } from '../../data/site'
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
             <SignalStrip className="mb-8" />
           </Reveal>
           {site.services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.08} variant={index % 2 === 0 ? 'fadeUp' : 'slideInRight'}>
+            <Reveal key={service.title} delay={index * 0.08} variant={index % 2 === 0 ? 'fadeUp' : 'right'}>
               <div className="card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]">
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.2),rgba(178,30,42,0))]" />
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga</p>

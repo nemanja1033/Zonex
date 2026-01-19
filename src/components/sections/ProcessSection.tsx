@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
-import Reveal from '@/components/ui/Reveal'
+import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
 import SectionRail from '@/components/ui/SectionRail'
@@ -27,7 +27,7 @@ export default function ProcessSection() {
           <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">04</span>
+                <span className="section-number">05</span>
                 <span className="section-rule" />
                 <span className="eyebrow">Proces</span>
               </div>

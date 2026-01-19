@@ -1,4 +1,5 @@
 import HomeHero from '@/components/sections/HomeHero'
+import SignalSection from '@/components/sections/SignalSection'
 import ProofStrip from '@/components/sections/ProofStrip'
 import FeaturedProjects from '@/components/sections/FeaturedProjects'
 import ServicesSection from '@/components/sections/ServicesSection'
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <SignalSection />
       <ProofStrip />
       <ServicesSection />
       <FeaturedProjects />

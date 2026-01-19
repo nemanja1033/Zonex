@@ -1,16 +1,21 @@
 "use client"
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+
+type RevealVariant = 'fadeUp' | 'fadeIn' | 'left' | 'right' | 'scale'
 
 type RevealProps = {
   children: ReactNode
   delay?: number
   className?: string
-  variant?: 'fadeUp' | 'fadeIn' | 'slideInLeft' | 'slideInRight' | 'scaleIn'
+  variant?: RevealVariant
   rootMargin?: string
   once?: boolean
+  stagger?: number
+  'data-reveal'?: RevealVariant
 }
 
 const variantsMap = {
@@ -22,15 +27,15 @@ const variantsMap = {
     hidden: { opacity: 0, filter: 'blur(4px)' },
     visible: { opacity: 1, filter: 'blur(0px)' },
   },
-  slideInLeft: {
+  left: {
     hidden: { opacity: 0, x: -18, filter: 'blur(6px)' },
     visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
   },
-  slideInRight: {
+  right: {
     hidden: { opacity: 0, x: 18, filter: 'blur(6px)' },
     visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
   },
-  scaleIn: {
+  scale: {
     hidden: { opacity: 0, scale: 0.97, filter: 'blur(6px)' },
     visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
   },
@@ -43,13 +48,15 @@ export default function Reveal({
   variant = 'fadeUp',
   rootMargin = '-120px 0px',
   once = true,
+  stagger,
+  'data-reveal': dataReveal,
 }: RevealProps) {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion
-  const isLite = isCoarse && !reduceMotion
+  const shouldReduce = reduceMotion || isCoarse
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
+  const resolvedVariant = dataReveal ?? variant
 
   useEffect(() => {
     if (shouldReduce) {
@@ -92,15 +99,14 @@ export default function Reveal({
               hidden: { opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' },
               visible: { opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' },
             }
-          : variantsMap[variant]
+          : variantsMap[resolvedVariant]
       }
-      transition={
-        shouldReduce
-          ? { duration: 0 }
-          : isLite
-            ? { duration: 0.35, delay: Math.min(delay, 0.12), ease: [0.22, 0.72, 0, 1] }
-            : { duration: 0.7, delay, ease: [0.32, 0.72, 0, 1] }
-      }
+      transition={{
+        duration: shouldReduce ? 0 : 0.65,
+        delay,
+        ease: [0.32, 0.72, 0, 1],
+        staggerChildren: stagger,
+      }}
     >
       {children}
     </motion.div>

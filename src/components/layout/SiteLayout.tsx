@@ -2,8 +2,9 @@ import { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import PageTransition from '@/components/layout/PageTransition'
-import MotionGate from '@/components/layout/MotionGate'
+import MotionProvider from '@/components/motion/MotionProvider'
+import PageTransition from '@/components/motion/PageTransition'
+import RouteProgress from '@/components/motion/RouteProgress'
 
 const CursorAura = dynamic(() => import('@/components/ui/CursorAura'), { ssr: false })
 
@@ -22,11 +23,12 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
       <div className="site-noise" aria-hidden="true" />
       <CursorAura />
       <Navbar />
-      <MotionGate>
+      <MotionProvider>
+        <RouteProgress />
         <PageTransition>
           <main className="relative z-10">{children}</main>
         </PageTransition>
-      </MotionGate>
+      </MotionProvider>
       <Footer />
     </div>
   )

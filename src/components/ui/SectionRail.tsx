@@ -43,6 +43,8 @@ export default function SectionRail({ className = '' }: SectionRailProps) {
       ref={ref}
       className={`section-rail ${active ? 'section-rail--active' : ''} ${className}`}
       aria-hidden="true"
-    />
+    >
+      <span className="section-rail-dot" />
+    </div>
   )
 }
