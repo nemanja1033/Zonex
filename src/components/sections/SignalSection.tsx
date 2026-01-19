@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
 import Reveal from '@/components/motion/Reveal'
 import { site } from '../../../data/site'
 

@@ -5,7 +5,7 @@ import Container from '@/components/ui/Container'
 import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
 
 export default function StandardsSection() {
   const sectionRef = useRef<HTMLElement | null>(null)

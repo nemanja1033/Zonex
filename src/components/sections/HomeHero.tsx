@@ -139,6 +139,17 @@ export default function HomeHero() {
                     Kontaktirajte tim
                   </Button>
                 </motion.div>
+                <motion.div
+                  className="mt-6 grid gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-small text-white/85 sm:grid-cols-3"
+                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
+                >
+                  {site.stats.slice(0, 3).map((item) => (
+                    <div key={item.label}>
+                      <p className="text-micro font-mono uppercase tracking-micro text-white/50">{item.label}</p>
+                      <p className="mt-2 font-display text-h4 text-white">{item.value}</p>
+                    </div>
+                  ))}
+                </motion.div>
               </motion.div>
             </Reveal>
           </div>

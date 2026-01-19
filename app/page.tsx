@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <>
       <HomeHero />
-      <SignalSection />
       <ProofStrip />
+      <SignalSection />
       <ServicesSection />
       <FeaturedProjects />
       <ProcessSection />

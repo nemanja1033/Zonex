@@ -9,7 +9,8 @@ import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
+import Button from '@/components/ui/Button'
 
 export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -17,7 +18,7 @@ export default function FeaturedProjects() {
   const isCoarse = useCoarsePointer()
   const shouldReduce = reduceMotion
   const isLite = isCoarse && !reduceMotion
-  const featured = projects.slice(0, 5)
+  const featured = projects.slice(0, 3)
 
   return (
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
@@ -78,6 +79,11 @@ export default function FeaturedProjects() {
             </motion.div>
           ))}
         </motion.div>
+        <Reveal delay={0.15} className="mt-10 flex items-center justify-start">
+          <Button href="/projects" variant="ghost">
+            Svi projekti
+          </Button>
+        </Reveal>
       </Container>
     </section>
   )

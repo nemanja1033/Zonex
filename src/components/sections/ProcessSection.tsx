@@ -6,7 +6,7 @@ import { site } from '../../../data/site'
 import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -40,22 +40,23 @@ export default function ProcessSection() {
             </p>
           </Reveal>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-4">
-          {site.process.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.08} variant="fadeUp">
-              <div className="group card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_20px_45px_rgba(3,6,12,0.45)] transition-transform duration-300 hover:-translate-y-1">
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.75),rgba(255,255,255,0.35),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-micro font-mono uppercase tracking-micro text-white/70">
-                    0{index + 1}
-                  </span>
-                  <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(178,30,42,0.6),rgba(255,255,255,0.15))]" />
+        <div className="relative mt-12">
+          <div className="pointer-events-none absolute left-4 top-0 h-full w-px bg-white/10" aria-hidden="true" />
+          <div className="space-y-8">
+            {site.process.map((step, index) => (
+              <Reveal key={step.title} delay={index * 0.1} variant="fadeUp">
+                <div className="relative flex gap-6">
+                  <div className="relative z-10 mt-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/5 text-micro font-mono uppercase tracking-micro text-white/70">
+                    {index + 1}
+                  </div>
+                  <div className="card-surface flex-1 rounded-3xl p-6 shadow-[0_20px_45px_rgba(3,6,12,0.45)]">
+                    <h3 className="font-display text-h4 text-white">{step.title}</h3>
+                    <p className="mt-2 text-small text-white/80">{step.description}</p>
+                  </div>
                 </div>
-                <h3 className="mt-4 font-display text-h4 text-white">{step.title}</h3>
-                <p className="mt-2 text-small text-white/80">{step.description}</p>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

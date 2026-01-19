@@ -6,7 +6,7 @@ import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import { site } from '../../../data/site'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
 
 export default function ProofStrip() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -21,32 +21,20 @@ export default function ProofStrip() {
       />
       <Container className="py-[calc(var(--section-padding)-2rem)]">
         <SignalStrip className="mb-8" />
-        <div className="grid gap-8 md:grid-cols-[0.9fr_1.6fr] md:items-center">
-          <Reveal className="stamp">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-micro font-mono uppercase tracking-micro text-muted">
-                <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                Operativni rezime
-              </div>
-              <h2 className="section-title">Operativna stabilnost u brojkama.</h2>
-              <p className="body-muted">
-                Jasni parametri rada, kontrola obima i sistematska isporuka na svim tipovima objekata.
-              </p>
-              <div className="h-[2px] w-28 bg-[linear-gradient(90deg,rgba(178,30,42,0.9),transparent)]" />
-            </div>
-          </Reveal>
-          <div className="grid gap-4 md:grid-cols-4">
-            {site.stats.map((proof, index) => (
-              <Reveal key={proof.label} delay={index * 0.08} variant="scale">
-                <div className="group card-surface relative overflow-hidden rounded-2xl p-5 shadow-[0_18px_40px_rgba(3,6,12,0.4)] backdrop-blur">
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.25),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <p className="text-micro font-mono uppercase tracking-micro text-white/60">{proof.label}</p>
-                  <p className="mt-3 font-display text-h4 text-white">{proof.value}</p>
-                  <div className="mt-4 h-[1px] w-10 bg-[linear-gradient(90deg,rgba(178,30,42,0.8),transparent)]" />
-                </div>
-              </Reveal>
-            ))}
+        <Reveal className="stamp">
+          <div className="flex items-center gap-3 text-micro font-mono uppercase tracking-micro text-muted">
+            <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
+            Operativni rezime
           </div>
+        </Reveal>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {site.stats.map((proof, index) => (
+            <Reveal key={proof.label} delay={index * 0.08} variant="scale">
+              <div className="card-surface rounded-full px-4 py-2 text-small text-white/85 shadow-[0_12px_30px_rgba(3,6,12,0.35)]">
+                <span className="text-white/60">{proof.label}:</span> {proof.value}
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </section>

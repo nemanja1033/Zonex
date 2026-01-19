@@ -6,7 +6,7 @@ import Reveal from '@/components/motion/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import { site } from '../../../data/site'
 import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/ui/SectionRail'
+import SectionRail from '@/components/motion/SectionRail'
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
