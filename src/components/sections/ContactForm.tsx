@@ -62,7 +62,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur md:p-8"
+      className="card-surface space-y-6 rounded-3xl p-6 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur md:p-8"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -91,27 +91,63 @@ export default function ContactForm() {
         error={errors.message}
         shake={shake}
       />
-      <button
-        type="submit"
-        className="flex w-full items-center justify-center gap-3 button-primary py-3 text-micro font-mono uppercase tracking-micro disabled:cursor-not-allowed disabled:opacity-70"
-        disabled={isSubmitting}
-        aria-busy={isSubmitting}
-      >
-        {isSubmitting ? (
-          <>
-            <span className="h-4 w-4 animate-spin rounded-full border border-white/40 border-t-white" aria-hidden="true" />
-            Slanje...
-          </>
-        ) : isSent ? (
-          'Hvala, javicemo se.'
-        ) : (
-          'Pošalji upit'
-        )}
-      </button>
+      <div className="space-y-3">
+        <motion.div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+          <motion.div
+            className="h-full bg-[var(--accent)]"
+            initial={{ scaleX: 0 }}
+            animate={isSubmitting ? { scaleX: 1 } : { scaleX: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 0.72, 0, 1] }}
+            style={{ transformOrigin: 'left' }}
+          />
+        </motion.div>
+        <button
+          type="submit"
+          className="flex w-full items-center justify-center gap-3 button-primary py-3 text-micro font-mono uppercase tracking-micro disabled:cursor-not-allowed disabled:opacity-70"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <span className="h-4 w-4 animate-spin rounded-full border border-white/40 border-t-white" aria-hidden="true" />
+              Slanje...
+            </>
+          ) : isSent ? (
+            <>
+              <motion.svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.35, ease: [0.22, 0.72, 0, 1] }}
+              >
+                <motion.path
+                  d="M5 13l4 4L19 7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.6, ease: [0.22, 0.72, 0, 1] }}
+                />
+              </motion.svg>
+              <motion.span initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                Potvrđeno
+              </motion.span>
+            </>
+          ) : (
+            'Pošalji upit'
+          )}
+        </button>
+      </div>
       <AnimatePresence>
         {isSent && (
           <motion.p
             className="text-small text-white/70"
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}

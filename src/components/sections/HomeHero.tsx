@@ -15,11 +15,16 @@ export default function HomeHero() {
   const { scrollYProgress } = useScroll()
   const drift = useTransform(scrollYProgress, [0, 0.4], [0, -24])
   const glow = useTransform(scrollYProgress, [0, 0.4], [0, -12])
+  const spotlight = useTransform(scrollYProgress, [0, 0.6], [0, 40])
+  const titleParts = site.hero.title.split(', ')
+  const titleLine1 = titleParts[0] ?? site.hero.title
+  const titleLine2 = titleParts[1] ?? ''
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
       <div className="scanline-overlay" aria-hidden="true" />
       <div className="hero-signal-grid" aria-hidden="true" />
+      <motion.div className="hero-spotlight" style={shouldReduce ? undefined : { y: spotlight }} aria-hidden="true" />
       <div className="glow-orb left-[8%] top-[12%] h-44 w-44 bg-[radial-gradient(circle,rgba(178,30,42,0.28),transparent_68%)]" aria-hidden="true" />
       <div className="glow-orb right-[6%] bottom-[10%] h-64 w-64 bg-[radial-gradient(circle,rgba(12,18,28,0.6),transparent_70%)]" aria-hidden="true" />
       <motion.div
@@ -44,7 +49,7 @@ export default function HomeHero() {
           <div className="space-y-8">
             <Reveal variant="fadeUp">
               <motion.div
-                className="space-y-5"
+                className="relative space-y-5"
                 initial={shouldReduce ? undefined : 'hidden'}
                 animate={shouldReduce ? undefined : 'visible'}
                 variants={{
@@ -52,6 +57,16 @@ export default function HomeHero() {
                   visible: { transition: { staggerChildren: isLite ? 0.05 : 0.08 } },
                 }}
               >
+                {!shouldReduce && (
+                  <motion.div
+                    className="hero-scanline"
+                    initial={{ x: '-120%', opacity: 0 }}
+                    animate={{ x: '120%', opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.4, delay: 0.2, ease: [0.22, 0.72, 0, 1] }}
+                    style={{ top: '42%' }}
+                    aria-hidden="true"
+                  />
+                )}
                 <motion.div
                   className="flex items-center gap-3 text-micro font-mono uppercase tracking-micro text-white/70"
                   variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
@@ -61,9 +76,29 @@ export default function HomeHero() {
                 </motion.div>
                 <motion.h1
                   className="text-h1 font-display text-white"
-                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
                 >
-                  {site.hero.title}
+                  <motion.span
+                    className="block"
+                    variants={{
+                      hidden: { opacity: 0, y: isLite ? 8 : 16, filter: 'blur(6px)' },
+                      visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                    }}
+                  >
+                    {titleLine1}
+                    {titleLine2 ? ',' : ''}
+                  </motion.span>
+                  {titleLine2 ? (
+                    <motion.span
+                      className="block"
+                      variants={{
+                        hidden: { opacity: 0, y: isLite ? 8 : 18, filter: 'blur(6px)' },
+                        visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                      }}
+                    >
+                      {titleLine2}
+                    </motion.span>
+                  ) : null}
                 </motion.h1>
                 <motion.p
                   className="max-w-xl text-body text-white/85"
@@ -87,7 +122,7 @@ export default function HomeHero() {
           </div>
           <Reveal delay={0.1} variant="scaleIn">
             <motion.div
-              className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur"
+              className="card-surface rounded-3xl p-6 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur"
               initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
               animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
@@ -98,7 +133,7 @@ export default function HomeHero() {
               </div>
               <div className="mt-6 grid gap-4">
                 {site.values.map((item) => (
-                  <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div key={item.title} className="card-surface rounded-2xl p-4">
                     <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
                       <span>{item.title}</span>
                       <span>Signal</span>

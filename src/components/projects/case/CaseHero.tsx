@@ -67,7 +67,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
               </div>
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur">
+          <div className="card-surface relative overflow-hidden rounded-3xl shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur">
             <div className="relative aspect-[4/3]">
               <Image
                 src={imageSrc}

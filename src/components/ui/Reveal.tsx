@@ -83,6 +83,7 @@ export default function Reveal({
     <motion.div
       ref={ref}
       className={className}
+      data-visible={inView ? 'true' : 'false'}
       initial={shouldReduce ? 'visible' : 'hidden'}
       animate={inView ? 'visible' : 'hidden'}
       variants={

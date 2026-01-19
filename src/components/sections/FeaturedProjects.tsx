@@ -9,6 +9,7 @@ import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import SignalStrip from '@/components/ui/SignalStrip'
+import SectionRail from '@/components/ui/SectionRail'
 
 export default function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -20,6 +21,7 @@ export default function FeaturedProjects() {
 
   return (
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionRail />
       <SectionOrnament targetRef={sectionRef} variant="left" />
       <div
         className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.2),transparent_70%)]"
@@ -34,7 +36,7 @@ export default function FeaturedProjects() {
           <SignalStrip className="mb-8" />
         </Reveal>
         <div className="section-head">
-          <Reveal>
+          <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
                 <span className="section-number">03</span>
@@ -60,13 +62,16 @@ export default function FeaturedProjects() {
             visible: { opacity: 1, transition: { staggerChildren: isLite ? 0.06 : 0.12 } },
           }}
         >
-          {featured.map((project) => (
+          {featured.map((project, index) => (
             <motion.div
               key={project.slug}
               variants={
                 shouldReduce
                   ? undefined
-                  : { hidden: { opacity: 0, y: isLite ? 8 : 16 }, visible: { opacity: 1, y: 0 } }
+                  : {
+                      hidden: { opacity: 0, y: isLite ? 8 : 16, rotate: 0.5 },
+                      visible: { opacity: 1, y: 0, rotate: 0, transition: { delay: index * (isLite ? 0.05 : 0.08) } },
+                    }
               }
             >
               <ProjectCard project={project} />

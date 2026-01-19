@@ -6,12 +6,14 @@ import { site } from '../../../data/site'
 import Reveal from '@/components/ui/Reveal'
 import SectionOrnament from '@/components/ui/SectionOrnament'
 import SignalStrip from '@/components/ui/SignalStrip'
+import SectionRail from '@/components/ui/SectionRail'
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
 
   return (
     <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
+      <SectionRail />
       <SectionOrnament targetRef={sectionRef} variant="left" />
       <div
         className="pointer-events-none absolute right-[6%] top-0 h-64 w-64 bg-[radial-gradient(circle_at_top,rgba(12,18,28,0.6),transparent_70%)]"
@@ -22,7 +24,7 @@ export default function ProcessSection() {
           <SignalStrip className="mb-8" />
         </Reveal>
         <div className="section-head">
-          <Reveal>
+          <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
                 <span className="section-number">04</span>
@@ -40,8 +42,8 @@ export default function ProcessSection() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-4">
           {site.process.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.05} variant="fadeUp">
-              <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_45px_rgba(3,6,12,0.45)] transition-transform duration-300 hover:-translate-y-1">
+            <Reveal key={step.title} delay={index * 0.08} variant="fadeUp">
+              <div className="group card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_20px_45px_rgba(3,6,12,0.45)] transition-transform duration-300 hover:-translate-y-1">
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.75),rgba(255,255,255,0.35),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-micro font-mono uppercase tracking-micro text-white/70">

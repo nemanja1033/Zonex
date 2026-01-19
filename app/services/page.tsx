@@ -18,8 +18,8 @@ export default function ServicesPage() {
             <SignalStrip className="mb-8" />
           </Reveal>
           {site.services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.05} variant={index % 2 === 0 ? 'fadeUp' : 'slideInRight'}>
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]">
+            <Reveal key={service.title} delay={index * 0.08} variant={index % 2 === 0 ? 'fadeUp' : 'slideInRight'}>
+              <div className="card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]">
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.2),rgba(178,30,42,0))]" />
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga</p>
                 <h2 className="mt-3 font-display text-h4 text-white">{service.title}</h2>
@@ -36,9 +36,9 @@ export default function ServicesPage() {
           </Reveal>
           <div className="mt-10 grid gap-6 md:grid-cols-4">
             {site.process.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.05} variant="fadeUp">
+              <Reveal key={step.title} delay={index * 0.08} variant="fadeUp">
                 <div
-                  className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]"
+                  className="card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]"
                 >
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.2),rgba(178,30,42,0))]" />
                   <p className="text-micro font-mono uppercase tracking-micro text-white/60">0{index + 1}</p>

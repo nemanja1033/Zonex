@@ -15,7 +15,7 @@ export default function Button({ children, href, variant = 'primary', className 
   const magnetY = useMotionValue(0)
   const springX = useSpring(magnetX, { stiffness: 220, damping: 16 })
   const springY = useSpring(magnetY, { stiffness: 220, damping: 16 })
-  const styles = variant === 'primary' ? 'button-primary' : 'button-ghost'
+  const styles = variant === 'primary' ? 'button-primary button-pulse-once' : 'button-ghost'
 
   const classes = `group inline-flex items-center gap-3 font-mono text-micro uppercase tracking-micro focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] ${styles} ${className}`
 

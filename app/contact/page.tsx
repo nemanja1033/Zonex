@@ -17,7 +17,7 @@ export default function ContactPage() {
             <ContactForm />
           </Reveal>
           <Reveal delay={0.1} variant="fadeUp">
-            <div className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_50px_rgba(3,6,12,0.45)] backdrop-blur md:p-8">
+            <div className="card-surface space-y-6 rounded-3xl p-6 shadow-[0_20px_50px_rgba(3,6,12,0.45)] backdrop-blur md:p-8">
               <div>
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Email</p>
                 <p className="mt-2 text-small text-white/80">office@zonex.rs</p>

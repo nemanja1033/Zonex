@@ -57,7 +57,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       layout={!disableLayout}
       whileHover={shouldReduce ? undefined : { y: -8 }}
       transition={shouldReduce ? { duration: 0 } : { duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-      className="group card-glow relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur"
+      className="group card-glow card-surface relative overflow-hidden rounded-3xl shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur"
       ref={cardRef}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -86,10 +86,35 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <div className="space-y-4 p-5 md:p-6">
         <div>
           <p className="text-micro font-mono uppercase tracking-micro text-white/60">Projekat</p>
-          <h3 className="mt-2 font-display text-h3 text-white">{project.name}</h3>
+          <h3 className="mt-2 font-display text-h3 text-white transition-transform duration-300 group-hover:-translate-y-1">{project.name}</h3>
           <p className="mt-2 text-small text-white/70">{project.location}</p>
         </div>
         <p className="text-small text-white/80 transition-colors duration-300 group-hover:text-white/90">{project.summary}</p>
+        <div className="flex flex-wrap gap-2 text-micro font-mono uppercase tracking-micro text-white/70 opacity-0 transition-all duration-300 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
+            <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <circle cx="8" cy="8" r="5.5" />
+              <path d="M8 4.5v3.5l2.5 1.5" strokeLinecap="round" />
+            </svg>
+            {project.timeline}
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
+            <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <path d="M5 8h7" strokeLinecap="round" />
+              <path d="M9.5 6.5l2 1.5-2 1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <rect x="2.5" y="5" width="3" height="6" rx="1.2" />
+            </svg>
+            {project.delivery}
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
+            <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <path d="M5 3.5h6" strokeLinecap="round" />
+              <path d="M4 5.5h8v6H4z" />
+              <path d="M6 2.5v2M10 2.5v2" strokeLinecap="round" />
+            </svg>
+            {project.opened}
+          </span>
+        </div>
         <div className="flex flex-wrap gap-2">
           {project.focus.map((badge) => (
             <span

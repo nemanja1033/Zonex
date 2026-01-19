@@ -59,7 +59,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(7,10,15,0.85)] backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(15,18,23,0.92)] backdrop-blur">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,rgba(178,30,42,0.7),rgba(255,255,255,0.2),transparent)]" />
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
@@ -73,18 +73,18 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 prefetch
-                className={`relative pb-1 transition-colors ${isActive ? 'text-white' : 'hover:text-white'}`}
+                className={`group relative pb-1 transition-colors ${isActive ? 'text-white' : 'hover:text-white'}`}
               >
                 {item.label}
                 <span
                   className={`absolute left-0 top-full h-[2px] w-full bg-[linear-gradient(90deg,rgba(178,30,42,0.9),rgba(255,255,255,0.3))] transition-transform ${
-                    isActive ? 'scale-x-100' : 'scale-x-0'
+                    isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}
                   style={{ transformOrigin: 'left' }}
                 />
                 <span
-                  className={`absolute -right-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--accent)] transition-opacity ${
-                    isActive ? 'opacity-100' : 'opacity-0'
+                  className={`absolute -right-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--accent)] transition-all ${
+                    isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1.5'
                   }`}
                 />
               </Link>
@@ -110,7 +110,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
             exit={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-            className="md:hidden border-t border-white/10 bg-[rgba(7,10,15,0.95)] backdrop-blur"
+            className="md:hidden border-t border-white/10 bg-[rgba(15,18,23,0.96)] backdrop-blur"
             onKeyDown={handleTrap}
           >
             <Container className="flex flex-col gap-3 py-6 text-micro font-mono uppercase tracking-micro text-white/70">

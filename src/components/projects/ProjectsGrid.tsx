@@ -39,7 +39,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout={!disableLayout}
-        className="flex flex-wrap items-start gap-8 rounded-3xl border border-white/10 bg-white/5 p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
+        className="card-surface flex flex-wrap items-start gap-8 rounded-3xl p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
         initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 8 } : { opacity: 0, y: 12 }}
         animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
         transition={
@@ -59,9 +59,9 @@ export default function ProjectsGrid() {
             <motion.div
               key={project.slug}
               layout={!disableLayout}
-              initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24 }}
-              animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
-              exit={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24 }}
+              initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24, rotate: 0.6 }}
+              animate={shouldReduce ? undefined : { opacity: 1, y: 0, rotate: 0 }}
+              exit={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24, rotate: -0.4 }}
               transition={
                 shouldReduce
                   ? { duration: 0 }
