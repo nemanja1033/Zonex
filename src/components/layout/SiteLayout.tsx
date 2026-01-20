@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import MotionProvider from '@/components/motion/MotionProvider'
 import PageTransition from '@/components/motion/PageTransition'
+import PrefetchRoutes from '@/components/routing/PrefetchRoutes'
 
 type SiteLayoutProps = {
   children: ReactNode
@@ -18,6 +19,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
           <main className="relative z-10">{children}</main>
         </PageTransition>
       </MotionProvider>
+      <PrefetchRoutes />
       <Footer />
     </div>
   )
