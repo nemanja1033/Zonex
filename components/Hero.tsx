@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './Hero.module.css'
 
 const stats = [
@@ -24,12 +25,12 @@ export default function Hero() {
             Od projektovanja do izvodjenja, fokus je na tehnickoj preciznosti, disciplini izvodjenja i proverljivim rezultatima.
           </p>
           <div className={styles.actions}>
-            <a className={styles.link} href="#projekti">
+            <Link className={styles.link} href="#projekti" prefetch>
               Referentni projekti
-            </a>
-            <a className={styles.link} href="#kontakt">
+            </Link>
+            <Link className={styles.link} href="#kontakt" prefetch>
               Kontakt
-            </a>
+            </Link>
           </div>
           <div className={styles.stats}>
             {stats.map((stat) => (

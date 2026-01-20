@@ -16,13 +16,13 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-micro font-mono uppercase tracking-micro text-white/70">
-            <Link className="hover:text-white" href="/projects">
+            <Link className="hover:text-white" href="/projects" prefetch>
               Projekti
             </Link>
-            <Link className="hover:text-white" href="/services">
+            <Link className="hover:text-white" href="/services" prefetch>
               Usluge
             </Link>
-            <Link className="hover:text-white" href="/contact">
+            <Link className="hover:text-white" href="/contact" prefetch>
               Kontakt
             </Link>
           </div>

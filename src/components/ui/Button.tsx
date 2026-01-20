@@ -11,7 +11,7 @@ type ButtonProps = {
 export default function Button({ children, href, variant = 'primary', className = '' }: ButtonProps) {
   const styles = variant === 'primary' ? 'button-primary' : 'button-ghost'
 
-  const classes = `group inline-flex items-center gap-3 rounded-md px-5 py-3 font-mono text-micro uppercase tracking-micro focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] ${styles} ${className}`
+  const classes = `group inline-flex min-h-[44px] items-center gap-3 rounded-md px-5 py-3 font-mono text-micro uppercase tracking-micro focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] ${styles} ${className}`
 
   const content = (
     <>
@@ -30,7 +30,7 @@ export default function Button({ children, href, variant = 'primary', className 
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} prefetch={href.startsWith('/')}>
         {content}
       </Link>
     )

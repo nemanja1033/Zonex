@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './Projects.module.css'
 import ProjectsTable from './ProjectsTable'
 import { projects } from './projectsData'
@@ -20,9 +21,9 @@ export default function Projects() {
         </div>
         <ProjectsTable projects={projects} />
         <div className={styles.linkRow}>
-          <a className={styles.link} href="/projekti">
+          <Link className={styles.link} href="/projekti" prefetch>
             Pregled svih referenci
-          </a>
+          </Link>
         </div>
       </div>
     </section>

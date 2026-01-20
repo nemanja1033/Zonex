@@ -1,8 +1,10 @@
 "use client"
 
+import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
 import Reveal from '@/components/motion/Reveal'
+import { lineReveal, transition, viewportOnce } from '@/lib/motion'
 
 export default function ServicesSection() {
   return (
@@ -18,10 +20,19 @@ export default function ServicesSection() {
               </p>
             </div>
           </Reveal>
+          <motion.span
+            className="hidden h-px w-20 bg-white/15 md:block"
+            variants={lineReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={transition.base}
+            style={{ transformOrigin: 'left', alignSelf: 'end' }}
+          />
           <div className="grid gap-6 md:grid-cols-2">
             {site.services.slice(0, 4).map((service, index) => (
-              <Reveal key={service.title} delay={index * 0.06} variant="fadeUp">
-                <div className="card-surface rounded-lg p-6 transition-transform duration-300 hover:-translate-y-1">
+              <Reveal key={service.title} delay={index * 0.06} variant="clipReveal">
+                <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-border)] hover:shadow-card">
                   <h3 className="font-display text-h4 text-white">{service.title}</h3>
                   <p className="mt-3 text-small text-white/80">{service.description}</p>
                 </div>

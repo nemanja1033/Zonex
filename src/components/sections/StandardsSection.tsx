@@ -1,7 +1,9 @@
 "use client"
 
+import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/motion/Reveal'
+import { lineReveal, transition, viewportOnce } from '@/lib/motion'
 
 export default function StandardsSection() {
   const proofs = [
@@ -36,10 +38,19 @@ export default function StandardsSection() {
               </p>
             </div>
           </Reveal>
+          <motion.span
+            className="hidden h-px w-20 bg-white/15 md:block"
+            variants={lineReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={transition.base}
+            style={{ transformOrigin: 'left', alignSelf: 'end' }}
+          />
           <div className="grid gap-6 md:grid-cols-2">
             {proofs.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06} variant="fadeUp">
-                <div className="card-surface rounded-lg p-6">
+              <Reveal key={item.title} delay={index * 0.06} variant="clipReveal">
+                <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                   <h3 className="font-display text-h4 text-white">{item.title}</h3>
                   <p className="mt-3 text-small text-white/80">{item.description}</p>
                 </div>

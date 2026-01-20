@@ -29,7 +29,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
         <Container className="space-y-12">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="card-surface rounded-lg p-6">
+              <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Pregled</p>
                 <h2 className="mt-3 text-h3 font-display text-white">Osnovne informacije</h2>
                 <div className="mt-6 grid gap-4 text-small text-white/80 md:grid-cols-2">
@@ -51,7 +51,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
                   </div>
                 </div>
               </div>
-              <div className="card-surface rounded-lg p-6">
+              <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Ključne tačke</p>
                 <h3 className="mt-3 text-h4 font-display text-white">Fokus realizacije</h3>
                 <ul className="mt-4 space-y-2 text-small text-white/80">
@@ -72,8 +72,8 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {project.images.map((image, index) => (
-                  <Reveal key={image.src} delay={index * 0.04}>
-                    <div className="card-surface relative aspect-[4/3] overflow-hidden rounded-lg">
+                  <Reveal key={image.src} delay={index * 0.04} variant="clipReveal">
+                    <div className="card-surface relative aspect-[4/3] overflow-hidden rounded-lg transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                       <Image
                         src={image.src}
                         alt={image.alt}
@@ -101,7 +101,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
               ))}
             </div>
           </div>
-          <div className="card-surface grid gap-6 rounded-lg p-6 md:grid-cols-2">
+          <div className="card-surface grid gap-6 rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card md:grid-cols-2">
             <div>
               <p className="text-micro font-mono uppercase tracking-micro text-white/60">Prethodni</p>
               <Link className="mt-3 block font-display text-h4 text-white" href={`/projects/${prev.slug}`}>

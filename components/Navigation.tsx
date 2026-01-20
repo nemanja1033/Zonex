@@ -58,14 +58,15 @@ export default function Navigation() {
         </Link>
         <nav className={styles.nav}>
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={styles.link}
               aria-current={activeSection === item.id}
+              prefetch
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>
