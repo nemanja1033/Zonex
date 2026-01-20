@@ -1,8 +1,8 @@
 import Container from '@/components/ui/Container'
 import PageHeader from '@/components/ui/PageHeader'
 import Reveal from '@/components/motion/Reveal'
-import SignalStrip from '@/components/ui/SignalStrip'
 import { site } from '../../data/site'
+import StandardsSection from '@/components/sections/StandardsSection'
 
 export default function ServicesPage() {
   return (
@@ -14,23 +14,10 @@ export default function ServicesPage() {
       />
       <section className="section-divider section section-surface">
         <Container className="grid gap-6 md:grid-cols-2">
-          <Reveal className="md:col-span-2">
-            <SignalStrip className="mb-8" />
-          </Reveal>
           {site.services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.08} variant={index % 2 === 0 ? 'fadeUp' : 'right'}>
-              <div className="card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]">
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.2),rgba(178,30,42,0))]" />
-                <div className="flex items-center justify-between">
-                  <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga</p>
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70">
-                    <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.4">
-                      <path d="M8 3v10" strokeLinecap="round" />
-                      <path d="M3 8h10" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                </div>
-                <h2 className="mt-3 font-display text-h4 text-white">{service.title}</h2>
+            <Reveal key={service.title} delay={index * 0.05} variant="fadeUp">
+              <div className="card-surface relative overflow-hidden rounded-lg p-6">
+                <h2 className="font-display text-h4 text-white">{service.title}</h2>
                 <p className="mt-3 text-small text-white/80">{service.description}</p>
               </div>
             </Reveal>
@@ -44,11 +31,8 @@ export default function ServicesPage() {
           </Reveal>
           <div className="mt-10 grid gap-6 md:grid-cols-4">
             {site.process.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.08} variant="fadeUp">
-                <div
-                  className="card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)]"
-                >
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.7),rgba(255,255,255,0.2),rgba(178,30,42,0))]" />
+              <Reveal key={step.title} delay={index * 0.05} variant="fadeUp">
+                <div className="card-surface rounded-lg p-6">
                   <p className="text-micro font-mono uppercase tracking-micro text-white/60">Faza {index + 1}</p>
                   <h3 className="mt-3 font-display text-h4 text-white">{step.title}</h3>
                   <p className="mt-2 text-small text-white/80">{step.description}</p>
@@ -58,6 +42,7 @@ export default function ServicesPage() {
           </div>
         </Container>
       </section>
+      <StandardsSection />
     </>
   )
 }

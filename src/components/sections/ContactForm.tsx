@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
+import { easing } from '@/lib/motion'
 
 type FormState = {
   name: string
@@ -62,7 +63,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="card-surface space-y-6 rounded-3xl p-6 shadow-[0_24px_60px_rgba(3,6,12,0.45)] backdrop-blur md:p-8"
+      className="card-surface space-y-6 rounded-lg p-6 md:p-8"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -97,13 +98,13 @@ export default function ContactForm() {
             className="h-full bg-[var(--accent)]"
             initial={{ scaleX: 0 }}
             animate={isSubmitting ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 0.72, 0, 1] }}
+            transition={{ duration: 0.6, ease: easing }}
             style={{ transformOrigin: 'left' }}
           />
         </motion.div>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-3 button-primary py-3 text-micro font-mono uppercase tracking-micro disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-3 rounded-md button-primary py-3 text-micro font-mono uppercase tracking-micro disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
         >
@@ -122,7 +123,7 @@ export default function ContactForm() {
                 strokeWidth="2"
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 0.35, ease: [0.22, 0.72, 0, 1] }}
+                transition={{ duration: 0.35, ease: easing }}
               >
                 <motion.path
                   d="M5 13l4 4L19 7"
@@ -130,7 +131,7 @@ export default function ContactForm() {
                   strokeLinejoin="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.6, ease: [0.22, 0.72, 0, 1] }}
+                  transition={{ duration: 0.6, ease: easing }}
                 />
               </motion.svg>
               <motion.span initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -151,7 +152,7 @@ export default function ContactForm() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.35, ease: [0.22, 0.72, 0, 1] }}
+            transition={{ duration: 0.35, ease: easing }}
           >
             Primili smo upit. Vraćamo se u najkraćem roku.
           </motion.p>
@@ -186,8 +187,8 @@ function Field({
   const fieldId = label.toLowerCase().replace(/\s+/g, '-')
 
   return (
-    <motion.div animate={error ? shake : undefined} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}>
-      <label htmlFor={fieldId} className="text-micro font-mono uppercase tracking-micro text-white/60">
+    <motion.div animate={error ? shake : undefined} transition={{ duration: 0.4, ease: easing }}>
+      <label htmlFor={fieldId} className="text-small font-medium text-white/80">
         {label}
       </label>
       <Component
@@ -210,7 +211,7 @@ function Field({
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.25, ease: [0.22, 0.72, 0, 1] }}
+          transition={{ duration: 0.25, ease: easing }}
         >
           {error ?? 'Polje je obavezno za brzu procenu projekta.'}
         </motion.p>

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import { easing, fadeIn, fadeUp } from '@/lib/motion'
 
 type RevealVariant = 'fadeUp' | 'fadeIn' | 'left' | 'right' | 'scale'
 
@@ -19,25 +20,19 @@ type RevealProps = {
 }
 
 const variantsMap = {
-  fadeUp: {
-    hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  },
-  fadeIn: {
-    hidden: { opacity: 0, filter: 'blur(4px)' },
-    visible: { opacity: 1, filter: 'blur(0px)' },
-  },
+  fadeUp,
+  fadeIn,
   left: {
-    hidden: { opacity: 0, x: -18, filter: 'blur(6px)' },
-    visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+    hidden: { opacity: 0, x: -12 },
+    visible: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: 18, filter: 'blur(6px)' },
-    visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+    hidden: { opacity: 0, x: 12 },
+    visible: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.97, filter: 'blur(6px)' },
-    visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: { opacity: 1, scale: 1 },
   },
 }
 
@@ -46,7 +41,7 @@ export default function Reveal({
   delay = 0,
   className = '',
   variant = 'fadeUp',
-  rootMargin = '-120px 0px',
+  rootMargin = '-15% 0px',
   once = true,
   stagger,
   'data-reveal': dataReveal,
@@ -96,15 +91,15 @@ export default function Reveal({
       variants={
         shouldReduce
           ? {
-              hidden: { opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' },
-              visible: { opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' },
+              hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
+              visible: { opacity: 1, y: 0, x: 0, scale: 1 },
             }
           : variantsMap[resolvedVariant]
       }
       transition={{
-        duration: shouldReduce ? 0 : 0.65,
+        duration: shouldReduce ? 0 : 0.6,
         delay,
-        ease: [0.32, 0.72, 0, 1],
+        ease: easing,
         staggerChildren: stagger,
       }}
     >

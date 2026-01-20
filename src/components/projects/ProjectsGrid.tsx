@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import { easing } from '@/lib/motion'
 
 const types = [
   { label: 'Svi', value: 'All' },
@@ -39,15 +40,15 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout={!disableLayout}
-        className="card-surface flex flex-wrap items-start gap-8 rounded-3xl p-5 text-small shadow-[0_20px_45px_rgba(3,6,12,0.4)] backdrop-blur md:p-6"
+        className="card-surface flex flex-wrap items-start gap-8 rounded-lg p-5 text-small md:p-6"
         initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 8 } : { opacity: 0, y: 12 }}
         animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
         transition={
           shouldReduce
             ? { duration: 0 }
             : isLite
-              ? { duration: 0.3, ease: [0.22, 0.72, 0, 1] }
-              : { duration: 0.5, ease: [0.32, 0.72, 0, 1] }
+              ? { duration: 0.3, ease: easing }
+              : { duration: 0.5, ease: easing }
         }
       >
         <FilterGroup label="Tip" items={types} value={type} onChange={setType} />
@@ -59,15 +60,15 @@ export default function ProjectsGrid() {
             <motion.div
               key={project.slug}
               layout={!disableLayout}
-              initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24, rotate: 0.6 }}
-              animate={shouldReduce ? undefined : { opacity: 1, y: 0, rotate: 0 }}
-              exit={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 24, rotate: -0.4 }}
+              initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 20 }}
+              animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
+              exit={shouldReduce ? undefined : isLite ? { opacity: 0, y: 10 } : { opacity: 0, y: 20 }}
               transition={
                 shouldReduce
                   ? { duration: 0 }
                   : isLite
-                    ? { duration: 0.3, delay: Math.min(index * 0.04, 0.2), ease: [0.22, 0.72, 0, 1] }
-                    : { duration: 0.45, delay: Math.min(index * 0.05, 0.25), ease: [0.32, 0.72, 0, 1] }
+                    ? { duration: 0.3, delay: Math.min(index * 0.04, 0.2), ease: easing }
+                    : { duration: 0.45, delay: Math.min(index * 0.05, 0.25), ease: easing }
               }
             >
               <ProjectCard project={project} />
@@ -104,8 +105,8 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
             {value === item.value && (
               <motion.span
                 layoutId={`segmented-${label}`}
-                className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(178,30,42,0.25),rgba(12,12,14,0.25))] shadow-[0_8px_20px_rgba(178,30,42,0.25)]"
-                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+                className="absolute inset-0 rounded-full bg-[rgba(255,255,255,0.08)]"
+                transition={{ duration: 0.25, ease: easing }}
               />
             )}
             <span className="relative z-10">{item.label}</span>

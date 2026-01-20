@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import type { Project } from '../../../../data/projects'
-import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import { easing } from '@/lib/motion'
 
 type CaseHeroProps = {
   project: Project
@@ -12,23 +12,14 @@ type CaseHeroProps = {
 
 export default function CaseHero({ project }: CaseHeroProps) {
   const reduceMotion = useReducedMotion()
-  const isCoarse = useCoarsePointer()
-  const shouldReduce = reduceMotion || isCoarse
   const imageSrc = project.image ?? '/images/project-placeholder.svg'
   const blurDataURL =
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMEIwRDEyIi8+PC9zdmc+'
 
   return (
-    <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
-      <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(178,30,42,0.35),transparent_70%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute right-0 top-8 h-72 w-72 bg-[radial-gradient(circle,rgba(10,14,20,0.5),transparent_65%)]" aria-hidden="true" />
-      <motion.div
-        className="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full bg-white/5"
-        animate={shouldReduce ? undefined : { y: [0, -16, 0] }}
-        transition={shouldReduce ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+2.5rem)]">
+    <section className="relative overflow-hidden bg-navy-900 text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(24,24,26,0.6),rgba(10,10,12,0.95))]" />
+      <Container className="relative z-10 py-[calc(var(--section-padding)+1.5rem)] md:py-[calc(var(--section-padding)+2rem)]">
         <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-4 text-micro font-mono uppercase tracking-micro text-white/70">
@@ -36,22 +27,15 @@ export default function CaseHero({ project }: CaseHeroProps) {
               <span className="h-3.5 w-px bg-white/30" />
               <span>{project.category}</span>
             </div>
-            <h1 className="text-h1 font-display text-white">{project.name}</h1>
+            <motion.h1
+              className="text-h1 font-display text-white"
+              initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+              animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: easing }}
+            >
+              {project.name}
+            </motion.h1>
             <p className="max-w-xl text-body text-white/85">{project.summary}</p>
-            <div className="flex flex-wrap gap-2">
-              {project.focus.map((badge, index) => (
-                <motion.span
-                  key={badge}
-                  className="rounded-full border border-white/15 bg-white/5 px-4 py-1 text-micro font-mono uppercase tracking-micro text-white/70"
-                  initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
-                  whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-10%' }}
-                  transition={{ duration: 0.5, delay: 0.05 * index, ease: [0.32, 0.72, 0, 1] }}
-                >
-                  {badge}
-                </motion.span>
-              ))}
-            </div>
             <div className="grid gap-6 border-t border-white/10 pt-6 text-small text-white/80 md:grid-cols-3">
               <div>
                 <p className="eyebrow-light">Model isporuke</p>
@@ -67,7 +51,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
               </div>
             </div>
           </div>
-          <div className="card-surface relative overflow-hidden rounded-3xl shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur">
+          <div className="card-surface relative overflow-hidden rounded-lg">
             <div className="relative aspect-[4/3]">
               <Image
                 src={imageSrc}

@@ -1,19 +1,15 @@
 "use client"
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
 import Reveal from '@/components/motion/Reveal'
-import SectionOrnament from '@/components/ui/SectionOrnament'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
-import SignalStrip from '@/components/ui/SignalStrip'
-import SectionRail from '@/components/motion/SectionRail'
 import Button from '@/components/ui/Button'
+import { easing } from '@/lib/motion'
 
 export default function FeaturedProjects() {
-  const sectionRef = useRef<HTMLElement | null>(null)
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
   const shouldReduce = reduceMotion
@@ -21,31 +17,16 @@ export default function FeaturedProjects() {
   const featured = projects.slice(0, 3)
 
   return (
-    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
-      <SectionRail />
-      <SectionOrnament targetRef={sectionRef} variant="left" />
-      <div
-        className="pointer-events-none absolute left-0 top-6 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(10,10,12,0.2),transparent_70%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute right-[8%] bottom-0 h-64 w-64 bg-[radial-gradient(circle,rgba(155,14,28,0.18),transparent_70%)]"
-        aria-hidden="true"
-      />
+    <section className="section-divider section section-surface">
       <Container>
-        <Reveal>
-          <SignalStrip className="mb-8" />
-        </Reveal>
         <div className="section-head">
-          <Reveal className="stamp">
+          <Reveal>
             <div>
-              <div className="flex items-center gap-4">
-                <span className="eyebrow">Naši projekti</span>
-              </div>
+              <p className="eyebrow">Projekti</p>
               <h2 className="mt-4 section-title">Projekti sa preciznim rokovima i jasnim obimom.</h2>
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.08}>
             <p className="body-muted text-measure">
               Selekcija projekata u kojima su brzina izvođenja, kontrola kvaliteta i standardi investitora bili ključni.
             </p>
@@ -68,8 +49,8 @@ export default function FeaturedProjects() {
                 shouldReduce
                   ? undefined
                   : {
-                      hidden: { opacity: 0, y: isLite ? 8 : 16, rotate: 0.5 },
-                      visible: { opacity: 1, y: 0, rotate: 0, transition: { delay: index * (isLite ? 0.05 : 0.08) } },
+                      hidden: { opacity: 0, y: isLite ? 8 : 14 },
+                      visible: { opacity: 1, y: 0, transition: { delay: index * (isLite ? 0.05 : 0.08), ease: easing } },
                     }
               }
             >

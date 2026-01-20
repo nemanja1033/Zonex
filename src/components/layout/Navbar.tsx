@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Container from '@/components/ui/Container'
 import LogoLockup from '@/components/brand/LogoLockup'
+import { easing } from '@/lib/motion'
 
 const navItems = [
   { label: 'Početna', href: '/' },
@@ -19,6 +20,7 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const mobileNavRef = useRef<HTMLElement | null>(null)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
 
@@ -42,6 +44,13 @@ export default function Navbar() {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 12)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleTrap = (event: ReactKeyboardEvent<HTMLElement>) => {
     if (event.key !== 'Tab') return
     const focusable = mobileNavRef.current?.querySelectorAll<HTMLElement>('a[href], button')
@@ -59,8 +68,11 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(15,18,23,0.92)] backdrop-blur">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,rgba(178,30,42,0.7),rgba(255,255,255,0.2),transparent)]" />
+    <header
+      className={`sticky top-0 z-50 border-b transition-colors ${
+        isScrolled ? 'border-white/10 bg-[rgba(15,16,18,0.96)]' : 'border-transparent bg-transparent'
+      }`}
+    >
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
           <LogoLockup theme="light" size="sm" />
@@ -77,15 +89,10 @@ export default function Navbar() {
               >
                 {item.label}
                 <span
-                  className={`absolute left-0 top-full h-[2px] w-full bg-[linear-gradient(90deg,rgba(178,30,42,0.9),rgba(255,255,255,0.3))] transition-transform ${
+                  className={`absolute left-0 top-full h-[2px] w-full bg-[var(--accent)] transition-transform ${
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}
                   style={{ transformOrigin: 'left' }}
-                />
-                <span
-                  className={`absolute -right-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--accent)] transition-all ${
-                    isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1.5'
-                  }`}
                 />
               </Link>
             )
@@ -93,7 +100,7 @@ export default function Navbar() {
         </nav>
         <button
           type="button"
-          className="md:hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-micro font-mono uppercase tracking-micro text-white/80 transition-colors hover:text-white"
+          className="md:hidden rounded-md border border-white/20 bg-white/5 px-3 py-2 text-micro font-mono uppercase tracking-micro text-white/80 transition-colors hover:text-white"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -109,8 +116,8 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
             animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
             exit={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-            className="md:hidden border-t border-white/10 bg-[rgba(15,18,23,0.96)] backdrop-blur"
+            transition={{ duration: 0.35, ease: easing }}
+            className="md:hidden border-t border-white/10 bg-[rgba(15,16,18,0.98)]"
             onKeyDown={handleTrap}
           >
             <Container className="flex flex-col gap-3 py-6 text-micro font-mono uppercase tracking-micro text-white/70">

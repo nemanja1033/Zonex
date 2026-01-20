@@ -41,12 +41,12 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
   }, [chapters])
 
   return (
-    <div className="lux-border lux-sheen sticky top-28 space-y-6 rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.95),rgba(247,242,236,0.9))] p-6 shadow-[0_24px_55px_rgba(12,17,23,0.14)] backdrop-blur">
+    <div className="card-surface sticky top-28 space-y-6 rounded-lg p-6">
       <div>
-        <p className="eyebrow">Chapters</p>
-        <div className="mt-2 h-[2px] w-full bg-grey-200">
+        <p className="eyebrow">Poglavlja</p>
+        <div className="mt-2 h-[2px] w-full bg-white/10">
           <div
-            className="h-full bg-[linear-gradient(90deg,rgba(155,14,28,0.9),rgba(10,10,12,0.9))] transition-[width] duration-200"
+            className="h-full bg-[var(--accent)] transition-[width] duration-200"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
@@ -58,8 +58,8 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
             href={`#${chapter.id}`}
             className={`block border-l-2 pl-3 transition-colors ${
               active === chapter.id
-                ? 'border-[rgba(155,14,28,0.9)] text-textDark'
-                : 'border-grey-200 text-muted hover:text-textDark'
+                ? 'border-[var(--accent)] text-white'
+                : 'border-white/15 text-white/70 hover:text-white'
             }`}
           >
             {chapter.label}

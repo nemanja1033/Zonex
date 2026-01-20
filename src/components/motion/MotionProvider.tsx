@@ -2,6 +2,7 @@
 
 import { MotionConfig } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { easing } from '@/lib/motion'
 
 type MotionProviderProps = {
   children: ReactNode
@@ -11,7 +12,7 @@ export default function MotionProvider({ children }: MotionProviderProps) {
   return (
     <MotionConfig
       reducedMotion="user"
-      transition={{ type: 'spring', stiffness: 160, damping: 22 }}
+      transition={{ duration: 0.6, ease: easing }}
     >
       {children}
     </MotionConfig>

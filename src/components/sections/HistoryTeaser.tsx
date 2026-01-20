@@ -1,31 +1,24 @@
 "use client"
 
-import { useRef } from 'react'
 import Container from '@/components/ui/Container'
 import { timeline } from '@/content/content'
 import Link from 'next/link'
 import Reveal from '@/components/motion/Reveal'
-import SectionOrnament from '@/components/ui/SectionOrnament'
 
 export default function HistoryTeaser() {
-  const sectionRef = useRef<HTMLElement | null>(null)
   const items = timeline.slice(0, 3)
 
   return (
-    <section ref={sectionRef} className="section-divider section section-surface relative overflow-hidden">
-      <SectionOrnament targetRef={sectionRef} variant="left" />
-      <div className="pointer-events-none absolute left-[6%] top-0 h-72 w-72 bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.18),transparent_70%)]" />
+    <section className="section-divider section section-surface">
       <Container>
         <div className="section-head">
           <Reveal>
             <div>
-              <div className="flex items-center gap-4">
-                <span className="eyebrow">History</span>
-              </div>
+              <p className="eyebrow">Istorija</p>
               <h2 className="mt-4 section-title">Kontinuitet rada od 1993.</h2>
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.08}>
             <Link href="/company" className="link-underline text-micro font-mono uppercase tracking-micro">
               Pogledajte istoriju
             </Link>
@@ -34,7 +27,7 @@ export default function HistoryTeaser() {
         <div className="mt-10 space-y-6">
           {items.map((item, index) => (
             <Reveal key={item.year} delay={index * 0.05}>
-              <div className="lux-border lux-sheen grid gap-4 rounded-3xl bg-[linear-gradient(145deg,rgba(18,20,26,0.92),rgba(10,12,16,0.88))] p-6 shadow-[0_18px_45px_rgba(3,6,12,0.45)] md:grid-cols-[120px_1fr]">
+              <div className="card-surface grid gap-4 rounded-lg p-6 md:grid-cols-[120px_1fr]">
                 <p className="text-h4 font-display text-white">{item.year}</p>
                 <div>
                   <h3 className="font-display text-h4 text-white">{item.title}</h3>

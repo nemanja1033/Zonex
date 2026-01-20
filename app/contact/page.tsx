@@ -20,7 +20,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             <ContactCard />
             <Reveal delay={0.1}>
-              <div className="card-surface rounded-3xl p-6 shadow-[0_18px_45px_rgba(3,6,12,0.4)]">
+              <div className="card-surface rounded-lg p-6">
                 <p className="text-micro font-mono uppercase tracking-micro text-white/60">Šta sledi</p>
                 <p className="mt-3 text-small text-white/80">
                   U roku od 48h vraćamo se sa predlogom obima, faza i narednih koraka.
