@@ -35,7 +35,7 @@ export type Client = {
 export const company = {
   name: 'Zonex Inženjering d.o.o.',
   founded: 1993,
-  location: 'Novi Sad, Srbija',
+  location: 'Beograd, Srbija',
   tagline: 'Inženjering i izvođenje objekata sa proverljivim rezultatima.',
 }
 

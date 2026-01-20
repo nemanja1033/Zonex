@@ -46,7 +46,7 @@ export default function Hero() {
           <div className={styles.profileList}>
             <div>
               <span className="micro-label text-muted">Sediste</span>
-              <p>Novi Sad, Srbija</p>
+              <p>Beograd, Srbija</p>
             </div>
             <div>
               <span className="micro-label text-muted">Delatnost</span>

@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
           <div className={styles.legalBlock}>
             <span className="micro-label text-muted">Sediste</span>
-            <p>Novi Sad, Srbija</p>
+            <p>Beograd, Srbija</p>
           </div>
           <div className={styles.legalBlock}>
             <span className="micro-label text-muted">Delatnost</span>

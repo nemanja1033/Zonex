@@ -2,7 +2,7 @@ export const site = {
   company: {
     name: 'Zonex Inženjering d.o.o.',
     founded: 1993,
-    location: 'Novi Sad, Srbija',
+    location: 'Beograd, Srbija',
   },
   hero: {
     title: 'Inženjering koji isporučuje u rokovima, sa proverljivim kvalitetom.',
