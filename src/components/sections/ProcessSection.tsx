@@ -27,15 +27,13 @@ export default function ProcessSection() {
           <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">05</span>
-                <span className="section-rule" />
                 <span className="eyebrow">Proces</span>
               </div>
               <h2 className="mt-4 section-title">Proces sa jasnim kontrolnim tačkama.</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md body-muted">
+            <p className="body-muted text-measure">
               Svaka faza ima definisane odgovornosti i standarde dokumentacije. Fokus je na kvalitetu i stabilnosti isporuke.
             </p>
           </Reveal>

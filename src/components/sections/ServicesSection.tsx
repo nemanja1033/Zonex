@@ -27,18 +27,16 @@ export default function ServicesSection() {
           <Reveal className="stamp">
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number">03</span>
-                <span className="section-rule" />
                 <span className="eyebrow">Usluge</span>
               </div>
               <h2 className="section-title">Integrisane usluge sa preciznim obimom rada.</h2>
-              <p className="body-muted">
+              <p className="body-muted text-measure">
                 Radimo u jasno definisanim fazama, sa transparentnim obavezama i dokumentacijom koja ostaje iza projekta.
               </p>
             </div>
           </Reveal>
           <div className="grid gap-6 md:grid-cols-2">
-            {site.services.map((service, index) => (
+            {site.services.slice(0, 4).map((service, index) => (
               <Reveal key={service.title} delay={index * 0.08} variant="fadeUp">
                 <div className="group card-surface relative overflow-hidden rounded-3xl p-6 shadow-[0_22px_55px_rgba(3,6,12,0.45)] transition-all duration-300 hover:-translate-y-1">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,rgba(178,30,42,0),rgba(178,30,42,0.75),rgba(255,255,255,0.3),rgba(178,30,42,0))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

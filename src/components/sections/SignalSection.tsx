@@ -7,6 +7,8 @@ import SignalStrip from '@/components/ui/SignalStrip'
 import SectionRail from '@/components/motion/SectionRail'
 import Reveal from '@/components/motion/Reveal'
 import { site } from '../../../data/site'
+import Heading from '@/components/ui/Heading'
+import Stack from '@/components/ui/Stack'
 
 export default function SignalSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -21,18 +23,16 @@ export default function SignalSection() {
         </Reveal>
         <div className="section-head">
           <Reveal className="stamp">
-            <div>
-              <div className="flex items-center gap-4">
-                <span className="section-number">02</span>
-                <span className="section-rule" />
-                <span className="eyebrow">Signal</span>
-              </div>
-              <h2 className="mt-4 section-title">Kontrolni parametri koji vode svaki projekat.</h2>
-            </div>
+            <Stack gap="sm">
+              <span className="eyebrow">Signal</span>
+              <Heading as="h2" className="text-white">
+                Kontrolni parametri koji vode svaki projekat.
+              </Heading>
+            </Stack>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-xl body-muted">
-              Četiri signala su stalno prisutna u planiranju, izvedbi i kontroli kvaliteta. Kratko, jasno, proverljivo.
+            <p className="body-muted text-measure">
+              Četiri signala su prisutna u planiranju, izvedbi i kontroli kvaliteta. Kratko, jasno, proverljivo.
             </p>
           </Reveal>
         </div>

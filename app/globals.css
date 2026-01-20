@@ -199,6 +199,10 @@ body::after {
     color: var(--text-2);
   }
 
+  .text-measure {
+    max-width: 65ch;
+  }
+
   .section-title {
     @apply font-display text-h2;
   }

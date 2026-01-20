@@ -10,6 +10,11 @@ import CtaSection from '@/components/sections/CtaSection'
 export default function Home() {
   return (
     <>
+      {/*
+        Removed/Merged: duplicate Signal principles -> single Signal section,
+        replaced "Zašto nam veruju" with "Dokazi kontrole",
+        reduced featured projects and proof strip density.
+      */}
       <HomeHero />
       <ProofStrip />
       <SignalSection />

@@ -19,12 +19,10 @@ export default function CtaSection() {
           <Reveal>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number text-white/80">07</span>
-                <span className="section-rule bg-white/60" />
                 <span className="eyebrow-light">Kontakt</span>
               </div>
               <h2 className="section-title-light">Spremni za projekat sa jasnim standardima?</h2>
-              <p className="text-small text-white/90">
+              <p className="text-small text-white/90 text-measure">
                 Pošaljite osnovne informacije o projektu, a mi vraćamo strukturu, obim i predlog dinamike.
               </p>
             </div>

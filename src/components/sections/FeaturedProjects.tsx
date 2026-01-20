@@ -40,15 +40,13 @@ export default function FeaturedProjects() {
           <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">04</span>
-                <span className="section-rule" />
                 <span className="eyebrow">Naši projekti</span>
               </div>
               <h2 className="mt-4 section-title">Projekti sa preciznim rokovima i jasnim obimom.</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md body-muted">
+            <p className="body-muted text-measure">
               Selekcija projekata u kojima su brzina izvođenja, kontrola kvaliteta i standardi investitora bili ključni.
             </p>
           </Reveal>

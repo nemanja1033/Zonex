@@ -20,8 +20,6 @@ export default function HistoryTeaser() {
           <Reveal>
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">06</span>
-                <span className="section-rule" />
                 <span className="eyebrow">History</span>
               </div>
               <h2 className="mt-4 section-title">Kontinuitet rada od 1993.</h2>

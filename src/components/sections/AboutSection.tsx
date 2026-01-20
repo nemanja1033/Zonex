@@ -29,15 +29,13 @@ export default function AboutSection() {
           <Reveal className="stamp">
             <div>
               <div className="flex items-center gap-4">
-                <span className="section-number">02</span>
-                <span className="section-rule" />
                 <span className="eyebrow">O nama</span>
               </div>
               <h2 className="mt-4 section-title">{site.about.title}</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-xl body-muted">{site.about.body}</p>
+            <p className="body-muted text-measure">{site.about.body}</p>
           </Reveal>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">

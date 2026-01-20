@@ -41,12 +41,10 @@ export default function StandardsSection() {
           <Reveal className="stamp">
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="section-number">06</span>
-                <span className="section-rule" />
                 <span className="eyebrow">Dokazi kontrole</span>
               </div>
               <h2 className="section-title">Kontrolne tačke koje štite rok, kvalitet i bezbednost.</h2>
-              <p className="body-muted">
+              <p className="body-muted text-measure">
                 Umesto opštih obećanja, prikazujemo sistem kontrole i evidencije koji prati svaki projekat.
               </p>
             </div>

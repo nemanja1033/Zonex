@@ -19,12 +19,6 @@ export default function HomeHero() {
   const titleParts = site.hero.title.split(', ')
   const titleLine1 = titleParts[0] ?? site.hero.title
   const titleLine2 = titleParts[1] ?? ''
-  const focusItems = [
-    { label: 'Sedište', value: site.company.location },
-    { label: 'Osnovano', value: String(site.company.founded) },
-    { label: 'Model', value: site.stats[2]?.value ?? 'Ključ u ruke' },
-    { label: 'Fokus', value: 'Rokovi, kvalitet, bezbednost.' },
-  ]
 
   return (
     <section className="blueprint-grid relative overflow-hidden bg-navy-900 text-white">
@@ -67,7 +61,7 @@ export default function HomeHero() {
       />
       <div className="absolute inset-0 navy-scrim" aria-hidden="true" />
       <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
-        <div className="grid gap-8 md:gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+        <div className="max-w-2xl">
           <div className="space-y-8">
             <Reveal variant="fadeUp">
               <motion.div
@@ -89,13 +83,6 @@ export default function HomeHero() {
                     aria-hidden="true"
                   />
                 )}
-                <motion.div
-                  className="flex items-center gap-3 text-micro font-mono uppercase tracking-micro text-white/70"
-                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
-                >
-                  <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                  Od 1993. godine
-                </motion.div>
                 <motion.h1
                   className="text-h1 font-display text-white"
                   variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
@@ -123,7 +110,7 @@ export default function HomeHero() {
                   ) : null}
                 </motion.h1>
                 <motion.p
-                  className="max-w-xl text-body text-white/85"
+                  className="text-body text-white/85 text-measure"
                   variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {site.hero.subtitle}
@@ -139,44 +126,9 @@ export default function HomeHero() {
                     Kontaktirajte tim
                   </Button>
                 </motion.div>
-                <motion.div
-                  className="mt-6 grid gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-small text-white/85 sm:grid-cols-3"
-                  variants={{ hidden: { opacity: 0, y: isLite ? 8 : 14 }, visible: { opacity: 1, y: 0 } }}
-                >
-                  {site.stats.slice(0, 3).map((item) => (
-                    <div key={item.label}>
-                      <p className="text-micro font-mono uppercase tracking-micro text-white/50">{item.label}</p>
-                      <p className="mt-2 font-display text-h4 text-white">{item.value}</p>
-                    </div>
-                  ))}
-                </motion.div>
               </motion.div>
             </Reveal>
           </div>
-          <Reveal delay={0.1} variant="scale">
-            <motion.div
-              className="card-surface rounded-3xl p-6 shadow-[0_26px_60px_rgba(3,6,12,0.5)] backdrop-blur"
-              initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
-              animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-            >
-              <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
-                <span>Kontrolni centar</span>
-                <span>Aktivan nadzor</span>
-              </div>
-              <div className="mt-6 grid gap-4">
-                {focusItems.map((item) => (
-                  <div key={item.label} className="card-surface rounded-2xl p-4">
-                    <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
-                      <span>{item.label}</span>
-                      <span>Live</span>
-                    </div>
-                    <p className="mt-3 text-small text-white/80">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </Reveal>
         </div>
       </Container>
       <div className="pointer-events-none absolute bottom-10 right-6 hidden text-white/10 font-display text-[10vw] tracking-[0.4em] md:block">
