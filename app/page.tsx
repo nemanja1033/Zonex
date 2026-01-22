@@ -1,7 +1,7 @@
-import HomeHero from '@/components/sections/HomeHero'
+import Hero from '@/components/hero/Hero'
 import ProofStrip from '@/components/sections/ProofStrip'
-import FeaturedProjects from '@/components/sections/FeaturedProjects'
-import ServicesSection from '@/components/sections/ServicesSection'
+import ServicesScroll from '@/components/sections/ServicesScroll'
+import ProjectsShowcase from '@/components/sections/ProjectsShowcase'
 import ProcessSection from '@/components/sections/ProcessSection'
 import CtaSection from '@/components/sections/CtaSection'
 
@@ -12,10 +12,10 @@ export default function Home() {
         Removed/Merged: duplicate control/standards blocks,
         simplified to core credibility, services, projects, process, and CTA.
       */}
-      <HomeHero />
+      <Hero />
       <ProofStrip />
-      <ServicesSection />
-      <FeaturedProjects />
+      <ServicesScroll />
+      <ProjectsShowcase />
       <ProcessSection />
       <CtaSection />
     </>
