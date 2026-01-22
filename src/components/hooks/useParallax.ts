@@ -13,7 +13,8 @@ export default function useParallax(targetRef: RefObject<HTMLElement>, distance 
   })
 
   const yRange = useTransform(scrollYProgress, [0, 1], [distance, -distance])
-  const y = reduceMotion || isCoarse ? useMotionValue(0) : yRange
+  const staticY = useMotionValue(0)
+  const y = reduceMotion || isCoarse ? staticY : yRange
 
   return { y }
 }

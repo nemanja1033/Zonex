@@ -5,10 +5,14 @@ export const prefetchOnIdle = (prefetch: (href: string) => void) => {
 
   if (typeof window === 'undefined') return
 
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(run, { timeout: 1200 })
+  const idleCallback = (globalThis as typeof globalThis & {
+    requestIdleCallback?: (callback: IdleRequestCallback, options?: IdleRequestOptions) => number
+  }).requestIdleCallback
+
+  if (idleCallback) {
+    idleCallback(run, { timeout: 1200 })
     return
   }
 
-  window.setTimeout(run, 400)
+  globalThis.setTimeout(run, 400)
 }

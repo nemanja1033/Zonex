@@ -24,6 +24,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const mobileNavRef = useRef<HTMLElement | null>(null)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
+  const lastScrollState = useRef(false)
 
   useEffect(() => {
     if (!isOpen) return
@@ -46,7 +47,12 @@ export default function Navbar() {
   }, [isOpen])
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 12)
+    const handleScroll = () => {
+      const next = window.scrollY > 12
+      if (next === lastScrollState.current) return
+      lastScrollState.current = next
+      setIsScrolled(next)
+    }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -93,6 +99,7 @@ export default function Navbar() {
                 onTouchStart={() => router.prefetch(item.href)}
               >
                 {item.label}
+                <span className="nav-underline" aria-hidden="true" />
                 {isActive ? (
                   <motion.span
                     layoutId="nav-indicator"
