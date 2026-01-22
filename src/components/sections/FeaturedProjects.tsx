@@ -7,7 +7,7 @@ import { projects } from '../../../data/projects'
 import Reveal from '@/components/motion/Reveal'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import Button from '@/components/ui/Button'
-import { easing } from '@/lib/motion'
+import { lineReveal, maskReveal, staggerChildren, transition, viewport } from '@/lib/motion'
 
 export default function FeaturedProjects() {
   const reduceMotion = useReducedMotion()
@@ -32,27 +32,27 @@ export default function FeaturedProjects() {
             </p>
           </Reveal>
         </div>
+          <motion.span
+            className="mt-6 block h-px w-20 bg-white/15"
+            variants={lineReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            transition={transition.base}
+            style={{ transformOrigin: 'left' }}
+          />
         <motion.div
           className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-3"
           initial={shouldReduce ? undefined : 'hidden'}
           whileInView={shouldReduce ? undefined : 'visible'}
-          viewport={{ once: true, margin: '-120px' }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: isLite ? 0.06 : 0.12 } },
-          }}
+          viewport={viewport}
+          variants={staggerChildren(isLite ? 0.06 : 0.12)}
         >
-          {featured.map((project, index) => (
+          {featured.map((project) => (
             <motion.div
               key={project.slug}
-              variants={
-                shouldReduce
-                  ? undefined
-                  : {
-                      hidden: { opacity: 0, y: isLite ? 8 : 14 },
-                      visible: { opacity: 1, y: 0, transition: { delay: index * (isLite ? 0.05 : 0.08), ease: easing } },
-                    }
-              }
+              variants={shouldReduce ? undefined : maskReveal}
+              transition={shouldReduce ? { duration: 0 } : transition.base}
             >
               <ProjectCard project={project} />
             </motion.div>

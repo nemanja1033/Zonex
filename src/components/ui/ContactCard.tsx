@@ -9,7 +9,7 @@ type ContactCardProps = {
 
 export default function ContactCard({ showMapLink = true }: ContactCardProps) {
   return (
-    <Reveal variant="clipReveal">
+    <Reveal variant="maskReveal">
       <div className="card-surface space-y-6 rounded-lg p-5 sm:p-6 md:p-8 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
         <div>
           <p className="text-small text-white/70">Email</p>

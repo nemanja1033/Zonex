@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import { site } from '../../../data/site'
-import { clipReveal, fadeUp, lineReveal, stagger, transition } from '@/lib/motion'
+import { fadeUp, lineReveal, maskReveal, staggerChildren, transition } from '@/lib/motion'
 
 export default function HomeHero() {
   const reduceMotion = useReducedMotion()
@@ -29,7 +29,7 @@ export default function HomeHero() {
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div className="space-y-8">
             <motion.div
-              variants={stagger(0.12)}
+              variants={staggerChildren(0.12)}
               initial={reduceMotion ? 'visible' : 'hidden'}
               animate="visible"
               className="space-y-5"
@@ -43,11 +43,11 @@ export default function HomeHero() {
                 style={{ transformOrigin: 'left' }}
               />
               <h1 className="text-h1 font-display text-white">
-                <motion.span variants={clipReveal} className="block overflow-hidden">
+              <motion.span variants={maskReveal} className="block overflow-hidden">
                   <span className="block">{titleLine1}{titleLine2 ? ',' : ''}</span>
                 </motion.span>
                 {titleLine2 ? (
-                  <motion.span variants={clipReveal} className="block overflow-hidden">
+                  <motion.span variants={maskReveal} className="block overflow-hidden">
                     <span className="block">{titleLine2}</span>
                   </motion.span>
                 ) : null}
@@ -66,7 +66,7 @@ export default function HomeHero() {
             </motion.div>
           </div>
           <motion.div
-            variants={clipReveal}
+            variants={maskReveal}
             initial={reduceMotion ? 'visible' : 'hidden'}
             animate="visible"
             transition={transition.base}

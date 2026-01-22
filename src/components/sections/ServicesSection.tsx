@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
 import Reveal from '@/components/motion/Reveal'
-import { lineReveal, transition, viewportOnce } from '@/lib/motion'
+import { lineReveal, transition, viewport } from '@/lib/motion'
 
 export default function ServicesSection() {
   return (
@@ -25,13 +25,13 @@ export default function ServicesSection() {
             variants={lineReveal}
             initial="hidden"
             whileInView="visible"
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={transition.base}
             style={{ transformOrigin: 'left', alignSelf: 'end' }}
           />
           <div className="grid gap-6 md:grid-cols-2">
             {site.services.slice(0, 4).map((service, index) => (
-              <Reveal key={service.title} delay={index * 0.06} variant="clipReveal">
+              <Reveal key={service.title} delay={index * 0.06} variant="maskReveal">
                 <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-border)] hover:shadow-card">
                   <h3 className="font-display text-h4 text-white">{service.title}</h3>
                   <p className="mt-3 text-small text-white/80">{service.description}</p>

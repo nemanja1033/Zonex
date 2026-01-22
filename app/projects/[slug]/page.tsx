@@ -72,7 +72,7 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {project.images.map((image, index) => (
-                  <Reveal key={image.src} delay={index * 0.04} variant="clipReveal">
+                  <Reveal key={image.src} delay={index * 0.04} variant="maskReveal">
                     <div className="card-surface relative aspect-[4/3] overflow-hidden rounded-lg transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                       <Image
                         src={image.src}

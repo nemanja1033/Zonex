@@ -1,8 +1,10 @@
 "use client"
 
+import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/motion/Reveal'
 import { site } from '../../../data/site'
+import { lineReveal, transition, viewport } from '@/lib/motion'
 
 export default function ProofStrip() {
   return (
@@ -14,10 +16,19 @@ export default function ProofStrip() {
             Dokazi kapaciteta
           </div>
         </Reveal>
+        <motion.span
+          className="mt-4 block h-px w-24 bg-white/15"
+          variants={lineReveal}
+          initial="hidden"
+          whileInView="visible"
+            viewport={viewport}
+            transition={transition.base}
+            style={{ transformOrigin: 'left' }}
+          />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {site.stats.map((proof, index) => (
-            <Reveal key={proof.label} delay={index * 0.06} variant="fadeUp">
-              <div className="card-surface rounded-lg p-5">
+            <Reveal key={proof.label} delay={index * 0.06} variant="maskReveal">
+              <div className="card-surface rounded-lg p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-border)] hover:shadow-card">
                 <p className="text-small text-white/70">{proof.label}</p>
                 <p className="mt-3 text-h4 font-display text-white">{proof.value}</p>
               </div>

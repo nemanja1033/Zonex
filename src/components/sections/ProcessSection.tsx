@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
 import Reveal from '@/components/motion/Reveal'
-import { lineReveal, transition, viewportOnce } from '@/lib/motion'
+import { lineReveal, transition, viewport } from '@/lib/motion'
 
 export default function ProcessSection() {
   return (
@@ -28,13 +28,13 @@ export default function ProcessSection() {
           variants={lineReveal}
           initial="hidden"
           whileInView="visible"
-          viewport={viewportOnce}
-          transition={transition.base}
-          style={{ transformOrigin: 'left' }}
-        />
+            viewport={viewport}
+            transition={transition.base}
+            style={{ transformOrigin: 'left' }}
+          />
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {site.process.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.06} variant="clipReveal">
+            <Reveal key={step.title} delay={index * 0.06} variant="maskReveal">
               <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
                 <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
                   <span>Faza {index + 1}</span>

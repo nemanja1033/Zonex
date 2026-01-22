@@ -4,9 +4,19 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
-import { easing, fadeIn, fadeUp } from '@/lib/motion'
+import {
+  fadeIn,
+  fadeUp,
+  lineReveal,
+  maskReveal,
+  reducedMotionVariants,
+  transition,
+  useReducedMotionVariants,
+  viewport,
+  scaleIn,
+} from '@/lib/motion'
 
-type RevealVariant = 'fadeUp' | 'fadeIn' | 'left' | 'right' | 'scale'
+type RevealVariant = 'fadeUp' | 'fadeIn' | 'left' | 'right' | 'scale' | 'lineReveal' | 'maskReveal'
 
 type RevealProps = {
   children: ReactNode
@@ -22,6 +32,8 @@ type RevealProps = {
 const variantsMap = {
   fadeUp,
   fadeIn,
+  lineReveal,
+  maskReveal,
   left: {
     hidden: { opacity: 0, x: -12 },
     visible: { opacity: 1, x: 0 },
@@ -30,10 +42,7 @@ const variantsMap = {
     hidden: { opacity: 0, x: 12 },
     visible: { opacity: 1, x: 0 },
   },
-  scale: {
-    hidden: { opacity: 0, scale: 0.98 },
-    visible: { opacity: 1, scale: 1 },
-  },
+  scale: scaleIn,
 }
 
 export default function Reveal({
@@ -41,7 +50,7 @@ export default function Reveal({
   delay = 0,
   className = '',
   variant = 'fadeUp',
-  rootMargin = '-15% 0px',
+  rootMargin = viewport.margin,
   once = true,
   stagger,
   'data-reveal': dataReveal,
@@ -52,6 +61,7 @@ export default function Reveal({
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
   const resolvedVariant = dataReveal ?? variant
+  const resolvedVariants = useReducedMotionVariants(variantsMap[resolvedVariant])
 
   useEffect(() => {
     if (shouldReduce) {
@@ -73,7 +83,7 @@ export default function Reveal({
           }
         })
       },
-      { rootMargin, threshold: 0.2 }
+      { rootMargin, threshold: viewport.amount }
     )
 
     observer.observe(node)
@@ -88,20 +98,12 @@ export default function Reveal({
       data-visible={inView ? 'true' : 'false'}
       initial={shouldReduce ? 'visible' : 'hidden'}
       animate={inView ? 'visible' : 'hidden'}
-      variants={
+      variants={shouldReduce ? reducedMotionVariants : resolvedVariants}
+      transition={
         shouldReduce
-          ? {
-              hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
-              visible: { opacity: 1, y: 0, x: 0, scale: 1 },
-            }
-          : variantsMap[resolvedVariant]
+          ? { duration: 0 }
+          : { ...transition.base, delay, staggerChildren: stagger }
       }
-      transition={{
-        duration: shouldReduce ? 0 : 0.6,
-        delay,
-        ease: easing,
-        staggerChildren: stagger,
-      }}
     >
       {children}
     </motion.div>
