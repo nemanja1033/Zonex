@@ -1,7 +1,3 @@
-"use client"
-
-import { useMemo } from 'react'
-import { useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 
 export const durations = {
@@ -115,9 +111,4 @@ export const reducedMotionVariants: Variants = {
   hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
   visible: { opacity: 1, y: 0, x: 0, scale: 1 },
   exit: { opacity: 1, y: 0, x: 0, scale: 1 },
-}
-
-export const useReducedMotionVariants = (variants: Variants, reduced: Variants = reducedMotionVariants) => {
-  const shouldReduce = useReducedMotion()
-  return useMemo(() => (shouldReduce ? reduced : variants), [reduced, shouldReduce, variants])
 }
