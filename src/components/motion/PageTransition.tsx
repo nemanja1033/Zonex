@@ -20,7 +20,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   }, [pathname])
 
   return (
-    <AnimatePresence mode="sync" initial={false}>
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
         variants={reduceMotion ? reducedMotionVariants : pageTransition}
