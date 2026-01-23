@@ -2,80 +2,19 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/motion/Reveal'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import { projects } from '../../../data/projects'
 
 export default function ProjectsShowcase() {
-  const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
-  const sectionRef = useRef<HTMLElement | null>(null)
-
-  const shouldAnimate = useMemo(() => !reduceMotion && !isCoarse, [reduceMotion, isCoarse])
-
-  useEffect(() => {
-    if (!shouldAnimate) return
-    let ctx: { revert: () => void } | undefined
-
-    const run = async () => {
-      const gsapModule = await import('gsap')
-      const gsap = gsapModule.gsap ?? gsapModule.default
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-
-      if (!sectionRef.current) return
-
-      ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>('[data-project-card]')
-        const media = gsap.utils.toArray<HTMLElement>('[data-project-media]')
-
-        gsap.set(cards, { autoAlpha: 0, y: 24 })
-
-        ScrollTrigger.batch(cards, {
-          start: 'top 80%',
-          once: true,
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power2.out',
-              stagger: 0.08,
-            })
-          },
-        })
-
-        media.forEach((element, index) => {
-          const card = cards[index]
-          if (!card) return
-          gsap.to(element, {
-            y: -18,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.4,
-            },
-          })
-        })
-      }, sectionRef)
-    }
-
-    run()
-
-    return () => {
-      ctx?.revert()
-    }
-  }, [shouldAnimate])
+  const shouldAnimate = !isCoarse
 
   const featured = projects.slice(0, 4)
 
   return (
-    <section ref={sectionRef} className="section-divider section section-surface">
+    <section className="section-divider section section-surface">
       <Container>
         <div className="section-head">
           <Reveal>
@@ -91,14 +30,13 @@ export default function ProjectsShowcase() {
           </Reveal>
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          {featured.map((project, index) => {
+          {featured.map((project) => {
             const card = (
               <article
-                className="group project-showcase-card card-surface overflow-hidden rounded-lg"
-                data-project-card
+                className={`group project-showcase-card card-surface overflow-hidden rounded-lg ${shouldAnimate ? 'scroll-reveal' : ''}`}
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0" data-project-media>
+                  <div className="absolute inset-0">
                     <Image
                       src={project.image ?? '/images/project-placeholder.svg'}
                       alt={project.name}
@@ -107,6 +45,9 @@ export default function ProjectsShowcase() {
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       priority={false}
                     />
+                  </div>
+                  <div className="project-skeleton" aria-hidden="true">
+                    <span className="project-scanline" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0f1012] via-transparent to-transparent" />
                 </div>
@@ -127,17 +68,7 @@ export default function ProjectsShowcase() {
               </article>
             )
 
-            if (shouldAnimate) {
-              return (
-                <div key={project.slug}>{card}</div>
-              )
-            }
-
-            return (
-              <Reveal key={project.slug} delay={index * 0.06} variant="maskReveal">
-                {card}
-              </Reveal>
-            )
+            return <div key={project.slug}>{card}</div>
           })}
         </div>
       </Container>
