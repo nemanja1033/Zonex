@@ -15,7 +15,7 @@ const serviceImages = [
   '/images/projects/kfc-zrenjanin-05.jpg',
 ]
 
-export default function ServicesScroll() {
+export default function ServicesPinnedStory() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -48,9 +48,11 @@ export default function ServicesScroll() {
         const items = gsap.utils.toArray<HTMLElement>('[data-service-item]')
         const lines = gsap.utils.toArray<HTMLElement>('[data-service-line]')
         const media = gsap.utils.toArray<HTMLElement>('[data-service-media]')
+        const indices = gsap.utils.toArray<HTMLElement>('[data-service-index]')
 
         gsap.set(items, { autoAlpha: 0, y: 24 })
         gsap.set(lines, { scaleX: 0, transformOrigin: 'left center' })
+        gsap.set(indices, { autoAlpha: 0, y: 8 })
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -67,6 +69,7 @@ export default function ServicesScroll() {
           const at = index * 0.6
           timeline.to(item, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, at)
           timeline.to(lines[index], { scaleX: 1, duration: 0.35, ease: 'power2.out' }, at + 0.08)
+          timeline.to(indices[index], { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, at + 0.04)
           if (media[index]) {
             timeline.fromTo(
               media[index],
@@ -115,7 +118,7 @@ export default function ServicesScroll() {
               const card = (
                 <div className="service-item card-surface rounded-lg p-6 lg:p-7" data-service-item>
                   <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
-                    <span>0{index + 1}</span>
+                    <span data-service-index>0{index + 1}</span>
                     <span className="service-line" data-service-line />
                   </div>
                   <h3 className="mt-4 font-display text-h3 text-white">{service.title}</h3>
