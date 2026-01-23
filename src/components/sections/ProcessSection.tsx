@@ -35,7 +35,7 @@ export default function ProcessSection() {
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {site.process.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.06} variant="maskReveal">
-              <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
+              <div className="card-surface card-hover rounded-lg p-5 sm:p-6">
                 <div className="flex items-center justify-between text-micro font-mono uppercase tracking-micro text-white/60">
                   <span>Faza {index + 1}</span>
                 </div>

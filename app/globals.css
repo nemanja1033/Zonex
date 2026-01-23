@@ -231,7 +231,7 @@ body {
   }
 
   .button-primary:hover {
-    transform: translateY(-1px);
+    transform: translateY(-3px);
     box-shadow: 0 14px 32px rgba(143, 29, 29, 0.3);
   }
 
@@ -259,6 +259,10 @@ body {
 
   .button-ghost:hover::after {
     transform: scaleX(1);
+  }
+
+  .button-ghost:hover {
+    transform: translateY(-3px);
   }
 
   .button-ghost::before {
@@ -401,6 +405,16 @@ body {
     box-shadow: var(--shadow-soft);
   }
 
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-card);
+  }
+
   .services-scroll {
     display: grid;
     gap: 1.5rem;
@@ -475,19 +489,6 @@ body {
     z-index: 1;
   }
 
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.06), transparent 55%);
-    background-size: 64px 64px, 64px 64px, 100% 100%;
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: 1;
-  }
-
   .hero-gradient {
     position: absolute;
     inset: 0;
@@ -518,95 +519,6 @@ body {
     transform: translate3d(calc(var(--hero-x) * -0.6), calc(var(--hero-y) * -0.5), 0);
   }
 
-  [data-hero-line] {
-    transform-origin: left center;
-  }
-
-  .hero-spec {
-    position: relative;
-  }
-
-  .hero-spec-chip {
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 999px;
-    padding: 0.15rem 0.5rem;
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
-  }
-
-  .hero-spec-row {
-    position: relative;
-    padding: 0.6rem 0;
-    transition: background 0.3s ease;
-  }
-
-  .hero-spec-row:hover {
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .hero-spec-divider {
-    display: block;
-    height: 1px;
-    width: 100%;
-    margin-top: 0.6rem;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
-    transform-origin: left center;
-  }
-
-  .hero-spec-row:last-child .hero-spec-divider {
-    display: none;
-  }
-
-  .scroll-reveal {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  @supports (animation-timeline: view()) {
-    .scroll-reveal {
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-      animation: scroll-reveal 0.8s ease-out forwards;
-      animation-timeline: view();
-      animation-range: entry 15% cover 35%;
-    }
-  }
-
-  .project-skeleton {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
-    opacity: 0.25;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  .project-skeleton::before,
-  .project-skeleton::after {
-    content: "";
-    position: absolute;
-    inset: 10%;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .project-skeleton::after {
-    inset: 18%;
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .project-scanline {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-    animation: scanline-shift 6s linear infinite;
-    opacity: 0.35;
-    pointer-events: none;
-  }
 }
 
 @keyframes skeleton-shine {
@@ -615,22 +527,6 @@ body {
   }
   100% {
     background-position: 100% 50%;
-  }
-}
-
-@keyframes scroll-reveal {
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes scanline-shift {
-  0% {
-    transform: translateY(-60%);
-  }
-  100% {
-    transform: translateY(60%);
   }
 }
 
@@ -671,9 +567,6 @@ body {
     display: none;
   }
 
-  .hero-grid {
-    display: none;
-  }
 }
 
 @media (max-width: 640px) {
@@ -704,8 +597,4 @@ body {
     scroll-behavior: auto !important;
   }
 
-  .project-scanline {
-    animation: none;
-    opacity: 0.2;
-  }
 }

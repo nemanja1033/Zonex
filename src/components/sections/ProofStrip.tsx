@@ -28,7 +28,7 @@ export default function ProofStrip() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {site.stats.map((proof, index) => (
             <Reveal key={proof.label} delay={index * 0.06} variant="maskReveal">
-              <div className="card-surface rounded-lg p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-border)] hover:shadow-card">
+              <div className="card-surface card-hover rounded-lg p-5">
                 <p className="text-small text-white/70">{proof.label}</p>
                 <p className="mt-3 text-h4 font-display text-white">{proof.value}</p>
               </div>

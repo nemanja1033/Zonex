@@ -26,7 +26,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <motion.div
       whileHover={shouldReduce ? undefined : { y: -4 }}
       transition={shouldReduce ? { duration: 0 } : transition.fast}
-      className="group card-surface relative overflow-hidden rounded-lg transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card"
+      className="group card-surface card-hover relative overflow-hidden rounded-lg"
     >
       <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden">
         {!imageLoaded && <div className="absolute inset-0 image-skeleton" aria-hidden="true" />}

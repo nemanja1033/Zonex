@@ -32,7 +32,7 @@ export default function ServicesSection() {
           <div className="grid gap-6 md:grid-cols-2">
             {site.services.slice(0, 4).map((service, index) => (
               <Reveal key={service.title} delay={index * 0.06} variant="maskReveal">
-                <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-border)] hover:shadow-card">
+                <div className="card-surface card-hover rounded-lg p-5 sm:p-6">
                   <h3 className="font-display text-h4 text-white">{service.title}</h3>
                   <p className="mt-3 text-small text-white/80">{service.description}</p>
                 </div>
