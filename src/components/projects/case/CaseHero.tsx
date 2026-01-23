@@ -4,7 +4,9 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import type { Project } from '../../../../data/projects'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
+import { useRef } from 'react'
+import useParallax from '@/components/hooks/useParallax'
 
 type CaseHeroProps = {
   project: Project
@@ -13,6 +15,8 @@ type CaseHeroProps = {
 export default function CaseHero({ project }: CaseHeroProps) {
   const reduceMotion = useReducedMotion()
   const imageSrc = project.image ?? '/images/project-placeholder.svg'
+  const mediaRef = useRef<HTMLDivElement | null>(null)
+  const { y } = useParallax(mediaRef, 14)
   const blurDataURL =
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMEIwRDEyIi8+PC9zdmc+'
 
@@ -31,7 +35,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
               className="text-h1 font-display text-white"
               initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
               animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: easing }}
+              transition={transition.base}
             >
               {project.name}
             </motion.h1>
@@ -51,18 +55,20 @@ export default function CaseHero({ project }: CaseHeroProps) {
               </div>
             </div>
           </div>
-          <div className="card-surface relative overflow-hidden rounded-lg">
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={imageSrc}
-                alt={project.name}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-                priority
-                placeholder="blur"
-                blurDataURL={blurDataURL}
-              />
+          <div className="card-surface relative overflow-hidden rounded-lg transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
+            <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden">
+              <motion.div style={{ y }} className="absolute inset-0">
+                <Image
+                  src={imageSrc}
+                  alt={project.name}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                  priority
+                  placeholder="blur"
+                  blurDataURL={blurDataURL}
+                />
+              </motion.div>
             </div>
             <div className="p-6">
               <p className="text-micro font-mono uppercase tracking-micro text-white/60">Obim</p>

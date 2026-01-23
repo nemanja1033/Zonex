@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
 
 export default function RouteProgress() {
   const pathname = usePathname()
@@ -16,7 +16,7 @@ export default function RouteProgress() {
       className="route-progress"
       initial={{ scaleX: 0, opacity: 0.4 }}
       animate={{ scaleX: 1, opacity: [0.6, 1, 0] }}
-      transition={{ duration: 0.8, ease: easing, times: [0, 0.5, 1] }}
+      transition={{ ...transition.slow, times: [0, 0.5, 1] }}
     />
   )
 }

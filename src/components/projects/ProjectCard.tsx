@@ -4,8 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Project } from '../../../data/projects'
-import { easing } from '@/lib/motion'
-import { useState } from 'react'
+import { transition } from '@/lib/motion'
+import { useRef, useState } from 'react'
+import useParallax from '@/components/hooks/useParallax'
 
 type ProjectCardProps = {
   project: Project
@@ -18,26 +19,30 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const blurDataURL =
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMEIwRDEyIi8+PC9zdmc+'
   const [imageLoaded, setImageLoaded] = useState(false)
+  const mediaRef = useRef<HTMLDivElement | null>(null)
+  const { y } = useParallax(mediaRef, 12)
 
   return (
     <motion.div
       whileHover={shouldReduce ? undefined : { y: -4 }}
-      transition={shouldReduce ? { duration: 0 } : { duration: 0.4, ease: easing }}
-      className="group card-surface relative overflow-hidden rounded-lg"
+      transition={shouldReduce ? { duration: 0 } : transition.fast}
+      className="group card-surface relative overflow-hidden rounded-lg transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card"
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden">
         {!imageLoaded && <div className="absolute inset-0 image-skeleton" aria-hidden="true" />}
-        <Image
-          src={imageSrc}
-          alt={project.name}
-          fill
-          sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-          priority={false}
-          placeholder="blur"
-          blurDataURL={blurDataURL}
-          onLoadingComplete={() => setImageLoaded(true)}
-        />
+        <motion.div style={{ y }} className="absolute inset-0">
+          <Image
+            src={imageSrc}
+            alt={project.name}
+            fill
+            sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            priority={false}
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+            onLoadingComplete={() => setImageLoaded(true)}
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0f1012] via-transparent to-transparent" />
       </div>
       <div className="space-y-4 p-5 md:p-6">

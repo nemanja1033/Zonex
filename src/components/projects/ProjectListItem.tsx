@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import type { Project } from '@/content/content'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
 
 type ProjectListItemProps = {
   project: Project
@@ -14,7 +14,7 @@ export default function ProjectListItem({ project }: ProjectListItemProps) {
     <motion.div
       layout
       whileHover={{ x: 6 }}
-      transition={{ duration: 0.4, ease: easing }}
+      transition={transition.fast}
       className="group relative grid gap-6 rounded-lg border border-white/10 px-4 py-8 transition-colors duration-300 hover:bg-white/5 md:grid-cols-[200px_1.2fr_0.8fr]"
     >
       <div className="h-28 w-full overflow-hidden rounded-lg bg-[linear-gradient(140deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] transition-transform duration-500 group-hover:scale-[1.02]" />

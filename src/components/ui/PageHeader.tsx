@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
 
 type PageHeaderProps = {
   eyebrow: string
@@ -26,7 +26,7 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
           className="mt-4 hero-title"
           initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easing }}
+          transition={transition.base}
         >
           {title}
         </motion.h1>
@@ -35,7 +35,7 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
             className="mt-4 max-w-2xl hero-copy"
             initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: easing }}
+            transition={{ ...transition.base, delay: 0.08 }}
           >
             {subtitle}
           </motion.p>

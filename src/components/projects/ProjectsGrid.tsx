@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { projects } from '../../../data/projects'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
 
 const types = [
   { label: 'Svi', value: 'All' },
@@ -47,8 +47,8 @@ export default function ProjectsGrid() {
           shouldReduce
             ? { duration: 0 }
             : isLite
-              ? { duration: 0.3, ease: easing }
-              : { duration: 0.5, ease: easing }
+              ? transition.fast
+              : transition.base
         }
       >
         <FilterGroup label="Tip" items={types} value={type} onChange={setType} />
@@ -67,8 +67,8 @@ export default function ProjectsGrid() {
                 shouldReduce
                   ? { duration: 0 }
                   : isLite
-                    ? { duration: 0.3, delay: Math.min(index * 0.04, 0.2), ease: easing }
-                    : { duration: 0.45, delay: Math.min(index * 0.05, 0.25), ease: easing }
+                    ? { ...transition.fast, delay: Math.min(index * 0.04, 0.2) }
+                    : { ...transition.base, delay: Math.min(index * 0.05, 0.25) }
               }
             >
               <ProjectCard project={project} />
@@ -105,8 +105,8 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
             {value === item.value && (
               <motion.span
                 layoutId={`segmented-${label}`}
-                className="absolute inset-0 rounded-full bg-[rgba(255,255,255,0.08)]"
-                transition={{ duration: 0.25, ease: easing }}
+                className="absolute inset-0 rounded-full bg-[var(--accent-soft)]"
+                transition={transition.fast}
               />
             )}
             <span className="relative z-10">{item.label}</span>

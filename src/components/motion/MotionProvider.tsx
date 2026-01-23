@@ -1,8 +1,8 @@
 "use client"
 
-import { MotionConfig } from 'framer-motion'
+import { LazyMotion, MotionConfig, domAnimation } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { easing } from '@/lib/motion'
+import { transition } from '@/lib/motion'
 
 type MotionProviderProps = {
   children: ReactNode
@@ -10,11 +10,10 @@ type MotionProviderProps = {
 
 export default function MotionProvider({ children }: MotionProviderProps) {
   return (
-    <MotionConfig
-      reducedMotion="user"
-      transition={{ duration: 0.6, ease: easing }}
-    >
-      {children}
-    </MotionConfig>
+    <LazyMotion features={domAnimation}>
+      <MotionConfig reducedMotion="user" transition={transition.base}>
+        {children}
+      </MotionConfig>
+    </LazyMotion>
   )
 }

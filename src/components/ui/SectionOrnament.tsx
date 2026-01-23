@@ -31,7 +31,7 @@ export default function SectionOrnament({ targetRef, variant = 'left' }: Section
         style={{ y, opacity }}
         aria-hidden="true"
       >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,rgba(155,14,28,0.2),transparent_70%)]" />
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_top,var(--accent-soft),transparent_70%)]" />
       </motion.div>
       <motion.div
         className={`pointer-events-none absolute ${variant === 'left' ? 'left-[-4%]' : 'right-[-4%]'} top-[30%] h-72 w-72`}
