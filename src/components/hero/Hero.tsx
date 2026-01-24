@@ -8,6 +8,7 @@ import MagneticButton from '@/components/ui/MagneticButton'
 import Button from '@/components/ui/Button'
 import SplitText from '@/components/motion/SplitText'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import HeroAccent from '@/components/hero/HeroAccent'
 import { site } from '../../../data/site'
 import {
   fadeUp,
@@ -105,6 +106,7 @@ export default function Hero() {
 
   const title = `${site.hero.title}`
   const titleLines = title.split(', ')
+  const showWebgl = enableGsap
 
   return (
     <section ref={heroRef} className="hero-section relative overflow-hidden bg-navy-900 text-white">
@@ -187,36 +189,45 @@ export default function Hero() {
               </motion.div>
             </motion.div>
           </div>
-          <motion.div
-            variants={maskReveal}
-            initial={reduceMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            transition={transition.base}
-          >
-            <div className="card-surface rounded-lg p-5 sm:p-6 md:p-8">
-              <p className="text-micro font-mono uppercase tracking-micro text-white/60">Kratak pregled</p>
-              <div className="mt-6 space-y-4">
-                {[
-                  { label: 'Godina osnivanja', value: site.company.founded },
-                  { label: 'Model isporuke', value: 'Ključ u ruke' },
-                  { label: 'Sedište', value: site.company.location },
-                ].map((item) => (
-                  <div key={item.label} className="relative pb-4" data-hero-row>
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-small text-white/70">{item.label}</span>
-                      <span className="text-small font-semibold text-white">{item.value}</span>
-                    </div>
-                    <span className="absolute bottom-0 left-0 h-px w-full bg-white/10" data-hero-divider />
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8">
-                <Button href="/company" variant="ghost">
-                  Upoznajte tim
-                </Button>
-              </div>
+          <div className="relative">
+            <div className="pointer-events-none absolute right-0 top-0 hidden h-48 w-48 overflow-hidden lg:block">
+              {showWebgl ? (
+                <HeroAccent />
+              ) : (
+                <div className="h-full w-full rounded-full border border-white/10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_65%)]" />
+              )}
             </div>
-          </motion.div>
+            <motion.div
+              variants={maskReveal}
+              initial={reduceMotion ? 'visible' : 'hidden'}
+              animate="visible"
+              transition={transition.base}
+            >
+              <div className="card-surface rounded-lg p-5 sm:p-6 md:p-8">
+                <p className="text-micro font-mono uppercase tracking-micro text-white/60">Kratak pregled</p>
+                <div className="mt-6 space-y-4">
+                  {[
+                    { label: 'Godina osnivanja', value: site.company.founded },
+                    { label: 'Model isporuke', value: 'Ključ u ruke' },
+                    { label: 'Sedište', value: site.company.location },
+                  ].map((item) => (
+                    <div key={item.label} className="relative pb-4" data-hero-row>
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="text-small text-white/70">{item.label}</span>
+                        <span className="text-small font-semibold text-white">{item.value}</span>
+                      </div>
+                      <span className="absolute bottom-0 left-0 h-px w-full bg-white/10" data-hero-divider />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <Button href="/company" variant="ghost">
+                    Upoznajte tim
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </Container>
       <div className="hero-blueprint" aria-hidden="true">
