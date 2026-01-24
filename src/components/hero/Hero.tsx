@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Container from '@/components/ui/Container'
 import MagneticButton from '@/components/ui/MagneticButton'
 import Button from '@/components/ui/Button'
@@ -11,7 +11,6 @@ import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import { site } from '../../../data/site'
 import {
   fadeUp,
-  lineReveal,
   maskReveal,
   staggerChildren,
   textRevealItem,
@@ -23,6 +22,17 @@ export default function Hero() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
   const heroRef = useRef<HTMLElement | null>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
+  const enableGsap = isDesktop && !isCoarse && !reduceMotion
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const media = window.matchMedia('(min-width: 1024px)')
+    const update = () => setIsDesktop(media.matches)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
     if (reduceMotion || isCoarse) return
@@ -57,6 +67,42 @@ export default function Hero() {
     }
   }, [isCoarse, reduceMotion])
 
+  useEffect(() => {
+    if (!enableGsap) return
+    let ctx: { revert: () => void } | undefined
+
+    const run = async () => {
+      const gsapModule = await import('gsap')
+      const gsap = gsapModule.gsap ?? gsapModule.default
+
+      if (!heroRef.current) return
+
+      ctx = gsap.context(() => {
+        const lines = gsap.utils.toArray<HTMLElement>('[data-hero-line]')
+        const headlineMasks = gsap.utils.toArray<HTMLElement>('[data-hero-mask]')
+        const rows = gsap.utils.toArray<HTMLElement>('[data-hero-row]')
+        const dividers = gsap.utils.toArray<HTMLElement>('[data-hero-divider]')
+
+        gsap.set(lines, { scaleX: 0, transformOrigin: 'left center' })
+        gsap.set(headlineMasks, { clipPath: 'inset(0 0 100% 0)' })
+        gsap.set(rows, { autoAlpha: 0, y: 12 })
+        gsap.set(dividers, { scaleX: 0, transformOrigin: 'left center' })
+
+        const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } })
+        timeline.to(lines, { scaleX: 1, duration: 0.6, stagger: 0.08 }, 0.1)
+        timeline.to(headlineMasks, { clipPath: 'inset(0 0 0% 0)', duration: 0.6, stagger: 0.08 }, 0.15)
+        timeline.to(dividers, { scaleX: 1, duration: 0.35, stagger: 0.08 }, 0.3)
+        timeline.to(rows, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.08 }, 0.32)
+      }, heroRef)
+    }
+
+    run()
+
+    return () => {
+      ctx?.revert()
+    }
+  }, [enableGsap])
+
   const title = `${site.hero.title}`
   const titleLines = title.split(', ')
 
@@ -87,31 +133,43 @@ export default function Hero() {
                 Generalni izvođač
               </motion.p>
               <div className="hero-line-wrap">
-                <motion.span
-                  variants={lineReveal}
-                  className="hero-line block h-px w-20 bg-[var(--accent)]"
-                  style={{ transformOrigin: 'left' }}
-                />
+                <span className="hero-line block h-px w-20 bg-[var(--accent)]" data-hero-line />
               </div>
               <h1 className="text-h1 font-display text-white">
                 <span className="sr-only">{title}</span>
-                <motion.span aria-hidden="true" variants={textRevealLines} className="block">
-                  {titleLines.map((line, index) => (
-                    <motion.span
-                      key={`${line}-${index}`}
-                      variants={textRevealItem}
-                      className="block overflow-hidden"
-                    >
-                      <SplitText
-                        text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
-                        type="words"
-                        className="block"
-                        itemClassName="inline-block"
-                        srOnly={false}
-                      />
-                    </motion.span>
-                  ))}
-                </motion.span>
+                {enableGsap ? (
+                  <span aria-hidden="true" className="block">
+                    {titleLines.map((line, index) => (
+                      <span key={`${line}-${index}`} className="block overflow-hidden" data-hero-mask>
+                        <SplitText
+                          text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
+                          type="words"
+                          className="block"
+                          itemClassName="inline-block"
+                          srOnly={false}
+                        />
+                      </span>
+                    ))}
+                  </span>
+                ) : (
+                  <motion.span aria-hidden="true" variants={textRevealLines} className="block">
+                    {titleLines.map((line, index) => (
+                      <motion.span
+                        key={`${line}-${index}`}
+                        variants={textRevealItem}
+                        className="block overflow-hidden"
+                      >
+                        <SplitText
+                          text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
+                          type="words"
+                          className="block"
+                          itemClassName="inline-block"
+                          srOnly={false}
+                        />
+                      </motion.span>
+                    ))}
+                  </motion.span>
+                )}
               </h1>
               <motion.p variants={fadeUp} className="text-body text-white/85 text-measure">
                 {site.hero.subtitle}
@@ -137,19 +195,20 @@ export default function Hero() {
           >
             <div className="card-surface rounded-lg p-5 sm:p-6 md:p-8">
               <p className="text-micro font-mono uppercase tracking-micro text-white/60">Kratak pregled</p>
-              <div className="mt-6 space-y-6">
-                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-                  <span className="text-small text-white/70">Godina osnivanja</span>
-                  <span className="text-small font-semibold text-white">{site.company.founded}</span>
-                </div>
-                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-                  <span className="text-small text-white/70">Model isporuke</span>
-                  <span className="text-small font-semibold text-white">Ključ u ruke</span>
-                </div>
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-small text-white/70">Sedište</span>
-                  <span className="text-small font-semibold text-white">{site.company.location}</span>
-                </div>
+              <div className="mt-6 space-y-4">
+                {[
+                  { label: 'Godina osnivanja', value: site.company.founded },
+                  { label: 'Model isporuke', value: 'Ključ u ruke' },
+                  { label: 'Sedište', value: site.company.location },
+                ].map((item) => (
+                  <div key={item.label} className="relative pb-4" data-hero-row>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-small text-white/70">{item.label}</span>
+                      <span className="text-small font-semibold text-white">{item.value}</span>
+                    </div>
+                    <span className="absolute bottom-0 left-0 h-px w-full bg-white/10" data-hero-divider />
+                  </div>
+                ))}
               </div>
               <div className="mt-8">
                 <Button href="/company" variant="ghost">
@@ -162,35 +221,14 @@ export default function Hero() {
       </Container>
       <div className="hero-blueprint" aria-hidden="true">
         <div className="hero-blueprint-line hero-blueprint-line--a">
-          <motion.span
-            variants={lineReveal}
-            initial={reduceMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            transition={transition.fast}
-            className="block h-px w-40 bg-white/20"
-            style={{ transformOrigin: 'left' }}
-          />
+          <span className="block h-px w-40 bg-white/20" data-hero-line />
         </div>
         <div className="hero-blueprint-line hero-blueprint-line--b">
-          <motion.span
-            variants={lineReveal}
-            initial={reduceMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            transition={transition.fast}
-            className="block h-px w-56 bg-white/15"
-            style={{ transformOrigin: 'left' }}
-          />
+          <span className="block h-px w-56 bg-white/15" data-hero-line />
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 z-10">
-        <motion.span
-          variants={lineReveal}
-          initial={reduceMotion ? 'visible' : 'hidden'}
-          animate="visible"
-          transition={transition.base}
-          className="block h-px w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.4),transparent)]"
-          style={{ transformOrigin: 'left' }}
-        />
+        <span className="block h-px w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.4),transparent)]" data-hero-line />
       </div>
     </section>
   )
