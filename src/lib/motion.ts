@@ -112,3 +112,6 @@ export const reducedMotionVariants: Variants = {
   visible: { opacity: 1, y: 0, x: 0, scale: 1 },
   exit: { opacity: 1, y: 0, x: 0, scale: 1 },
 }
+
+export const resolveVariants = (reduceMotion: boolean, variants: Variants) =>
+  reduceMotion ? reducedMotionVariants : variants
