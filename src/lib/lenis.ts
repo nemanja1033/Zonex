@@ -1,6 +1,6 @@
 import type Lenis from 'lenis'
 
-export const LENIS_ENABLED = true
+export const LENIS_ENABLED = false
 
 let lenisInstance: Lenis | null = null
 

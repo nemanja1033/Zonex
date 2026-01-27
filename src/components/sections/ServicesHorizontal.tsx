@@ -30,8 +30,10 @@ export default function ServicesHorizontal() {
   const cardsRef = useRef<Array<HTMLDivElement | null>>([])
   const activeIndexRef = useRef(0)
   const delayRef = useRef<number | null>(null)
+  const offsetsRef = useRef<number[]>([])
+  const tweenRef = useRef<null | { kill: () => void }>(null)
+  const triggerRef = useRef<null | { kill: () => void; refresh: () => void }>(null)
   const gsapRef = useRef<null | { killTweensOf: (target: Element | null) => void }>(null)
-  const scrollTriggerRef = useRef<null | { getAll: () => Array<{ kill: () => void }> }>(null)
   const [enableGsap, setEnableGsap] = useState(false)
 
   useEffect(() => {
@@ -56,7 +58,6 @@ export default function ServicesHorizontal() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
       gsapRef.current = gsap
-      scrollTriggerRef.current = ScrollTrigger
 
       const section = sectionRef.current
       const trackViewport = trackViewportRef.current
@@ -81,48 +82,62 @@ export default function ServicesHorizontal() {
         if (currentEl) {
           currentEl.textContent = `${String(nextIndex + 1).padStart(2, '0')}`
         }
+        if (progressEl) {
+          const ratio = cards.length > 1 ? nextIndex / (cards.length - 1) : 0
+          gsap.set(progressEl, { scaleX: ratio })
+        }
       }
 
+      const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
       const getMaxTranslate = () => Math.max(track.scrollWidth - trackViewport.clientWidth, 0)
-      const getScrollDistance = () => (cards.length - 1) * window.innerWidth
+      const getScrollDistance = () => '+=300%'
 
-      if (SERVICES_DEBUG) {
-        console.log('[services-horizontal]', {
-          trackScrollWidth: track.scrollWidth,
-          viewportWidth: trackViewport.clientWidth,
-          maxTranslateX: getMaxTranslate(),
-          cardCount: cards.length,
+      const computeOffsets = () => {
+        const viewportWidth = trackViewport.clientWidth
+        const maxTranslate = getMaxTranslate()
+        offsetsRef.current = cards.map((card) => {
+          const centerOffset = card.offsetLeft - (viewportWidth - card.clientWidth) / 2
+          return clamp(-centerOffset, -maxTranslate, 0)
         })
+
+        if (SERVICES_DEBUG) {
+          console.log('[services-horizontal] offsets', offsetsRef.current)
+          console.log('[services-horizontal] widths', {
+            viewportWidth,
+            trackWidth: track.scrollWidth,
+            maxTranslate,
+            cardCount: cards.length,
+          })
+        }
       }
 
-      const timeline = gsap.to(track, {
-        x: () => -getMaxTranslate(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${getScrollDistance()}`,
-          scrub: 0.7,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          snap: {
-            snapTo: (value: number) => {
-              const segments = cards.length - 1
-              if (segments <= 0) return 0
-              return Math.round(value * segments) / segments
-            },
-            duration: { min: 0.2, max: 0.35 },
-            delay: 0.05,
-            ease: 'power2.out',
-          },
-          onUpdate: (self) => {
-            const nextIndex = Math.round(self.progress * (cards.length - 1))
-            setActiveIndex(nextIndex)
-            if (progressEl) {
-              gsap.set(progressEl, { scaleX: self.progress })
-            }
-          },
+      computeOffsets()
+
+      triggerRef.current = ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: getScrollDistance,
+        pin: true,
+        scrub: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: computeOffsets,
+        onUpdate: (self) => {
+          const nextIndex = Math.round(self.progress * (cards.length - 1))
+          if (nextIndex === activeIndexRef.current) return
+          setActiveIndex(nextIndex)
+          const offsets = offsetsRef.current
+          const targetX = offsets[nextIndex] ?? 0
+          tweenRef.current?.kill()
+          tweenRef.current = gsap.to(track, {
+            x: targetX,
+            duration: 0.32,
+            ease: 'power3.out',
+          })
+
+          if (SERVICES_DEBUG) {
+            console.log('[services-horizontal] step', nextIndex, 'x', targetX)
+          }
         },
       })
 
@@ -131,7 +146,7 @@ export default function ServicesHorizontal() {
         gsap.set(progressEl, { scaleX: 0, transformOrigin: 'left center' })
       }
 
-      ctx = gsap.context(() => timeline, section)
+      ctx = gsap.context(() => triggerRef.current, section)
     }
 
     run()
@@ -140,11 +155,10 @@ export default function ServicesHorizontal() {
       if (delayRef.current) {
         window.clearTimeout(delayRef.current)
       }
+      tweenRef.current?.kill()
+      triggerRef.current?.kill()
       if (gsapRef.current && trackRef.current) {
         gsapRef.current.killTweensOf(trackRef.current)
-      }
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.getAll().forEach((trigger) => trigger.kill())
       }
       ctx?.revert()
     }
