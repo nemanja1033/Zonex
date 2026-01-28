@@ -226,6 +226,10 @@ export default function ServicesCarousel() {
         tweenRef.current.kill()
         tweenRef.current = null
       }
+      if (debounceRef.current) {
+        window.clearTimeout(debounceRef.current)
+        debounceRef.current = null
+      }
       scroller.scrollLeft = Math.min(maxScroll, Math.max(0, scroller.scrollLeft + deltaY))
       if (!hasInteracted) setHasInteracted(true)
     }
@@ -317,13 +321,13 @@ export default function ServicesCarousel() {
                 const badge = String(index + 1).padStart(2, '0')
                 const isActive = index === activeIndex
                 return (
-                  <motion.article
+                  <article
                     key={service.title}
                     ref={(el) => {
                       cardRefs.current[index] = el
                     }}
                     className={`card-surface rounded-xl p-6 ${styles.card} ${
-                      isActive ? styles.cardActive : styles.cardInactive
+                      isActive ? styles.cardActive : ''
                     }`}
                     aria-label={`Usluga ${badge}: ${service.title}`}
                   >
@@ -415,7 +419,7 @@ export default function ServicesCarousel() {
                         loading="lazy"
                       />
                     </motion.div>
-                  </motion.article>
+                  </article>
                 )
               })}
             </div>
