@@ -182,7 +182,7 @@ export default function ServicesCarousel() {
   }
 
   return (
-    <section className={`section-divider section section-surface ${styles.sectionRoot}`}>
+    <section className={`section-divider section ${styles.sectionRoot} ${styles.sectionSurface}`}>
       <Container>
         <div className={`grid gap-10 lg:items-start ${styles.servicesGrid}`}>
           <div className="flex flex-col gap-6 lg:sticky lg:top-24">
@@ -220,113 +220,120 @@ export default function ServicesCarousel() {
               </div>
             </div>
           </div>
-          <div className={`${styles.servicesRight} ${styles.carouselWrap}`}>
-            <div ref={scrollerRef} className={styles.carouselScroll} role="region" aria-label="Usluge carousel">
-              {services.map((service, index) => {
-                const badge = String(index + 1).padStart(2, '0')
-                const isActive = index === activeIndex
-                return (
-                  <article
-                    key={service.title}
-                    ref={(el) => {
-                      cardRefs.current[index] = el
-                    }}
-                    className={`card-surface rounded-xl p-6 ${styles.card} ${
-                      isActive ? styles.cardActive : ''
-                    }`}
-                    aria-label={`Usluga ${badge}: ${service.title}`}
-                  >
-                    <motion.span
-                      className="text-[0.7rem] uppercase tracking-[0.24em] text-white/70"
-                      initial={false}
-                      animate={reduceMotion ? { opacity: 1 } : isActive ? { opacity: 1 } : { opacity: 0.7 }}
+          <div className={styles.carouselShell}>
+            <div
+              ref={scrollerRef}
+              className={styles.servicesRight}
+              role="region"
+              aria-label="Usluge carousel"
+            >
+              <div className={styles.carouselScroll}>
+                {services.map((service, index) => {
+                  const badge = String(index + 1).padStart(2, '0')
+                  const isActive = index === activeIndex
+                  return (
+                    <article
+                      key={service.title}
+                      ref={(el) => {
+                        cardRefs.current[index] = el
+                      }}
+                      className={`card-surface rounded-xl p-6 ${styles.card} ${
+                        isActive ? styles.cardActive : ''
+                      }`}
+                      aria-label={`Usluga ${badge}: ${service.title}`}
                     >
-                      {badge}
-                    </motion.span>
-                    <motion.div
-                      className="mt-4"
-                      initial={false}
-                      animate={
-                        reduceMotion
-                          ? { opacity: 1, y: 0 }
-                          : isActive
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0.8, y: 6 }
-                      }
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                    >
-                      <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga {badge}</p>
-                      <motion.h3
-                        className="mt-3 font-display text-h3 text-white"
+                      <motion.span
+                        className="text-[0.7rem] uppercase tracking-[0.24em] text-white/70"
+                        initial={false}
+                        animate={reduceMotion ? { opacity: 1 } : isActive ? { opacity: 1 } : { opacity: 0.7 }}
+                      >
+                        {badge}
+                      </motion.span>
+                      <motion.div
+                        className="mt-4"
                         initial={false}
                         animate={
                           reduceMotion
-                            ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' }
+                            ? { opacity: 1, y: 0 }
                             : isActive
+                              ? { opacity: 1, y: 0 }
+                              : { opacity: 0.8, y: 6 }
+                        }
+                        transition={{ duration: 0.35, ease: 'easeOut' }}
+                      >
+                        <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga {badge}</p>
+                        <motion.h3
+                          className="mt-3 font-display text-h3 text-white"
+                          initial={false}
+                          animate={
+                            reduceMotion
                               ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' }
-                              : { opacity: 0.75, clipPath: 'inset(0 0 100% 0)' }
+                              : isActive
+                                ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' }
+                                : { opacity: 0.75, clipPath: 'inset(0 0 100% 0)' }
+                          }
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                        >
+                          {service.title}
+                        </motion.h3>
+                        <span className="mt-4 block h-px w-full bg-white/20" aria-hidden="true" />
+                      </motion.div>
+                      <motion.p
+                        className="mt-3 text-small text-white/80"
+                        initial={false}
+                        animate={
+                          reduceMotion
+                            ? { opacity: 1, y: 0 }
+                            : isActive
+                              ? { opacity: 1, y: 0 }
+                              : { opacity: 0.7, y: 8 }
+                        }
+                        transition={{ duration: 0.35, ease: 'easeOut' }}
+                      >
+                        {service.description}
+                      </motion.p>
+                      <motion.div
+                        className="mt-4 flex gap-3 text-[0.7rem] uppercase tracking-[0.24em] text-white/55"
+                        initial={false}
+                        animate={
+                          reduceMotion
+                            ? { opacity: 1, y: 0 }
+                            : isActive
+                              ? { opacity: 1, y: 0 }
+                              : { opacity: 0.7, y: 6 }
+                        }
+                        transition={{ duration: 0.35, ease: 'easeOut' }}
+                      >
+                        <span className="border-r border-white/15 pr-3">Obim</span>
+                        <span className="border-r border-white/15 pr-3">Rok</span>
+                        <span>Standard</span>
+                      </motion.div>
+                      <motion.div
+                        className={`mt-5 ${styles.cardImage}`}
+                        initial={false}
+                        animate={
+                          reduceMotion
+                            ? { y: 0, scale: 1 }
+                            : isActive
+                              ? { y: -6, scale: 1.02 }
+                              : { y: 0, scale: 1 }
                         }
                         transition={{ duration: 0.4, ease: 'easeOut' }}
                       >
-                        {service.title}
-                      </motion.h3>
-                      <span className="mt-4 block h-px w-full bg-white/20" aria-hidden="true" />
-                    </motion.div>
-                    <motion.p
-                      className="mt-3 text-small text-white/80"
-                      initial={false}
-                      animate={
-                        reduceMotion
-                          ? { opacity: 1, y: 0 }
-                          : isActive
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0.7, y: 8 }
-                      }
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                    >
-                      {service.description}
-                    </motion.p>
-                    <motion.div
-                      className="mt-4 flex gap-3 text-[0.7rem] uppercase tracking-[0.24em] text-white/55"
-                      initial={false}
-                      animate={
-                        reduceMotion
-                          ? { opacity: 1, y: 0 }
-                          : isActive
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0.7, y: 6 }
-                      }
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                    >
-                      <span className="border-r border-white/15 pr-3">Obim</span>
-                      <span className="border-r border-white/15 pr-3">Rok</span>
-                      <span>Standard</span>
-                    </motion.div>
-                    <motion.div
-                      className={`mt-5 ${styles.cardImage}`}
-                      initial={false}
-                      animate={
-                        reduceMotion
-                          ? { y: 0, scale: 1 }
-                          : isActive
-                            ? { y: -6, scale: 1.02 }
-                            : { y: 0, scale: 1 }
-                      }
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
-                    >
-                      <Image
-                        src={serviceImages[index % serviceImages.length]}
-                        alt={service.title}
-                        width={520}
-                        height={360}
-                        sizes="(min-width: 1024px) 40vw, 90vw"
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                    </motion.div>
-                  </article>
-                )
-              })}
+                        <Image
+                          src={serviceImages[index % serviceImages.length]}
+                          alt={service.title}
+                          width={520}
+                          height={360}
+                          sizes="(min-width: 1024px) 40vw, 90vw"
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      </motion.div>
+                    </article>
+                  )
+                })}
+              </div>
             </div>
             <span className={`${styles.hint} ${hasInteracted ? styles.hintHidden : ''}`}>Povucite / Skrolujte</span>
             <span className={`${styles.edge} ${styles.edgeLeft}`} aria-hidden="true" />
