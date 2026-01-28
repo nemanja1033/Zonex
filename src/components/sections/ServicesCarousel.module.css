@@ -1,5 +1,7 @@
 .carouselWrap {
   position: relative;
+  min-height: 460px;
+  z-index: 1;
 }
 
 .carouselScroll {
@@ -15,7 +17,7 @@
   padding-left: calc(var(--carousel-pad, 24px) + 24px);
   padding-right: calc(var(--carousel-pad, 24px) + 120px);
   padding-bottom: 0.5rem;
-  min-height: 420px;
+  min-height: 460px;
   scrollbar-width: none;
 }
 
