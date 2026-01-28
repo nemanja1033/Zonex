@@ -7,7 +7,7 @@
 }
 
 .sectionRoot {
-  overflow: visible;
+  overflow: visible !important;
 }
 
 .servicesGrid {
@@ -19,6 +19,7 @@
   min-width: 0;
   position: relative;
   overflow-y: visible;
+  overflow-x: auto;
 }
 
 .carouselScroll {
