@@ -27,6 +27,7 @@ export default function ServicesCarousel() {
   )
   const [activeIndex, setActiveIndex] = useState(0)
   const activeService = services[activeIndex]
+  const totalLabel = String(services.length).padStart(2, '0')
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const scrollRaf = useRef<number | null>(null)
@@ -98,6 +99,36 @@ export default function ServicesCarousel() {
     goToIndex(nextIndex)
   }
 
+  const renderDots = (compact = false) => (
+    <div className={`flex flex-wrap items-center ${compact ? 'gap-2' : 'gap-3'}`}>
+      {services.map((_, index) => (
+        <button
+          key={`dot-${compact ? 'mobile' : 'desktop'}-${index}`}
+          type="button"
+          onClick={() => goToIndex(index)}
+          className="group"
+          aria-label={`Prikaži uslugu ${index + 1}`}
+        >
+          <span
+            className={`block h-1 rounded-full transition-all duration-500 ${
+              index === activeIndex
+                ? compact
+                  ? 'w-10 bg-[var(--accent)]'
+                  : 'w-16 bg-[var(--accent)]'
+                : index < activeIndex
+                  ? compact
+                    ? 'w-6 bg-white/30'
+                    : 'w-10 bg-white/30'
+                  : compact
+                    ? 'w-5 bg-white/20 group-hover:bg-white/35'
+                    : 'w-8 bg-white/20 group-hover:bg-white/35'
+            }`}
+          />
+        </button>
+      ))}
+    </div>
+  )
+
   return (
     <section className="relative overflow-hidden bg-[var(--bg)] py-24 lg:py-32">
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
@@ -156,35 +187,15 @@ export default function ServicesCarousel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-6 pt-6"
+              className="hidden space-y-6 pt-6 md:block"
             >
               <div className="flex items-baseline gap-3">
                 <span className="tabular-nums text-5xl font-semibold text-white">{activeService.number}</span>
                 <span className="text-2xl text-white/20">/</span>
-                <span className="tabular-nums text-2xl text-white/35">04</span>
+                <span className="tabular-nums text-2xl text-white/35">{totalLabel}</span>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
-                {services.map((_, index) => (
-                  <button
-                    key={`dot-${index}`}
-                    type="button"
-                    onClick={() => goToIndex(index)}
-                    className="group"
-                    aria-label={`Prikaži uslugu ${index + 1}`}
-                  >
-                    <span
-                      className={`block h-1 rounded-full transition-all duration-500 ${
-                        index === activeIndex
-                          ? 'w-16 bg-[var(--accent)]'
-                          : index < activeIndex
-                            ? 'w-10 bg-white/30'
-                            : 'w-8 bg-white/20 group-hover:bg-white/35'
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
-              <div className="hidden items-center gap-3 md:flex">
+              {renderDots()}
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => handleScroll('prev')}
@@ -219,7 +230,8 @@ export default function ServicesCarousel() {
               <div className="space-y-4">
                 <div
                   ref={scrollerRef}
-                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch]"
+                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                  style={{ scrollPaddingInline: '16px' }}
                 >
                   {services.map((service, index) => (
                     <div
@@ -227,21 +239,34 @@ export default function ServicesCarousel() {
                       ref={(node) => {
                         cardRefs.current[index] = node
                       }}
-                      className="min-w-[85%] snap-center"
+                      className="min-w-full snap-center"
                     >
-                      <ServiceCard service={service} reduceMotion={reduceMotion} />
+                      <div className="px-4">
+                        <ServiceCard service={service} reduceMotion={reduceMotion} />
+                      </div>
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-white/45 md:hidden">
-                  <span>Prevuci</span>
-                  <motion.span
-                    aria-hidden="true"
-                    animate={reduceMotion ? undefined : { x: [0, 6, 0] }}
-                    transition={{ duration: 1.6, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
-                  >
-                    →
-                  </motion.span>
+                <div className="space-y-3 md:hidden">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-baseline gap-2">
+                      <span className="tabular-nums text-3xl font-semibold text-white">{activeService.number}</span>
+                      <span className="text-lg text-white/25">/</span>
+                      <span className="tabular-nums text-lg text-white/40">{totalLabel}</span>
+                    </div>
+                    <div className="text-[11px] uppercase tracking-wider text-white/45">
+                      Prevuci
+                      <motion.span
+                        className="ml-2 inline-block"
+                        aria-hidden="true"
+                        animate={reduceMotion ? undefined : { x: [0, 6, 0] }}
+                        transition={{ duration: 1.6, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+                      >
+                        →
+                      </motion.span>
+                    </div>
+                  </div>
+                  {renderDots(true)}
                 </div>
               </div>
             ) : (
@@ -297,24 +322,26 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
           }}
         />
         <div className="relative">
-          <div className="space-y-4 px-8 pb-6 pt-8">
+          <div className="space-y-4 px-6 pb-5 pt-6 md:px-8 md:pb-6 md:pt-8">
             <div className="flex items-center justify-between">
-              <span className="text-6xl font-semibold text-[rgba(194,59,59,0.2)]">{service.number}</span>
+              <span className="text-4xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
+                {service.number}
+              </span>
               <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70">
                 Usluga {service.number}
               </span>
             </div>
-            <h3 className="text-3xl font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] lg:text-4xl">
+            <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
               {service.title}
             </h3>
-            <p className="max-w-md text-base text-white/65">{service.description}</p>
+            <p className="max-w-md text-sm text-white/65 md:text-base">{service.description}</p>
             <div className="flex flex-wrap gap-2 pt-2 text-[11px] uppercase tracking-wider text-white/45">
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Obim</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Rok</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Standard</span>
             </div>
           </div>
-          <div className="relative h-[320px] overflow-hidden lg:h-[380px]">
+          <div className="relative aspect-[16/9] max-h-[clamp(200px,55vw,240px)] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-[rgba(18,20,24,0.9)] via-transparent to-transparent" />
             <Image
               src={service.image}

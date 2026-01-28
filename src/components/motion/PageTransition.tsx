@@ -1,10 +1,11 @@
 "use client"
 
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { pageTransition, reducedMotionVariants } from '@/lib/motion'
+import RouteTransitionContext from '@/components/motion/RouteTransitionContext'
 
 type PageTransitionProps = {
   children: ReactNode
@@ -13,25 +14,35 @@ type PageTransitionProps = {
 export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname()
   const reduceMotion = useReducedMotion()
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname])
 
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setIsTransitioning(false)
+    }, reduceMotion ? 0 : 280)
+    setIsTransitioning(true)
+    return () => window.clearTimeout(timeout)
+  }, [pathname, reduceMotion])
+
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <RouteTransitionContext.Provider value={isTransitioning}>
       <motion.div
         key={pathname}
         variants={reduceMotion ? reducedMotionVariants : pageTransition}
         initial="hidden"
         animate="visible"
-        exit="exit"
         transition={reduceMotion ? { duration: 0 } : undefined}
         className="relative"
+        onAnimationStart={() => setIsTransitioning(true)}
+        onAnimationComplete={() => setIsTransitioning(false)}
       >
         {children}
       </motion.div>
-    </AnimatePresence>
+    </RouteTransitionContext.Provider>
   )
 }

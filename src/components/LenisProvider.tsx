@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import { attachLenisPerfGuard, createLenisConfig, setLenisInstance, shouldEnableLenis } from '@/lib/lenis'
 
@@ -11,6 +12,7 @@ type LenisProviderProps = {
 export default function LenisProvider({ children }: LenisProviderProps) {
   const lenisRef = useRef<Lenis | null>(null)
   const rafRef = useRef<number | null>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     if (!shouldEnableLenis()) return
@@ -39,6 +41,17 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       onDisable()
     }
   }, [])
+
+  useEffect(() => {
+    const lenis = lenisRef.current
+    if (!lenis) return
+    lenis.stop()
+    lenis.scrollTo(0, { immediate: true })
+    const raf = requestAnimationFrame(() => {
+      lenis.start()
+    })
+    return () => cancelAnimationFrame(raf)
+  }, [pathname])
 
   return <>{children}</>
 }

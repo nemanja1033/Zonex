@@ -10,6 +10,7 @@ import SplitText from '@/components/motion/SplitText'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import useSafeLayoutEffect from '@/components/hooks/useSafeLayoutEffect'
 import HeroAccent from '@/components/hero/HeroAccent'
+import { useRouteTransition } from '@/components/motion/RouteTransitionContext'
 import { site } from '../../../data/site'
 import { allowGsap, allowR3f } from '@/lib/motionLevel'
 import {
@@ -24,12 +25,13 @@ import {
 export default function Hero() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
+  const isTransitioning = useRouteTransition()
   const heroRef = useRef<HTMLElement | null>(null)
   const gsapRef = useRef<any>(null)
   const gsapTargetsRef = useRef<HTMLElement[]>([])
   const [isDesktop, setIsDesktop] = useState(false)
-  const enableGsap = allowGsap() && isDesktop && !isCoarse && !reduceMotion
-  const showWebgl = allowR3f() && isDesktop && !isCoarse && !reduceMotion
+  const enableGsap = allowGsap() && isDesktop && !isCoarse && !reduceMotion && !isTransitioning
+  const showWebgl = allowR3f() && isDesktop && !isCoarse && !reduceMotion && !isTransitioning
   const particles = useMemo(
     () => [
       { left: '12%', top: '18%', size: 2, duration: 4.2, delay: 0.2, opacity: 0.5 },
@@ -127,6 +129,10 @@ export default function Hero() {
       ctx?.revert()
       if (gsapRef.current && gsapTargetsRef.current.length > 0) {
         gsapRef.current.killTweensOf(gsapTargetsRef.current)
+      }
+      const scrollTrigger = gsapRef.current?.ScrollTrigger
+      if (scrollTrigger?.getAll) {
+        scrollTrigger.getAll().forEach((trigger: { kill: () => void }) => trigger.kill())
       }
       gsapTargetsRef.current = []
     }

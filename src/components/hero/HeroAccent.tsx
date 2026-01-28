@@ -36,6 +36,7 @@ const fragmentShader = `
 
 function AccentPlane() {
   const materialRef = useRef<THREE.ShaderMaterial | null>(null)
+  const meshRef = useRef<THREE.Mesh | null>(null)
   const pointerRef = useRef({ x: 0, y: 0 })
   const { invalidate } = useThree()
 
@@ -93,8 +94,24 @@ function AccentPlane() {
     []
   )
 
+  useEffect(() => {
+    const mesh = meshRef.current
+    return () => {
+      if (mesh) {
+        const geometry = mesh.geometry
+        const material = mesh.material
+        geometry?.dispose()
+        if (Array.isArray(material)) {
+          material.forEach((item) => item.dispose())
+        } else {
+          material?.dispose()
+        }
+      }
+    }
+  }, [])
+
   return (
-    <mesh>
+    <mesh ref={meshRef}>
       <planeGeometry args={[1.6, 1.2, 1, 1]} />
       <shaderMaterial
         ref={materialRef}
@@ -111,7 +128,7 @@ export default function HeroAccent() {
   return (
     <Canvas
       frameloop="demand"
-      dpr={[1, 1.5]}
+      dpr={[1, 1.25]}
       camera={{ position: [0, 0, 2.2], fov: 45 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ width: '100%', height: '100%' }}
