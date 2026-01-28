@@ -184,7 +184,7 @@ export default function ServicesCarousel() {
   return (
     <section className={`section-divider section section-surface ${styles.sectionRoot}`}>
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+        <div className={`grid gap-10 lg:items-start ${styles.servicesGrid}`}>
           <div className="flex flex-col gap-6 lg:sticky lg:top-24">
             <Reveal>
               <div className="space-y-4">
@@ -220,7 +220,7 @@ export default function ServicesCarousel() {
               </div>
             </div>
           </div>
-          <div className={styles.carouselWrap}>
+          <div className={`${styles.servicesRight} ${styles.carouselWrap}`}>
             <div ref={scrollerRef} className={styles.carouselScroll} role="region" aria-label="Usluge carousel">
               {services.map((service, index) => {
                 const badge = String(index + 1).padStart(2, '0')

@@ -3,10 +3,20 @@
   min-height: 460px;
   z-index: 2;
   min-width: 0;
+  padding-block: 12px;
 }
 
 .sectionRoot {
   overflow: visible;
+}
+
+.servicesGrid {
+  grid-template-columns: minmax(420px, 1fr) minmax(0, 1.4fr);
+}
+
+.servicesRight {
+  min-width: 0;
+  position: relative;
 }
 
 .carouselScroll {
@@ -20,6 +30,8 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
   width: 100%;
+  position: relative;
+  z-index: 3;
   scroll-padding-left: var(--carousel-pad, 24px);
   scroll-padding-right: var(--carousel-pad, 24px);
   padding-left: calc(var(--carousel-pad, 24px) + 24px);
