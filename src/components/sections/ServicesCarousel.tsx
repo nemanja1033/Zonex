@@ -130,7 +130,7 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] py-12 md:py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-[var(--bg)] py-10 md:py-24 lg:py-32">
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -141,8 +141,8 @@ export default function ServicesCarousel() {
         />
       </div>
       <Container className="relative z-10">
-        <div className="grid gap-6 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-          <div className="lg:col-span-5 space-y-6 md:space-y-8">
+        <div className="grid gap-5 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="lg:col-span-5 space-y-5 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-2 md:space-y-4"
             >
-              <h2 className="font-display text-[28px] leading-[1.12] text-white md:text-5xl xl:text-6xl">
+              <h2 className="font-display text-[26px] leading-[1.12] text-white md:text-5xl xl:text-6xl">
                 Integrisane usluge
                 <br />
                 sa preciznim
@@ -175,7 +175,7 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-2 md:space-y-4"
             >
-              <p className="text-sm text-white/70 md:text-lg">
+              <p className="text-[13px] text-white/70 md:text-lg">
                 Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
               </p>
               <p className="hidden text-sm text-white/55 md:block md:text-base">
@@ -230,8 +230,8 @@ export default function ServicesCarousel() {
               <div className="space-y-2">
                 <div
                   ref={scrollerRef}
-                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
-                  style={{ scrollPaddingInline: '16px' }}
+                  className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                  style={{ scrollPaddingInline: '12px' }}
                 >
                   {services.map((service, index) => (
                     <div
@@ -241,7 +241,7 @@ export default function ServicesCarousel() {
                       }}
                       className="min-w-full snap-center"
                     >
-                      <div className="px-4">
+                      <div className="px-3">
                         <ServiceCard service={service} reduceMotion={reduceMotion} />
                       </div>
                     </div>
@@ -250,9 +250,9 @@ export default function ServicesCarousel() {
                 <div className="space-y-2 md:hidden">
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
-                      <span className="tabular-nums text-2xl font-semibold text-white">{activeService.number}</span>
-                      <span className="text-lg text-white/25">/</span>
-                      <span className="tabular-nums text-base text-white/40">{totalLabel}</span>
+                      <span className="tabular-nums text-xl font-semibold text-white">{activeService.number}</span>
+                      <span className="text-base text-white/25">/</span>
+                      <span className="tabular-nums text-sm text-white/40">{totalLabel}</span>
                     </div>
                     <div className="text-[11px] uppercase tracking-wider text-white/45">
                       Prevuci
@@ -314,7 +314,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
       onMouseMove={handleMouseMove}
       className="group relative"
     >
-      <div className="relative max-h-[calc(100vh-260px)] overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))] md:max-h-none">
+      <div className="relative max-h-[calc(100vh-180px)] overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))] md:max-h-none">
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           style={{
@@ -322,16 +322,16 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
           }}
         />
         <div className="relative">
-          <div className="space-y-2 px-4 pb-3 pt-4 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
+          <div className="space-y-2 px-3 pb-3 pt-3 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
             <div className="flex items-center justify-between">
-              <span className="text-2xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
+              <span className="text-xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
                 {service.number}
               </span>
               <span className="rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-white/70 md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
                 Usluga {service.number}
               </span>
             </div>
-            <h3 className="text-lg font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
+            <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
               {service.title}
             </h3>
             <p className="max-w-md text-[11px] text-white/65 md:text-base">{service.description}</p>

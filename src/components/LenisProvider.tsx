@@ -40,17 +40,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     return () => {
       onDisable()
     }
-  }, [])
-
-  useEffect(() => {
-    const lenis = lenisRef.current
-    if (!lenis) return
-    lenis.stop()
-    lenis.scrollTo(0, { immediate: true })
-    const raf = requestAnimationFrame(() => {
-      lenis.start()
-    })
-    return () => cancelAnimationFrame(raf)
   }, [pathname])
 
   return <>{children}</>
