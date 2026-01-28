@@ -130,7 +130,7 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-[var(--bg)] py-16 md:py-24 lg:py-32">
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -141,8 +141,8 @@ export default function ServicesCarousel() {
         />
       </div>
       <Container className="relative z-10">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
-          <div className="lg:col-span-5 space-y-8">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="lg:col-span-5 space-y-6 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -158,9 +158,9 @@ export default function ServicesCarousel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-4"
+              className="space-y-3 md:space-y-4"
             >
-              <h2 className="font-display text-4xl leading-[1.1] text-white md:text-5xl xl:text-6xl">
+              <h2 className="font-display text-3xl leading-[1.12] text-white md:text-5xl xl:text-6xl">
                 Integrisane usluge
                 <br />
                 sa preciznim
@@ -173,12 +173,12 @@ export default function ServicesCarousel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4"
+              className="space-y-3 md:space-y-4"
             >
-              <p className="text-lg text-white/70">
+              <p className="text-base text-white/70 md:text-lg">
                 Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
               </p>
-              <p className="text-base text-white/55">
+              <p className="text-sm text-white/55 md:text-base">
                 Operativa, koordinacija i završni standardi u jednoj liniji isporuke.
               </p>
             </motion.div>
@@ -227,7 +227,7 @@ export default function ServicesCarousel() {
           </div>
           <div className="lg:col-span-7">
             {isMobile ? (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div
                   ref={scrollerRef}
                   className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
@@ -247,12 +247,12 @@ export default function ServicesCarousel() {
                     </div>
                   ))}
                 </div>
-                <div className="space-y-3 md:hidden">
+                <div className="space-y-2 md:hidden">
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
-                      <span className="tabular-nums text-3xl font-semibold text-white">{activeService.number}</span>
+                      <span className="tabular-nums text-2xl font-semibold text-white">{activeService.number}</span>
                       <span className="text-lg text-white/25">/</span>
-                      <span className="tabular-nums text-lg text-white/40">{totalLabel}</span>
+                      <span className="tabular-nums text-base text-white/40">{totalLabel}</span>
                     </div>
                     <div className="text-[11px] uppercase tracking-wider text-white/45">
                       Prevuci
@@ -314,7 +314,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
       onMouseMove={handleMouseMove}
       className="group relative"
     >
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))]">
+      <div className="relative max-h-[calc(100vh-220px)] overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))] md:max-h-none">
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           style={{
@@ -322,26 +322,26 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
           }}
         />
         <div className="relative">
-          <div className="space-y-4 px-6 pb-5 pt-6 md:px-8 md:pb-6 md:pt-8">
+          <div className="space-y-3 px-5 pb-4 pt-5 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
             <div className="flex items-center justify-between">
-              <span className="text-4xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
+              <span className="text-3xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
                 {service.number}
               </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70">
+              <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.2em] text-white/70 md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
                 Usluga {service.number}
               </span>
             </div>
-            <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
+            <h3 className="text-xl font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
               {service.title}
             </h3>
-            <p className="max-w-md text-sm text-white/65 md:text-base">{service.description}</p>
-            <div className="flex flex-wrap gap-2 pt-2 text-[11px] uppercase tracking-wider text-white/45">
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Obim</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Rok</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Standard</span>
+            <p className="max-w-md text-xs text-white/65 md:text-base">{service.description}</p>
+            <div className="flex flex-wrap gap-2 pt-1 text-[10px] uppercase tracking-wider text-white/45 md:pt-2 md:text-[11px]">
+              <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 md:px-3 md:py-1.5">Obim</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 md:px-3 md:py-1.5">Rok</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 md:px-3 md:py-1.5">Standard</span>
             </div>
           </div>
-          <div className="relative aspect-[16/9] max-h-[clamp(200px,55vw,240px)] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
+          <div className="relative aspect-[16/9] max-h-[240px] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-[rgba(18,20,24,0.9)] via-transparent to-transparent" />
             <Image
               src={service.image}
@@ -351,10 +351,10 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
               className="object-cover"
               style={{ transform: reduceMotion ? 'none' : 'scale(1.02)' }}
             />
-            <div className="absolute bottom-6 left-8 right-8 z-20">
+            <div className="absolute bottom-4 left-5 right-5 z-20 md:bottom-6 md:left-8 md:right-8">
               <motion.a
                 href="/services"
-                className="inline-flex items-center gap-3 text-sm uppercase tracking-wider text-white/60 transition-colors hover:text-white"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-white/60 transition-colors hover:text-white md:gap-3 md:text-sm"
                 whileHover={reduceMotion ? undefined : { x: 6 }}
                 transition={{ duration: 0.2 }}
               >
