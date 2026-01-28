@@ -230,8 +230,8 @@ export default function ServicesCarousel() {
               <div className="space-y-2">
                 <div
                   ref={scrollerRef}
-                  className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
-                  style={{ scrollPaddingInline: '12px' }}
+                  className="flex snap-x snap-mandatory overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                  style={{ scrollPaddingInline: '12px', paddingInline: '12px' }}
                 >
                   {services.map((service, index) => (
                     <div
@@ -239,11 +239,9 @@ export default function ServicesCarousel() {
                       ref={(node) => {
                         cardRefs.current[index] = node
                       }}
-                      className="min-w-full snap-center"
+                      className="w-[calc(100%-24px)] flex-shrink-0 snap-center"
                     >
-                      <div className="px-3">
-                        <ServiceCard service={service} reduceMotion={reduceMotion} />
-                      </div>
+                      <ServiceCard service={service} reduceMotion={reduceMotion} />
                     </div>
                   ))}
                 </div>
