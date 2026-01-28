@@ -226,22 +226,24 @@ export default function ServicesCarousel() {
           <div className="lg:col-span-7">
             {isMobile ? (
               <div className="space-y-2 overflow-x-clip">
-                <div
-                  ref={scrollerRef}
-                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
-                  style={{ scrollPaddingInline: '16px' }}
-                >
-                  {services.map((service, index) => (
-                    <div
-                      key={service.title}
-                      ref={(node) => {
-                        cardRefs.current[index] = node
-                      }}
-                      className="w-full max-w-full flex-shrink-0 snap-center box-border"
-                    >
-                      <ServiceCard service={service} reduceMotion={reduceMotion} />
-                    </div>
-                  ))}
+                <div className="px-4">
+                  <div
+                    ref={scrollerRef}
+                    className="flex w-full snap-x snap-mandatory gap-0 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                    style={{ scrollPaddingInline: '16px' }}
+                  >
+                    {services.map((service, index) => (
+                      <div
+                        key={service.title}
+                        ref={(node) => {
+                          cardRefs.current[index] = node
+                        }}
+                        className="w-full max-w-[calc(100vw-32px)] flex-shrink-0 snap-center box-border"
+                      >
+                        <ServiceCard service={service} reduceMotion={reduceMotion} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className="space-y-2 md:hidden">
                   <div className="flex items-center justify-between">
