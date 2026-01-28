@@ -60,6 +60,7 @@
   overflow-y: visible !important;
   height: auto !important;
   max-height: none !important;
+  align-self: start;
   scroll-snap-type: x mandatory;
   scroll-snap-stop: always;
   scroll-behavior: smooth;
@@ -70,7 +71,7 @@
   scroll-padding-right: var(--carousel-pad, 24px);
   padding-left: calc(var(--carousel-pad, 24px) + 24px);
   padding-right: calc(var(--carousel-pad, 24px) + 120px);
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
   scrollbar-width: none;
 }
 

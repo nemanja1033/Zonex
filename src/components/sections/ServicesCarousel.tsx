@@ -336,8 +336,6 @@ export default function ServicesCarousel() {
               </div>
             </div>
             <span className={`${styles.hint} ${hasInteracted ? styles.hintHidden : ''}`}>Povucite / Skrolujte</span>
-            <span className={`${styles.edge} ${styles.edgeLeft}`} aria-hidden="true" />
-            <span className={`${styles.edge} ${styles.edgeRight}`} aria-hidden="true" />
           </div>
         </div>
       </Container>
