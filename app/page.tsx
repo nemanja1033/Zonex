@@ -1,6 +1,6 @@
 import Hero from '@/components/hero/Hero'
 import ProofStrip from '@/components/sections/ProofStrip'
-import ServicesScroll from '@/components/sections/ServicesScroll'
+import ServicesHorizontal from '@/components/sections/ServicesHorizontal'
 import ProjectsShowcase from '@/components/sections/ProjectsShowcase'
 import ProcessSection from '@/components/sections/ProcessSection'
 import CtaSection from '@/components/sections/CtaSection'
@@ -14,7 +14,7 @@ export default function Home() {
       */}
       <Hero />
       <ProofStrip />
-      <ServicesScroll />
+      <ServicesHorizontal />
       <ProjectsShowcase />
       <ProcessSection />
       <CtaSection />

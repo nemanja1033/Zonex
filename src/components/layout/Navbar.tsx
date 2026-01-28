@@ -2,12 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Container from '@/components/ui/Container'
 import LogoLockup from '@/components/brand/LogoLockup'
-import { navbarVariants, transition } from '@/lib/motion'
 
 const navItems = [
   { label: 'Početna', href: '/' },
@@ -22,9 +21,11 @@ export default function Navbar() {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
   const mobileNavRef = useRef<HTMLElement | null>(null)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
   const lastScrollState = useRef(false)
+  const { scrollY } = useScroll()
 
   useEffect(() => {
     if (!isOpen) return
@@ -46,17 +47,19 @@ export default function Navbar() {
     }
   }, [isOpen])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const next = window.scrollY > 12
-      if (next === lastScrollState.current) return
-      lastScrollState.current = next
-      setIsScrolled(next)
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const previous = scrollY.getPrevious() ?? 0
+    const nextScrolled = latest > 20
+    if (nextScrolled !== lastScrollState.current) {
+      lastScrollState.current = nextScrolled
+      setIsScrolled(nextScrolled)
     }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    if (latest > previous && latest > 150) {
+      setIsHidden(true)
+    } else {
+      setIsHidden(false)
+    }
+  })
 
   const handleTrap = (event: ReactKeyboardEvent<HTMLElement>) => {
     if (event.key !== 'Tab') return
@@ -76,38 +79,35 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 border-b"
-      variants={navbarVariants}
-      initial="rest"
-      animate={isScrolled ? 'scrolled' : 'rest'}
-      transition={transition.fast}
+      className={`fixed top-0 z-50 w-full border-b border-white/5 ${
+        isScrolled ? 'bg-black/70 backdrop-blur-xl' : 'bg-transparent'
+      }`}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: '-100%' },
+      }}
+      initial="visible"
+      animate={isHidden ? 'hidden' : 'visible'}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
     >
       <Container className="flex items-center justify-between py-5">
         <Link href="/" className="inline-flex">
-          <LogoLockup theme="light" size="sm" />
+          <span className="relative inline-flex items-center gap-3">
+            <LogoLockup theme="light" size="sm" />
+            <span className="pointer-events-none absolute -bottom-2 left-0 h-px w-16 bg-gradient-to-r from-[var(--accent)] to-transparent" />
+          </span>
         </Link>
         <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-white/70 md:flex">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
             return (
-              <Link
+              <NavItem
                 key={item.href}
                 href={item.href}
-                prefetch
-                className={`group relative pb-1 transition-colors ${isActive ? 'text-white' : 'hover:text-white'}`}
-                onMouseEnter={() => router.prefetch(item.href)}
-                onTouchStart={() => router.prefetch(item.href)}
-              >
-                {item.label}
-                <span className="nav-underline" aria-hidden="true" />
-                {isActive ? (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="absolute left-0 top-full h-[2px] w-full bg-[var(--accent)]"
-                    transition={transition.fast}
-                  />
-                ) : null}
-              </Link>
+                label={item.label}
+                isActive={isActive}
+                onPrefetch={() => router.prefetch(item.href)}
+              />
             )
           })}
         </nav>
@@ -161,5 +161,59 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
+  )
+}
+
+type NavItemProps = {
+  href: string
+  label: string
+  isActive: boolean
+  onPrefetch: () => void
+}
+
+function NavItem({ href, label, isActive, onPrefetch }: NavItemProps) {
+  const [hovered, setHovered] = useState(false)
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+
+  const handleMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    const x = event.clientX - rect.left - rect.width / 2
+    const y = event.clientY - rect.top - rect.height / 2
+    setOffset({ x, y })
+  }
+
+  return (
+    <Link
+      href={href}
+      prefetch
+      className={`group relative pb-1 transition-colors ${isActive ? 'text-white' : 'hover:text-white'}`}
+      onMouseEnter={() => {
+        setHovered(true)
+        onPrefetch()
+      }}
+      onMouseLeave={() => {
+        setHovered(false)
+        setOffset({ x: 0, y: 0 })
+      }}
+      onMouseMove={handleMove}
+      onTouchStart={onPrefetch}
+    >
+      <motion.span
+        className="inline-block"
+        animate={{
+          x: hovered ? offset.x * 0.12 : 0,
+          y: hovered ? offset.y * 0.12 : 0,
+        }}
+        transition={{ type: 'spring', stiffness: 180, damping: 18, mass: 0.2 }}
+      >
+        {label}
+      </motion.span>
+      <motion.span
+        className="absolute -bottom-1 left-0 h-[2px] bg-[var(--accent)]"
+        initial={false}
+        animate={{ width: hovered || isActive ? '100%' : '0%' }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      />
+    </Link>
   )
 }

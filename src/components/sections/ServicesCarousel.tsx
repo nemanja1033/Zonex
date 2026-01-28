@@ -1,12 +1,10 @@
 "use client"
 
 import Image from 'next/image'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useMemo, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
-import Reveal from '@/components/motion/Reveal'
 import { site } from '../../../data/site'
-import styles from './ServicesCarousel.module.css'
 
 const serviceImages = [
   '/images/projects/kfc-zrenjanin-01.jpg',
@@ -16,395 +14,241 @@ const serviceImages = [
 ]
 
 export default function ServicesCarousel() {
-  const services = site.services.slice(0, 4)
   const reduceMotion = useReducedMotion()
-  const scrollerRef = useRef<HTMLDivElement | null>(null)
-  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
-  const [activeIndex, setActiveIndex] = useState(0)
-  const activeIndexRef = useRef(0)
-  const rafRef = useRef<number | null>(null)
-  const initRafRef = useRef<number | null>(null)
-  const tweenRef = useRef<any>(null)
-  const gsapRef = useRef<any>(null)
-  const [hasInteracted, setHasInteracted] = useState(false)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(false)
-
-  useEffect(() => {
-    const scroller = scrollerRef.current
-    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[]
-    if (!scroller || cards.length === 0) return
-
-    const setSidePadding = () => {
-      const firstCard = cards[0]
-      if (!firstCard || firstCard.clientWidth === 0) return
-      const pad = Math.max(16, (scroller.clientWidth - firstCard.clientWidth) / 2)
-      scroller.style.setProperty('--carousel-pad', `${pad}px`)
-    }
-
-    const updateActiveIndex = () => {
-      const firstCard = cards[0]
-      if (!firstCard || firstCard.clientWidth === 0) return
-      const center = scroller.scrollLeft + scroller.clientWidth / 2
-      let closestIndex = 0
-      let closestDistance = Number.POSITIVE_INFINITY
-
-      cards.forEach((card, index) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2
-        const distance = Math.abs(cardCenter - center)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          closestIndex = index
-        }
-      })
-
-      if (closestIndex !== activeIndexRef.current) {
-        activeIndexRef.current = closestIndex
-        setActiveIndex(closestIndex)
-      }
-    }
-
-    const updateScrollEdges = () => {
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth
-      setCanScrollLeft(scroller.scrollLeft > 4)
-      setCanScrollRight(scroller.scrollLeft < maxScroll - 4)
-    }
-
-    const handleScroll = () => {
-      if (rafRef.current) return
-      rafRef.current = window.requestAnimationFrame(() => {
-        rafRef.current = null
-        updateActiveIndex()
-        updateScrollEdges()
-      })
-    }
-
-    const handleResize = () => {
-      setSidePadding()
-      updateActiveIndex()
-      updateScrollEdges()
-    }
-
-    const init = () => {
-      setSidePadding()
-      updateActiveIndex()
-      updateScrollEdges()
-      if (cards[0]?.clientWidth === 0) {
-        initRafRef.current = window.requestAnimationFrame(init)
-      }
-    }
-
-    init()
-    scroller.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleResize)
-
-    const handleInteract = () => setHasInteracted(true)
-    const handlePointerDown = () => {
-      if (tweenRef.current) {
-        tweenRef.current.kill()
-        tweenRef.current = null
-      }
-      handleInteract()
-    }
-    scroller.addEventListener('pointerdown', handlePointerDown, { passive: true })
-    scroller.addEventListener('touchstart', handlePointerDown, { passive: true })
-
-    return () => {
-      scroller.removeEventListener('scroll', handleScroll)
-      scroller.removeEventListener('pointerdown', handlePointerDown)
-      scroller.removeEventListener('touchstart', handlePointerDown)
-      window.removeEventListener('resize', handleResize)
-      if (rafRef.current) {
-        window.cancelAnimationFrame(rafRef.current)
-        rafRef.current = null
-      }
-      if (initRafRef.current) {
-        window.cancelAnimationFrame(initRafRef.current)
-        initRafRef.current = null
-      }
-      if (tweenRef.current) {
-        tweenRef.current.kill()
-        tweenRef.current = null
-      }
-    }
-  }, [reduceMotion])
-
-  useEffect(() => {
-    let mounted = true
-    const loadGsap = async () => {
-      try {
-        const gsapModule = await import('gsap')
-        const gsap = gsapModule.gsap ?? gsapModule.default
-        try {
-          const pluginModule = await import('gsap/ScrollToPlugin')
-          const ScrollToPlugin = pluginModule.ScrollToPlugin ?? pluginModule.default
-          if (ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin)
-        } catch {
-          // ScrollToPlugin not available; manual tween will be used.
-        }
-        if (mounted) gsapRef.current = gsap
-      } catch {
-        gsapRef.current = null
-      }
-    }
-    loadGsap()
-    return () => {
-      mounted = false
-      gsapRef.current = null
-    }
-  }, [])
-
-  const progressLabel = useMemo(() => String(activeIndex + 1).padStart(2, '0'), [activeIndex])
-  const progressScale = useMemo(
-    () => (services.length > 1 ? activeIndex / (services.length - 1) : 0),
-    [activeIndex, services.length]
+  const services = useMemo(
+    () =>
+      site.services.slice(0, 4).map((service, index) => ({
+        ...service,
+        number: String(index + 1).padStart(2, '0'),
+        image: serviceImages[index % serviceImages.length],
+      })),
+    []
   )
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeService = services[activeIndex]
 
-  const handleDotClick = (index: number) => {
-    const target = cardRefs.current[index]
-    const scroller = scrollerRef.current
-    if (!target || !scroller) return
-    const center = target.offsetLeft + target.offsetWidth / 2
-    const nextLeft = center - scroller.clientWidth / 2
-    const maxScroll = scroller.scrollWidth - scroller.clientWidth
-    const clamped = Math.min(maxScroll, Math.max(0, nextLeft))
-    if (tweenRef.current) {
-      tweenRef.current.kill()
-      tweenRef.current = null
-    }
-    if (reduceMotion || !gsapRef.current) {
-      scroller.scrollTo({ left: clamped, behavior: reduceMotion ? 'auto' : 'smooth' })
-    } else {
-      const gsap = gsapRef.current
-      const proxy = { x: scroller.scrollLeft }
-      tweenRef.current = gsap.to(proxy, {
-        x: clamped,
-        duration: 0.45,
-        ease: 'power3.out',
-        onUpdate: () => {
-          scroller.scrollLeft = proxy.x
-        },
-        onComplete: () => {
-          tweenRef.current = null
-        },
-      })
-    }
-    setHasInteracted(true)
-  }
-
-  const handleArrowScroll = (direction: 'left' | 'right') => {
-    const scroller = scrollerRef.current
-    if (!scroller) return
-    const delta = scroller.clientWidth * 0.8
-    scroller.scrollBy({
-      left: direction === 'left' ? -delta : delta,
-      behavior: reduceMotion ? 'auto' : 'smooth',
+  const handleScroll = (direction: 'prev' | 'next') => {
+    setActiveIndex((current) => {
+      if (direction === 'prev') return Math.max(0, current - 1)
+      return Math.min(services.length - 1, current + 1)
     })
-    setHasInteracted(true)
   }
 
   return (
-    <section className={`section-divider section ${styles.sectionRoot} ${styles.sectionSurface}`}>
-      <Container>
-        <div className={`grid gap-10 lg:items-start ${styles.servicesGrid}`}>
-          <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-            <Reveal>
-              <div className="space-y-4">
-                <p className="eyebrow">Usluge</p>
-                <h2 className="section-title">Integrisane usluge sa preciznim fazama isporuke.</h2>
-                <p className="body-muted text-measure">
-                  Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <p className="section-subtitle">Operativa, koordinacija i završni standardi u jednoj liniji isporuke.</p>
-            </Reveal>
-            <div className="flex flex-col gap-3" aria-live="polite">
-              <div className="text-[0.85rem] uppercase tracking-[0.28em] text-white/70">
-                <span className="font-mono">{progressLabel}</span>
-                <span className="font-mono">/04</span>
-              </div>
-              <div className={styles.progressTrack}>
-                <span className={styles.progressBar} style={{ transform: `scaleX(${progressScale})` }} />
-              </div>
-              <div className={styles.controlsRow}>
-                <div className={styles.dots} role="tablist" aria-label="Usluge navigacija">
-                  {services.map((service, index) => (
-                    <button
-                      key={`dot-${index}`}
-                      type="button"
-                      className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ''}`}
-                      onClick={() => handleDotClick(index)}
-                      aria-label={`Prikaži uslugu ${String(index + 1).padStart(2, '0')}: ${service.title}`}
-                      aria-current={index === activeIndex ? 'true' : undefined}
-                    />
-                  ))}
-                </div>
-                <div className={styles.navButtons} aria-label="Usluge kontrola skrolovanja">
-                  <button
-                    type="button"
-                    className={`${styles.navButton} ${!canScrollLeft ? styles.navButtonDisabled : ''}`}
-                    onClick={() => handleArrowScroll('left')}
-                    disabled={!canScrollLeft}
-                    aria-label="Prethodna usluga"
-                  >
-                    ←
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.navButton} ${!canScrollRight ? styles.navButtonDisabled : ''}`}
-                    onClick={() => handleArrowScroll('right')}
-                    disabled={!canScrollRight}
-                    aria-label="Sledeća usluga"
-                  >
-                    →
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.carouselShell}>
-            <span
-              className={`${styles.edgeFade} ${styles.edgeFadeLeft} ${
-                canScrollLeft ? '' : styles.edgeHidden
-              }`}
-              aria-hidden="true"
-            />
-            <span
-              className={`${styles.edgeFade} ${styles.edgeFadeRight} ${
-                canScrollRight ? '' : styles.edgeHidden
-              }`}
-              aria-hidden="true"
+    <section className="relative overflow-hidden bg-[var(--bg)] py-24 lg:py-32">
+      <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </div>
+      <Container className="relative z-10">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="lg:col-span-5 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              {!reduceMotion && canScrollRight ? (
-                <motion.span
-                  className={styles.edgeIndicator}
-                  animate={{ x: [0, 10, 0] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <span className={styles.edgeArrow}>→</span>
-                </motion.span>
-              ) : null}
-            </span>
-            <div
-              ref={scrollerRef}
-              className={styles.servicesRight}
-              role="region"
-              aria-label="Usluge carousel"
+              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70">
+                Usluge
+              </span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-4"
             >
-              <div className={styles.carouselScroll}>
-                {services.map((service, index) => {
-                  const badge = String(index + 1).padStart(2, '0')
-                  const isActive = index === activeIndex
-                  return (
-                    <article
-                      key={service.title}
-                      ref={(el) => {
-                        cardRefs.current[index] = el
-                      }}
-                      className={`card-surface rounded-xl p-6 ${styles.card} ${
-                        isActive ? styles.cardActive : ''
+              <h2 className="font-display text-4xl leading-[1.1] text-white md:text-5xl xl:text-6xl">
+                Integrisane usluge
+                <br />
+                sa preciznim
+                <br />
+                fazama isporuke.
+              </h2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-4"
+            >
+              <p className="text-lg text-white/70">
+                Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
+              </p>
+              <p className="text-base text-white/55">
+                Operativa, koordinacija i završni standardi u jednoj liniji isporuke.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="space-y-6 pt-6"
+            >
+              <div className="flex items-baseline gap-3">
+                <span className="tabular-nums text-5xl font-semibold text-white">{activeService.number}</span>
+                <span className="text-2xl text-white/20">/</span>
+                <span className="tabular-nums text-2xl text-white/35">04</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                {services.map((_, index) => (
+                  <button
+                    key={`dot-${index}`}
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className="group"
+                    aria-label={`Prikaži uslugu ${index + 1}`}
+                  >
+                    <span
+                      className={`block h-1 rounded-full transition-all duration-500 ${
+                        index === activeIndex
+                          ? 'w-16 bg-[var(--accent)]'
+                          : index < activeIndex
+                            ? 'w-10 bg-white/30'
+                            : 'w-8 bg-white/20 group-hover:bg-white/35'
                       }`}
-                      aria-label={`Usluga ${badge}: ${service.title}`}
-                    >
-                      <motion.span
-                        className="text-[0.7rem] uppercase tracking-[0.24em] text-white/70"
-                        initial={false}
-                        animate={reduceMotion ? { opacity: 1 } : isActive ? { opacity: 1 } : { opacity: 0.7 }}
-                      >
-                        {badge}
-                      </motion.span>
-                      <motion.div
-                        className="mt-4"
-                        initial={false}
-                        animate={
-                          reduceMotion
-                            ? { opacity: 1, y: 0 }
-                            : isActive
-                              ? { opacity: 1, y: 0 }
-                              : { opacity: 0.8, y: 6 }
-                        }
-                        transition={{ duration: 0.35, ease: 'easeOut' }}
-                      >
-                        <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga {badge}</p>
-                        <motion.h3
-                          className="mt-3 font-display text-h3 text-white"
-                          initial={false}
-                          animate={
-                            reduceMotion
-                              ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' }
-                              : isActive
-                                ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' }
-                                : { opacity: 0.75, clipPath: 'inset(0 0 100% 0)' }
-                          }
-                          transition={{ duration: 0.4, ease: 'easeOut' }}
-                        >
-                          {service.title}
-                        </motion.h3>
-                        <span className="mt-4 block h-px w-full bg-white/20" aria-hidden="true" />
-                      </motion.div>
-                      <motion.p
-                        className="mt-3 text-small text-white/80"
-                        initial={false}
-                        animate={
-                          reduceMotion
-                            ? { opacity: 1, y: 0 }
-                            : isActive
-                              ? { opacity: 1, y: 0 }
-                              : { opacity: 0.7, y: 8 }
-                        }
-                        transition={{ duration: 0.35, ease: 'easeOut' }}
-                      >
-                        {service.description}
-                      </motion.p>
-                      <motion.div
-                        className="mt-4 flex gap-3 text-[0.7rem] uppercase tracking-[0.24em] text-white/55"
-                        initial={false}
-                        animate={
-                          reduceMotion
-                            ? { opacity: 1, y: 0 }
-                            : isActive
-                              ? { opacity: 1, y: 0 }
-                              : { opacity: 0.7, y: 6 }
-                        }
-                        transition={{ duration: 0.35, ease: 'easeOut' }}
-                      >
-                        <span className="border-r border-white/15 pr-3">Obim</span>
-                        <span className="border-r border-white/15 pr-3">Rok</span>
-                        <span>Standard</span>
-                      </motion.div>
-                      <motion.div
-                        className={`mt-5 ${styles.cardImage}`}
-                        initial={false}
-                        animate={
-                          reduceMotion
-                            ? { y: 0, scale: 1 }
-                            : isActive
-                              ? { y: -6, scale: 1.02 }
-                              : { y: 0, scale: 1 }
-                        }
-                        transition={{ duration: 0.4, ease: 'easeOut' }}
-                      >
-                        <Image
-                          src={serviceImages[index % serviceImages.length]}
-                          alt={service.title}
-                          width={520}
-                          height={360}
-                          sizes="(min-width: 1024px) 40vw, 90vw"
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      </motion.div>
-                    </article>
-                  )
-                })}
+                    />
+                  </button>
+                ))}
               </div>
-            </div>
-            <span className={`${styles.hint} ${hasInteracted ? styles.hintHidden : ''}`}>Povucite / Skrolujte</span>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleScroll('prev')}
+                  disabled={activeIndex === 0}
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
+                    activeIndex === 0
+                      ? 'cursor-not-allowed border-white/10 text-white/10'
+                      : 'border-white/20 text-white/60 hover:border-white/40 hover:bg-white/5 hover:text-white'
+                  }`}
+                  aria-label="Prethodna usluga"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScroll('next')}
+                  disabled={activeIndex === services.length - 1}
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
+                    activeIndex === services.length - 1
+                      ? 'cursor-not-allowed border-white/10 text-white/10'
+                      : 'border-white/20 text-white/60 hover:border-white/40 hover:bg-white/5 hover:text-white'
+                  }`}
+                  aria-label="Sledeća usluga"
+                >
+                  →
+                </button>
+              </div>
+            </motion.div>
+          </div>
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              <ServiceCard key={activeIndex} service={activeService} reduceMotion={reduceMotion} />
+            </AnimatePresence>
           </div>
         </div>
       </Container>
     </section>
+  )
+}
+
+type ServiceCardProps = {
+  service: {
+    title: string
+    description: string
+    number: string
+    image: string
+  }
+  reduceMotion: boolean
+}
+
+function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
+  const cardRef = useRef<HTMLDivElement | null>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setMousePosition({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    })
+  }
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, x: 40, scale: 0.96 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, x: -40, scale: 0.96 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      onMouseMove={handleMouseMove}
+      className="group relative"
+    >
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))]">
+        <motion.div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(194, 59, 59, 0.12), transparent 50%)`,
+          }}
+        />
+        <div className="relative">
+          <div className="space-y-4 px-8 pb-6 pt-8">
+            <div className="flex items-center justify-between">
+              <span className="text-6xl font-semibold text-[rgba(194,59,59,0.2)]">{service.number}</span>
+              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70">
+                Usluga {service.number}
+              </span>
+            </div>
+            <h3 className="text-3xl font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] lg:text-4xl">
+              {service.title}
+            </h3>
+            <p className="max-w-md text-base text-white/65">{service.description}</p>
+            <div className="flex flex-wrap gap-2 pt-2 text-[11px] uppercase tracking-wider text-white/45">
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Obim</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Rok</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Standard</span>
+            </div>
+          </div>
+          <div className="relative h-[320px] overflow-hidden lg:h-[380px]">
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[rgba(18,20,24,0.9)] via-transparent to-transparent" />
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+              style={{ transform: reduceMotion ? 'none' : 'scale(1.02)' }}
+            />
+            <div className="absolute bottom-6 left-8 right-8 z-20">
+              <motion.a
+                href="/services"
+                className="inline-flex items-center gap-3 text-sm uppercase tracking-wider text-white/60 transition-colors hover:text-white"
+                whileHover={reduceMotion ? undefined : { x: 6 }}
+                transition={{ duration: 0.2 }}
+              >
+                Pogledaj detalje
+                <span aria-hidden="true">→</span>
+              </motion.a>
+            </div>
+          </div>
+        </div>
+        <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent transition-colors duration-500 group-hover:border-[rgba(194,59,59,0.3)]" />
+      </div>
+      <motion.div
+        className="pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-[rgba(194,59,59,0.12)] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+        animate={reduceMotion ? undefined : { scale: [1, 1.2, 1] }}
+        transition={{ duration: 3, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+      />
+    </motion.div>
   )
 }

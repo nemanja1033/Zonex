@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Container from '@/components/ui/Container'
 import MagneticButton from '@/components/ui/MagneticButton'
 import Button from '@/components/ui/Button'
@@ -30,6 +30,23 @@ export default function Hero() {
   const [isDesktop, setIsDesktop] = useState(false)
   const enableGsap = allowGsap() && isDesktop && !isCoarse && !reduceMotion
   const showWebgl = allowR3f() && isDesktop && !isCoarse && !reduceMotion
+  const particles = useMemo(
+    () => [
+      { left: '12%', top: '18%', size: 2, duration: 4.2, delay: 0.2, opacity: 0.5 },
+      { left: '22%', top: '70%', size: 2, duration: 5.1, delay: 0.6, opacity: 0.4 },
+      { left: '38%', top: '32%', size: 1.5, duration: 3.8, delay: 0.1, opacity: 0.5 },
+      { left: '52%', top: '22%', size: 2.5, duration: 4.8, delay: 0.4, opacity: 0.45 },
+      { left: '64%', top: '60%', size: 1.8, duration: 4.4, delay: 0.3, opacity: 0.5 },
+      { left: '78%', top: '28%', size: 2.2, duration: 5.4, delay: 0.8, opacity: 0.35 },
+      { left: '86%', top: '72%', size: 1.6, duration: 4.9, delay: 0.5, opacity: 0.4 },
+      { left: '70%', top: '12%', size: 1.4, duration: 3.6, delay: 0.2, opacity: 0.45 },
+      { left: '30%', top: '8%', size: 1.7, duration: 4.6, delay: 0.7, opacity: 0.35 },
+      { left: '10%', top: '50%', size: 1.5, duration: 5.0, delay: 0.9, opacity: 0.3 },
+      { left: '44%', top: '78%', size: 2.1, duration: 4.1, delay: 0.1, opacity: 0.45 },
+      { left: '90%', top: '42%', size: 1.9, duration: 4.7, delay: 0.3, opacity: 0.4 },
+    ],
+    []
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -122,6 +139,29 @@ export default function Hero() {
       <div className="hero-noise" aria-hidden="true" />
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-grain" aria-hidden="true" />
+      <div className="hero-premium-bg" aria-hidden="true" />
+      <div className="absolute inset-0" aria-hidden="true">
+        {particles.map((particle, index) => (
+          <motion.span
+            key={`hero-particle-${index}`}
+            className="absolute rounded-full bg-[var(--accent)]"
+            style={{
+              left: particle.left,
+              top: particle.top,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              opacity: particle.opacity,
+            }}
+            animate={reduceMotion ? { opacity: particle.opacity } : { y: [0, -22, 0], opacity: [0, particle.opacity, 0] }}
+            transition={{
+              duration: particle.duration,
+              repeat: reduceMotion ? 0 : Infinity,
+              ease: 'easeInOut',
+              delay: particle.delay,
+            }}
+          />
+        ))}
+      </div>
       <div className="absolute inset-0">
         <Image
           src="/images/projects/kfc-zrenjanin-04.jpg"
@@ -142,7 +182,10 @@ export default function Hero() {
               animate="visible"
               className="space-y-6"
             >
-              <motion.p variants={fadeUp} className="eyebrow-light">
+              <motion.p
+                variants={fadeUp}
+                className="inline-flex w-fit items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-micro font-mono uppercase tracking-micro text-white/70 backdrop-blur"
+              >
                 Generalni izvođač
               </motion.p>
               <div className="hero-line-wrap">
@@ -157,7 +200,11 @@ export default function Hero() {
                         <SplitText
                           text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
                           type="words"
-                          className="block"
+                          className={`block ${
+                            index === titleLines.length - 1
+                              ? 'bg-gradient-to-r from-white via-white/80 to-[var(--accent)] bg-clip-text text-transparent'
+                              : ''
+                          }`}
                           itemClassName="inline-block"
                           srOnly={false}
                         />
@@ -167,15 +214,15 @@ export default function Hero() {
                 ) : (
                   <motion.span aria-hidden="true" variants={textRevealLines} className="block">
                     {titleLines.map((line, index) => (
-                      <motion.span
-                        key={`${line}-${index}`}
-                        variants={textRevealItem}
-                        className="block overflow-hidden"
-                      >
+                      <motion.span key={`${line}-${index}`} variants={textRevealItem} className="block overflow-hidden">
                         <SplitText
                           text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
                           type="words"
-                          className="block"
+                          className={`block ${
+                            index === titleLines.length - 1
+                              ? 'bg-gradient-to-r from-white via-white/80 to-[var(--accent)] bg-clip-text text-transparent'
+                              : ''
+                          }`}
                           itemClassName="inline-block"
                           srOnly={false}
                         />
