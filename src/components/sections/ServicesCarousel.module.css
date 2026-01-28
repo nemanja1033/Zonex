@@ -10,8 +10,10 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scroll-padding-inline: var(--carousel-pad, 24px);
-  padding-inline: var(--carousel-pad, 24px);
+  scroll-padding-left: var(--carousel-pad, 24px);
+  scroll-padding-right: var(--carousel-pad, 24px);
+  padding-left: calc(var(--carousel-pad, 24px) + 24px);
+  padding-right: calc(var(--carousel-pad, 24px) + 120px);
   padding-bottom: 0.5rem;
   scrollbar-width: none;
 }
@@ -22,9 +24,25 @@
 
 .card {
   flex: 0 0 auto;
-  width: clamp(520px, 50vw, 640px);
+  width: clamp(520px, 52vw, 640px);
   scroll-snap-align: center;
   scroll-snap-stop: always;
+  transition: transform 0.35s ease, border-color 0.35s ease, opacity 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(243, 107, 44, 0.35);
+}
+
+.cardActive {
+  opacity: 1;
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(243, 107, 44, 0.45);
+}
+
+.cardInactive {
+  opacity: 0.88;
 }
 
 .progressTrack {
