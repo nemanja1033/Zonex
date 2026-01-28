@@ -130,7 +130,7 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] py-6 md:py-24 lg:py-32">
+    <section className="relative overflow-x-hidden bg-[var(--bg)] py-6 md:py-24 lg:py-32">
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -161,11 +161,9 @@ export default function ServicesCarousel() {
               className="space-y-2 md:space-y-4"
             >
               <h2 className="font-display text-[22px] leading-[1.18] text-white md:text-5xl xl:text-6xl">
-                Integrisane usluge
-                <br className="hidden md:block" />
-                sa preciznim
-                <br className="hidden md:block" />
-                fazama isporuke.
+                Integrisane usluge{' '}
+                <span className="md:block">sa preciznim</span>{' '}
+                <span className="md:block">fazama isporuke.</span>
               </h2>
             </motion.div>
             <motion.div
@@ -230,7 +228,7 @@ export default function ServicesCarousel() {
               <div className="space-y-2 overflow-x-clip">
                 <div
                   ref={scrollerRef}
-                  className="flex snap-x snap-mandatory overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
                   style={{ scrollPaddingInline: '16px' }}
                 >
                   {services.map((service, index) => (
@@ -239,7 +237,7 @@ export default function ServicesCarousel() {
                       ref={(node) => {
                         cardRefs.current[index] = node
                       }}
-                      className="w-full flex-shrink-0 snap-center px-4"
+                      className="w-full max-w-full flex-shrink-0 snap-center box-border"
                     >
                       <ServiceCard service={service} reduceMotion={reduceMotion} />
                     </div>
