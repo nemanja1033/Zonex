@@ -25,6 +25,7 @@ export default function ServicesCarousel() {
   const [activeIndex, setActiveIndex] = useState(0)
   const activeIndexRef = useRef(0)
   const rafRef = useRef<number | null>(null)
+  const initRafRef = useRef<number | null>(null)
   const debounceRef = useRef<number | null>(null)
   const tweenRef = useRef<any>(null)
   const gsapRef = useRef<any>(null)
@@ -37,12 +38,14 @@ export default function ServicesCarousel() {
 
     const setSidePadding = () => {
       const firstCard = cards[0]
-      if (!firstCard) return
+      if (!firstCard || firstCard.clientWidth === 0) return
       const pad = Math.max(16, (scroller.clientWidth - firstCard.clientWidth) / 2)
       scroller.style.setProperty('--carousel-pad', `${pad}px`)
     }
 
     const updateActiveIndex = () => {
+      const firstCard = cards[0]
+      if (!firstCard || firstCard.clientWidth === 0) return
       const center = scroller.scrollLeft + scroller.clientWidth / 2
       let closestIndex = 0
       let closestDistance = Number.POSITIVE_INFINITY
@@ -130,8 +133,15 @@ export default function ServicesCarousel() {
       updateActiveIndex()
     }
 
-    setSidePadding()
-    updateActiveIndex()
+    const init = () => {
+      setSidePadding()
+      updateActiveIndex()
+      if (cards[0]?.clientWidth === 0) {
+        initRafRef.current = window.requestAnimationFrame(init)
+      }
+    }
+
+    init()
     scroller.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleResize)
 
@@ -158,6 +168,10 @@ export default function ServicesCarousel() {
       if (rafRef.current) {
         window.cancelAnimationFrame(rafRef.current)
         rafRef.current = null
+      }
+      if (initRafRef.current) {
+        window.cancelAnimationFrame(initRafRef.current)
+        initRafRef.current = null
       }
       if (tweenRef.current) {
         tweenRef.current.kill()
