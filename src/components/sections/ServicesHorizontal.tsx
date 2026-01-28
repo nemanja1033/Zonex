@@ -28,6 +28,8 @@ export default function ServicesHorizontal() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [hasInteracted, setHasInteracted] = useState(false)
   const [isDesktop, setIsDesktop] = useState(false)
+  const rafRef = useRef<number | null>(null)
+  const activeIndexRef = useRef(0)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -43,19 +45,52 @@ export default function ServicesHorizontal() {
     const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[]
     if (!scroller || cards.length === 0) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible.length === 0) return
-        const nextIndex = Number(visible[0].target.getAttribute('data-index') ?? 0)
-        setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex))
-      },
-      { root: scroller, threshold: [0.55, 0.7, 0.85] }
-    )
+    const setSidePadding = () => {
+      const firstCard = cards[0]
+      if (!firstCard) return
+      const pad = Math.max(16, (scroller.clientWidth - firstCard.clientWidth) / 2)
+      scroller.style.setProperty('--carousel-pad', `${pad}px`)
+    }
 
-    cards.forEach((card) => observer.observe(card))
+    const updateActiveIndex = () => {
+      if (!scroller) return
+      const center = scroller.scrollLeft + scroller.clientWidth / 2
+      let closestIndex = 0
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2
+        const distance = Math.abs(cardCenter - center)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestIndex = index
+        }
+      })
+
+      if (closestIndex !== activeIndexRef.current) {
+        activeIndexRef.current = closestIndex
+        setActiveIndex(closestIndex)
+      }
+    }
+
+    const handleScroll = () => {
+      if (rafRef.current) return
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = null
+        updateActiveIndex()
+      })
+    }
+
+    setSidePadding()
+    updateActiveIndex()
+    scroller.addEventListener('scroll', handleScroll, { passive: true })
+
+    const handleResize = () => {
+      setSidePadding()
+      updateActiveIndex()
+    }
+
+    window.addEventListener('resize', handleResize)
 
     if (SERVICES_DEBUG) {
       console.log('[services-carousel]', {
@@ -73,7 +108,12 @@ export default function ServicesHorizontal() {
     const cleanup = () => {
       scroller.removeEventListener('pointerdown', handleInteract)
       scroller.removeEventListener('touchstart', handleInteract)
-      observer.disconnect()
+      scroller.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
     }
 
     register(cleanup)
@@ -104,21 +144,10 @@ export default function ServicesHorizontal() {
       if (!hasInteracted) setHasInteracted(true)
     }
 
-    const handleKey = (event: KeyboardEvent) => {
-      if (!scroller) return
-      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return
-      event.preventDefault()
-      const delta = event.key === 'ArrowRight' ? scroller.clientWidth * 0.8 : -scroller.clientWidth * 0.8
-      scroller.scrollLeft += delta
-      if (!hasInteracted) setHasInteracted(true)
-    }
-
     scroller.addEventListener('wheel', handleWheel, { passive: false })
-    scroller.addEventListener('keydown', handleKey)
 
     const cleanup = () => {
       scroller.removeEventListener('wheel', handleWheel)
-      scroller.removeEventListener('keydown', handleKey)
     }
 
     register(cleanup)
@@ -130,8 +159,13 @@ export default function ServicesHorizontal() {
 
   const handleDotClick = (index: number) => {
     const target = cardRefs.current[index]
-    if (!target) return
-    target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    const scroller = scrollerRef.current
+    if (!target || !scroller) return
+    const center = target.offsetLeft + target.offsetWidth / 2
+    const nextLeft = center - scroller.clientWidth / 2
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth
+    const clamped = Math.min(maxScroll, Math.max(0, nextLeft))
+    scroller.scrollTo({ left: clamped, behavior: reduceMotion ? 'auto' : 'smooth' })
     setHasInteracted(true)
   }
 

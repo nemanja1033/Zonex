@@ -697,12 +697,14 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: clamp(1rem, 6vw, 8rem);
+    scroll-padding-inline: var(--carousel-pad, clamp(1rem, 6vw, 8rem));
+    padding-inline: var(--carousel-pad, clamp(1rem, 6vw, 8rem));
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     overscroll-behavior-x: contain;
     mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 1) 6%, rgba(0, 0, 0, 1) 94%, transparent);
+    scrollbar-width: none;
   }
 
   .services-carousel:focus {
@@ -712,15 +714,19 @@ body {
   .services-carousel .services-track {
     display: flex;
     gap: 1.75rem;
-    padding-right: clamp(10vw, 18vw, 24vw);
-    padding-left: clamp(0.75rem, 2.5vw, 2rem);
+    padding: 0;
     width: max-content;
   }
 
   .services-carousel .service-card {
     scroll-snap-align: center;
     scroll-snap-stop: always;
-    flex: 0 0 clamp(72vw, 78vw, 640px);
+    flex: 0 0 auto;
+    width: clamp(520px, 50vw, 640px);
+  }
+
+  .services-carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .services-vertical {
@@ -973,7 +979,7 @@ body {
   }
 
   .services-carousel .service-card {
-    flex-basis: clamp(70vw, 76vw, 640px);
+    width: clamp(520px, 60vw, 640px);
   }
 }
 
@@ -1006,7 +1012,7 @@ body {
   }
 
   .services-carousel .service-card {
-    flex-basis: clamp(560px, 56vw, 640px);
+    width: clamp(520px, 50vw, 640px);
   }
 
   .services-carousel {
@@ -1062,7 +1068,7 @@ body {
   }
 
   .services-carousel .service-card {
-    flex-basis: 88vw;
+    width: 88vw;
   }
 }
 
