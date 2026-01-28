@@ -96,6 +96,9 @@ export const staggerChildren = (stagger = 0.08, delay = 0.04): Variants => ({
   },
 })
 
+export const stagger = (staggerDelay = 0.08, initialDelay = 0.04): Variants =>
+  staggerChildren(staggerDelay, initialDelay)
+
 export const imageParallaxLight: Variants = {
   hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0 },

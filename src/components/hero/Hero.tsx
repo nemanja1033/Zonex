@@ -8,6 +8,7 @@ import MagneticButton from '@/components/ui/MagneticButton'
 import Button from '@/components/ui/Button'
 import SplitText from '@/components/motion/SplitText'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import useSafeLayoutEffect from '@/components/hooks/useSafeLayoutEffect'
 import HeroAccent from '@/components/hero/HeroAccent'
 import { site } from '../../../data/site'
 import { allowGsap, allowR3f } from '@/lib/motionLevel'
@@ -72,7 +73,7 @@ export default function Hero() {
     }
   }, [isCoarse, reduceMotion])
 
-  useEffect(() => {
+  useSafeLayoutEffect(() => {
     if (!enableGsap) return
     let ctx: { revert: () => void } | undefined
 
