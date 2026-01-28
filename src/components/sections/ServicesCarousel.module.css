@@ -92,7 +92,7 @@
 
 .card {
   flex: 0 0 auto;
-  width: clamp(520px, 52vw, 640px);
+  width: clamp(460px, 70vw, 620px);
   height: auto;
   scroll-snap-align: center;
   scroll-snap-stop: always;
@@ -156,23 +156,84 @@
   outline-offset: 4px;
 }
 
-.edge {
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.navButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navButton {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.navButton:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navButtonDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.edgeFade {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: clamp(1.5rem, 6vw, 4rem);
+  width: clamp(2.5rem, 8vw, 6rem);
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
+  transition: opacity 0.25s ease;
 }
 
-.edgeLeft {
+.edgeFadeLeft {
   left: 0;
   background: linear-gradient(90deg, rgba(10, 10, 12, 0.9), transparent);
 }
 
-.edgeRight {
+.edgeFadeRight {
   right: 0;
-  background: linear-gradient(270deg, rgba(10, 10, 12, 0.9), transparent);
+  background: linear-gradient(270deg, rgba(10, 10, 12, 0.92), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.edgeHidden {
+  opacity: 0;
+}
+
+.edgeIndicator {
+  margin-right: 0.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(243, 107, 44, 0.6);
+  background: rgba(243, 107, 44, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(243, 107, 44, 0.95);
+}
+
+.edgeArrow {
+  font-size: 0.9rem;
 }
 
 .hint {

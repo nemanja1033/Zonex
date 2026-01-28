@@ -27,6 +27,8 @@ export default function ServicesCarousel() {
   const tweenRef = useRef<any>(null)
   const gsapRef = useRef<any>(null)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
 
   useEffect(() => {
     const scroller = scrollerRef.current
@@ -62,22 +64,31 @@ export default function ServicesCarousel() {
       }
     }
 
+    const updateScrollEdges = () => {
+      const maxScroll = scroller.scrollWidth - scroller.clientWidth
+      setCanScrollLeft(scroller.scrollLeft > 4)
+      setCanScrollRight(scroller.scrollLeft < maxScroll - 4)
+    }
+
     const handleScroll = () => {
       if (rafRef.current) return
       rafRef.current = window.requestAnimationFrame(() => {
         rafRef.current = null
         updateActiveIndex()
+        updateScrollEdges()
       })
     }
 
     const handleResize = () => {
       setSidePadding()
       updateActiveIndex()
+      updateScrollEdges()
     }
 
     const init = () => {
       setSidePadding()
       updateActiveIndex()
+      updateScrollEdges()
       if (cards[0]?.clientWidth === 0) {
         initRafRef.current = window.requestAnimationFrame(init)
       }
@@ -181,6 +192,17 @@ export default function ServicesCarousel() {
     setHasInteracted(true)
   }
 
+  const handleArrowScroll = (direction: 'left' | 'right') => {
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    const delta = scroller.clientWidth * 0.8
+    scroller.scrollBy({
+      left: direction === 'left' ? -delta : delta,
+      behavior: reduceMotion ? 'auto' : 'smooth',
+    })
+    setHasInteracted(true)
+  }
+
   return (
     <section className={`section-divider section ${styles.sectionRoot} ${styles.sectionSurface}`}>
       <Container>
@@ -206,21 +228,65 @@ export default function ServicesCarousel() {
               <div className={styles.progressTrack}>
                 <span className={styles.progressBar} style={{ transform: `scaleX(${progressScale})` }} />
               </div>
-              <div className={styles.dots} role="tablist" aria-label="Usluge navigacija">
-                {services.map((service, index) => (
+              <div className={styles.controlsRow}>
+                <div className={styles.dots} role="tablist" aria-label="Usluge navigacija">
+                  {services.map((service, index) => (
+                    <button
+                      key={`dot-${index}`}
+                      type="button"
+                      className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ''}`}
+                      onClick={() => handleDotClick(index)}
+                      aria-label={`Prikaži uslugu ${String(index + 1).padStart(2, '0')}: ${service.title}`}
+                      aria-current={index === activeIndex ? 'true' : undefined}
+                    />
+                  ))}
+                </div>
+                <div className={styles.navButtons} aria-label="Usluge kontrola skrolovanja">
                   <button
-                    key={`dot-${index}`}
                     type="button"
-                    className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ''}`}
-                    onClick={() => handleDotClick(index)}
-                    aria-label={`Prikaži uslugu ${String(index + 1).padStart(2, '0')}: ${service.title}`}
-                    aria-current={index === activeIndex ? 'true' : undefined}
-                  />
-                ))}
+                    className={`${styles.navButton} ${!canScrollLeft ? styles.navButtonDisabled : ''}`}
+                    onClick={() => handleArrowScroll('left')}
+                    disabled={!canScrollLeft}
+                    aria-label="Prethodna usluga"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.navButton} ${!canScrollRight ? styles.navButtonDisabled : ''}`}
+                    onClick={() => handleArrowScroll('right')}
+                    disabled={!canScrollRight}
+                    aria-label="Sledeća usluga"
+                  >
+                    →
+                  </button>
+                </div>
               </div>
             </div>
           </div>
           <div className={styles.carouselShell}>
+            <span
+              className={`${styles.edgeFade} ${styles.edgeFadeLeft} ${
+                canScrollLeft ? '' : styles.edgeHidden
+              }`}
+              aria-hidden="true"
+            />
+            <span
+              className={`${styles.edgeFade} ${styles.edgeFadeRight} ${
+                canScrollRight ? '' : styles.edgeHidden
+              }`}
+              aria-hidden="true"
+            >
+              {!reduceMotion && canScrollRight ? (
+                <motion.span
+                  className={styles.edgeIndicator}
+                  animate={{ x: [0, 10, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <span className={styles.edgeArrow}>→</span>
+                </motion.span>
+              ) : null}
+            </span>
             <div
               ref={scrollerRef}
               className={styles.servicesRight}
