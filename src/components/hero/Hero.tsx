@@ -262,12 +262,14 @@ export default function Hero() {
               transition={transition.base}
             >
               <div className="card-surface rounded-lg p-5 sm:p-6 md:p-8">
-                <p className="text-micro font-mono uppercase tracking-micro text-white/60">Kratak pregled</p>
+                <p className="text-micro font-mono uppercase tracking-micro text-white/60">Brzi brief</p>
+                <p className="mt-3 text-small text-white/70">
+                  Pošaljite kratak opis projekta — dobijate predlog plana, okvirni rok i budžet.
+                </p>
                 <div className="mt-6 space-y-4">
                   {[
-                    { label: 'Godina osnivanja', value: site.company.founded },
-                    { label: 'Model isporuke', value: 'Ključ u ruke' },
-                    { label: 'Sedište', value: site.company.location },
+                    { label: 'Odgovor', value: '24–48h' },
+                    { label: 'Format', value: 'Plan + rok + budžet' },
                   ].map((item) => (
                     <div key={item.label} className="relative pb-4" data-hero-row>
                       <div className="flex items-center justify-between gap-4">
@@ -279,8 +281,8 @@ export default function Hero() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <Button href="/company" variant="ghost">
-                    Upoznajte tim
+                  <Button href="/contact" variant="ghost">
+                    Pošaljite brief
                   </Button>
                 </div>
               </div>

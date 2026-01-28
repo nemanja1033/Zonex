@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
@@ -15,6 +15,7 @@ const serviceImages = [
 
 export default function ServicesCarousel() {
   const reduceMotion = useReducedMotion() ?? false
+  const [isMobile, setIsMobile] = useState(false)
   const services = useMemo(
     () =>
       site.services.slice(0, 4).map((service, index) => ({
@@ -26,12 +27,75 @@ export default function ServicesCarousel() {
   )
   const [activeIndex, setActiveIndex] = useState(0)
   const activeService = services[activeIndex]
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const scrollRaf = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const media = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobile(media.matches)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile) return
+    const scroller = scrollerRef.current
+    if (!scroller) return
+
+    const handleScroll = () => {
+      if (scrollRaf.current) return
+      scrollRaf.current = window.requestAnimationFrame(() => {
+        const nodes = cardRefs.current.filter(Boolean) as HTMLDivElement[]
+        if (!nodes.length) {
+          scrollRaf.current = null
+          return
+        }
+        const scrollLeft = scroller.scrollLeft
+        let closestIndex = 0
+        let closestDistance = Infinity
+        nodes.forEach((node, index) => {
+          const targetLeft = node.offsetLeft - (scroller.clientWidth - node.clientWidth) / 2
+          const distance = Math.abs(targetLeft - scrollLeft)
+          if (distance < closestDistance) {
+            closestDistance = distance
+            closestIndex = index
+          }
+        })
+        setActiveIndex(closestIndex)
+        scrollRaf.current = null
+      })
+    }
+
+    scroller.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      scroller.removeEventListener('scroll', handleScroll)
+      if (scrollRaf.current) {
+        window.cancelAnimationFrame(scrollRaf.current)
+        scrollRaf.current = null
+      }
+    }
+  }, [isMobile])
+
+  const scrollToIndex = (index: number) => {
+    const node = cardRefs.current[index]
+    if (!node) return
+    node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+  }
+
+  const goToIndex = (index: number) => {
+    const next = Math.max(0, Math.min(services.length - 1, index))
+    setActiveIndex(next)
+    if (isMobile) {
+      window.requestAnimationFrame(() => scrollToIndex(next))
+    }
+  }
 
   const handleScroll = (direction: 'prev' | 'next') => {
-    setActiveIndex((current) => {
-      if (direction === 'prev') return Math.max(0, current - 1)
-      return Math.min(services.length - 1, current + 1)
-    })
+    const nextIndex = direction === 'prev' ? activeIndex - 1 : activeIndex + 1
+    goToIndex(nextIndex)
   }
 
   return (
@@ -104,7 +168,7 @@ export default function ServicesCarousel() {
                   <button
                     key={`dot-${index}`}
                     type="button"
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => goToIndex(index)}
                     className="group"
                     aria-label={`Prikaži uslugu ${index + 1}`}
                   >
@@ -120,7 +184,7 @@ export default function ServicesCarousel() {
                   </button>
                 ))}
               </div>
-              <div className="flex items-center gap-3">
+              <div className="hidden items-center gap-3 md:flex">
                 <button
                   type="button"
                   onClick={() => handleScroll('prev')}
@@ -151,9 +215,40 @@ export default function ServicesCarousel() {
             </motion.div>
           </div>
           <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              <ServiceCard key={activeIndex} service={activeService} reduceMotion={reduceMotion} />
-            </AnimatePresence>
+            {isMobile ? (
+              <div className="space-y-4">
+                <div
+                  ref={scrollerRef}
+                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch]"
+                >
+                  {services.map((service, index) => (
+                    <div
+                      key={service.title}
+                      ref={(node) => {
+                        cardRefs.current[index] = node
+                      }}
+                      className="min-w-[85%] snap-center"
+                    >
+                      <ServiceCard service={service} reduceMotion={reduceMotion} />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-white/45 md:hidden">
+                  <span>Prevuci</span>
+                  <motion.span
+                    aria-hidden="true"
+                    animate={reduceMotion ? undefined : { x: [0, 6, 0] }}
+                    transition={{ duration: 1.6, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </div>
+            ) : (
+              <AnimatePresence mode="wait">
+                <ServiceCard key={activeIndex} service={activeService} reduceMotion={reduceMotion} />
+              </AnimatePresence>
+            )}
           </div>
         </div>
       </Container>
