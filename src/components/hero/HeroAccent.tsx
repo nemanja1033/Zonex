@@ -61,21 +61,21 @@ function AccentPlane() {
   }, [invalidate])
 
   useEffect(() => {
-    let active = true
-    let start = performance.now()
+    let raf = 0
+    let last = 0
 
-    const kick = (time: number) => {
-      if (!active) return
-      if (time - start < 1200) {
+    const tick = (time: number) => {
+      if (time - last > 90) {
         invalidate()
-        requestAnimationFrame(kick)
+        last = time
       }
+      raf = requestAnimationFrame(tick)
     }
 
-    requestAnimationFrame(kick)
+    raf = requestAnimationFrame(tick)
 
     return () => {
-      active = false
+      if (raf) cancelAnimationFrame(raf)
     }
   }, [invalidate])
 

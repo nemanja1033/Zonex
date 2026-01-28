@@ -10,6 +10,7 @@ import SplitText from '@/components/motion/SplitText'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import HeroAccent from '@/components/hero/HeroAccent'
 import { site } from '../../../data/site'
+import { allowGsap, allowR3f } from '@/lib/motionLevel'
 import {
   fadeUp,
   maskReveal,
@@ -23,8 +24,11 @@ export default function Hero() {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
   const heroRef = useRef<HTMLElement | null>(null)
+  const gsapRef = useRef<any>(null)
+  const gsapTargetsRef = useRef<HTMLElement[]>([])
   const [isDesktop, setIsDesktop] = useState(false)
-  const enableGsap = isDesktop && !isCoarse && !reduceMotion
+  const enableGsap = allowGsap() && isDesktop && !isCoarse && !reduceMotion
+  const showWebgl = allowR3f() && isDesktop && !isCoarse && !reduceMotion
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -75,6 +79,7 @@ export default function Hero() {
     const run = async () => {
       const gsapModule = await import('gsap')
       const gsap = gsapModule.gsap ?? gsapModule.default
+      gsapRef.current = gsap
 
       if (!heroRef.current) return
 
@@ -83,6 +88,7 @@ export default function Hero() {
         const headlineMasks = gsap.utils.toArray<HTMLElement>('[data-hero-mask]')
         const rows = gsap.utils.toArray<HTMLElement>('[data-hero-row]')
         const dividers = gsap.utils.toArray<HTMLElement>('[data-hero-divider]')
+        gsapTargetsRef.current = [...lines, ...headlineMasks, ...rows, ...dividers]
 
         gsap.set(lines, { scaleX: 0, transformOrigin: 'left center' })
         gsap.set(headlineMasks, { clipPath: 'inset(0 0 100% 0)' })
@@ -101,16 +107,20 @@ export default function Hero() {
 
     return () => {
       ctx?.revert()
+      if (gsapRef.current && gsapTargetsRef.current.length > 0) {
+        gsapRef.current.killTweensOf(gsapTargetsRef.current)
+      }
+      gsapTargetsRef.current = []
     }
   }, [enableGsap])
 
   const title = `${site.hero.title}`
   const titleLines = title.split(', ')
-  const showWebgl = enableGsap
-
   return (
     <section ref={heroRef} className="hero-section relative overflow-hidden bg-navy-900 text-white">
       <div className="hero-noise" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-grain" aria-hidden="true" />
       <div className="absolute inset-0">
         <Image
           src="/images/projects/kfc-zrenjanin-04.jpg"

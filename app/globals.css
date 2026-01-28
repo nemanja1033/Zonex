@@ -6,20 +6,20 @@
 
 :root {
   --void-base: #0A0A0A;
-  --void-obsidian: #0E0F12;
-  --void-charcoal: #15171C;
-  --void-slate: #1E2126;
+  --void-obsidian: #111419;
+  --void-charcoal: #1A1D23;
+  --void-slate: #242833;
 
   --bg: var(--void-base);
   --bg-2: var(--void-obsidian);
   --surface-1: var(--void-charcoal);
   --surface-2: var(--void-slate);
-  --surface-3: #25282e;
-  --text: #f2f0ea;
-  --text-2: #c9c5bd;
-  --muted: #9b968f;
-  --stroke: rgba(255, 255, 255, 0.08);
-  --stroke-2: rgba(255, 255, 255, 0.14);
+  --surface-3: #2b303b;
+  --text: #f9f9f9;
+  --text-2: #d2d2d2;
+  --muted: #a3a3a3;
+  --stroke: rgba(255, 255, 255, 0.1);
+  --stroke-2: rgba(255, 255, 255, 0.18);
   --accent: #8f1d1d;
   --accentSoft: rgba(143, 29, 29, 0.18);
   --accentFg: #f8ecec;
@@ -84,6 +84,7 @@
   --cursor-y: 50%;
   --hero-x: 0px;
   --hero-y: 0px;
+  --section-spotlight: radial-gradient(900px circle at 50% 12%, rgba(255, 255, 255, 0.03), transparent 68%);
 }
 
 * {
@@ -101,8 +102,8 @@ body {
   font-feature-settings: "kern";
   text-rendering: optimizeLegibility;
   background-image:
-    radial-gradient(900px circle at 10% -8%, rgba(82, 76, 64, 0.18), transparent 60%),
-    radial-gradient(1100px circle at 90% 8%, rgba(28, 30, 34, 0.7), transparent 60%),
+    radial-gradient(900px circle at 10% -8%, rgba(92, 86, 72, 0.18), transparent 60%),
+    radial-gradient(1100px circle at 90% 8%, rgba(34, 38, 44, 0.35), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
@@ -324,7 +325,7 @@ body {
 .section-surface {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    background-image: var(--section-spotlight), linear-gradient(180deg, var(--bg-2), var(--bg));
   }
 
   .section-surface > * {
@@ -337,10 +338,10 @@ body {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 72px 72px;
-    opacity: 0.2;
+    opacity: 0.14;
     pointer-events: none;
   }
 
@@ -348,10 +349,14 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.28;
+  }
+
+  .section-spotlight {
+    --section-spotlight: radial-gradient(900px circle at 20% 18%, rgba(255, 255, 255, 0.07), transparent 65%);
   }
 
   .divider-glow {
@@ -420,13 +425,13 @@ body {
 
   .card-surface {
     position: relative;
-    background: var(--surface-2);
-    border: 1px solid var(--stroke-2);
+    background: linear-gradient(160deg, rgba(39, 43, 52, 0.98), rgba(22, 25, 30, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.16);
     box-shadow: var(--shadow-soft);
   }
 
   .surface-panel {
-    background: linear-gradient(160deg, rgba(36, 38, 42, 0.9), rgba(20, 21, 24, 0.95));
+    background: linear-gradient(160deg, rgba(42, 46, 54, 0.92), rgba(22, 25, 30, 0.98));
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 55px rgba(4, 6, 8, 0.45);
   }
@@ -505,24 +510,22 @@ body {
   .services-track {
     display: grid;
     gap: 1.5rem;
-    will-change: transform;
   }
 
   .service-card {
     position: relative;
     border-radius: 1rem;
     padding: 1.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(160deg, rgba(26, 28, 33, 0.95), rgba(16, 18, 22, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(160deg, rgba(34, 38, 46, 0.98), rgba(18, 20, 24, 0.98));
     box-shadow: var(--shadow-soft);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    opacity: 0.85;
+    transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.98;
   }
 
   .service-card.is-active {
     transform: translateY(-6px) scale(1.01);
     border-color: rgba(243, 107, 44, 0.45);
-    box-shadow: 0 24px 60px rgba(4, 6, 8, 0.5);
     opacity: 1;
   }
 
@@ -654,6 +657,7 @@ body {
     background: linear-gradient(90deg, rgba(243, 107, 44, 0.7), rgba(243, 107, 44, 0.2));
     transform: scaleX(0);
     transform-origin: left center;
+    transition: transform 0.35s ease;
   }
 
   .services-progress-dots {
@@ -662,11 +666,15 @@ body {
   }
 
   .services-dot {
+    appearance: none;
+    border: none;
+    padding: 0;
     width: 6px;
     height: 6px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.25);
     transition: transform 0.2s ease, background 0.2s ease;
+    cursor: pointer;
   }
 
   .services-dot.is-active {
@@ -674,13 +682,26 @@ body {
     background: rgba(243, 107, 44, 0.8);
   }
 
+  .services-dot:focus-visible {
+    outline: 2px solid rgba(243, 107, 44, 0.6);
+    outline-offset: 4px;
+  }
+
+  .services-carousel-shell {
+    position: relative;
+    overflow: hidden;
+  }
+
   .services-carousel {
     position: relative;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: clamp(1rem, 6vw, 8rem);
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
     mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 1) 6%, rgba(0, 0, 0, 1) 94%, transparent);
   }
 
@@ -691,12 +712,15 @@ body {
   .services-carousel .services-track {
     display: flex;
     gap: 1.75rem;
-    padding-right: 15vw;
-    padding-left: 2px;
+    padding-right: clamp(10vw, 18vw, 24vw);
+    padding-left: clamp(0.75rem, 2.5vw, 2rem);
+    width: max-content;
   }
 
   .services-carousel .service-card {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    flex: 0 0 clamp(72vw, 78vw, 640px);
   }
 
   .services-vertical {
@@ -717,6 +741,25 @@ body {
 
   .services-hint.is-hidden {
     opacity: 0;
+  }
+
+  .services-edge {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(1.5rem, 6vw, 4rem);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .services-edge--left {
+    left: 0;
+    background: linear-gradient(90deg, rgba(10, 10, 12, 0.9), transparent);
+  }
+
+  .services-edge--right {
+    right: 0;
+    background: linear-gradient(270deg, rgba(10, 10, 12, 0.9), transparent);
   }
 
   .services-scroll--stacked .service-item {
@@ -850,7 +893,7 @@ body {
   .hero-grain {
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
     pointer-events: none;
     z-index: 1;
@@ -859,7 +902,7 @@ body {
   .hero-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(9, 10, 12, 0.6) 0%, rgba(10, 10, 12, 0.95) 65%);
+    background: linear-gradient(180deg, rgba(12, 14, 18, 0.45) 0%, rgba(12, 14, 18, 0.88) 65%);
   }
 
   .hero-blueprint {
@@ -928,6 +971,10 @@ body {
     --section-padding: 4.5rem;
     --container-padding: 2rem;
   }
+
+  .services-carousel .service-card {
+    flex-basis: clamp(70vw, 76vw, 640px);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -956,6 +1003,10 @@ body {
   .service-card {
     flex: 0 0 clamp(520px, 56vw, 640px);
     min-height: 100%;
+  }
+
+  .services-carousel .service-card {
+    flex-basis: clamp(560px, 56vw, 640px);
   }
 
   .services-carousel {
@@ -1008,6 +1059,10 @@ body {
 
   .input-field {
     font-size: 1rem;
+  }
+
+  .services-carousel .service-card {
+    flex-basis: 88vw;
   }
 }
 
