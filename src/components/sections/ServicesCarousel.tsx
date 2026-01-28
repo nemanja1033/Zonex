@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import Reveal from '@/components/motion/Reveal'
-import useCoarsePointer from '@/components/hooks/useCoarsePointer'
 import { site } from '../../../data/site'
 import styles from './ServicesCarousel.module.css'
 
@@ -19,14 +18,12 @@ const serviceImages = [
 export default function ServicesCarousel() {
   const services = site.services.slice(0, 4)
   const reduceMotion = useReducedMotion()
-  const isCoarse = useCoarsePointer()
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<Array<HTMLDivElement | null>>([])
   const [activeIndex, setActiveIndex] = useState(0)
   const activeIndexRef = useRef(0)
   const rafRef = useRef<number | null>(null)
   const initRafRef = useRef<number | null>(null)
-  const debounceRef = useRef<number | null>(null)
   const tweenRef = useRef<any>(null)
   const gsapRef = useRef<any>(null)
   const [hasInteracted, setHasInteracted] = useState(false)
@@ -65,67 +62,12 @@ export default function ServicesCarousel() {
       }
     }
 
-    const getClosestIndex = () => {
-      const center = scroller.scrollLeft + scroller.clientWidth / 2
-      let closestIndex = 0
-      let closestDistance = Number.POSITIVE_INFINITY
-
-      cards.forEach((card, index) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2
-        const distance = Math.abs(cardCenter - center)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          closestIndex = index
-        }
-      })
-
-      return closestIndex
-    }
-
-    const snapToIndex = (index: number) => {
-      const card = cards[index]
-      if (!card) return
-      const center = card.offsetLeft + card.offsetWidth / 2
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth
-      const targetLeft = Math.min(maxScroll, Math.max(0, center - scroller.clientWidth / 2))
-
-      if (reduceMotion || !gsapRef.current) {
-        scroller.scrollTo({ left: targetLeft, behavior: reduceMotion ? 'auto' : 'smooth' })
-        return
-      }
-
-      const gsap = gsapRef.current
-      if (tweenRef.current) {
-        tweenRef.current.kill()
-        tweenRef.current = null
-      }
-
-      const proxy = { x: scroller.scrollLeft }
-      tweenRef.current = gsap.to(proxy, {
-        x: targetLeft,
-        duration: 0.45,
-        ease: 'power3.out',
-        onUpdate: () => {
-          scroller.scrollLeft = proxy.x
-        },
-        onComplete: () => {
-          tweenRef.current = null
-        },
-      })
-    }
-
     const handleScroll = () => {
       if (rafRef.current) return
       rafRef.current = window.requestAnimationFrame(() => {
         rafRef.current = null
         updateActiveIndex()
       })
-
-      if (debounceRef.current) window.clearTimeout(debounceRef.current)
-      debounceRef.current = window.setTimeout(() => {
-        const index = getClosestIndex()
-        snapToIndex(index)
-      }, 120)
     }
 
     const handleResize = () => {
@@ -161,10 +103,6 @@ export default function ServicesCarousel() {
       scroller.removeEventListener('pointerdown', handlePointerDown)
       scroller.removeEventListener('touchstart', handlePointerDown)
       window.removeEventListener('resize', handleResize)
-      if (debounceRef.current) {
-        window.clearTimeout(debounceRef.current)
-        debounceRef.current = null
-      }
       if (rafRef.current) {
         window.cancelAnimationFrame(rafRef.current)
         rafRef.current = null
@@ -205,39 +143,6 @@ export default function ServicesCarousel() {
     }
   }, [])
 
-  useEffect(() => {
-    const scroller = scrollerRef.current
-    if (!scroller) return
-    const media = window.matchMedia('(pointer: fine)')
-    if (!media.matches || reduceMotion || isCoarse) return
-
-    const handleWheel = (event: WheelEvent) => {
-      const { deltaX, deltaY } = event
-      if (Math.abs(deltaY) <= Math.abs(deltaX)) return
-
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth
-      const atStart = scroller.scrollLeft <= 0
-      const atEnd = scroller.scrollLeft >= maxScroll - 1
-
-      if ((atStart && deltaY < 0) || (atEnd && deltaY > 0)) return
-
-      event.preventDefault()
-      if (tweenRef.current) {
-        tweenRef.current.kill()
-        tweenRef.current = null
-      }
-      if (debounceRef.current) {
-        window.clearTimeout(debounceRef.current)
-        debounceRef.current = null
-      }
-      scroller.scrollLeft = Math.min(maxScroll, Math.max(0, scroller.scrollLeft + deltaY))
-      if (!hasInteracted) setHasInteracted(true)
-    }
-
-    scroller.addEventListener('wheel', handleWheel, { passive: false })
-    return () => scroller.removeEventListener('wheel', handleWheel)
-  }, [hasInteracted, isCoarse, reduceMotion])
-
   const progressLabel = useMemo(() => String(activeIndex + 1).padStart(2, '0'), [activeIndex])
   const progressScale = useMemo(
     () => (services.length > 1 ? activeIndex / (services.length - 1) : 0),
@@ -277,7 +182,7 @@ export default function ServicesCarousel() {
   }
 
   return (
-    <section className="section-divider section section-surface">
+    <section className={`section-divider section section-surface ${styles.sectionRoot}`}>
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div className="flex flex-col gap-6 lg:sticky lg:top-24">

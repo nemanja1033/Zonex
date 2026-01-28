@@ -5,14 +5,20 @@
   min-width: 0;
 }
 
+.sectionRoot {
+  overflow: visible;
+}
+
 .carouselScroll {
   display: flex;
   gap: clamp(24px, 3vw, 32px);
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   width: 100%;
   scroll-padding-left: var(--carousel-pad, 24px);
   scroll-padding-right: var(--carousel-pad, 24px);
