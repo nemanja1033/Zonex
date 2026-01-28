@@ -303,7 +303,7 @@ export default function ServicesCarousel() {
                       <span>Standard</span>
                     </motion.div>
                     <motion.div
-                      className="mt-5 overflow-hidden rounded-lg"
+                      className={`mt-5 ${styles.cardImage}`}
                       initial={false}
                       animate={
                         reduceMotion
@@ -320,7 +320,7 @@ export default function ServicesCarousel() {
                         width={520}
                         height={360}
                         sizes="(min-width: 1024px) 40vw, 90vw"
-                        className="h-[220px] w-full object-cover"
+                        className="h-full w-full object-cover"
                         loading="lazy"
                       />
                     </motion.div>
