@@ -227,7 +227,7 @@ export default function ServicesCarousel() {
           </div>
           <div className="lg:col-span-7">
             {isMobile ? (
-              <div className="space-y-2">
+              <div className="space-y-2 overflow-x-clip">
                 <div
                   ref={scrollerRef}
                   className="flex snap-x snap-mandatory overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
@@ -239,7 +239,7 @@ export default function ServicesCarousel() {
                       ref={(node) => {
                         cardRefs.current[index] = node
                       }}
-                      className="w-full flex-shrink-0 snap-center"
+                      className="w-full flex-shrink-0 snap-center px-4"
                     >
                       <ServiceCard service={service} reduceMotion={reduceMotion} />
                     </div>
