@@ -15,14 +15,14 @@ export const colors = {
 } as const
 
 export const spacing = {
-  xs: 'var(--space-xs)',
-  sm: 'var(--space-sm)',
-  md: 'var(--space-md)',
-  lg: 'var(--space-lg)',
-  xl: 'var(--space-xl)',
-  xxl: 'var(--space-2xl)',
-  xxxl: 'var(--space-3xl)',
-  huge: 'var(--space-4xl)',
+  xs: '0.5rem',
+  sm: '0.75rem',
+  md: '1rem',
+  lg: '1.5rem',
+  xl: '2rem',
+  xxl: '3rem',
+  xxxl: '4.5rem',
+  huge: '6rem',
 } as const
 
 export const radii = {

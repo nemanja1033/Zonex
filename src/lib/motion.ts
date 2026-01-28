@@ -1,10 +1,10 @@
 import type { Variants } from 'framer-motion'
 
 export const durations = {
-  xs: 0.2,
-  sm: 0.35,
-  md: 0.5,
-  lg: 0.8,
+  xs: 0.18,
+  sm: 0.28,
+  md: 0.45,
+  lg: 0.7,
 } as const
 
 export const easing = {
@@ -77,6 +77,16 @@ export const textRevealItem: Variants = {
   visible: { opacity: 1, y: 0 },
 }
 
+export const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.06,
+    },
+  },
+}
+
 export const staggerChildren = (stagger = 0.08, delay = 0.04): Variants => ({
   visible: {
     transition: {
@@ -85,6 +95,14 @@ export const staggerChildren = (stagger = 0.08, delay = 0.04): Variants => ({
     },
   },
 })
+
+export const stagger = (staggerDelay = 0.08, initialDelay = 0.04): Variants =>
+  staggerChildren(staggerDelay, initialDelay)
+
+export const imageParallaxLight: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0 },
+}
 
 export const hoverLift: Variants = {
   rest: { y: 0, boxShadow: 'var(--shadow-soft)' },
@@ -112,3 +130,6 @@ export const reducedMotionVariants: Variants = {
   visible: { opacity: 1, y: 0, x: 0, scale: 1 },
   exit: { opacity: 1, y: 0, x: 0, scale: 1 },
 }
+
+export const resolveVariants = (reduceMotion: boolean, variants: Variants) =>
+  reduceMotion ? reducedMotionVariants : variants

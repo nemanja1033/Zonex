@@ -1,12 +1,20 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: ['./app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
+        void: {
+          base: '#0A0A0A',
+          obsidian: '#0E0F12',
+          charcoal: '#15171C',
+          slate: '#1E2126',
+        },
+        industrial: {
+          orange: '#F36B2C',
+          ember: '#FF8A4B',
+        },
         navy: {
           900: 'var(--navy-900)',
           800: 'var(--navy-800)',
@@ -66,3 +74,5 @@ module.exports = {
   },
   plugins: [],
 }
+
+export default config
