@@ -3,7 +3,9 @@
   z-index: 2;
   min-width: 0;
   padding-block: 12px;
-  overflow: visible;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .sectionRoot {
@@ -46,14 +48,18 @@
 .servicesGrid {
   grid-template-columns: minmax(420px, 1fr) minmax(0, 1.4fr);
   align-items: start;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .servicesRight {
   min-width: 0;
   position: relative;
-  overflow-x: auto;
-  overflow-y: visible;
-  height: auto;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
   scroll-snap-type: x mandatory;
   scroll-snap-stop: always;
   scroll-behavior: smooth;
@@ -75,7 +81,9 @@
 .carouselScroll {
   display: flex;
   gap: clamp(24px, 3vw, 32px);
-  overflow: visible;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
   width: max-content;
   position: relative;
   z-index: 3;
