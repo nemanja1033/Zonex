@@ -1,0 +1,226 @@
+"use client"
+
+import Image from 'next/image'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
+import Container from '@/components/ui/Container'
+import Reveal from '@/components/motion/Reveal'
+import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import { site } from '../../../data/site'
+import styles from './ServicesCarousel.module.css'
+
+const serviceImages = [
+  '/images/projects/kfc-zrenjanin-01.jpg',
+  '/images/projects/kfc-zrenjanin-02.jpg',
+  '/images/projects/kfc-zrenjanin-03.jpg',
+  '/images/projects/kfc-zrenjanin-05.jpg',
+]
+
+export default function ServicesCarousel() {
+  const services = site.services.slice(0, 4)
+  const reduceMotion = useReducedMotion()
+  const isCoarse = useCoarsePointer()
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeIndexRef = useRef(0)
+  const rafRef = useRef<number | null>(null)
+  const [hasInteracted, setHasInteracted] = useState(false)
+
+  useEffect(() => {
+    const scroller = scrollerRef.current
+    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!scroller || cards.length === 0) return
+
+    const setSidePadding = () => {
+      const firstCard = cards[0]
+      if (!firstCard) return
+      const pad = Math.max(16, (scroller.clientWidth - firstCard.clientWidth) / 2)
+      scroller.style.setProperty('--carousel-pad', `${pad}px`)
+    }
+
+    const updateActiveIndex = () => {
+      const center = scroller.scrollLeft + scroller.clientWidth / 2
+      let closestIndex = 0
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2
+        const distance = Math.abs(cardCenter - center)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestIndex = index
+        }
+      })
+
+      if (closestIndex !== activeIndexRef.current) {
+        activeIndexRef.current = closestIndex
+        setActiveIndex(closestIndex)
+      }
+    }
+
+    const handleScroll = () => {
+      if (rafRef.current) return
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = null
+        updateActiveIndex()
+      })
+    }
+
+    const handleResize = () => {
+      setSidePadding()
+      updateActiveIndex()
+    }
+
+    setSidePadding()
+    updateActiveIndex()
+    scroller.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
+
+    const handleInteract = () => setHasInteracted(true)
+    scroller.addEventListener('pointerdown', handleInteract, { once: true })
+    scroller.addEventListener('touchstart', handleInteract, { once: true })
+
+    return () => {
+      scroller.removeEventListener('scroll', handleScroll)
+      scroller.removeEventListener('pointerdown', handleInteract)
+      scroller.removeEventListener('touchstart', handleInteract)
+      window.removeEventListener('resize', handleResize)
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    const media = window.matchMedia('(pointer: fine)')
+    if (!media.matches || reduceMotion || isCoarse) return
+
+    const handleWheel = (event: WheelEvent) => {
+      const { deltaX, deltaY } = event
+      if (Math.abs(deltaY) <= Math.abs(deltaX)) return
+
+      const maxScroll = scroller.scrollWidth - scroller.clientWidth
+      const atStart = scroller.scrollLeft <= 0
+      const atEnd = scroller.scrollLeft >= maxScroll - 1
+
+      if ((atStart && deltaY < 0) || (atEnd && deltaY > 0)) return
+
+      event.preventDefault()
+      scroller.scrollLeft = Math.min(maxScroll, Math.max(0, scroller.scrollLeft + deltaY))
+      if (!hasInteracted) setHasInteracted(true)
+    }
+
+    scroller.addEventListener('wheel', handleWheel, { passive: false })
+    return () => scroller.removeEventListener('wheel', handleWheel)
+  }, [hasInteracted, isCoarse, reduceMotion])
+
+  const progressLabel = useMemo(() => String(activeIndex + 1).padStart(2, '0'), [activeIndex])
+  const progressScale = useMemo(
+    () => (services.length > 1 ? activeIndex / (services.length - 1) : 0),
+    [activeIndex, services.length]
+  )
+
+  const handleDotClick = (index: number) => {
+    const target = cardRefs.current[index]
+    const scroller = scrollerRef.current
+    if (!target || !scroller) return
+    const center = target.offsetLeft + target.offsetWidth / 2
+    const nextLeft = center - scroller.clientWidth / 2
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth
+    const clamped = Math.min(maxScroll, Math.max(0, nextLeft))
+    scroller.scrollTo({ left: clamped, behavior: reduceMotion ? 'auto' : 'smooth' })
+    setHasInteracted(true)
+  }
+
+  return (
+    <section className="section-divider section section-surface">
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-24">
+            <Reveal>
+              <div className="space-y-4">
+                <p className="eyebrow">Usluge</p>
+                <h2 className="section-title">Integrisane usluge sa preciznim fazama isporuke.</h2>
+                <p className="body-muted text-measure">
+                  Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p className="section-subtitle">Operativa, koordinacija i završni standardi u jednoj liniji isporuke.</p>
+            </Reveal>
+            <div className="flex flex-col gap-3" aria-live="polite">
+              <div className="text-[0.85rem] uppercase tracking-[0.28em] text-white/70">
+                <span className="font-mono">{progressLabel}</span>
+                <span className="font-mono">/04</span>
+              </div>
+              <div className={styles.progressTrack}>
+                <span className={styles.progressBar} style={{ transform: `scaleX(${progressScale})` }} />
+              </div>
+              <div className={styles.dots} role="tablist" aria-label="Usluge navigacija">
+                {services.map((service, index) => (
+                  <button
+                    key={`dot-${index}`}
+                    type="button"
+                    className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ''}`}
+                    onClick={() => handleDotClick(index)}
+                    aria-label={`Prikaži uslugu ${String(index + 1).padStart(2, '0')}: ${service.title}`}
+                    aria-current={index === activeIndex ? 'true' : undefined}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className={styles.carouselWrap}>
+            <div ref={scrollerRef} className={styles.carouselScroll} role="region" aria-label="Usluge carousel">
+              {services.map((service, index) => {
+                const badge = String(index + 1).padStart(2, '0')
+                return (
+                  <article
+                    key={service.title}
+                    ref={(el) => {
+                      cardRefs.current[index] = el
+                    }}
+                    className={`card-surface rounded-xl p-6 ${styles.card}`}
+                    aria-label={`Usluga ${badge}: ${service.title}`}
+                  >
+                    <span className="text-[0.7rem] uppercase tracking-[0.24em] text-white/70">{badge}</span>
+                    <div className="mt-4">
+                      <p className="text-micro font-mono uppercase tracking-micro text-white/60">Usluga {badge}</p>
+                      <h3 className="mt-3 font-display text-h3 text-white">{service.title}</h3>
+                      <span className="mt-4 block h-px w-full bg-white/20" aria-hidden="true" />
+                    </div>
+                    <p className="mt-3 text-small text-white/80">{service.description}</p>
+                    <div className="mt-4 flex gap-3 text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
+                      <span className="border-r border-white/15 pr-3">Obim</span>
+                      <span className="border-r border-white/15 pr-3">Rok</span>
+                      <span>Standard</span>
+                    </div>
+                    <div className="mt-5 overflow-hidden rounded-lg">
+                      <Image
+                        src={serviceImages[index % serviceImages.length]}
+                        alt={service.title}
+                        width={520}
+                        height={360}
+                        sizes="(min-width: 1024px) 40vw, 90vw"
+                        className="h-[220px] w-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+            <span className={`${styles.hint} ${hasInteracted ? styles.hintHidden : ''}`}>Povucite / Skrolujte</span>
+            <span className={`${styles.edge} ${styles.edgeLeft}`} aria-hidden="true" />
+            <span className={`${styles.edge} ${styles.edgeRight}`} aria-hidden="true" />
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
