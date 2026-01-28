@@ -130,7 +130,7 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] py-10 md:py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-[var(--bg)] py-8 md:py-24 lg:py-32">
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -141,15 +141,15 @@ export default function ServicesCarousel() {
         />
       </div>
       <Container className="relative z-10">
-        <div className="grid gap-5 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-          <div className="lg:col-span-5 space-y-5 md:space-y-8">
+        <div className="grid gap-4 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="lg:col-span-5 space-y-4 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70">
+              <span className="hidden items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70 md:inline-flex">
                 Usluge
               </span>
             </motion.div>
@@ -160,7 +160,7 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-2 md:space-y-4"
             >
-              <h2 className="font-display text-[26px] leading-[1.12] text-white md:text-5xl xl:text-6xl">
+              <h2 className="font-display text-[24px] leading-[1.14] text-white md:text-5xl xl:text-6xl">
                 Integrisane usluge
                 <br />
                 sa preciznim
@@ -175,7 +175,7 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-2 md:space-y-4"
             >
-              <p className="text-[13px] text-white/70 md:text-lg">
+              <p className="text-[12px] text-white/70 md:text-lg">
                 Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
               </p>
               <p className="hidden text-sm text-white/55 md:block md:text-base">
@@ -322,7 +322,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
         <div className="relative">
           <div className="space-y-2 px-3 pb-3 pt-3 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
             <div className="flex items-center justify-between">
-              <span className="text-xl font-semibold text-[rgba(194,59,59,0.2)] md:text-5xl lg:text-6xl">
+              <span className="hidden text-xl font-semibold text-[rgba(194,59,59,0.2)] md:inline-block md:text-5xl lg:text-6xl">
                 {service.number}
               </span>
               <span className="rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-white/70 md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
@@ -332,14 +332,16 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
             <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
               {service.title}
             </h3>
-            <p className="max-w-md text-[11px] text-white/65 md:text-base">{service.description}</p>
+            <p className="max-w-md text-[11px] text-white/65 md:text-base [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden md:[display:block]">
+              {service.description}
+            </p>
             <div className="flex flex-wrap gap-2 pt-1 text-[9px] uppercase tracking-wider text-white/45 md:pt-2 md:text-[11px]">
               <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Obim</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Rok</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Standard</span>
             </div>
           </div>
-          <div className="relative aspect-[16/9] max-h-[220px] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
+          <div className="relative aspect-[16/9] max-h-[200px] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-[rgba(18,20,24,0.9)] via-transparent to-transparent" />
             <Image
               src={service.image}
