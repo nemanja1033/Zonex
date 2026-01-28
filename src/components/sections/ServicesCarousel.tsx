@@ -14,7 +14,7 @@ const serviceImages = [
 ]
 
 export default function ServicesCarousel() {
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = useReducedMotion()
   const services = useMemo(
     () =>
       site.services.slice(0, 4).map((service, index) => ({

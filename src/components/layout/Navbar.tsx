@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Container from '@/components/ui/Container'
 import LogoLockup from '@/components/brand/LogoLockup'
-import { transition } from '@/lib/motion'
 
 const navItems = [
   { label: 'Početna', href: '/' },
