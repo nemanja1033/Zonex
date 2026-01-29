@@ -5,25 +5,25 @@
 @tailwind utilities;
 
 :root {
-  --void-base: #0A0A0A;
-  --void-obsidian: #111419;
-  --void-charcoal: #1A1D23;
-  --void-slate: #242833;
+  --void-base: #14171c;
+  --void-obsidian: #1b2027;
+  --void-charcoal: #252a33;
+  --void-slate: #2f3642;
 
   --bg: var(--void-base);
   --bg-2: var(--void-obsidian);
   --surface-1: var(--void-charcoal);
   --surface-2: var(--void-slate);
-  --surface-3: #2b303b;
-  --text: #f9f9f9;
-  --text-2: #d2d2d2;
-  --muted: #a3a3a3;
-  --stroke: rgba(255, 255, 255, 0.1);
-  --stroke-2: rgba(255, 255, 255, 0.18);
+  --surface-3: #353c49;
+  --text: #f6f7f9;
+  --text-2: #d9dde2;
+  --muted: #b6bcc6;
+  --stroke: rgba(255, 255, 255, 0.14);
+  --stroke-2: rgba(255, 255, 255, 0.22);
   --accent: #8f1d1d;
-  --accentSoft: rgba(143, 29, 29, 0.18);
+  --accentSoft: rgba(143, 29, 29, 0.16);
   --accentFg: #f8ecec;
-  --accentBorder: rgba(143, 29, 29, 0.35);
+  --accentBorder: rgba(143, 29, 29, 0.3);
   --accent-soft: var(--accentSoft);
   --accent-fg: var(--accentFg);
   --accent-border: var(--accentBorder);
@@ -51,8 +51,8 @@
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
 
-  --shadow-soft: 0 18px 45px rgba(4, 6, 8, 0.35);
-  --shadow-card: 0 24px 60px rgba(4, 6, 8, 0.4);
+  --shadow-soft: 0 18px 40px rgba(6, 9, 12, 0.28);
+  --shadow-card: 0 22px 50px rgba(6, 9, 12, 0.32);
 
   --container-max: 1200px;
   --container-padding: 1.25rem;
@@ -84,7 +84,7 @@
   --cursor-y: 50%;
   --hero-x: 0px;
   --hero-y: 0px;
-  --section-spotlight: radial-gradient(900px circle at 50% 12%, rgba(255, 255, 255, 0.03), transparent 68%);
+  --section-spotlight: radial-gradient(900px circle at 50% 12%, rgba(255, 255, 255, 0.05), transparent 68%);
 }
 
 * {
@@ -102,8 +102,8 @@ body {
   font-feature-settings: "kern";
   text-rendering: optimizeLegibility;
   background-image:
-    radial-gradient(900px circle at 10% -8%, rgba(92, 86, 72, 0.18), transparent 60%),
-    radial-gradient(1100px circle at 90% 8%, rgba(34, 38, 44, 0.35), transparent 60%),
+    radial-gradient(900px circle at 12% -8%, rgba(126, 118, 98, 0.18), transparent 60%),
+    radial-gradient(1100px circle at 90% 6%, rgba(64, 72, 84, 0.4), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
@@ -341,7 +341,7 @@ body {
       linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
       linear-gradient(180deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 72px 72px;
-    opacity: 0.14;
+    opacity: 0.12;
     pointer-events: none;
   }
 
@@ -352,7 +352,7 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
     pointer-events: none;
-    opacity: 0.28;
+    opacity: 0.22;
   }
 
   .section-spotlight {
@@ -425,20 +425,20 @@ body {
 
   .card-surface {
     position: relative;
-    background: linear-gradient(160deg, rgba(39, 43, 52, 0.98), rgba(22, 25, 30, 0.98));
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(160deg, rgba(52, 59, 71, 0.94), rgba(32, 36, 44, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: var(--shadow-soft);
   }
 
   .surface-panel {
-    background: linear-gradient(160deg, rgba(42, 46, 54, 0.92), rgba(22, 25, 30, 0.98));
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 55px rgba(4, 6, 8, 0.45);
+    background: linear-gradient(160deg, rgba(56, 64, 76, 0.9), rgba(30, 35, 42, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 45px rgba(6, 9, 12, 0.32);
   }
 
   .surface-card {
     background: var(--surface-2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .card-hover {
@@ -454,8 +454,8 @@ body {
   .premium-card {
     position: relative;
     overflow: hidden;
-    border-color: rgba(255, 255, 255, 0.16);
-    background: linear-gradient(150deg, rgba(32, 34, 38, 0.95), rgba(18, 19, 22, 0.98));
+    border-color: rgba(255, 255, 255, 0.18);
+    background: linear-gradient(150deg, rgba(46, 52, 62, 0.92), rgba(28, 32, 38, 0.98));
   }
 
   .premium-card::after {
