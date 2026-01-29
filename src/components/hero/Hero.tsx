@@ -140,33 +140,40 @@ export default function Hero() {
   const title = `${site.hero.title}`
   const titleLines = title.split(', ')
   return (
-    <section ref={heroRef} className="hero-section relative overflow-hidden bg-navy-900 text-white">
-      <div className="hero-noise" aria-hidden="true" />
-      <div className="hero-grid" aria-hidden="true" />
-      <div className="hero-grain" aria-hidden="true" />
-      <div className="hero-premium-bg" aria-hidden="true" />
-      <div className="hero-mesh" aria-hidden="true" />
-      <div className="hero-light hero-light--a" aria-hidden="true" />
-      <div className="hero-light hero-light--b" aria-hidden="true" />
-      <div className="hero-vignette" aria-hidden="true" />
-      <div className="hero-aurora hero-aurora--a" aria-hidden="true" />
-      <div className="hero-aurora hero-aurora--b" aria-hidden="true" />
-      <div className="hero-aurora hero-aurora--c" aria-hidden="true" />
+    <section
+      ref={heroRef}
+      className="hero-section relative overflow-hidden bg-gradient-to-b from-white via-[var(--bg-secondary)] to-white text-[var(--text-primary)]"
+    >
+      {/* Subtle dot grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.15] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle, var(--text-tertiary) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Floating red particles */}
       <div className="absolute inset-0" aria-hidden="true">
         {particles.map((particle, index) => (
           <motion.span
             key={`hero-particle-${index}`}
-            className="absolute rounded-full bg-white/35"
+            className="absolute rounded-full bg-[var(--brand-red)]"
             style={{
               left: particle.left,
               top: particle.top,
               width: `${particle.size}px`,
               height: `${particle.size}px`,
-              opacity: particle.opacity,
+              opacity: particle.opacity * 0.3,
             }}
-            animate={reduceMotion ? { opacity: particle.opacity } : { y: [0, -22, 0], opacity: [0, particle.opacity, 0] }}
+            animate={
+              reduceMotion
+                ? { opacity: particle.opacity * 0.3 }
+                : { y: [0, -30, 0], x: [0, 15, 0], opacity: [0, particle.opacity * 0.3, 0] }
+            }
             transition={{
-              duration: particle.duration,
+              duration: particle.duration * 1.5,
               repeat: reduceMotion ? 0 : Infinity,
               ease: 'easeInOut',
               delay: particle.delay,
@@ -174,7 +181,16 @@ export default function Hero() {
           />
         ))}
       </div>
-      <div className="hero-gradient" aria-hidden="true" />
+
+      {/* Soft gradient overlays */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(600px circle at 20% 10%, rgba(194, 59, 59, 0.08), transparent 60%)',
+        }}
+        aria-hidden="true"
+      />
       <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div className="space-y-8">
@@ -186,14 +202,14 @@ export default function Hero() {
             >
               <motion.p
                 variants={fadeUp}
-                className="inline-flex w-fit items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-micro font-mono uppercase tracking-micro text-white/70 backdrop-blur"
+                className="inline-flex w-fit items-center gap-3 rounded-full border-2 border-[var(--brand-red)] bg-[var(--brand-red-bg)] px-4 py-2 text-micro font-mono uppercase tracking-micro text-[var(--brand-red)] backdrop-blur"
               >
                 Generalni izvođač
               </motion.p>
               <div className="hero-line-wrap">
-                <span className="hero-line block h-px w-20 bg-[var(--accent)]" data-hero-line />
+                <span className="hero-line block h-px w-20 bg-[var(--brand-red)]" data-hero-line />
               </div>
-              <h1 className="text-h1 font-display text-white">
+              <h1 className="text-h1 font-display text-[var(--text-primary)]">
                 <span className="sr-only">{title}</span>
                 {enableGsap ? (
                   <span aria-hidden="true" className="block">
@@ -204,7 +220,7 @@ export default function Hero() {
                           type="words"
                           className={`block ${
                             index === titleLines.length - 1
-                              ? 'bg-gradient-to-r from-white via-white/80 to-[var(--accent)] bg-clip-text text-transparent'
+                              ? 'bg-gradient-to-r from-[var(--text-primary)] via-[var(--text-secondary)] to-[var(--brand-red)] bg-clip-text text-transparent'
                               : ''
                           }`}
                           itemClassName="inline-block"
@@ -222,7 +238,7 @@ export default function Hero() {
                           type="words"
                           className={`block ${
                             index === titleLines.length - 1
-                              ? 'bg-gradient-to-r from-white via-white/80 to-[var(--accent)] bg-clip-text text-transparent'
+                              ? 'bg-gradient-to-r from-[var(--text-primary)] via-[var(--text-secondary)] to-[var(--brand-red)] bg-clip-text text-transparent'
                               : ''
                           }`}
                           itemClassName="inline-block"
@@ -233,17 +249,17 @@ export default function Hero() {
                   </motion.span>
                 )}
               </h1>
-              <motion.p variants={fadeUp} className="text-body text-white/85 text-measure">
+              <motion.p variants={fadeUp} className="text-body text-[var(--text-secondary)] text-measure">
                 {site.hero.subtitle}
               </motion.p>
               <motion.div
                 variants={fadeUp}
                 className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-6"
               >
-                <MagneticButton href="/projects" className="w-full justify-center sm:w-auto">
+                <MagneticButton href="/projects" variant="primary" className="w-full justify-center sm:w-auto">
                   Naši projekti
                 </MagneticButton>
-                <MagneticButton href="/contact" variant="ghost" className="w-full justify-center sm:w-auto">
+                <MagneticButton href="/contact" variant="secondary" className="w-full justify-center sm:w-auto">
                   Kontaktirajte tim
                 </MagneticButton>
               </motion.div>
@@ -254,7 +270,7 @@ export default function Hero() {
               {showWebgl ? (
                 <HeroAccent />
               ) : (
-                <div className="h-full w-full rounded-full border border-white/10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_65%)]" />
+                <div className="h-full w-full rounded-full border border-[var(--border-light)] bg-[radial-gradient(circle_at_center,rgba(194,59,59,0.08),transparent_65%)]" />
               )}
             </div>
             <motion.div
@@ -263,9 +279,9 @@ export default function Hero() {
               animate="visible"
               transition={transition.base}
             >
-              <div className="card-surface rounded-lg p-5 sm:p-6 md:p-8">
-                <p className="text-micro font-mono uppercase tracking-micro text-white/60">Brzi brief</p>
-                <p className="mt-3 text-small text-white/70">
+              <div className="bg-white rounded-xl border border-[var(--border-light)] p-5 sm:p-6 md:p-8 shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] transition-shadow duration-300">
+                <p className="text-micro font-mono uppercase tracking-micro text-[var(--text-tertiary)]">Brzi brief</p>
+                <p className="mt-3 text-small text-[var(--text-secondary)]">
                   Pošaljite kratak opis projekta — dobijate predlog plana, okvirni rok i budžet.
                 </p>
                 <div className="mt-6 space-y-4">
@@ -275,17 +291,20 @@ export default function Hero() {
                   ].map((item) => (
                     <div key={item.label} className="relative pb-4" data-hero-row>
                       <div className="flex items-center justify-between gap-4">
-                        <span className="text-small text-white/70">{item.label}</span>
-                        <span className="text-small font-semibold text-white">{item.value}</span>
+                        <span className="text-small text-[var(--text-secondary)]">{item.label}</span>
+                        <span className="text-small font-semibold text-[var(--text-primary)]">{item.value}</span>
                       </div>
-                      <span className="absolute bottom-0 left-0 h-px w-full bg-white/10" data-hero-divider />
+                      <span
+                        className="absolute bottom-0 left-0 h-px w-full bg-[var(--border-light)]"
+                        data-hero-divider
+                      />
                     </div>
                   ))}
                 </div>
                 <div className="mt-8">
-                  <Button href="/contact" variant="ghost">
+                  <MagneticButton href="/contact" variant="primary">
                     Pošaljite brief
-                  </Button>
+                  </MagneticButton>
                 </div>
               </div>
             </motion.div>
@@ -294,15 +313,33 @@ export default function Hero() {
       </Container>
       <div className="hero-blueprint" aria-hidden="true">
         <div className="hero-blueprint-line hero-blueprint-line--a">
-          <span className="block h-px w-40 bg-white/20" data-hero-line />
+          <span className="block h-px w-40 bg-[var(--border-medium)]" data-hero-line />
         </div>
         <div className="hero-blueprint-line hero-blueprint-line--b">
-          <span className="block h-px w-56 bg-white/15" data-hero-line />
+          <span className="block h-px w-56 bg-[var(--border-light)]" data-hero-line />
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 z-10">
-        <span className="block h-px w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.4),transparent)]" data-hero-line />
+        <span
+          className="block h-px w-full bg-[linear-gradient(90deg,var(--border-medium),transparent)]"
+          data-hero-line
+        />
       </div>
+
+      {/* Smooth scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.6 }}
+      >
+        <span className="text-micro font-mono uppercase tracking-micro text-[var(--text-tertiary)]">Scroll</span>
+        <motion.div
+          className="h-6 w-[1px] bg-[var(--brand-red)] origin-top"
+          animate={{ scaleY: [1, 1.5, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </motion.div>
     </section>
   )
 }

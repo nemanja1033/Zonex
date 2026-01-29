@@ -5,37 +5,60 @@
 @tailwind utilities;
 
 :root {
-  --void-base: #14171c;
-  --void-obsidian: #1b2027;
-  --void-charcoal: #252a33;
-  --void-slate: #2f3642;
+  /* Backgrounds - Light & Airy */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary: #F1F3F5;
+  --bg-elevated: #FFFFFF;
 
-  --bg: var(--void-base);
-  --bg-2: var(--void-obsidian);
-  --surface-1: var(--void-charcoal);
-  --surface-2: var(--void-slate);
-  --surface-3: #353c49;
-  --text: #f6f7f9;
-  --text-2: #d9dde2;
-  --muted: #b6bcc6;
-  --stroke: rgba(255, 255, 255, 0.14);
-  --stroke-2: rgba(255, 255, 255, 0.22);
-  --accent: #8f1d1d;
-  --accentSoft: rgba(143, 29, 29, 0.16);
-  --accentFg: #f8ecec;
-  --accentBorder: rgba(143, 29, 29, 0.3);
-  --accent-soft: var(--accentSoft);
-  --accent-fg: var(--accentFg);
-  --accent-border: var(--accentBorder);
+  /* Text - High Contrast */
+  --text-primary: #0A0A0A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #8A8A8A;
 
-  --navy-900: var(--bg);
-  --navy-800: var(--surface-1);
-  --navy-700: var(--surface-2);
-  --grey-100: var(--surface-1);
-  --grey-200: var(--surface-2);
-  --border: var(--stroke);
-  --text-dark: var(--text);
-  --text-light: #f8f6f1;
+  /* Brand Red - Pop of Color */
+  --brand-red: #C23B3B;
+  --brand-red-light: #E84545;
+  --brand-red-dark: #8B2B2B;
+  --brand-red-bg: #FEF2F2;
+
+  /* Borders & Shadows */
+  --border-light: #E5E7EB;
+  --border-medium: #D1D5DB;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+
+  /* Legacy aliases for compatibility */
+  --bg: var(--bg-primary);
+  --bg-2: var(--bg-secondary);
+  --surface-1: var(--bg-elevated);
+  --surface-2: var(--bg-tertiary);
+  --surface-3: var(--bg-secondary);
+  --text: var(--text-primary);
+  --text-2: var(--text-secondary);
+  --muted: var(--text-tertiary);
+  --stroke: var(--border-light);
+  --stroke-2: var(--border-medium);
+  --accent: var(--brand-red);
+  --accentSoft: var(--brand-red-bg);
+  --accentFg: var(--text-primary);
+  --accentBorder: var(--brand-red-light);
+  --accent-soft: var(--brand-red-bg);
+  --accent-fg: var(--text-primary);
+  --accent-border: var(--brand-red-light);
+  --navy-900: var(--bg-primary);
+  --navy-800: var(--bg-secondary);
+  --navy-700: var(--bg-tertiary);
+  --grey-100: var(--bg-secondary);
+  --grey-200: var(--bg-tertiary);
+  --border: var(--border-light);
+  --text-dark: var(--text-primary);
+  --text-light: var(--text-primary);
 
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
@@ -51,8 +74,8 @@
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
 
-  --shadow-soft: 0 18px 40px rgba(6, 9, 12, 0.28);
-  --shadow-card: 0 22px 50px rgba(6, 9, 12, 0.32);
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 22px 50px rgba(0, 0, 0, 0.12);
 
   --container-max: 1200px;
   --container-padding: 1.25rem;
@@ -98,13 +121,13 @@ body {
 }
 
 body {
-  @apply bg-[var(--navy-900)] text-[var(--text-dark)] antialiased font-body;
+  @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased font-body;
   font-feature-settings: "kern";
   text-rendering: optimizeLegibility;
   background-image:
-    radial-gradient(900px circle at 12% -8%, rgba(126, 118, 98, 0.18), transparent 60%),
-    radial-gradient(1100px circle at 90% 6%, rgba(64, 72, 84, 0.4), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    radial-gradient(900px circle at 12% -8%, rgba(194, 59, 59, 0.03), transparent 60%),
+    radial-gradient(1100px circle at 90% 6%, rgba(0, 0, 0, 0.02), transparent 60%),
+    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
 }
 
 @layer base {
@@ -122,8 +145,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--accent);
-  color: var(--text-light);
+  background-color: var(--brand-red);
+  color: #FFFFFF;
 }
 
 .section-divider {

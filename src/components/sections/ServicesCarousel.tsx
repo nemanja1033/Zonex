@@ -113,15 +113,15 @@ export default function ServicesCarousel() {
             className={`block h-1 rounded-full transition-all duration-500 ${
               index === activeIndex
                 ? compact
-                  ? 'w-10 bg-[var(--accent)]'
-                  : 'w-16 bg-[var(--accent)]'
+                  ? 'w-10 bg-[var(--brand-red)]'
+                  : 'w-16 bg-[var(--brand-red)]'
                 : index < activeIndex
                   ? compact
-                    ? 'w-6 bg-white/30'
-                    : 'w-10 bg-white/30'
+                    ? 'w-6 bg-[var(--text-tertiary)]'
+                    : 'w-10 bg-[var(--text-tertiary)]'
                   : compact
-                    ? 'w-5 bg-white/20 group-hover:bg-white/35'
-                    : 'w-8 bg-white/20 group-hover:bg-white/35'
+                    ? 'w-5 bg-[var(--border-medium)] group-hover:bg-[var(--text-secondary)]'
+                    : 'w-8 bg-[var(--border-medium)] group-hover:bg-[var(--text-secondary)]'
             }`}
           />
         </button>
@@ -130,12 +130,13 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-x-hidden bg-[var(--bg)] py-6 md:py-24 lg:py-32">
-      <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
+    <section className="relative overflow-x-hidden bg-[var(--bg-secondary)] py-6 md:py-24 lg:py-32">
+      <div className="absolute inset-0 opacity-[0.08]" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 1px)',
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, var(--text-tertiary) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -149,7 +150,7 @@ export default function ServicesCarousel() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="hidden items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/70 md:inline-flex">
+              <span className="hidden items-center rounded-full border-2 border-[var(--brand-red)] bg-[var(--brand-red-bg)] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-[var(--brand-red)] md:inline-flex">
                 Usluge
               </span>
             </motion.div>
@@ -160,7 +161,7 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-2 md:space-y-4"
             >
-              <h2 className="font-display text-[22px] leading-[1.18] text-white md:text-5xl xl:text-6xl">
+              <h2 className="font-display text-[22px] leading-[1.18] text-[var(--text-primary)] md:text-5xl xl:text-6xl">
                 Integrisane usluge{' '}
                 <span className="md:block">sa preciznim</span>{' '}
                 <span className="md:block">fazama isporuke.</span>
@@ -173,10 +174,10 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-2 md:space-y-4"
             >
-              <p className="text-[12px] text-white/70 md:text-lg">
+              <p className="text-[12px] text-[var(--text-secondary)] md:text-lg">
                 Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
               </p>
-              <p className="hidden text-sm text-white/55 md:block md:text-base">
+              <p className="hidden text-sm text-[var(--text-tertiary)] md:block md:text-base">
                 Operativa, koordinacija i završni standardi u jednoj liniji isporuke.
               </p>
             </motion.div>
@@ -188,9 +189,11 @@ export default function ServicesCarousel() {
               className="hidden space-y-6 pt-6 md:block"
             >
               <div className="flex items-baseline gap-3">
-                <span className="tabular-nums text-5xl font-semibold text-white">{activeService.number}</span>
-                <span className="text-2xl text-white/20">/</span>
-                <span className="tabular-nums text-2xl text-white/35">{totalLabel}</span>
+                <span className="tabular-nums text-5xl font-semibold text-[var(--text-primary)]">
+                  {activeService.number}
+                </span>
+                <span className="text-2xl text-[var(--border-medium)]">/</span>
+                <span className="tabular-nums text-2xl text-[var(--text-tertiary)]">{totalLabel}</span>
               </div>
               {renderDots()}
               <div className="flex items-center gap-3">
@@ -200,8 +203,8 @@ export default function ServicesCarousel() {
                   disabled={activeIndex === 0}
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
                     activeIndex === 0
-                      ? 'cursor-not-allowed border-white/10 text-white/10'
-                      : 'border-white/20 text-white/60 hover:border-white/40 hover:bg-white/5 hover:text-white'
+                      ? 'cursor-not-allowed border-[var(--border-light)] text-[var(--text-tertiary)]'
+                      : 'border-[var(--border-medium)] text-[var(--text-secondary)] hover:border-[var(--brand-red)] hover:bg-[var(--brand-red-bg)] hover:text-[var(--brand-red)]'
                   }`}
                   aria-label="Prethodna usluga"
                 >
@@ -213,8 +216,8 @@ export default function ServicesCarousel() {
                   disabled={activeIndex === services.length - 1}
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
                     activeIndex === services.length - 1
-                      ? 'cursor-not-allowed border-white/10 text-white/10'
-                      : 'border-white/20 text-white/60 hover:border-white/40 hover:bg-white/5 hover:text-white'
+                      ? 'cursor-not-allowed border-[var(--border-light)] text-[var(--text-tertiary)]'
+                      : 'border-[var(--border-medium)] text-[var(--text-secondary)] hover:border-[var(--brand-red)] hover:bg-[var(--brand-red-bg)] hover:text-[var(--brand-red)]'
                   }`}
                   aria-label="Sledeća usluga"
                 >
@@ -248,14 +251,16 @@ export default function ServicesCarousel() {
                 <div className="space-y-2 md:hidden">
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
-                      <span className="tabular-nums text-xl font-semibold text-white">{activeService.number}</span>
-                      <span className="text-base text-white/25">/</span>
-                      <span className="tabular-nums text-sm text-white/40">{totalLabel}</span>
+                      <span className="tabular-nums text-xl font-semibold text-[var(--text-primary)]">
+                        {activeService.number}
+                      </span>
+                      <span className="text-base text-[var(--border-medium)]">/</span>
+                      <span className="tabular-nums text-sm text-[var(--text-tertiary)]">{totalLabel}</span>
                     </div>
-                    <div className="text-[11px] uppercase tracking-wider text-white/45">
+                    <div className="text-[11px] uppercase tracking-wider text-[var(--text-tertiary)]">
                       Prevuci
                       <motion.span
-                        className="ml-2 inline-block"
+                        className="ml-2 inline-block text-[var(--brand-red)]"
                         aria-hidden="true"
                         animate={reduceMotion ? undefined : { x: [0, 6, 0] }}
                         transition={{ duration: 1.6, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
@@ -308,55 +313,61 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
       initial={{ opacity: 0, x: 40, scale: 0.96 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: -40, scale: 0.96 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.77, 0, 0.175, 1] }}
       onMouseMove={handleMouseMove}
       className="group relative"
     >
-      <div className="relative max-h-[calc(100vh-180px)] overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(34,38,46,0.98),rgba(18,20,24,0.98))] md:max-h-none">
+      <div className="relative max-h-[calc(100vh-180px)] overflow-hidden rounded-3xl border border-[var(--border-light)] bg-white shadow-[var(--shadow-md)] transition-shadow duration-500 group-hover:shadow-[var(--shadow-lg)] md:max-h-none">
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           style={{
-            background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(194, 59, 59, 0.12), transparent 50%)`,
+            background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(194, 59, 59, 0.06), transparent 50%)`,
           }}
         />
         <div className="relative">
           <div className="space-y-2 px-3 pb-3 pt-3 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
             <div className="flex items-center justify-between">
-              <span className="hidden text-xl font-semibold text-[rgba(194,59,59,0.2)] md:inline-block md:text-5xl lg:text-6xl">
+              <span className="hidden text-xl font-semibold text-[rgba(194,59,59,0.15)] md:inline-block md:text-5xl lg:text-6xl">
                 {service.number}
               </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-white/70 md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
+              <span className="rounded-full border-2 border-[var(--brand-red)] bg-[var(--brand-red-bg)] px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-[var(--brand-red)] md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
                 Usluga {service.number}
               </span>
             </div>
-            <h3 className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-[var(--accent)] md:text-3xl lg:text-4xl">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--brand-red)] md:text-3xl lg:text-4xl">
               {service.title}
             </h3>
-            <p className="max-w-md text-[11px] text-white/65 md:text-base [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] overflow-hidden md:[display:block]">
+            <p className="max-w-md text-[11px] text-[var(--text-secondary)] md:text-base [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] overflow-hidden md:[display:block]">
               {service.description}
             </p>
-            <div className="hidden flex-wrap gap-2 pt-1 text-[9px] uppercase tracking-wider text-white/45 md:flex md:pt-2 md:text-[11px]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Obim</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Rok</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">Standard</span>
+            <div className="hidden flex-wrap gap-2 pt-1 text-[9px] uppercase tracking-wider text-[var(--text-tertiary)] md:flex md:pt-2 md:text-[11px]">
+              <span className="rounded-full border border-[var(--border-light)] bg-[var(--bg-tertiary)] px-2 py-0.5 md:px-3 md:py-1.5">
+                Obim
+              </span>
+              <span className="rounded-full border border-[var(--border-light)] bg-[var(--bg-tertiary)] px-2 py-0.5 md:px-3 md:py-1.5">
+                Rok
+              </span>
+              <span className="rounded-full border border-[var(--border-light)] bg-[var(--bg-tertiary)] px-2 py-0.5 md:px-3 md:py-1.5">
+                Standard
+              </span>
             </div>
           </div>
           <div className="relative aspect-[16/9] max-h-[180px] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[rgba(18,20,24,0.9)] via-transparent to-transparent" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-white via-white/20 to-transparent" />
             <Image
               src={service.image}
               alt={service.title}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
               style={{ transform: reduceMotion ? 'none' : 'scale(1.02)' }}
             />
             <div className="absolute bottom-4 left-5 right-5 z-20 md:bottom-6 md:left-8 md:right-8">
               <motion.a
                 href="/services"
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-white/60 transition-colors hover:text-white md:gap-3 md:text-sm"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[var(--brand-red)] transition-colors hover:text-[var(--brand-red-dark)] md:gap-3 md:text-sm"
                 whileHover={reduceMotion ? undefined : { x: 6 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
               >
                 Pogledaj detalje
                 <span aria-hidden="true">→</span>
@@ -364,10 +375,10 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
             </div>
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent transition-colors duration-500 group-hover:border-[rgba(194,59,59,0.3)]" />
+        <div className="pointer-events-none absolute inset-0 rounded-3xl border border-transparent transition-all duration-500 group-hover:border-[var(--brand-red)] group-hover:shadow-[0_0_40px_rgba(194,59,59,0.2)]" />
       </div>
       <motion.div
-        className="pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-[rgba(194,59,59,0.12)] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+        className="pointer-events-none absolute -bottom-4 -right-4 h-32 w-32 rounded-full bg-[rgba(194,59,59,0.15)] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
         animate={reduceMotion ? undefined : { scale: [1, 1.2, 1] }}
         transition={{ duration: 3, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
       />
