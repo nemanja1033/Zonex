@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Container from '@/components/ui/Container'
@@ -146,11 +145,14 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-grain" aria-hidden="true" />
       <div className="hero-premium-bg" aria-hidden="true" />
+      <div className="hero-aurora hero-aurora--a" aria-hidden="true" />
+      <div className="hero-aurora hero-aurora--b" aria-hidden="true" />
+      <div className="hero-aurora hero-aurora--c" aria-hidden="true" />
       <div className="absolute inset-0" aria-hidden="true">
         {particles.map((particle, index) => (
           <motion.span
             key={`hero-particle-${index}`}
-            className="absolute rounded-full bg-[var(--accent)]"
+            className="absolute rounded-full bg-white/35"
             style={{
               left: particle.left,
               top: particle.top,
@@ -168,17 +170,7 @@ export default function Hero() {
           />
         ))}
       </div>
-      <div className="absolute inset-0">
-        <Image
-          src="/images/projects/kfc-zrenjanin-04.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-35"
-        />
-        <div className="hero-gradient" aria-hidden="true" />
-      </div>
+      <div className="hero-gradient" aria-hidden="true" />
       <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div className="space-y-8">
