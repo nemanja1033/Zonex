@@ -1,75 +1,141 @@
 "use client"
 
-import Image from 'next/image'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
-import Reveal from '@/components/motion/Reveal'
+import ProjectCard from '@/components/projects/ProjectCard'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { projects } from '../../../data/projects'
+import { EASING, staggerContainer, staggerItem } from '@/lib/animations'
 
 export default function ProjectsShowcase() {
   const featured = projects.slice(0, 4)
 
   return (
-    <section className="section-divider section section-surface">
-      <Container>
-        <div className="section-head">
-          <SectionHeader eyebrow="Projekti" title="Projekti koji potvrđuju tempo, standard i disciplinu." />
-          <Reveal delay={0.08}>
-            <p className="body-muted text-measure">
+    <section className="relative py-24 lg:py-32 bg-[#1C1C1E] overflow-hidden">
+      {/* Background grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Glow accent */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      
+      <Container className="relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6, ease: EASING.power4 }}
+          className="mb-16"
+        >
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1, ease: EASING.power4 }}
+                className="inline-flex items-center gap-3"
+              >
+                <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
+                <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+                  Projekti
+                </span>
+              </motion.div>
+              
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2, ease: EASING.power4 }}
+                className="text-4xl lg:text-5xl font-bold text-white"
+              >
+                Projekti koji potvrđuju
+                <span className="block text-white/60">tempo, standard i disciplinu.</span>
+              </motion.h2>
+            </div>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3, ease: EASING.power4 }}
+              className="text-base text-white/50 max-w-md"
+            >
               Selekcija projekata u kojima su kontrola, brzina i preciznost bili jednako važni kao i konačna isporuka.
-            </p>
-          </Reveal>
-        </div>
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            </motion.p>
+          </div>
+
+          {/* Divider line */}
+          <motion.div
+            className="mt-8 h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4, ease: EASING.power4 }}
+            style={{ transformOrigin: 'left' }}
+          />
+        </motion.div>
+
+        {/* Projects Grid */}
+        <div className="grid gap-8 lg:grid-cols-2">
           {featured.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 0.06} variant="maskReveal">
-              <article className="group card-surface card-hover overflow-hidden rounded-lg">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      fill
-                      sizes="(min-width: 1024px) 45vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                      priority={false}
-                    />
-                  ) : (
-                    <>
-                      <Image
-                        src="/images/project-placeholder.svg"
-                        alt={`${project.name} placeholder`}
-                        fill
-                        sizes="(min-width: 1024px) 45vw, 100vw"
-                        className="object-contain bg-[rgba(15,16,18,0.65)] p-10 transition-transform duration-500 group-hover:scale-[1.02]"
-                        priority={false}
-                      />
-                      <div className="project-skeleton-overlay" aria-hidden="true" />
-                    </>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f1012] via-transparent to-transparent" />
-                </div>
-                <div className="space-y-4 p-6">
-                  <div>
-                    <p className="text-micro font-mono uppercase tracking-micro text-white/60">{project.location}</p>
-                    <h3 className="mt-2 font-display text-h3 text-white">{project.name}</h3>
-                    <p className="mt-2 text-small text-white/70">{project.summary}</p>
-                  </div>
-                  <div className="grid gap-2 text-small text-white/70 sm:grid-cols-2">
-                    <span>Rok: {project.timeline}</span>
-                    <span>Model: {project.delivery}</span>
-                  </div>
-                  <span className="project-cta text-micro font-mono uppercase tracking-micro text-white/60">
-                    Pogledaj detalje
-                  </span>
-                </div>
-                <Link href={`/projects/${project.slug}`} prefetch className="absolute inset-0" aria-label={project.name} />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-x-100" />
-              </article>
-            </Reveal>
+            <ProjectCard
+              key={project.slug}
+              title={project.name}
+              location={project.location}
+              description={project.summary}
+              duration={project.timeline}
+              model={project.delivery}
+              image={project.image}
+              tags={project.focus}
+              href={`/projects/${project.slug}`}
+              index={index}
+            />
           ))}
         </div>
+
+        {/* View all link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5, ease: EASING.power4 }}
+          className="mt-16 text-center"
+        >
+          <a
+            href="/projects"
+            className="group inline-flex items-center gap-3 text-sm text-white/60 hover:text-white transition-colors duration-300"
+          >
+            <span className="uppercase tracking-[0.15em]">Svi projekti</span>
+            <motion.span
+              className="inline-flex"
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.3, ease: EASING.power4 }}
+            >
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5"
+                className="transition-colors duration-300 group-hover:stroke-[#FF3B30]"
+              >
+                <path d="M5 12h14" strokeLinecap="round" />
+                <path d="M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.span>
+          </a>
+        </motion.div>
       </Container>
     </section>
   )

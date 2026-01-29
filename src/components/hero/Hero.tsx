@@ -1,51 +1,36 @@
 "use client"
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import Container from '@/components/ui/Container'
-import MagneticButton from '@/components/ui/MagneticButton'
-import Button from '@/components/ui/Button'
-import SplitText from '@/components/motion/SplitText'
-import useCoarsePointer from '@/components/hooks/useCoarsePointer'
-import useSafeLayoutEffect from '@/components/hooks/useSafeLayoutEffect'
-import HeroAccent from '@/components/hero/HeroAccent'
-import { useRouteTransition } from '@/components/motion/RouteTransitionContext'
+import { EASING, SPRING, staggerContainer, staggerItem, VIEWPORT } from '@/lib/animations'
 import { site } from '../../../data/site'
-import { allowGsap, allowR3f } from '@/lib/motionLevel'
-import {
-  fadeUp,
-  maskReveal,
-  staggerChildren,
-  textRevealItem,
-  textRevealLines,
-  transition,
-} from '@/lib/motion'
 
 export default function Hero() {
   const reduceMotion = useReducedMotion()
-  const isCoarse = useCoarsePointer()
-  const isTransitioning = useRouteTransition()
-  const heroRef = useRef<HTMLElement | null>(null)
-  const gsapRef = useRef<any>(null)
-  const gsapTargetsRef = useRef<HTMLElement[]>([])
+  const containerRef = useRef<HTMLElement | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
-  const enableGsap = allowGsap() && isDesktop && !isCoarse && !reduceMotion && !isTransitioning
-  const showWebgl = allowR3f() && isDesktop && !isCoarse && !reduceMotion && !isTransitioning
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
+  // Particles for floating effect
   const particles = useMemo(
-    () => [
-      { left: '12%', top: '18%', size: 2, duration: 4.2, delay: 0.2, opacity: 0.5 },
-      { left: '22%', top: '70%', size: 2, duration: 5.1, delay: 0.6, opacity: 0.4 },
-      { left: '38%', top: '32%', size: 1.5, duration: 3.8, delay: 0.1, opacity: 0.5 },
-      { left: '52%', top: '22%', size: 2.5, duration: 4.8, delay: 0.4, opacity: 0.45 },
-      { left: '64%', top: '60%', size: 1.8, duration: 4.4, delay: 0.3, opacity: 0.5 },
-      { left: '78%', top: '28%', size: 2.2, duration: 5.4, delay: 0.8, opacity: 0.35 },
-      { left: '86%', top: '72%', size: 1.6, duration: 4.9, delay: 0.5, opacity: 0.4 },
-      { left: '70%', top: '12%', size: 1.4, duration: 3.6, delay: 0.2, opacity: 0.45 },
-      { left: '30%', top: '8%', size: 1.7, duration: 4.6, delay: 0.7, opacity: 0.35 },
-      { left: '10%', top: '50%', size: 1.5, duration: 5.0, delay: 0.9, opacity: 0.3 },
-      { left: '44%', top: '78%', size: 2.1, duration: 4.1, delay: 0.1, opacity: 0.45 },
-      { left: '90%', top: '42%', size: 1.9, duration: 4.7, delay: 0.3, opacity: 0.4 },
-    ],
+    () =>
+      Array.from({ length: 20 }).map((_, i) => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: 1 + Math.random() * 2,
+        duration: 4 + Math.random() * 3,
+        delay: Math.random() * 3,
+      })),
     []
   )
 
@@ -58,13 +43,14 @@ export default function Hero() {
     return () => media.removeEventListener('change', update)
   }, [])
 
+  // Mouse parallax effect for grid
   useEffect(() => {
-    if (reduceMotion || isCoarse) return
-    const node = heroRef.current
+    if (reduceMotion || !isDesktop) return
+    const node = containerRef.current
     if (!node) return
 
     let frame = 0
-    const handleMove = (event: MouseEvent) => {
+    const handleMove = (event: globalThis.MouseEvent) => {
       if (frame) return
       frame = window.requestAnimationFrame(() => {
         const rect = node.getBoundingClientRect()
@@ -89,257 +75,298 @@ export default function Hero() {
       node.removeEventListener('mouseleave', handleLeave)
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [isCoarse, reduceMotion])
+  }, [isDesktop, reduceMotion])
 
-  useSafeLayoutEffect(() => {
-    if (!enableGsap) return
-    let ctx: { revert: () => void } | undefined
-
-    const run = async () => {
-      const gsapModule = await import('gsap')
-      const gsap = gsapModule.gsap ?? gsapModule.default
-      gsapRef.current = gsap
-
-      if (!heroRef.current) return
-
-      ctx = gsap.context(() => {
-        const lines = gsap.utils.toArray<HTMLElement>('[data-hero-line]')
-        const headlineMasks = gsap.utils.toArray<HTMLElement>('[data-hero-mask]')
-        const rows = gsap.utils.toArray<HTMLElement>('[data-hero-row]')
-        const dividers = gsap.utils.toArray<HTMLElement>('[data-hero-divider]')
-        gsapTargetsRef.current = [...lines, ...headlineMasks, ...rows, ...dividers]
-
-        gsap.set(lines, { scaleX: 0, transformOrigin: 'left center' })
-        gsap.set(headlineMasks, { clipPath: 'inset(0 0 100% 0)' })
-        gsap.set(rows, { autoAlpha: 0, y: 12 })
-        gsap.set(dividers, { scaleX: 0, transformOrigin: 'left center' })
-
-        const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } })
-        timeline.to(lines, { scaleX: 1, duration: 0.6, stagger: 0.08 }, 0.1)
-        timeline.to(headlineMasks, { clipPath: 'inset(0 0 0% 0)', duration: 0.6, stagger: 0.08 }, 0.15)
-        timeline.to(dividers, { scaleX: 1, duration: 0.35, stagger: 0.08 }, 0.3)
-        timeline.to(rows, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.08 }, 0.32)
-      }, heroRef)
-    }
-
-    run()
-
-    return () => {
-      ctx?.revert()
-      if (gsapRef.current && gsapTargetsRef.current.length > 0) {
-        gsapRef.current.killTweensOf(gsapTargetsRef.current)
-      }
-      const scrollTrigger = gsapRef.current?.ScrollTrigger
-      if (scrollTrigger?.getAll) {
-        scrollTrigger.getAll().forEach((trigger: { kill: () => void }) => trigger.kill())
-      }
-      gsapTargetsRef.current = []
-    }
-  }, [enableGsap])
-
-  const title = `${site.hero.title}`
+  const title = site.hero.title
   const titleLines = title.split(', ')
+
   return (
     <section
-      ref={heroRef}
-      className="hero-section relative overflow-hidden bg-gradient-to-b from-white via-[var(--bg-secondary)] to-white text-[var(--text-primary)]"
+      ref={containerRef}
+      className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Subtle dot grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.15] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle, var(--text-tertiary) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Floating red particles */}
-      <div className="absolute inset-0" aria-hidden="true">
-        {particles.map((particle, index) => (
-          <motion.span
-            key={`hero-particle-${index}`}
-            className="absolute rounded-full bg-[var(--brand-red)]"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              opacity: particle.opacity * 0.3,
-            }}
-            animate={
-              reduceMotion
-                ? { opacity: particle.opacity * 0.3 }
-                : { y: [0, -30, 0], x: [0, 15, 0], opacity: [0, particle.opacity * 0.3, 0] }
-            }
-            transition={{
-              duration: particle.duration * 1.5,
-              repeat: reduceMotion ? 0 : Infinity,
-              ease: 'easeInOut',
-              delay: particle.delay,
-            }}
-          />
-        ))}
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1C1E] via-[#252527] to-[#1C1C1E]" />
+        <motion.div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px',
+          }}
+          animate={reduceMotion ? {} : {
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+        
+        {/* Glow spots */}
+        <div 
+          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#FF3B30]/5 rounded-full blur-[120px]"
+          style={{ animation: reduceMotion ? 'none' : 'pulse 4s ease-in-out infinite' }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#FF3B30]/3 rounded-full blur-[100px]"
+          style={{ animation: reduceMotion ? 'none' : 'pulse 4s ease-in-out infinite 1s' }}
+        />
       </div>
 
-      {/* Soft gradient overlays */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(600px circle at 20% 10%, rgba(194, 59, 59, 0.08), transparent 60%)',
-        }}
-        aria-hidden="true"
-      />
-      <Container className="relative z-10 py-[calc(var(--section-padding)+2rem)] md:py-[calc(var(--section-padding)+3.5rem)]">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="space-y-8">
+      {/* Noise texture */}
+      <div className="hero-noise" aria-hidden="true" />
+
+      {/* Floating particles */}
+      {!reduceMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          {particles.map((particle, i) => (
             <motion.div
-              variants={staggerChildren(0.08, 0.06)}
-              initial={reduceMotion ? 'visible' : 'hidden'}
-              animate="visible"
-              className="space-y-6"
+              key={i}
+              className="absolute w-1 h-1 bg-[#FF3B30] rounded-full"
+              style={{
+                left: particle.left,
+                top: particle.top,
+              }}
+              animate={{
+                y: [0, -40, 0],
+                opacity: [0, 1, 0],
+                scale: [0, 1.5, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                delay: particle.delay,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Content */}
+      <motion.div
+        style={isDesktop && !reduceMotion ? { y, opacity } : {}}
+        className="relative z-10 w-full pt-32 lg:pt-40"
+      >
+        <Container>
+          <div className="max-w-5xl mx-auto text-center">
+            {/* Eyebrow badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASING.power4 }}
+              className="inline-flex items-center gap-3 px-4 py-2 mb-8 rounded-full border border-[#FF3B30]/20 bg-[#FF3B30]/5 backdrop-blur-sm"
             >
-              <motion.p
-                variants={fadeUp}
-                className="inline-flex w-fit items-center gap-3 rounded-full border-2 border-[var(--brand-red)] bg-[var(--brand-red-bg)] px-4 py-2 text-micro font-mono uppercase tracking-micro text-[var(--brand-red)] backdrop-blur"
+              <motion.div
+                animate={reduceMotion ? {} : {
+                  scale: [1, 1.2, 1],
+                  opacity: [1, 0.6, 1],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
+                <Sparkles size={16} className="text-[#FF3B30]" />
+              </motion.div>
+              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-semibold">
                 Generalni izvođač
-              </motion.p>
-              <div className="hero-line-wrap">
-                <span className="hero-line block h-px w-20 bg-[var(--brand-red)]" data-hero-line />
-              </div>
-              <h1 className="text-h1 font-display text-[var(--text-primary)]">
-                <span className="sr-only">{title}</span>
-                {enableGsap ? (
-                  <span aria-hidden="true" className="block">
-                    {titleLines.map((line, index) => (
-                      <span key={`${line}-${index}`} className="block overflow-hidden" data-hero-mask>
-                        <SplitText
-                          text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
-                          type="words"
-                          className={`block ${
-                            index === titleLines.length - 1
-                              ? 'bg-gradient-to-r from-[var(--text-primary)] via-[var(--text-secondary)] to-[var(--brand-red)] bg-clip-text text-transparent'
+              </span>
+            </motion.div>
+
+            {/* Main heading - Split text animation */}
+            <div className="mb-8">
+              <motion.h1
+                className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.05] text-white"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer(0.04, 0.4)}
+              >
+                {titleLines.map((line, lineIndex) => (
+                  <span key={lineIndex} className="block overflow-hidden">
+                    {line.split(' ').map((word, wordIndex) => (
+                      <span key={wordIndex} className="inline-block overflow-hidden mr-3 lg:mr-4">
+                        <motion.span
+                          className={`inline-block ${
+                            lineIndex === titleLines.length - 1
+                              ? 'bg-gradient-to-r from-white via-[#EBEBF5] to-[#FF3B30] bg-clip-text text-transparent'
                               : ''
                           }`}
-                          itemClassName="inline-block"
-                          srOnly={false}
-                        />
+                          variants={{
+                            hidden: { y: '110%', opacity: 0 },
+                            visible: {
+                              y: 0,
+                              opacity: 1,
+                              transition: {
+                                duration: 0.8,
+                                ease: EASING.power4,
+                              },
+                            },
+                          }}
+                        >
+                          {word}
+                        </motion.span>
                       </span>
                     ))}
+                    {lineIndex < titleLines.length - 1 && ','}
                   </span>
-                ) : (
-                  <motion.span aria-hidden="true" variants={textRevealLines} className="block">
-                    {titleLines.map((line, index) => (
-                      <motion.span key={`${line}-${index}`} variants={textRevealItem} className="block overflow-hidden">
-                        <SplitText
-                          text={`${line}${index < titleLines.length - 1 ? ',' : ''}`}
-                          type="words"
-                          className={`block ${
-                            index === titleLines.length - 1
-                              ? 'bg-gradient-to-r from-[var(--text-primary)] via-[var(--text-secondary)] to-[var(--brand-red)] bg-clip-text text-transparent'
-                              : ''
-                          }`}
-                          itemClassName="inline-block"
-                          srOnly={false}
-                        />
-                      </motion.span>
-                    ))}
-                  </motion.span>
-                )}
-              </h1>
-              <motion.p variants={fadeUp} className="text-body text-[var(--text-secondary)] text-measure">
-                {site.hero.subtitle}
-              </motion.p>
-              <motion.div
-                variants={fadeUp}
-                className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-6"
-              >
-                <MagneticButton href="/projects" variant="primary" className="w-full justify-center sm:w-auto">
-                  Naši projekti
-                </MagneticButton>
-                <MagneticButton href="/contact" variant="secondary" className="w-full justify-center sm:w-auto">
-                  Kontaktirajte tim
-                </MagneticButton>
-              </motion.div>
-            </motion.div>
-          </div>
-          <div className="relative">
-            <div className="pointer-events-none absolute right-0 top-0 hidden h-48 w-48 overflow-hidden lg:block">
-              {showWebgl ? (
-                <HeroAccent />
-              ) : (
-                <div className="h-full w-full rounded-full border border-[var(--border-light)] bg-[radial-gradient(circle_at_center,rgba(194,59,59,0.08),transparent_65%)]" />
-              )}
+                ))}
+              </motion.h1>
             </div>
-            <motion.div
-              variants={maskReveal}
-              initial={reduceMotion ? 'visible' : 'hidden'}
-              animate="visible"
-              transition={transition.base}
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1, ease: EASING.power4 }}
+              className="text-lg md:text-xl lg:text-2xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed"
             >
-              <div className="bg-white rounded-xl border border-[var(--border-light)] p-5 sm:p-6 md:p-8 shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] transition-shadow duration-300">
-                <p className="text-micro font-mono uppercase tracking-micro text-[var(--text-tertiary)]">Brzi brief</p>
-                <p className="mt-3 text-small text-[var(--text-secondary)]">
-                  Pošaljite kratak opis projekta — dobijate predlog plana, okvirni rok i budžet.
-                </p>
-                <div className="mt-6 space-y-4">
-                  {[
-                    { label: 'Odgovor', value: '24–48h' },
-                    { label: 'Format', value: 'Plan + rok + budžet' },
-                  ].map((item) => (
-                    <div key={item.label} className="relative pb-4" data-hero-row>
-                      <div className="flex items-center justify-between gap-4">
-                        <span className="text-small text-[var(--text-secondary)]">{item.label}</span>
-                        <span className="text-small font-semibold text-[var(--text-primary)]">{item.value}</span>
-                      </div>
-                      <span
-                        className="absolute bottom-0 left-0 h-px w-full bg-[var(--border-light)]"
-                        data-hero-divider
-                      />
+              {site.hero.subtitle}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2, ease: EASING.power4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+            >
+              <MagneticButton href="/projects" variant="primary">
+                <span>Naši projekti</span>
+                <ArrowRight size={18} />
+              </MagneticButton>
+              
+              <MagneticButton href="/contact" variant="secondary">
+                <span>Kontaktirajte tim</span>
+                <ArrowRight size={18} />
+              </MagneticButton>
+            </motion.div>
+
+            {/* Stats grid */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer(0.1, 1.5)}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
+            >
+              {site.stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  variants={staggerItem}
+                  whileHover={{ y: -5 }}
+                  className="group relative p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+                >
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-baseline gap-1 mb-2">
+                      <span className="text-3xl lg:text-4xl font-bold text-white">
+                        {stat.value.replace(/[^0-9+]/g, '')}
+                      </span>
+                      {stat.value.includes(' ') && (
+                        <span className="text-sm text-white/40">
+                          {stat.value.split(' ').slice(1).join(' ')}
+                        </span>
+                      )}
                     </div>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <MagneticButton href="/contact" variant="primary">
-                    Pošaljite brief
-                  </MagneticButton>
-                </div>
-              </div>
+                    <span className="text-xs text-white/50 uppercase tracking-wider">{stat.label}</span>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
-        </div>
-      </Container>
-      <div className="hero-blueprint" aria-hidden="true">
-        <div className="hero-blueprint-line hero-blueprint-line--a">
-          <span className="block h-px w-40 bg-[var(--border-medium)]" data-hero-line />
-        </div>
-        <div className="hero-blueprint-line hero-blueprint-line--b">
-          <span className="block h-px w-56 bg-[var(--border-light)]" data-hero-line />
-        </div>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 z-10">
-        <span
-          className="block h-px w-full bg-[linear-gradient(90deg,var(--border-medium),transparent)]"
-          data-hero-line
-        />
-      </div>
-
-      {/* Smooth scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <span className="text-micro font-mono uppercase tracking-micro text-[var(--text-tertiary)]">Scroll</span>
-        <motion.div
-          className="h-6 w-[1px] bg-[var(--brand-red)] origin-top"
-          animate={{ scaleY: [1, 1.5, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        </Container>
       </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 2, ease: EASING.power4 }}
+      >
+        <span className="text-xs text-white/30 uppercase tracking-widest">Scroll</span>
+        <motion.div
+          className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
+          animate={reduceMotion ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <motion.div
+            className="w-1 h-3 bg-[#FF3B30]/60 rounded-full"
+            animate={reduceMotion ? {} : { y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1C1C1E] to-transparent pointer-events-none" />
     </section>
+  )
+}
+
+// Magnetic button with advanced hover effects
+function MagneticButton({
+  children,
+  href,
+  variant = 'primary',
+}: {
+  children: React.ReactNode
+  href: string
+  variant?: 'primary' | 'secondary'
+}) {
+  const reduceMotion = useReducedMotion()
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion) return
+    const { clientX, clientY } = e
+    const { width, height, left, top } = e.currentTarget.getBoundingClientRect()
+    const x = clientX - (left + width / 2)
+    const y = clientY - (top + height / 2)
+    setPosition({ x, y })
+  }
+
+  const reset = () => setPosition({ x: 0, y: 0 })
+
+  const isPrimary = variant === 'primary'
+
+  return (
+    <Link href={href}>
+      <motion.div
+        onMouseMove={handleMouse}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false)
+          reset()
+        }}
+        animate={{ x: position.x * 0.3, y: position.y * 0.3 }}
+        transition={{ type: 'spring', ...SPRING.snappy }}
+        className={`group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-sm overflow-hidden transition-all duration-300 ${
+          isPrimary
+            ? 'bg-[#FF3B30] text-white hover:shadow-[0_8px_32px_rgba(255,59,48,0.4)]'
+            : 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20'
+        }`}
+      >
+        {/* Shine effect */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+          animate={isHovered && !reduceMotion ? { x: ['200%', '-200%'] } : {}}
+          transition={{
+            duration: 1.5,
+            repeat: isHovered ? Infinity : 0,
+            repeatDelay: 0.5,
+            ease: 'linear',
+          }}
+          style={{ x: '-200%' }}
+        />
+
+        <span className="relative z-10 flex items-center gap-2">{children}</span>
+      </motion.div>
+    </Link>
   )
 }

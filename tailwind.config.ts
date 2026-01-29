@@ -5,37 +5,54 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Premium Charcoal Dark Theme
+        base: '#1C1C1E',
+        elevated: '#2C2C2E',
+        card: '#36363A',
+        hover: '#48484A',
+        input: '#3A3A3C',
+        
+        // Brand Red
+        red: {
+          primary: '#FF3B30',
+          hover: '#FF453A',
+          pressed: '#FF2D20',
+          bg: 'rgba(255, 59, 48, 0.1)',
+          border: 'rgba(255, 59, 48, 0.2)',
+        },
+        
+        // Legacy color mappings
         void: {
-          base: '#0A0A0A',
-          obsidian: '#0E0F12',
-          charcoal: '#15171C',
-          slate: '#1E2126',
+          base: '#1C1C1E',
+          obsidian: '#1C1C1E',
+          charcoal: '#2C2C2E',
+          slate: '#36363A',
         },
         industrial: {
-          orange: '#F36B2C',
-          ember: '#FF8A4B',
+          orange: '#FF3B30',
+          ember: '#FF453A',
         },
         navy: {
-          900: 'var(--navy-900)',
-          800: 'var(--navy-800)',
-          700: 'var(--navy-700)',
+          900: 'var(--bg-base)',
+          800: 'var(--bg-elevated)',
+          700: 'var(--bg-card)',
         },
         grey: {
-          100: 'var(--grey-100)',
-          200: 'var(--grey-200)',
+          100: 'var(--bg-elevated)',
+          200: 'var(--bg-card)',
         },
-        accent: 'var(--accent)',
-        accentSoft: 'var(--accent-soft)',
-        accentBorder: 'var(--accent-border)',
-        accentFg: 'var(--accent-fg)',
-        border: 'var(--border)',
-        textDark: 'var(--text-dark)',
-        textLight: 'var(--text-light)',
-        muted: 'var(--muted)',
+        accent: 'var(--brand-red)',
+        accentSoft: 'var(--brand-red-bg)',
+        accentBorder: 'var(--brand-red-border)',
+        accentFg: 'var(--text-primary)',
+        border: 'var(--border-light)',
+        textDark: 'var(--text-primary)',
+        textLight: 'var(--text-primary)',
+        muted: 'var(--text-tertiary)',
       },
       fontFamily: {
-        display: ['var(--font-space)', 'system-ui', 'sans-serif'],
-        body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'monospace'],
       },
       fontSize: {
@@ -52,6 +69,7 @@ const config: Config = {
         md: 'var(--radius-md)',
         lg: 'var(--radius-lg)',
         xl: 'var(--radius-xl)',
+        '2xl': 'var(--radius-2xl)',
       },
       spacing: {
         xs: 'var(--space-xs)',
@@ -64,11 +82,32 @@ const config: Config = {
         '4xl': 'var(--space-4xl)',
       },
       boxShadow: {
+        xs: 'var(--shadow-xs)',
         soft: 'var(--shadow-soft)',
         card: 'var(--shadow-card)',
+        glow: 'var(--glow-red-sm)',
+        'glow-md': 'var(--glow-red-md)',
+        'glow-lg': 'var(--glow-red-lg)',
       },
       letterSpacing: {
         micro: '0.28em',
+        tight: '-0.02em',
+        tighter: '-0.04em',
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'shimmer': 'shimmer 2s linear infinite',
+        'skeleton': 'skeleton-shine 1.8s ease-in-out infinite',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
+        'power4': 'cubic-bezier(0.77, 0, 0.175, 1)',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'glow-conic': 'conic-gradient(from 180deg at 50% 50%, #FF3B30, #FF453A, #FF2D20, #FF453A, #FF3B30)',
       },
     },
   },

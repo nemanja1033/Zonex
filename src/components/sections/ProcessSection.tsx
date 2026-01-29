@@ -1,98 +1,174 @@
 "use client"
 
-import { useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
+import { EASING, staggerContainer, staggerItem } from '@/lib/animations'
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
+  const reduceMotion = useReducedMotion()
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-16 md:py-24 lg:py-32">
-      <Container>
+    <section ref={sectionRef} className="relative py-24 lg:py-32 bg-[#1C1C1E] overflow-hidden">
+      {/* Background grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+        }}
+      />
+
+      {/* Glow accents */}
+      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#FF3B30]/2 rounded-full blur-[120px] pointer-events-none" />
+
+      <Container className="relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 space-y-4"
+          transition={{ duration: 0.6, ease: EASING.power4 }}
+          className="mb-16 space-y-6"
         >
-          <span className="inline-flex items-center rounded-full border-2 border-[var(--brand-red)] bg-[var(--brand-red-bg)] px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-[var(--brand-red)]">
-            Proces
-          </span>
-          <h2 className="font-display text-4xl text-[var(--text-primary)] md:text-5xl lg:text-6xl">
-            Proces sa jasnim <span className="block">kontrolnim tačkama.</span>
-          </h2>
-          <p className="max-w-2xl text-lg text-[var(--text-secondary)]">
-            Svaka faza ima definisane odgovornosti, standarde i dokumentaciju. Fokus je na stabilnosti rokova i
-            kvalitetu.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: EASING.power4 }}
+            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#FF3B30]/20 bg-[#FF3B30]/5"
+          >
+            <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
+            <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              Proces
+            </span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2, ease: EASING.power4 }}
+            className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white"
+          >
+            Proces sa jasnim
+            <span className="block text-white/60">kontrolnim tačkama.</span>
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3, ease: EASING.power4 }}
+            className="max-w-2xl text-lg text-white/60"
+          >
+            Svaka faza ima definisane odgovornosti, standarde i dokumentaciju. Fokus je na stabilnosti rokova i kvalitetu.
+          </motion.p>
         </motion.div>
 
-        <div className="relative mt-16 grid gap-8 md:grid-cols-2 lg:gap-12">
-          {/* Connecting lines for desktop */}
-          <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
-            {/* Horizontal line between 1 and 2 */}
-            <div
-              className="absolute left-1/2 top-[12.5%] h-[1px] w-full border-t-2 border-dashed border-[var(--brand-red)] opacity-30"
-              style={{ width: 'calc(50% - 2rem)' }}
-            />
-            {/* Vertical line between 1 and 3 */}
-            <div
-              className="absolute left-[25%] top-[12.5%] h-full w-[1px] border-l-2 border-dashed border-[var(--brand-red)] opacity-30"
-              style={{ height: 'calc(50% - 2rem)' }}
-            />
-            {/* Horizontal line between 3 and 4 */}
-            <div
-              className="absolute left-1/2 bottom-[12.5%] h-[1px] w-full border-t-2 border-dashed border-[var(--brand-red)] opacity-30"
-              style={{ width: 'calc(50% - 2rem)' }}
-            />
-          </div>
-
+        {/* Process cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={staggerContainer(0.15, 0.3)}
+          className="grid gap-6 md:grid-cols-2 lg:gap-8"
+        >
           {site.process.slice(0, 4).map((step, index) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.77, 0, 0.175, 1] }}
-              className="group relative"
-            >
-              <div className="relative overflow-hidden rounded-2xl border border-[var(--border-light)] bg-white p-8 shadow-[var(--shadow-md)] transition-all duration-500 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2">
-                {/* Large number badge */}
-                <span
-                  className="absolute left-8 top-8 text-[80px] font-bold leading-none text-[var(--brand-red)] opacity-10"
-                  aria-hidden="true"
-                >
-                  {index + 1}
-                </span>
-
-                {/* Content */}
-                <div className="relative space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-tertiary)]">
-                      Faza {index + 1}
-                    </span>
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[var(--brand-red)] text-sm font-bold text-[var(--brand-red)]">
-                      {index + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-2xl font-bold text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--brand-red)]">
-                    {step.title}
-                  </h3>
-
-                  <p className="text-base leading-relaxed text-[var(--text-secondary)]">{step.description}</p>
-                </div>
-
-                {/* Hover glow effect */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:shadow-[0_0_30px_rgba(194,59,59,0.15)]" />
-              </div>
-            </motion.div>
+            <ProcessCard 
+              key={step.title} 
+              step={step} 
+              index={index} 
+              reduceMotion={reduceMotion}
+            />
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
+  )
+}
+
+function ProcessCard({ 
+  step, 
+  index, 
+  reduceMotion 
+}: { 
+  step: { title: string; description: string }
+  index: number
+  reduceMotion: boolean | null
+}) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <motion.div
+      variants={staggerItem}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative"
+    >
+      <motion.div
+        whileHover={reduceMotion ? {} : { y: -8 }}
+        transition={{ duration: 0.4, ease: EASING.power4 }}
+        className="relative overflow-hidden rounded-2xl border border-white/8 bg-[#2C2C2E] p-8 lg:p-10 transition-all duration-500 hover:border-white/12 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+      >
+        {/* Large number badge - background */}
+        <span
+          className="absolute right-8 top-8 text-[100px] lg:text-[120px] font-bold leading-none text-[#FF3B30] opacity-[0.05] select-none pointer-events-none"
+          aria-hidden="true"
+        >
+          {index + 1}
+        </span>
+
+        {/* Glow effect on hover */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0"
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.4 }}
+        />
+
+        {/* Content */}
+        <div className="relative space-y-6">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/40">
+              Faza {index + 1}
+            </span>
+            <motion.span 
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#FF3B30]/30 text-sm font-bold text-[#FF3B30]"
+              animate={isHovered && !reduceMotion ? { scale: 1.1, borderColor: 'rgba(255, 59, 48, 0.6)' } : {}}
+              transition={{ duration: 0.3 }}
+            >
+              {index + 1}
+            </motion.span>
+          </div>
+
+          <motion.h3 
+            className="text-2xl lg:text-3xl font-bold text-white transition-colors duration-300 group-hover:text-[#FF3B30]"
+          >
+            {step.title}
+          </motion.h3>
+
+          <p className="text-base leading-relaxed text-white/60">{step.description}</p>
+
+          {/* Animated divider */}
+          <motion.div
+            className="h-px bg-gradient-to-r from-[#FF3B30]/50 to-transparent"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isHovered ? 1 : 0 }}
+            style={{ transformOrigin: 'left' }}
+            transition={{ duration: 0.4, ease: EASING.power4 }}
+          />
+        </div>
+
+        {/* Corner accents */}
+        <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tl-2xl transition-all duration-500" />
+        <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-br-2xl transition-all duration-500" />
+      </motion.div>
+    </motion.div>
   )
 }

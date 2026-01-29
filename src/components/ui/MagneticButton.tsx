@@ -2,15 +2,17 @@
 
 import Link from 'next/link'
 import type { MouseEvent, ReactNode } from 'react'
-import { useEffect, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import useCoarsePointer from '@/components/hooks/useCoarsePointer'
+import { EASING, SPRING } from '@/lib/animations'
 
 type MagneticButtonProps = {
   children: ReactNode
   href?: string
   variant?: 'primary' | 'secondary' | 'ghost'
   className?: string
+  onClick?: () => void
 }
 
 export default function MagneticButton({
@@ -18,12 +20,14 @@ export default function MagneticButton({
   href,
   variant = 'primary',
   className = '',
+  onClick,
 }: MagneticButtonProps) {
   const reduceMotion = useReducedMotion()
   const isCoarse = useCoarsePointer()
   const frame = useRef<number | null>(null)
   const contentRef = useRef<HTMLSpanElement | null>(null)
   const buttonRef = useRef<HTMLElement | null>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
     return () => {
@@ -45,7 +49,7 @@ export default function MagneticButton({
 
     if (distance < maxDistance) {
       frame.current = window.requestAnimationFrame(() => {
-        const strength = 0.3
+        const strength = 0.35
         contentRef.current!.style.transform = `translate3d(${x * strength}px, ${y * strength}px, 0)`
         contentRef.current!.style.transition = 'transform 0.15s ease-out'
         frame.current = null
@@ -57,36 +61,56 @@ export default function MagneticButton({
     if (!contentRef.current) return
     contentRef.current.style.transition = 'transform 0.4s cubic-bezier(0.77, 0, 0.175, 1)'
     contentRef.current.style.transform = 'translate3d(0, 0, 0)'
+    setIsHovered(false)
+  }
+
+  const handleEnter = () => {
+    setIsHovered(true)
   }
 
   const getVariantStyles = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-[var(--brand-red)] text-white hover:shadow-[0_0_40px_rgba(194,59,59,0.3)] border border-[var(--brand-red)]'
+        return 'bg-[#FF3B30] text-white hover:shadow-[0_8px_32px_rgba(255,59,48,0.4)] border border-[#FF3B30]'
       case 'secondary':
-        return 'bg-white text-[var(--text-primary)] border-2 border-[var(--brand-red)] hover:shadow-[0_0_30px_rgba(194,59,59,0.15)]'
+        return 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_4px_24px_rgba(255,255,255,0.1)]'
       case 'ghost':
-        return 'button-ghost'
+        return 'bg-transparent text-white border border-white/20 hover:bg-white/5 hover:border-white/30'
       default:
-        return 'button-primary'
+        return 'bg-[#FF3B30] text-white'
     }
   }
 
-  const classes = `magnetic-button group relative inline-flex min-h-[44px] items-center gap-3 rounded-full px-6 py-3 font-mono text-micro uppercase tracking-micro focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-red)] focus-visible:ring-offset-2 active:scale-[0.97] transition-all duration-300 overflow-hidden ${getVariantStyles()} ${className}`
+  const classes = `magnetic-button group relative inline-flex min-h-[48px] items-center gap-3 rounded-full px-7 py-3.5 font-medium text-sm uppercase tracking-[0.1em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF3B30] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C1C1E] active:scale-[0.97] transition-all duration-300 overflow-hidden ${getVariantStyles()} ${className}`
 
   const content = (
     <>
       {/* Shine effect */}
-      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 ease-out pointer-events-none" />
+      <motion.span 
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+        initial={{ x: '-200%' }}
+        animate={isHovered && !reduceMotion ? { x: '200%' } : { x: '-200%' }}
+        transition={{ 
+          duration: 0.7, 
+          ease: 'linear',
+          repeat: isHovered ? Infinity : 0,
+          repeatDelay: 0.5
+        }}
+      />
 
       <span ref={contentRef} className="magnetic-content relative inline-flex items-center gap-3 will-change-transform">
         <span>{children}</span>
-        <span className="inline-flex h-3 w-3 items-center justify-center transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-          <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <motion.span 
+          className="inline-flex h-4 w-4 items-center justify-center"
+          animate={isHovered ? { x: 4, scale: 1.1 } : { x: 0, scale: 1 }}
+          transition={{ duration: 0.3, ease: EASING.power4 }}
+          aria-hidden="true"
+        >
+          <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M3.5 8h9" strokeLinecap="round" />
             <path d="M9 4.5L12.5 8 9 11.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </span>
+        </motion.span>
       </span>
     </>
   )
@@ -100,6 +124,7 @@ export default function MagneticButton({
         className={classes}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
+        onMouseEnter={handleEnter}
       >
         {content}
       </Link>
@@ -112,6 +137,8 @@ export default function MagneticButton({
       className={classes}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
+      onMouseEnter={handleEnter}
+      onClick={onClick}
     >
       {content}
     </button>

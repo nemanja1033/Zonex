@@ -1,11 +1,12 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Container from '@/components/ui/Container'
-import Reveal from '@/components/motion/Reveal'
-import { lineReveal, transition, viewport } from '@/lib/motion'
+import { EASING, staggerContainer, staggerItem } from '@/lib/animations'
 
 export default function StandardsSection() {
+  const reduceMotion = useReducedMotion()
+
   const proofs = [
     {
       title: 'Kontrolne tačke',
@@ -26,37 +27,86 @@ export default function StandardsSection() {
   ]
 
   return (
-    <section className="section-divider section section-surface">
-      <Container>
-        <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
-          <Reveal>
-            <div className="space-y-4">
-              <p className="eyebrow">Standardi</p>
-              <h2 className="section-title">Kontrolne tačke koje štite rok, kvalitet i bezbednost.</h2>
-              <p className="body-muted text-measure">
-                Umesto opštih obećanja, prikazujemo sistem kontrole i evidencije koji prati svaki projekat.
-              </p>
+    <section className="relative py-20 lg:py-28 bg-[#1C1C1E] overflow-hidden">
+      {/* Background grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Glow accent */}
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+
+      <Container className="relative z-10">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EASING.power4 }}
+            className="space-y-6"
+          >
+            <div className="inline-flex items-center gap-3">
+              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+                Standardi
+              </span>
             </div>
-          </Reveal>
-          <motion.span
-            className="hidden h-px w-20 bg-white/15 md:block"
-            variants={lineReveal}
+            <h2 className="text-3xl lg:text-4xl font-bold text-white">
+              Kontrolne tačke koje štite rok, kvalitet i bezbednost.
+            </h2>
+            <p className="text-base text-white/60 leading-relaxed max-w-lg">
+              Umesto opštih obećanja, prikazujemo sistem kontrole i evidencije koji prati svaki projekat.
+            </p>
+
+            {/* Divider */}
+            <motion.div
+              className="h-px w-20 bg-gradient-to-r from-white/20 to-transparent"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASING.power4 }}
+              style={{ transformOrigin: 'left' }}
+            />
+          </motion.div>
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
-            transition={transition.base}
-            style={{ transformOrigin: 'left', alignSelf: 'end' }}
-          />
-          <div className="grid gap-6 md:grid-cols-2">
+            viewport={{ once: true, margin: '-100px' }}
+            variants={staggerContainer(0.1, 0.2)}
+            className="grid gap-6 sm:grid-cols-2"
+          >
             {proofs.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06} variant="maskReveal">
-                <div className="card-surface rounded-lg p-5 sm:p-6 transition-all duration-300 hover:border-[var(--accent-border)] hover:shadow-card">
-                  <h3 className="font-display text-h4 text-white">{item.title}</h3>
-                  <p className="mt-3 text-small text-white/80">{item.description}</p>
+              <motion.div
+                key={item.title}
+                variants={staggerItem}
+                whileHover={reduceMotion ? {} : { y: -5 }}
+                className="group relative p-6 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+              >
+                {/* Hover glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#FF3B30] transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/60 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-              </Reveal>
+
+                {/* Corner accent */}
+                <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tr-lg transition-all duration-300" />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

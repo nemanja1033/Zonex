@@ -6,8 +6,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Container from '@/components/ui/Container'
-import LogoLockup from '@/components/brand/LogoLockup'
-import { transition } from '@/lib/motion'
+import { EASING, SPRING } from '@/lib/animations'
 
 const navItems = [
   { label: 'Početna', href: '/' },
@@ -80,9 +79,9 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`fixed top-0 z-50 w-full border-b transition-all duration-350 ${
+      className={`fixed top-0 z-50 w-full border-b transition-all duration-500 ${
         isScrolled
-          ? 'border-[var(--border-light)] bg-[var(--glass-bg)] backdrop-blur-xl shadow-[var(--shadow-sm)]'
+          ? 'border-white/8 bg-[#1C1C1E]/80 backdrop-blur-xl shadow-lg shadow-black/20'
           : 'border-transparent bg-transparent'
       }`}
       variants={{
@@ -91,34 +90,84 @@ export default function Navbar() {
       }}
       initial="visible"
       animate={isHidden ? 'hidden' : 'visible'}
-      transition={{ duration: 0.35, ease: [0.77, 0, 0.175, 1] }}
+      transition={{ duration: 0.35, ease: EASING.power4 }}
     >
-      <Container className="flex items-center justify-between py-5">
-        <Link href="/" className="inline-flex group">
-          <span className="relative inline-flex items-center gap-3 transition-transform duration-300 group-hover:scale-105">
-            <span className="text-lg font-bold tracking-tight text-[var(--text-secondary)]">
-              ZONEX <span className="text-[var(--text-tertiary)]">— INŽENJERING</span>
+      <Container className="flex items-center justify-between h-20 lg:h-24">
+        {/* Logo */}
+        <Link href="/" className="group relative">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASING.power4 }}
+            className="flex items-center gap-2"
+          >
+            <span className="text-xl lg:text-2xl font-bold text-white tracking-tight">
+              ZONEX
             </span>
-            <span className="pointer-events-none absolute -bottom-2 left-0 h-px w-16 bg-gradient-to-r from-[var(--brand-red)] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          </span>
+            <span className="text-white/30 font-light">—</span>
+            <span className="text-base lg:text-lg text-white/60 font-medium">
+              INŽENJERING
+            </span>
+            
+            {/* Animated underline */}
+            <motion.div
+              className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#FF3B30] to-transparent"
+              initial={{ width: 0 }}
+              whileHover={{ width: '100%' }}
+              transition={{ duration: 0.3, ease: EASING.power4 }}
+            />
+          </motion.div>
         </Link>
-        <nav className="hidden items-center gap-8 text-micro font-mono uppercase tracking-micro text-[var(--text-secondary)] md:flex">
-          {navItems.map((item) => {
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {navItems.map((item, i) => {
             const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
             return (
-              <NavItem
+              <motion.div
                 key={item.href}
-                href={item.href}
-                label={item.label}
-                isActive={isActive}
-                onPrefetch={() => router.prefetch(item.href)}
-              />
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.05, ease: EASING.power4 }}
+              >
+                <NavItem
+                  href={item.href}
+                  label={item.label}
+                  isActive={isActive}
+                  onPrefetch={() => router.prefetch(item.href)}
+                />
+              </motion.div>
             )
           })}
+          
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.6, ease: EASING.power4 }}
+            className="ml-6"
+          >
+            <Link
+              href="/contact"
+              className="group relative px-6 py-2.5 bg-[#FF3B30] text-white text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)]"
+            >
+              <span className="relative z-10">Započnite projekat</span>
+              
+              {/* Hover shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.6, ease: 'linear' }}
+              />
+            </Link>
+          </motion.div>
         </nav>
+
+        {/* Mobile Menu Button */}
         <button
           type="button"
-          className="md:hidden min-h-[44px] rounded-md border border-[var(--border-light)] bg-white/80 px-4 py-2 text-micro font-mono uppercase tracking-micro text-[var(--text-primary)] transition-all duration-300 hover:border-[var(--brand-red)] hover:shadow-md"
+          className="lg:hidden min-h-[44px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-2 text-xs font-mono uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[#FF3B30]/50 hover:bg-white/10"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -126,19 +175,21 @@ export default function Navbar() {
           {isOpen ? 'Zatvori' : 'Meni'}
         </button>
       </Container>
+
+      {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.nav
             id="mobile-nav"
             ref={mobileNavRef}
-            initial={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
-            exit={{ opacity: 0, y: -10, clipPath: 'inset(0 0 100% 0)' }}
-            transition={transition.fast}
-            className="md:hidden border-t border-[var(--border-light)] bg-white/95 backdrop-blur-xl"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: EASING.power4 }}
+            className="lg:hidden border-t border-white/8 bg-[#1C1C1E]/95 backdrop-blur-xl overflow-hidden"
             onKeyDown={handleTrap}
           >
-            <Container className="flex flex-col gap-3 py-6 text-micro font-mono uppercase tracking-micro text-[var(--text-secondary)]">
+            <Container className="flex flex-col gap-2 py-6">
               {navItems.map((item, index) => {
                 const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
                 return (
@@ -146,15 +197,15 @@ export default function Navbar() {
                     key={item.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
+                    transition={{ delay: index * 0.08, duration: 0.3, ease: EASING.power4 }}
                   >
                     <Link
                       href={item.href}
                       prefetch
-                      className={`flex min-h-[44px] items-center gap-3 rounded-lg px-4 py-3 transition-all duration-300 ${
+                      className={`flex min-h-[52px] items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300 ${
                         isActive
-                          ? 'bg-[var(--brand-red-bg)] text-[var(--brand-red)]'
-                          : 'hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]'
+                          ? 'bg-[#FF3B30]/10 text-[#FF3B30]'
+                          : 'text-white/70 hover:bg-white/5 hover:text-white'
                       }`}
                       onClick={() => setIsOpen(false)}
                       ref={item.href === navItems[0].href ? firstLinkRef : undefined}
@@ -162,15 +213,33 @@ export default function Navbar() {
                       onTouchStart={() => router.prefetch(item.href)}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full border transition-all duration-300 ${
-                          isActive ? 'border-[var(--brand-red)] bg-[var(--brand-red)]' : 'border-[var(--border-medium)]'
+                        className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                          isActive ? 'bg-[#FF3B30]' : 'border border-white/20'
                         }`}
                       />
-                      {item.label}
+                      <span className="text-sm font-medium uppercase tracking-[0.15em]">
+                        {item.label}
+                      </span>
                     </Link>
                   </motion.div>
                 )
               })}
+
+              {/* Mobile CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.3, ease: EASING.power4 }}
+                className="mt-4 pt-4 border-t border-white/8"
+              >
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-center min-h-[52px] rounded-xl bg-[#FF3B30] text-white text-sm font-medium uppercase tracking-[0.15em] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Započnite projekat
+                </Link>
+              </motion.div>
             </Container>
           </motion.nav>
         )}
@@ -179,6 +248,7 @@ export default function Navbar() {
   )
 }
 
+// Magnetic Nav Link with micro-interactions
 type NavItemProps = {
   href: string
   label: string
@@ -187,51 +257,61 @@ type NavItemProps = {
 }
 
 function NavItem({ href, label, isActive, onPrefetch }: NavItemProps) {
-  const [hovered, setHovered] = useState(false)
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
 
-  const handleMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const x = event.clientX - rect.left - rect.width / 2
-    const y = event.clientY - rect.top - rect.height / 2
-    setOffset({ x, y })
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setMousePosition({
+      x: e.clientX - rect.left - rect.width / 2,
+      y: e.clientY - rect.top - rect.height / 2,
+    })
   }
 
   return (
-    <Link
-      href={href}
-      prefetch
-      className={`group relative pb-1 transition-colors duration-300 ${
-        isActive ? 'text-[var(--text-primary)]' : 'hover:text-[var(--text-primary)]'
-      }`}
-      onMouseEnter={() => {
-        setHovered(true)
-        onPrefetch()
-      }}
-      onMouseLeave={() => {
-        setHovered(false)
-        setOffset({ x: 0, y: 0 })
-      }}
-      onMouseMove={handleMove}
-      onTouchStart={onPrefetch}
-    >
-      <motion.span
-        className="inline-block"
-        animate={{
-          x: hovered ? offset.x * 0.15 : 0,
-          y: hovered ? offset.y * 0.15 : 0,
+    <Link href={href} prefetch onMouseEnter={onPrefetch} onTouchStart={onPrefetch}>
+      <motion.div
+        className="relative px-4 py-2 text-sm font-medium cursor-pointer"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false)
+          setMousePosition({ x: 0, y: 0 })
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+        animate={{
+          x: isHovered ? mousePosition.x * 0.15 : 0,
+          y: isHovered ? mousePosition.y * 0.15 : 0,
+        }}
+        transition={{ type: 'spring', ...SPRING.snappy }}
       >
-        {label}
-      </motion.span>
-      <motion.span
-        className="absolute -bottom-1 left-0 h-[2px] bg-[var(--brand-red)]"
-        initial={false}
-        animate={{ scaleX: hovered || isActive ? 1 : 0 }}
-        style={{ transformOrigin: 'left' }}
-        transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-      />
+        <span
+          className={`relative z-10 transition-colors duration-300 ${
+            isActive ? 'text-white' : 'text-white/60 hover:text-white'
+          }`}
+        >
+          {label}
+        </span>
+        
+        {/* Hover background */}
+        <motion.div
+          className="absolute inset-0 rounded-lg bg-white/5"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            scale: isHovered ? 1 : 0.8,
+          }}
+          transition={{ duration: 0.2, ease: EASING.power4 }}
+        />
+        
+        {/* Active indicator */}
+        {isActive && (
+          <motion.div
+            layoutId="activeNavIndicator"
+            className="absolute -bottom-1 left-4 right-4 h-0.5 bg-[#FF3B30]"
+            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          />
+        )}
+      </motion.div>
     </Link>
   )
 }

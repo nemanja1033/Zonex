@@ -1,124 +1,235 @@
 'use client'
 
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
-import type { Project } from '../../../data/projects'
-import { transition } from '@/lib/motion'
-import { useRef, useState } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { EASING, SPRING } from '@/lib/animations'
 
-type ProjectCardProps = {
-  project: Project
+interface ProjectCardProps {
+  title: string
+  location: string
+  description: string
+  duration: string
+  model: string
+  image?: string
+  tags?: string[]
+  href: string
+  index?: number
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  location,
+  description,
+  duration,
+  model,
+  image,
+  tags = [],
+  href,
+  index = 0,
+}: ProjectCardProps) {
   const reduceMotion = useReducedMotion()
-  const shouldReduce = reduceMotion
-  const imageSrc = project.image ?? '/images/project-placeholder.svg'
-  const blurDataURL =
-    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjRjhGOUZBIi8+PC9zdmc+'
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const cardRef = useRef<HTMLDivElement | null>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
+  const [isHovered, setIsHovered] = useState(false)
 
-  // 3D tilt effect
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const x = useMotionValue(0.5)
+  const y = useMotionValue(0.5)
 
-  const mouseXSpring = useSpring(mouseX, { stiffness: 150, damping: 15 })
-  const mouseYSpring = useSpring(mouseY, { stiffness: 150, damping: 15 })
+  const springConfig = { stiffness: 100, damping: 15 }
+  const springX = useSpring(x, springConfig)
+  const springY = useSpring(y, springConfig)
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['8deg', '-8deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-8deg', '8deg'])
+  const rotateX = useTransform(springY, [0, 1], [8, -8])
+  const rotateY = useTransform(springX, [0, 1], [-8, 8])
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (shouldReduce || !cardRef.current) return
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion || !cardRef.current) return
+
     const rect = cardRef.current.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseXPos = event.clientX - rect.left
-    const mouseYPos = event.clientY - rect.top
-    const xPct = mouseXPos / width - 0.5
-    const yPct = mouseYPos / height - 0.5
-    mouseX.set(xPct)
-    mouseY.set(yPct)
+    const newX = (e.clientX - rect.left) / rect.width
+    const newY = (e.clientY - rect.top) / rect.height
+
+    x.set(newX)
+    y.set(newY)
+    setMousePosition({ x: newX, y: newY })
   }
 
   const handleMouseLeave = () => {
-    mouseX.set(0)
-    mouseY.set(0)
+    x.set(0.5)
+    y.set(0.5)
+    setIsHovered(false)
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
   }
 
   return (
     <motion.div
       ref={cardRef}
-      style={shouldReduce ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={shouldReduce ? undefined : { scale: 1.02 }}
-      transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-      className="group relative overflow-hidden rounded-3xl border border-[var(--border-light)] bg-white shadow-[var(--shadow-md)] transition-shadow duration-500 hover:shadow-[var(--shadow-lg)] hover:shadow-[0_0_40px_rgba(194,59,59,0.15)]"
+      onMouseEnter={handleMouseEnter}
+      style={reduceMotion ? {} : {
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: EASING.power4 }}
+      className="group relative"
     >
-      <div className="relative aspect-[4/3] overflow-hidden" style={{ height: '400px' }}>
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-[var(--bg-tertiary)] animate-pulse" aria-hidden="true" />
-        )}
-        <Image
-          src={imageSrc}
-          alt={project.name}
-          fill
-          sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          priority={false}
-          placeholder="blur"
-          blurDataURL={blurDataURL}
-          onLoadingComplete={() => setImageLoaded(true)}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
-      </div>
+      <Link href={href}>
+        <div className="relative bg-[#2C2C2E] rounded-3xl overflow-hidden border border-white/8 hover:border-white/12 transition-all duration-500">
+          
+          {/* Glow effect following cursor */}
+          <motion.div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
+            style={{
+              background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(255, 59, 48, 0.12), transparent 40%)`,
+            }}
+          />
 
-      <div className="space-y-4 p-8">
-        <div className="flex flex-wrap gap-2">
-          {project.focus?.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-[var(--bg-tertiary)] px-3 py-1 text-xs text-[var(--text-secondary)]"
+          {/* Image Section */}
+          <div className="relative h-[280px] lg:h-[320px] overflow-hidden">
+            <motion.div
+              style={reduceMotion ? {} : { transform: 'translateZ(50px)' }}
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+              transition={{ duration: 0.6, ease: EASING.power4 }}
+              className="relative w-full h-full"
             >
-              {tag}
-            </span>
-          ))}
-        </div>
+              {image ? (
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-[#36363A] to-[#2C2C2E]">
+                  <Image
+                    src="/images/project-placeholder.svg"
+                    alt={`${title} placeholder`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain p-10 opacity-40"
+                  />
+                  {/* Grid overlay for placeholder */}
+                  <div 
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage: `
+                        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+                      `,
+                      backgroundSize: '32px 32px',
+                    }}
+                  />
+                </div>
+              )}
 
-        <div>
-          <h3 className="font-display text-2xl text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--brand-red)]">
-            {project.name}
-          </h3>
-          <p className="mt-2 text-sm text-[var(--text-secondary)]">{project.location}</p>
-        </div>
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2C2C2E] via-[#2C2C2E]/60 to-transparent" />
+            </motion.div>
 
-        <p className="text-base text-[var(--text-secondary)] line-clamp-2">{project.summary}</p>
-
-        <div className="flex flex-wrap gap-4 pt-2 text-sm text-[var(--text-tertiary)]">
-          <div className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-[var(--brand-red)]" />
-            <span>Rok: {project.timeline}</span>
+            {/* Tags floating above image */}
+            {tags.length > 0 && (
+              <motion.div
+                style={reduceMotion ? {} : { transform: 'translateZ(80px)' }}
+                className="absolute top-6 left-6 flex flex-wrap gap-2 z-20"
+              >
+                {tags.slice(0, 3).map((tag, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 + i * 0.1, duration: 0.4, ease: EASING.power4 }}
+                    className="px-3 py-1.5 rounded-full bg-[#1C1C1E]/80 backdrop-blur-md border border-white/10 text-[10px] text-white/70 uppercase tracking-[0.15em] font-medium"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </motion.div>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-[var(--brand-red)]" />
-            <span>Model: {project.delivery}</span>
-          </div>
+
+          {/* Content Section */}
+          <motion.div
+            style={reduceMotion ? {} : { transform: 'translateZ(75px)' }}
+            className="p-8"
+          >
+            {/* Location */}
+            <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3 font-medium">
+              {location}
+            </p>
+
+            {/* Title */}
+            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#FF3B30] transition-colors duration-300">
+              {title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-sm text-white/60 leading-relaxed mb-6 line-clamp-2">
+              {description}
+            </p>
+
+            {/* Meta info */}
+            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-6 pb-6 border-b border-white/8">
+              <div>
+                <span className="block text-[10px] text-white/40 mb-1 uppercase tracking-[0.15em]">
+                  Rok
+                </span>
+                <span className="text-sm text-white font-medium">{duration}</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 mb-1 uppercase tracking-[0.15em]">
+                  Model
+                </span>
+                <span className="text-sm text-white font-medium">{model}</span>
+              </div>
+            </div>
+
+            {/* CTA Link */}
+            <motion.div
+              className="flex items-center gap-2 text-sm text-[#FF3B30] font-medium"
+              animate={isHovered ? { x: 5 } : { x: 0 }}
+              transition={{ duration: 0.3, ease: EASING.power4 }}
+            >
+              <span>Pogledaj detalje</span>
+              <motion.span
+                animate={isHovered ? { x: 3, y: -3 } : { x: 0, y: 0 }}
+                transition={{ duration: 0.3, ease: EASING.power4 }}
+              >
+                <ArrowUpRight size={16} />
+              </motion.span>
+            </motion.div>
+          </motion.div>
+
+          {/* 3D Shadow effect */}
+          <motion.div
+            className="absolute -inset-4 bg-[#FF3B30]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+            style={reduceMotion ? {} : { transform: 'translateZ(-50px)' }}
+          />
+
+          {/* Border glow on hover */}
+          <div className="absolute inset-0 rounded-3xl border border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 transition-all duration-500 pointer-events-none" />
+          
+          {/* Bottom accent line */}
+          <motion.div
+            className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#FF3B30] to-[#FF3B30]/50"
+            initial={{ scaleX: 0 }}
+            animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
+            style={{ transformOrigin: 'left' }}
+            transition={{ duration: 0.4, ease: EASING.power4 }}
+          />
         </div>
-
-        <div className="flex items-center gap-2 pt-4 text-sm font-medium text-[var(--brand-red)] transition-transform duration-300 group-hover:translate-x-2">
-          <span>Pogledaj detalje</span>
-          <ArrowRight className="h-4 w-4" />
-        </div>
-      </div>
-
-      <Link href={`/projects/${project.slug}`} prefetch className="absolute inset-0" aria-label={project.name} />
-
-      {/* Red glow on hover */}
-      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-transparent opacity-0 transition-opacity duration-500 group-hover:border-[var(--brand-red)] group-hover:opacity-100" />
+      </Link>
     </motion.div>
   )
 }

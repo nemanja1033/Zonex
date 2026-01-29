@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
-import { transition } from '@/lib/motion'
+import { EASING } from '@/lib/animations'
 
 type FormState = {
   name: string
@@ -63,7 +63,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="card-surface space-y-6 rounded-lg p-5 sm:p-6 md:p-8"
+      className="p-6 md:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 space-y-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -95,22 +95,22 @@ export default function ContactForm() {
       <div className="space-y-3">
         <motion.div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
           <motion.div
-            className="h-full bg-[var(--accent)]"
+            className="h-full bg-[#FF3B30]"
             initial={{ scaleX: 0 }}
             animate={isSubmitting ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={transition.base}
+            transition={{ duration: 0.3, ease: EASING.power4 }}
             style={{ transformOrigin: 'left' }}
           />
         </motion.div>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-3 rounded-md button-primary py-3 text-micro font-mono uppercase tracking-micro disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-3 rounded-full bg-[#FF3B30] py-4 text-sm font-medium uppercase tracking-[0.1em] text-white transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
         >
           {isSubmitting ? (
             <>
-              <span className="h-4 w-4 animate-spin rounded-full border border-white/40 border-t-white" aria-hidden="true" />
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
               Slanje...
             </>
           ) : isSent ? (
@@ -123,7 +123,7 @@ export default function ContactForm() {
                 strokeWidth="2"
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
-                transition={transition.fast}
+                transition={{ duration: 0.15, ease: EASING.power4 }}
               >
                 <motion.path
                   d="M5 13l4 4L19 7"
@@ -131,10 +131,10 @@ export default function ContactForm() {
                   strokeLinejoin="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={transition.base}
+                  transition={{ duration: 0.3, ease: EASING.power4 }}
                 />
               </motion.svg>
-              <motion.span initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={transition.fast}>
+              <motion.span initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15, ease: EASING.power4 }}>
                 Potvrđeno
               </motion.span>
             </>
@@ -146,13 +146,13 @@ export default function ContactForm() {
       <AnimatePresence>
         {isSent && (
           <motion.p
-            className="text-small text-white/70"
+            className="text-sm text-white/70"
             role="status"
             aria-live="polite"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
-            transition={transition.fast}
+            transition={{ duration: 0.15, ease: EASING.power4 }}
           >
             Primili smo upit. Vraćamo se u najkraćem roku.
           </motion.p>
@@ -187,13 +187,13 @@ function Field({
   const fieldId = label.toLowerCase().replace(/\s+/g, '-')
 
   return (
-    <motion.div animate={error ? shake : undefined} transition={transition.fast}>
-      <label htmlFor={fieldId} className="text-small font-medium text-white/80">
+    <motion.div animate={error ? shake : undefined} transition={{ duration: 0.15, ease: EASING.power4 }}>
+      <label htmlFor={fieldId} className="text-sm font-medium text-white/80">
         {label}
       </label>
       <Component
         id={fieldId}
-        className="input-field mt-2"
+        className="mt-2 w-full rounded-lg border border-white/10 bg-[#36363A] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/30 focus:border-[#FF3B30] focus:ring-2 focus:ring-[#FF3B30]/20"
         placeholder={label}
         value={value}
         onChange={onChange}
@@ -207,11 +207,11 @@ function Field({
         <motion.p
           key={error ? 'error' : 'helper'}
           id={error ? `${fieldId}-error` : undefined}
-          className={`mt-2 text-small ${error ? 'form-error' : 'form-helper'}`}
+          className={`mt-2 text-xs ${error ? 'text-[#FF3B30]' : 'text-white/40'}`}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
-          transition={transition.fast}
+          transition={{ duration: 0.15, ease: EASING.power4 }}
         >
           {error ?? 'Polje je obavezno za brzu procenu projekta.'}
         </motion.p>
