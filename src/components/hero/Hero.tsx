@@ -145,6 +145,10 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-grain" aria-hidden="true" />
       <div className="hero-premium-bg" aria-hidden="true" />
+      <div className="hero-mesh" aria-hidden="true" />
+      <div className="hero-light hero-light--a" aria-hidden="true" />
+      <div className="hero-light hero-light--b" aria-hidden="true" />
+      <div className="hero-vignette" aria-hidden="true" />
       <div className="hero-aurora hero-aurora--a" aria-hidden="true" />
       <div className="hero-aurora hero-aurora--b" aria-hidden="true" />
       <div className="hero-aurora hero-aurora--c" aria-hidden="true" />
