@@ -107,11 +107,11 @@ export default function ServicesCarousel() {
           key={`dot-${compact ? 'mobile' : 'desktop'}-${index}`}
           type="button"
           onClick={() => goToIndex(index)}
-          className="group"
+          className="group relative"
           aria-label={`Prikaži uslugu ${index + 1}`}
         >
-          <span
-            className={`block h-1 rounded-full transition-all duration-500 ${
+          <motion.span
+            className={`block h-1.5 rounded-full transition-all duration-500 ${
               index === activeIndex
                 ? compact
                   ? 'w-10 bg-[#DC2626]'
@@ -124,6 +124,7 @@ export default function ServicesCarousel() {
                     ? 'w-5 bg-white/15 group-hover:bg-white/30'
                     : 'w-8 bg-white/15 group-hover:bg-white/30'
             }`}
+            layoutId={`dot-${compact ? 'mobile' : 'desktop'}-${index}`}
           />
         </button>
       ))}
@@ -131,38 +132,66 @@ export default function ServicesCarousel() {
   )
 
   return (
-    <section className="relative overflow-x-hidden bg-[#242424] py-6 md:py-24 lg:py-32">
-      {/* Background grid */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
+    <section className="relative overflow-x-hidden py-8 md:py-28 lg:py-36">
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#141414] to-[#0A0A0A]" />
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px',
+          backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Glow accent */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+      {/* Grain texture */}
+      <div
+        className="absolute inset-0 opacity-[0.025] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
+        }}
+      />
+
+      {/* Glow accents */}
+      <motion.div
+        className="absolute top-0 left-1/4 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(220, 38, 38, 0.05) 0%, transparent 60%)' }}
+        animate={reduceMotion ? undefined : { scale: [1, 1.1, 1], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(220, 38, 38, 0.04) 0%, transparent 60%)' }}
+        animate={reduceMotion ? undefined : { scale: [1.1, 1, 1.1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
       <Container className="relative z-10">
-        <div className="grid gap-3 md:gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-          <div className="lg:col-span-5 space-y-3 md:space-y-8">
+        <div className="grid gap-4 md:gap-12 lg:grid-cols-12 lg:items-center lg:gap-20">
+          {/* Left content */}
+          <div className="lg:col-span-5 space-y-4 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASING.power4 }}
             >
-              <span className="hidden items-center gap-3 px-4 py-2 rounded-full border border-[#DC2626]/20 bg-[#DC2626]/5 md:inline-flex">
-                <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="hidden md:inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#DC2626]/20 bg-[#DC2626]/5 backdrop-blur-sm">
+                <motion.span
+                  className="h-2 w-2 rounded-full bg-[#DC2626]"
+                  animate={reduceMotion ? undefined : { scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
                 <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                   Usluge
                 </span>
               </span>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -170,78 +199,100 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.1, ease: EASING.power4 }}
               className="space-y-2 md:space-y-4"
             >
-              <h2 className="font-display text-[22px] leading-[1.18] text-white md:text-5xl xl:text-6xl">
+              <h2 className="font-display text-[24px] leading-[1.15] text-white md:text-5xl xl:text-6xl">
                 Integrisane usluge{' '}
-                <span className="md:block text-white/60">sa preciznim</span>{' '}
-                <span className="md:block text-white/60">fazama isporuke.</span>
+                <span className="md:block text-white/50">sa preciznim</span>{' '}
+                <span className="md:block text-white/50">fazama isporuke.</span>
               </h2>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2, ease: EASING.power4 }}
-              className="space-y-2 md:space-y-4"
+              className="space-y-3 md:space-y-4"
             >
-              <p className="text-[12px] text-white/60 md:text-lg">
-                Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
+              <p className="text-[13px] text-white/50 md:text-lg leading-relaxed">
+                Svaka usluga je strukturisana kroz rokove, kontrolne tacke i jasnu dokumentaciju koju investitori ocekuju.
               </p>
-              <p className="hidden text-sm text-white/40 md:block md:text-base">
-                Operativa, koordinacija i završni standardi u jednoj liniji isporuke.
+              <p className="hidden text-sm text-white/35 md:block md:text-base">
+                Operativa, koordinacija i zavrsni standardi u jednoj liniji isporuke.
               </p>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3, ease: EASING.power4 }}
-              className="hidden space-y-6 pt-6 md:block"
+              className="hidden space-y-6 pt-8 md:block"
             >
-              <div className="flex items-baseline gap-3">
-                <span className="tabular-nums text-5xl font-semibold text-white">
+              {/* Counter display */}
+              <div className="flex items-baseline gap-4">
+                <motion.span
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="tabular-nums text-6xl font-bold text-white"
+                >
                   {activeService.number}
-                </span>
-                <span className="text-2xl text-white/20">/</span>
-                <span className="tabular-nums text-2xl text-white/40">{totalLabel}</span>
+                </motion.span>
+                <span className="text-2xl text-white/15">/</span>
+                <span className="tabular-nums text-2xl text-white/30">{totalLabel}</span>
               </div>
+
+              {/* Dots */}
               {renderDots()}
-              <div className="flex items-center gap-3">
-                <button
+
+              {/* Navigation buttons */}
+              <div className="flex items-center gap-4 pt-2">
+                <motion.button
                   type="button"
                   onClick={() => handleScroll('prev')}
                   disabled={activeIndex === 0}
-                  className={`inline-flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 ${
+                  className={`inline-flex h-14 w-14 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                     activeIndex === 0
-                      ? 'cursor-not-allowed border-white/10 text-white/20'
-                      : 'border-white/20 text-white/60 hover:border-[#DC2626] hover:bg-[#DC2626]/10 hover:text-[#DC2626]'
+                      ? 'cursor-not-allowed border-white/5 text-white/15'
+                      : 'border-white/10 text-white/50 hover:border-[#DC2626] hover:bg-[#DC2626]/10 hover:text-[#DC2626]'
                   }`}
+                  whileHover={activeIndex !== 0 ? { scale: 1.05 } : {}}
+                  whileTap={activeIndex !== 0 ? { scale: 0.95 } : {}}
                   aria-label="Prethodna usluga"
                 >
-                  ←
-                </button>
-                <button
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </motion.button>
+                <motion.button
                   type="button"
                   onClick={() => handleScroll('next')}
                   disabled={activeIndex === services.length - 1}
-                  className={`inline-flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 ${
+                  className={`inline-flex h-14 w-14 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                     activeIndex === services.length - 1
-                      ? 'cursor-not-allowed border-white/10 text-white/20'
-                      : 'border-white/20 text-white/60 hover:border-[#DC2626] hover:bg-[#DC2626]/10 hover:text-[#DC2626]'
+                      ? 'cursor-not-allowed border-white/5 text-white/15'
+                      : 'border-white/10 text-white/50 hover:border-[#DC2626] hover:bg-[#DC2626]/10 hover:text-[#DC2626]'
                   }`}
-                  aria-label="Sledeća usluga"
+                  whileHover={activeIndex !== services.length - 1 ? { scale: 1.05 } : {}}
+                  whileTap={activeIndex !== services.length - 1 ? { scale: 0.95 } : {}}
+                  aria-label="Sledeca usluga"
                 >
-                  →
-                </button>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </motion.button>
               </div>
             </motion.div>
           </div>
+
+          {/* Right content - Card area */}
           <div className="lg:col-span-7">
             {isMobile ? (
-              <div className="space-y-2 overflow-x-clip">
+              <div className="space-y-3 overflow-x-clip">
                 <div className="px-4">
                   <div
                     ref={scrollerRef}
-                    className="flex w-full snap-x snap-mandatory gap-0 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                    className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
                     style={{ scrollPaddingInline: '16px' }}
                   >
                     {services.map((service, index) => (
@@ -250,31 +301,31 @@ export default function ServicesCarousel() {
                         ref={(node) => {
                           cardRefs.current[index] = node
                         }}
-                        className="w-full max-w-[calc(100vw-32px)] flex-shrink-0 snap-center box-border"
+                        className="w-[calc(100vw-48px)] flex-shrink-0 snap-center box-border"
                       >
                         <ServiceCard service={service} reduceMotion={reduceMotion} />
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="space-y-2 md:hidden">
+                <div className="space-y-3 px-4 md:hidden">
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
-                      <span className="tabular-nums text-xl font-semibold text-white">
+                      <span className="tabular-nums text-2xl font-bold text-white">
                         {activeService.number}
                       </span>
-                      <span className="text-base text-white/20">/</span>
-                      <span className="tabular-nums text-sm text-white/40">{totalLabel}</span>
+                      <span className="text-base text-white/15">/</span>
+                      <span className="tabular-nums text-sm text-white/30">{totalLabel}</span>
                     </div>
-                    <div className="text-[11px] uppercase tracking-wider text-white/40">
+                    <div className="text-[11px] uppercase tracking-wider text-white/35">
                       Prevuci
                       <motion.span
                         className="ml-2 inline-block text-[#DC2626]"
                         aria-hidden="true"
-                        animate={reduceMotion ? undefined : { x: [0, 6, 0] }}
-                        transition={{ duration: 1.6, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+                        animate={reduceMotion ? undefined : { x: [0, 8, 0] }}
+                        transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
                       >
-                        →
+                        -&gt;
                       </motion.span>
                     </div>
                   </div>
@@ -320,85 +371,112 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, x: 40, scale: 0.96 }}
+      initial={{ opacity: 0, x: 60, scale: 0.95 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, x: -40, scale: 0.96 }}
+      exit={{ opacity: 0, x: -60, scale: 0.95 }}
       transition={{ duration: 0.7, ease: EASING.power4 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="group relative"
     >
-      <div className="relative max-h-[calc(100vh-180px)] overflow-hidden rounded-3xl border border-white/8 bg-[#2C2C2E] shadow-[var(--shadow-lg)] transition-all duration-500 group-hover:border-white/12 group-hover:shadow-[var(--shadow-xl)] md:max-h-none">
+      <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F] shadow-[0_24px_80px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-white/[0.12] group-hover:shadow-[0_32px_100px_rgba(0,0,0,0.7)]">
         {/* Cursor glow */}
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           style={{
-            background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(220, 38, 38, 0.1), transparent 50%)`,
+            background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(220, 38, 38, 0.1), transparent 50%)`,
           }}
         />
 
+        {/* Content */}
         <div className="relative">
-          <div className="space-y-2 px-3 pb-3 pt-3 md:space-y-4 md:px-8 md:pb-6 md:pt-8">
+          <div className="space-y-3 px-4 pb-4 pt-4 md:space-y-5 md:px-10 md:pb-8 md:pt-10">
             <div className="flex items-center justify-between">
-              <span className="hidden text-xl font-semibold text-[#DC2626]/10 md:inline-block md:text-5xl lg:text-6xl">
+              <motion.span
+                className="hidden text-[80px] font-bold leading-none text-[#DC2626]/[0.08] md:inline-block lg:text-[100px]"
+                animate={isHovered && !reduceMotion ? { scale: 1.05, opacity: 0.12 } : { scale: 1, opacity: 0.08 }}
+                transition={{ duration: 0.4 }}
+              >
                 {service.number}
-              </span>
-              <span className="rounded-full border border-[#DC2626]/20 bg-[#DC2626]/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-[#DC2626] md:px-3 md:py-1.5 md:text-[10px] md:tracking-[0.25em]">
+              </motion.span>
+              <span className="rounded-full border border-[#DC2626]/25 bg-[#DC2626]/10 px-3 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] text-[#DC2626] md:px-4 md:py-2 md:text-[10px] md:tracking-[0.25em]">
                 Usluga {service.number}
               </span>
             </div>
-            <h3 className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-[#DC2626] md:text-3xl lg:text-4xl">
+
+            <motion.h3
+              className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-[#DC2626] md:text-3xl lg:text-4xl"
+              animate={isHovered && !reduceMotion ? { x: 8 } : { x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               {service.title}
-            </h3>
-            <p className="max-w-md text-[11px] text-white/60 md:text-base [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] overflow-hidden md:[display:block]">
+            </motion.h3>
+
+            <p className="max-w-md text-[12px] text-white/50 md:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
               {service.description}
             </p>
-            <div className="hidden flex-wrap gap-2 pt-1 text-[9px] uppercase tracking-wider text-white/40 md:flex md:pt-2 md:text-[11px]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">
-                Obim
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">
-                Rok
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 md:px-3 md:py-1.5">
-                Standard
-              </span>
+
+            <div className="hidden flex-wrap gap-2 pt-2 md:flex">
+              {['Obim', 'Rok', 'Standard'].map((tag, i) => (
+                <motion.span
+                  key={tag}
+                  className="rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[10px] uppercase tracking-wider text-white/40"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                >
+                  {tag}
+                </motion.span>
+              ))}
             </div>
           </div>
-          <div className="relative aspect-[16/9] max-h-[180px] overflow-hidden md:aspect-[4/3] md:max-h-none lg:h-[380px] lg:aspect-auto">
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#2C2C2E] via-[#2C2C2E]/40 to-transparent" />
-            <Image
-              src={service.image}
-              alt={service.title}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ transform: reduceMotion ? 'none' : 'scale(1.02)' }}
-            />
-            <div className="absolute bottom-4 left-5 right-5 z-20 md:bottom-6 md:left-8 md:right-8">
+
+          {/* Image */}
+          <div className="relative aspect-[16/10] max-h-[200px] overflow-hidden md:max-h-none lg:h-[400px] lg:aspect-auto">
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/50 to-transparent" />
+            <motion.div
+              className="relative w-full h-full"
+              animate={isHovered && !reduceMotion ? { scale: 1.08 } : { scale: 1.02 }}
+              transition={{ duration: 0.8, ease: EASING.power4 }}
+            >
+              <Image
+                src={service.image}
+                alt={service.title}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </motion.div>
+
+            {/* CTA */}
+            <div className="absolute bottom-6 left-6 right-6 z-20 md:bottom-8 md:left-10 md:right-10">
               <motion.a
                 href="/services"
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#DC2626] transition-colors hover:text-[#EF4444] md:gap-3 md:text-sm"
-                whileHover={reduceMotion ? undefined : { x: 6 }}
+                className="inline-flex items-center gap-3 text-xs uppercase tracking-wider text-[#DC2626] transition-colors hover:text-[#EF4444] md:text-sm font-medium"
+                animate={isHovered && !reduceMotion ? { x: 8 } : { x: 0 }}
                 transition={{ duration: 0.3, ease: EASING.power4 }}
               >
                 Pogledaj detalje
-                <span aria-hidden="true">→</span>
+                <motion.span
+                  aria-hidden="true"
+                  animate={isHovered && !reduceMotion ? { x: 4 } : { x: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  -&gt;
+                </motion.span>
               </motion.a>
             </div>
           </div>
         </div>
-        
+
         {/* Border glow on hover */}
-        <div className="pointer-events-none absolute inset-0 rounded-3xl border border-[#DC2626]/0 transition-all duration-500 group-hover:border-[#DC2626]/20" />
+        <div className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-[#DC2626]/0 transition-all duration-500 group-hover:border-[#DC2626]/15" />
       </div>
-      
+
       {/* Background glow */}
       <motion.div
-        className="pointer-events-none absolute -bottom-4 -right-4 h-32 w-32 rounded-full bg-[#DC2626]/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
-        animate={reduceMotion ? undefined : { scale: [1, 1.2, 1] }}
-        transition={{ duration: 3, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute -bottom-8 -right-8 h-48 w-48 rounded-full bg-[#DC2626]/10 opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100"
       />
     </motion.div>
   )

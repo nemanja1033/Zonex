@@ -5,7 +5,7 @@ import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { EASING, SPRING } from '@/lib/animations'
+import { EASING } from '@/lib/animations'
 
 interface ProjectCardProps {
   title: string
@@ -38,12 +38,12 @@ export default function ProjectCard({
   const x = useMotionValue(0.5)
   const y = useMotionValue(0.5)
 
-  const springConfig = { stiffness: 100, damping: 15 }
+  const springConfig = { stiffness: 150, damping: 20 }
   const springX = useSpring(x, springConfig)
   const springY = useSpring(y, springConfig)
 
-  const rotateX = useTransform(springY, [0, 1], [8, -8])
-  const rotateY = useTransform(springX, [0, 1], [-8, 8])
+  const rotateX = useTransform(springY, [0, 1], [5, -5])
+  const rotateY = useTransform(springX, [0, 1], [-5, 5])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduceMotion || !cardRef.current) return
@@ -78,79 +78,83 @@ export default function ProjectCard({
         rotateY,
         transformStyle: 'preserve-3d',
       }}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: EASING.power4 }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: EASING.power4 }}
       className="group relative"
     >
       <Link href={href}>
-        <div className="relative bg-[#242424] rounded-3xl overflow-hidden border border-white/8 hover:border-white/12 transition-all duration-500">
-          
+        <div className="relative bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F] rounded-3xl overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+
           {/* Glow effect following cursor */}
           <motion.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
             style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(220, 38, 38, 0.12), transparent 40%)`,
+              background: `radial-gradient(700px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(220, 38, 38, 0.1), transparent 40%)`,
             }}
           />
 
           {/* Image Section */}
-          <div className="relative h-[280px] lg:h-[320px] overflow-hidden">
+          <div className="relative h-[300px] lg:h-[340px] overflow-hidden">
             <motion.div
-              style={reduceMotion ? {} : { transform: 'translateZ(50px)' }}
-              whileHover={reduceMotion ? {} : { scale: 1.05 }}
-              transition={{ duration: 0.6, ease: EASING.power4 }}
+              style={reduceMotion ? {} : { transform: 'translateZ(40px)' }}
               className="relative w-full h-full"
             >
               {image ? (
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                <motion.div
+                  className="relative w-full h-full"
+                  animate={isHovered && !reduceMotion ? { scale: 1.08 } : { scale: 1 }}
+                  transition={{ duration: 0.7, ease: EASING.power4 }}
+                >
+                  <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </motion.div>
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#2C2C2E] to-[#242424]">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F]">
                   <Image
                     src="/images/project-placeholder.svg"
                     alt={`${title} placeholder`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain p-10 opacity-40"
+                    className="object-contain p-10 opacity-30"
                   />
                   {/* Grid overlay for placeholder */}
-                  <div 
-                    className="absolute inset-0 opacity-30"
+                  <div
+                    className="absolute inset-0 opacity-20"
                     style={{
                       backgroundImage: `
-                        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+                        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
                       `,
-                      backgroundSize: '32px 32px',
+                      backgroundSize: '40px 40px',
                     }}
                   />
                 </div>
               )}
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#242424] via-[#242424]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/50 to-transparent" />
             </motion.div>
 
             {/* Tags floating above image */}
             {tags.length > 0 && (
               <motion.div
-                style={reduceMotion ? {} : { transform: 'translateZ(80px)' }}
+                style={reduceMotion ? {} : { transform: 'translateZ(60px)' }}
                 className="absolute top-6 left-6 flex flex-wrap gap-2 z-20"
               >
                 {tags.slice(0, 3).map((tag, i) => (
                   <motion.span
                     key={i}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + i * 0.1, duration: 0.4, ease: EASING.power4 }}
-                    className="px-3 py-1.5 rounded-full bg-[#1A1A1A]/80 backdrop-blur-md border border-white/10 text-[10px] text-white/70 uppercase tracking-[0.15em] font-medium"
+                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.1, duration: 0.4, ease: EASING.power4 }}
+                    className="px-3 py-1.5 rounded-full bg-[#0A0A0A]/70 backdrop-blur-md border border-white/[0.08] text-[10px] text-white/60 uppercase tracking-[0.15em] font-medium"
                   >
                     {tag}
                   </motion.span>
@@ -161,34 +165,38 @@ export default function ProjectCard({
 
           {/* Content Section */}
           <motion.div
-            style={reduceMotion ? {} : { transform: 'translateZ(75px)' }}
-            className="p-8"
+            style={reduceMotion ? {} : { transform: 'translateZ(50px)' }}
+            className="p-8 lg:p-10"
           >
             {/* Location */}
-            <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3 font-medium">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/35 mb-4 font-medium">
               {location}
             </p>
 
             {/* Title */}
-            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#DC2626] transition-colors duration-300">
+            <motion.h3
+              className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#DC2626] transition-colors duration-300"
+              animate={isHovered && !reduceMotion ? { x: 4 } : { x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               {title}
-            </h3>
+            </motion.h3>
 
             {/* Description */}
-            <p className="text-sm text-white/60 leading-relaxed mb-6 line-clamp-2">
+            <p className="text-sm text-white/50 leading-relaxed mb-8 line-clamp-2">
               {description}
             </p>
 
             {/* Meta info */}
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-6 pb-6 border-b border-white/8">
+            <div className="flex flex-wrap gap-x-10 gap-y-4 mb-8 pb-8 border-b border-white/[0.06]">
               <div>
-                <span className="block text-[10px] text-white/40 mb-1 uppercase tracking-[0.15em]">
+                <span className="block text-[10px] text-white/30 mb-1.5 uppercase tracking-[0.2em]">
                   Rok
                 </span>
                 <span className="text-sm text-white font-medium">{duration}</span>
               </div>
               <div>
-                <span className="block text-[10px] text-white/40 mb-1 uppercase tracking-[0.15em]">
+                <span className="block text-[10px] text-white/30 mb-1.5 uppercase tracking-[0.2em]">
                   Model
                 </span>
                 <span className="text-sm text-white font-medium">{model}</span>
@@ -197,36 +205,36 @@ export default function ProjectCard({
 
             {/* CTA Link */}
             <motion.div
-              className="flex items-center gap-2 text-sm text-[#DC2626] font-medium"
-              animate={isHovered ? { x: 5 } : { x: 0 }}
+              className="flex items-center gap-3 text-sm text-[#DC2626] font-medium"
+              animate={isHovered ? { x: 8 } : { x: 0 }}
               transition={{ duration: 0.3, ease: EASING.power4 }}
             >
-              <span>Pogledaj detalje</span>
+              <span className="uppercase tracking-[0.1em]">Pogledaj detalje</span>
               <motion.span
-                animate={isHovered ? { x: 3, y: -3 } : { x: 0, y: 0 }}
+                animate={isHovered ? { x: 4, y: -4 } : { x: 0, y: 0 }}
                 transition={{ duration: 0.3, ease: EASING.power4 }}
               >
-                <ArrowUpRight size={16} />
+                <ArrowUpRight size={18} />
               </motion.span>
             </motion.div>
           </motion.div>
 
           {/* 3D Shadow effect */}
           <motion.div
-            className="absolute -inset-4 bg-[#DC2626]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-            style={reduceMotion ? {} : { transform: 'translateZ(-50px)' }}
+            className="absolute -inset-6 bg-[#DC2626]/5 rounded-3xl blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"
+            style={reduceMotion ? {} : { transform: 'translateZ(-40px)' }}
           />
 
           {/* Border glow on hover */}
-          <div className="absolute inset-0 rounded-3xl border border-[#DC2626]/0 group-hover:border-[#DC2626]/20 transition-all duration-500 pointer-events-none" />
-          
+          <div className="absolute inset-0 rounded-3xl border-2 border-[#DC2626]/0 group-hover:border-[#DC2626]/15 transition-all duration-500 pointer-events-none" />
+
           {/* Bottom accent line */}
           <motion.div
-            className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#DC2626] to-[#DC2626]/50"
+            className="absolute inset-x-0 bottom-0 h-[3px] bg-gradient-to-r from-[#DC2626] via-[#DC2626]/60 to-transparent"
             initial={{ scaleX: 0 }}
             animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
             style={{ transformOrigin: 'left' }}
-            transition={{ duration: 0.4, ease: EASING.power4 }}
+            transition={{ duration: 0.5, ease: EASING.power4 }}
           />
         </div>
       </Link>
