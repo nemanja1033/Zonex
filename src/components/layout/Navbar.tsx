@@ -81,7 +81,7 @@ export default function Navbar() {
     <motion.header
       className={`fixed top-0 z-50 w-full border-b transition-all duration-500 ${
         isScrolled
-          ? 'border-white/8 bg-[#1C1C1E]/80 backdrop-blur-xl shadow-lg shadow-black/20'
+          ? 'border-white/8 bg-[#0A0A0A]/90 backdrop-blur-xl shadow-lg shadow-black/20'
           : 'border-transparent bg-transparent'
       }`}
       variants={{
@@ -111,7 +111,7 @@ export default function Navbar() {
             
             {/* Animated underline */}
             <motion.div
-              className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#FF3B30] to-transparent"
+              className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#DC2626] to-transparent"
               initial={{ width: 0 }}
               whileHover={{ width: '100%' }}
               transition={{ duration: 0.3, ease: EASING.power4 }}
@@ -149,7 +149,7 @@ export default function Navbar() {
           >
             <Link
               href="/contact"
-              className="group relative px-6 py-2.5 bg-[#FF3B30] text-white text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)]"
+              className="group relative px-6 py-2.5 bg-[#DC2626] text-[#1A1A1A] text-sm font-semibold uppercase tracking-wider rounded-full overflow-hidden transition-all duration-300 hover:bg-[#EF4444] hover:shadow-[0_8px_32px_rgba(220,38,38,0.3)]"
             >
               <span className="relative z-10">Započnite projekat</span>
               
@@ -167,7 +167,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           type="button"
-          className="lg:hidden min-h-[44px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-2 text-xs font-mono uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[#FF3B30]/50 hover:bg-white/10"
+          className="lg:hidden min-h-[44px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-2 text-xs font-mono uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[#DC2626]/50 hover:bg-white/10"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -186,7 +186,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: EASING.power4 }}
-            className="lg:hidden border-t border-white/8 bg-[#1C1C1E]/95 backdrop-blur-xl overflow-hidden"
+            className="lg:hidden border-t border-white/8 bg-[#0A0A0A]/95 backdrop-blur-xl overflow-hidden"
             onKeyDown={handleTrap}
           >
             <Container className="flex flex-col gap-2 py-6">
@@ -204,7 +204,7 @@ export default function Navbar() {
                       prefetch
                       className={`flex min-h-[52px] items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300 ${
                         isActive
-                          ? 'bg-[#FF3B30]/10 text-[#FF3B30]'
+                          ? 'bg-[#DC2626]/10 text-[#DC2626]'
                           : 'text-white/70 hover:bg-white/5 hover:text-white'
                       }`}
                       onClick={() => setIsOpen(false)}
@@ -214,7 +214,7 @@ export default function Navbar() {
                     >
                       <span
                         className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                          isActive ? 'bg-[#FF3B30]' : 'border border-white/20'
+                          isActive ? 'bg-[#DC2626]' : 'border border-white/20'
                         }`}
                       />
                       <span className="text-sm font-medium uppercase tracking-[0.15em]">
@@ -234,7 +234,7 @@ export default function Navbar() {
               >
                 <Link
                   href="/contact"
-                  className="flex items-center justify-center min-h-[52px] rounded-xl bg-[#FF3B30] text-white text-sm font-medium uppercase tracking-[0.15em] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)]"
+                  className="flex items-center justify-center min-h-[52px] rounded-xl bg-[#DC2626] text-[#1A1A1A] text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 hover:bg-[#EF4444] hover:shadow-[0_8px_32px_rgba(220,38,38,0.3)]"
                   onClick={() => setIsOpen(false)}
                 >
                   Započnite projekat
@@ -307,7 +307,7 @@ function NavItem({ href, label, isActive, onPrefetch }: NavItemProps) {
         {isActive && (
           <motion.div
             layoutId="activeNavIndicator"
-            className="absolute -bottom-1 left-4 right-4 h-0.5 bg-[#FF3B30]"
+            className="absolute -bottom-1 left-4 right-4 h-0.5 bg-[#DC2626]"
             transition={{ type: 'spring', stiffness: 380, damping: 30 }}
           />
         )}

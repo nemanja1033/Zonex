@@ -11,7 +11,7 @@ export default function ProcessSection() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-32 bg-[#1C1C1E] overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -25,8 +25,8 @@ export default function ProcessSection() {
       />
 
       {/* Glow accents */}
-      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#FF3B30]/2 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#DC2626]/2 rounded-full blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}
@@ -42,10 +42,10 @@ export default function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1, ease: EASING.power4 }}
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#FF3B30]/20 bg-[#FF3B30]/5"
+            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#DC2626]/20 bg-[#DC2626]/5"
           >
-            <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-            <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+            <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+            <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
               Proces
             </span>
           </motion.div>
@@ -115,11 +115,11 @@ function ProcessCard({
       <motion.div
         whileHover={reduceMotion ? {} : { y: -8 }}
         transition={{ duration: 0.4, ease: EASING.power4 }}
-        className="relative overflow-hidden rounded-2xl border border-white/8 bg-[#2C2C2E] p-8 lg:p-10 transition-all duration-500 hover:border-white/12 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+        className="relative overflow-hidden rounded-2xl border border-white/8 bg-[#242424] p-8 lg:p-10 transition-all duration-500 hover:border-white/12 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
       >
         {/* Large number badge - background */}
         <span
-          className="absolute right-8 top-8 text-[100px] lg:text-[120px] font-bold leading-none text-[#FF3B30] opacity-[0.05] select-none pointer-events-none"
+          className="absolute right-8 top-8 text-[100px] lg:text-[120px] font-bold leading-none text-[#DC2626] opacity-[0.05] select-none pointer-events-none"
           aria-hidden="true"
         >
           {index + 1}
@@ -127,7 +127,7 @@ function ProcessCard({
 
         {/* Glow effect on hover */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0"
+          className="absolute inset-0 bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0"
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.4 }}
         />
@@ -139,8 +139,8 @@ function ProcessCard({
               Faza {index + 1}
             </span>
             <motion.span 
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#FF3B30]/30 text-sm font-bold text-[#FF3B30]"
-              animate={isHovered && !reduceMotion ? { scale: 1.1, borderColor: 'rgba(255, 59, 48, 0.6)' } : {}}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DC2626]/30 text-sm font-bold text-[#DC2626]"
+              animate={isHovered && !reduceMotion ? { scale: 1.1, borderColor: 'rgba(220, 38, 38, 0.6)' } : {}}
               transition={{ duration: 0.3 }}
             >
               {index + 1}
@@ -148,7 +148,7 @@ function ProcessCard({
           </div>
 
           <motion.h3 
-            className="text-2xl lg:text-3xl font-bold text-white transition-colors duration-300 group-hover:text-[#FF3B30]"
+            className="text-2xl lg:text-3xl font-bold text-white transition-colors duration-300 group-hover:text-[#DC2626]"
           >
             {step.title}
           </motion.h3>
@@ -157,7 +157,7 @@ function ProcessCard({
 
           {/* Animated divider */}
           <motion.div
-            className="h-px bg-gradient-to-r from-[#FF3B30]/50 to-transparent"
+            className="h-px bg-gradient-to-r from-[#DC2626]/50 to-transparent"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: isHovered ? 1 : 0 }}
             style={{ transformOrigin: 'left' }}
@@ -166,8 +166,8 @@ function ProcessCard({
         </div>
 
         {/* Corner accents */}
-        <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tl-2xl transition-all duration-500" />
-        <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-br-2xl transition-all duration-500" />
+        <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tl-2xl transition-all duration-500" />
+        <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-br-2xl transition-all duration-500" />
       </motion.div>
     </motion.div>
   )

@@ -27,7 +27,7 @@ export default function StandardsSection() {
   ]
 
   return (
-    <section className="relative py-20 lg:py-28 bg-[#1C1C1E] overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-[#0A0A0A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -41,7 +41,7 @@ export default function StandardsSection() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
@@ -53,8 +53,8 @@ export default function StandardsSection() {
             className="space-y-6"
           >
             <div className="inline-flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                 Standardi
               </span>
             </div>
@@ -88,13 +88,13 @@ export default function StandardsSection() {
                 key={item.title}
                 variants={staggerItem}
                 whileHover={reduceMotion ? {} : { y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative z-10">
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#FF3B30] transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
                     {item.title}
                   </h3>
                   <p className="text-sm text-white/60 leading-relaxed">
@@ -103,7 +103,7 @@ export default function StandardsSection() {
                 </div>
 
                 {/* Corner accent */}
-                <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tr-lg transition-all duration-300" />
+                <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-lg transition-all duration-300" />
               </motion.div>
             ))}
           </motion.div>

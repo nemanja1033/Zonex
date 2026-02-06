@@ -40,7 +40,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout={!disableLayout}
-        className="flex flex-wrap items-start gap-8 rounded-2xl bg-[#2C2C2E] border border-white/8 p-6"
+        className="flex flex-wrap items-start gap-8 rounded-2xl bg-[#242424] border border-white/8 p-6"
         initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 8 } : { opacity: 0, y: 12 }}
         animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
         transition={
@@ -110,7 +110,7 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
             aria-pressed={value === item.value}
             className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${
               value === item.value
-                ? 'bg-[#FF3B30]/10 text-[#FF3B30] border border-[#FF3B30]/20'
+                ? 'bg-[#DC2626]/10 text-[#DC2626] border border-[#DC2626]/20'
                 : 'bg-white/5 text-white/60 border border-white/8 hover:bg-white/10 hover:text-white'
             }`}
           >

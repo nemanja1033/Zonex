@@ -63,7 +63,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="p-6 md:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 space-y-6"
+      className="p-6 md:p-8 rounded-2xl bg-[#242424] border border-white/8 space-y-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -95,7 +95,7 @@ export default function ContactForm() {
       <div className="space-y-3">
         <motion.div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
           <motion.div
-            className="h-full bg-[#FF3B30]"
+            className="h-full bg-[#DC2626]"
             initial={{ scaleX: 0 }}
             animate={isSubmitting ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ duration: 0.3, ease: EASING.power4 }}
@@ -104,7 +104,7 @@ export default function ContactForm() {
         </motion.div>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-3 rounded-full bg-[#FF3B30] py-4 text-sm font-medium uppercase tracking-[0.1em] text-white transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,59,48,0.3)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-3 rounded-full bg-[#DC2626] py-4 text-sm font-medium uppercase tracking-[0.1em] text-white transition-all duration-300 hover:shadow-[0_8px_32px_rgba(220,38,38,0.3)] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
         >
@@ -193,7 +193,7 @@ function Field({
       </label>
       <Component
         id={fieldId}
-        className="mt-2 w-full rounded-lg border border-white/10 bg-[#36363A] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/30 focus:border-[#FF3B30] focus:ring-2 focus:ring-[#FF3B30]/20"
+        className="mt-2 w-full rounded-lg border border-white/10 bg-[#2C2C2E] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/30 focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/20"
         placeholder={label}
         value={value}
         onChange={onChange}
@@ -207,7 +207,7 @@ function Field({
         <motion.p
           key={error ? 'error' : 'helper'}
           id={error ? `${fieldId}-error` : undefined}
-          className={`mt-2 text-xs ${error ? 'text-[#FF3B30]' : 'text-white/40'}`}
+          className={`mt-2 text-xs ${error ? 'text-[#DC2626]' : 'text-white/40'}`}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}

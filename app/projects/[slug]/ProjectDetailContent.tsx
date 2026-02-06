@@ -25,7 +25,7 @@ export default function ProjectDetailContent({
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMUMxQzFFIi8+PC9zdmc+'
 
   return (
-    <section className="relative py-16 lg:py-24 bg-[#1C1C1E]">
+    <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -39,7 +39,7 @@ export default function ProjectDetailContent({
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10 space-y-16">
         {/* Project Info */}
@@ -50,7 +50,7 @@ export default function ProjectDetailContent({
           transition={{ duration: 0.5, ease: EASING.power4 }}
           className="grid gap-6 md:grid-cols-2"
         >
-          <div className="p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300">
+          <div className="p-6 lg:p-8 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Pregled</p>
             <h2 className="text-2xl font-bold text-white mb-6">Osnovne informacije</h2>
             <div className="grid gap-6 text-sm md:grid-cols-2">
@@ -73,13 +73,13 @@ export default function ProjectDetailContent({
             </div>
           </div>
           
-          <div className="p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300">
+          <div className="p-6 lg:p-8 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Ključne tačke</p>
             <h3 className="text-xl font-bold text-white mb-4">Fokus realizacije</h3>
             <ul className="space-y-3">
               {project.highlights.map((highlight) => (
                 <li key={highlight} className="flex items-start gap-3 text-sm text-white/70">
-                  <span className="mt-1.5 h-2 w-2 rounded-full bg-[#FF3B30] flex-shrink-0" />
+                  <span className="mt-1.5 h-2 w-2 rounded-full bg-[#DC2626] flex-shrink-0" />
                   <span>{highlight}</span>
                 </li>
               ))}
@@ -110,7 +110,7 @@ export default function ProjectDetailContent({
                 <motion.div
                   key={image.src}
                   variants={staggerItem}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
                 >
                   <Image
                     src={image.src}
@@ -167,20 +167,20 @@ export default function ProjectDetailContent({
         >
           <Link 
             href={`/projects/${prev.slug}`}
-            className="group p-6 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+            className="group p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
           >
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">← Prethodni</p>
-            <h3 className="text-lg font-bold text-white group-hover:text-[#FF3B30] transition-colors duration-300">
+            <h3 className="text-lg font-bold text-white group-hover:text-[#DC2626] transition-colors duration-300">
               {prev.name}
             </h3>
             <p className="mt-1 text-sm text-white/60">{prev.location}</p>
           </Link>
           <Link 
             href={`/projects/${next.slug}`}
-            className="group p-6 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300 text-right"
+            className="group p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300 text-right"
           >
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Sledeći →</p>
-            <h3 className="text-lg font-bold text-white group-hover:text-[#FF3B30] transition-colors duration-300">
+            <h3 className="text-lg font-bold text-white group-hover:text-[#DC2626] transition-colors duration-300">
               {next.name}
             </h3>
             <p className="mt-1 text-sm text-white/60">{next.location}</p>

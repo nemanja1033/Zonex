@@ -39,7 +39,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(220px circle at var(--spotlight-x) var(--spotlight-y), rgba(255, 59, 48, 0.15), transparent 65%);
+  background: radial-gradient(220px circle at var(--spotlight-x) var(--spotlight-y), rgba(212, 160, 23, 0.15), transparent 65%);
   opacity: 0.75;
   pointer-events: none;
 }

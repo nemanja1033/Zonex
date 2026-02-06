@@ -21,7 +21,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMUMxQzFFIi8+PC9zdmc+'
 
   return (
-    <section className="relative overflow-hidden bg-[#1C1C1E] pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <section className="relative overflow-hidden bg-[#0A0A0A] pt-32 pb-16 lg:pt-40 lg:pb-20">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -35,7 +35,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FF3B30]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/5 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="grid gap-8 md:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -103,7 +103,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
               {project.focus.map((badge) => (
                 <span 
                   key={badge}
-                  className="px-3 py-1.5 rounded-full bg-[#FF3B30]/10 border border-[#FF3B30]/20 text-[10px] uppercase tracking-[0.15em] text-[#FF3B30]"
+                  className="px-3 py-1.5 rounded-full bg-[#DC2626]/10 border border-[#DC2626]/20 text-[10px] uppercase tracking-[0.15em] text-[#DC2626]"
                 >
                   {badge}
                 </span>
@@ -116,7 +116,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
             initial={reduceMotion ? undefined : { opacity: 0, scale: 0.95 }}
             animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3, ease: EASING.power4 }}
-            className="group relative overflow-hidden rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+            className="group relative overflow-hidden rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
           >
             <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden">
               <motion.div style={reduceMotion ? {} : { y }} className="absolute inset-0">
@@ -131,7 +131,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
                   blurDataURL={blurDataURL}
                 />
               </motion.div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2C2C2E] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#242424] via-transparent to-transparent" />
             </div>
             <div className="p-6">
               <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Obim</p>
@@ -139,7 +139,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
             </div>
 
             {/* Corner accent */}
-            <div className="absolute top-4 right-4 w-10 h-10 border-t border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tr-xl transition-all duration-300" />
+            <div className="absolute top-4 right-4 w-10 h-10 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-xl transition-all duration-300" />
           </motion.div>
         </div>
       </Container>

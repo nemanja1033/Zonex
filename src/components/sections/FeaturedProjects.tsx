@@ -12,7 +12,7 @@ export default function FeaturedProjects() {
   const featured = projects.slice(0, 3)
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#1C1C1E] overflow-hidden">
+    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -26,7 +26,7 @@ export default function FeaturedProjects() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}
@@ -39,8 +39,8 @@ export default function FeaturedProjects() {
             className="space-y-4"
           >
             <div className="inline-flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                 Projekti
               </span>
             </div>

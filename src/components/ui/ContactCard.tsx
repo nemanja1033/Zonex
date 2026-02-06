@@ -15,13 +15,13 @@ export default function ContactCard({ showMapLink = true }: ContactCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: EASING.power4 }}
-      className="group p-6 md:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300 space-y-6"
+      className="group p-6 md:p-8 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300 space-y-6"
     >
       <div>
         <p className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Email</p>
         <a 
           href="mailto:office@zonex.rs" 
-          className="text-base text-white hover:text-[#FF3B30] transition-colors duration-300"
+          className="text-base text-white hover:text-[#DC2626] transition-colors duration-300"
         >
           office@zonex.rs
         </a>
@@ -30,7 +30,7 @@ export default function ContactCard({ showMapLink = true }: ContactCardProps) {
         <p className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Telefon</p>
         <a 
           href="tel:+38121555300" 
-          className="text-base text-white hover:text-[#FF3B30] transition-colors duration-300"
+          className="text-base text-white hover:text-[#DC2626] transition-colors duration-300"
         >
           +381 21 555 300
         </a>
@@ -44,7 +44,7 @@ export default function ContactCard({ showMapLink = true }: ContactCardProps) {
           <p className="text-sm text-white/70 mb-1">Brza lokacija</p>
           <p className="text-xs text-white/50 mb-3">Prikaži adresu bez teških embedova.</p>
           <a
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-[#FF3B30] hover:text-[#FF453A] transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-[#DC2626] hover:text-[#EF4444] transition-colors duration-300"
             href="https://maps.google.com"
             target="_blank"
             rel="noreferrer"

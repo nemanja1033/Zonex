@@ -9,7 +9,7 @@ export default function ProofStrip() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative py-16 lg:py-20 bg-[#2C2C2E] overflow-hidden">
+    <section className="relative py-16 lg:py-20 bg-[#242424] overflow-hidden">
       {/* Background grid pattern */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
@@ -23,7 +23,7 @@ export default function ProofStrip() {
       />
 
       {/* Glow accent */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#FF3B30]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#DC2626]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}
@@ -34,7 +34,7 @@ export default function ProofStrip() {
           transition={{ duration: 0.5, ease: EASING.power4 }}
           className="flex items-center gap-3 mb-8"
         >
-          <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
+          <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
           <span className="text-xs uppercase tracking-[0.2em] text-white/50 font-medium">
             Dokazi kapaciteta
           </span>
@@ -63,10 +63,10 @@ export default function ProofStrip() {
               key={proof.label}
               variants={staggerItem}
               whileHover={reduceMotion ? {} : { y: -5 }}
-              className="group relative p-6 lg:p-8 rounded-2xl bg-[#36363A] border border-white/8 hover:border-white/12 transition-all duration-300"
+              className="group relative p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
             >
               {/* Hover glow */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative z-10">
                 <p className="text-sm text-white/60 mb-3">{proof.label}</p>
@@ -76,7 +76,7 @@ export default function ProofStrip() {
               </div>
 
               {/* Corner accent */}
-              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#FF3B30]/20 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#DC2626]/20 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </motion.div>

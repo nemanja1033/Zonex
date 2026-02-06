@@ -25,7 +25,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/8 bg-[#1C1C1E]">
+    <footer className="relative overflow-hidden border-t border-white/8 bg-[#0A0A0A]">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -39,7 +39,7 @@ export default function Footer() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10 py-16 lg:py-20">
         <motion.div
@@ -55,7 +55,7 @@ export default function Footer() {
               <h3 className="text-xl font-bold text-white">
                 ZONEX <span className="text-white/40">— INŽENJERING</span>
               </h3>
-              <div className="h-1 w-12 rounded-full bg-[#FF3B30]" />
+              <div className="h-1 w-12 rounded-full bg-[#DC2626]" />
             </div>
             <p className="text-sm text-white/50 max-w-xs leading-relaxed">
               Inženjering sa jasnim rokovima i proverljivim kvalitetom. Preko 30 godina iskustva u realizaciji zahtevnih projekata.
@@ -78,9 +78,9 @@ export default function Footer() {
                   <span>{link.label}</span>
                   <ArrowUpRight 
                     size={12} 
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#FF3B30]" 
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#DC2626]" 
                   />
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#FF3B30] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#DC2626] transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </nav>
@@ -93,13 +93,13 @@ export default function Footer() {
             </h4>
             <div className="space-y-4 text-sm text-white/60">
               <div className="flex items-start gap-3 group">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3B30]" />
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                 <span className="group-hover:text-white transition-colors duration-300">
                   {site.company.location}
                 </span>
               </div>
               <div className="flex items-center gap-3 group">
-                <Mail className="h-4 w-4 flex-shrink-0 text-[#FF3B30]" />
+                <Mail className="h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                 <a
                   href="mailto:info@zonex.rs"
                   className="hover:text-white transition-colors duration-300"
@@ -108,7 +108,7 @@ export default function Footer() {
                 </a>
               </div>
               <div className="flex items-center gap-3 group">
-                <Phone className="h-4 w-4 flex-shrink-0 text-[#FF3B30]" />
+                <Phone className="h-4 w-4 flex-shrink-0 text-[#DC2626]" />
                 <a
                   href="tel:+381123456789"
                   className="hover:text-white transition-colors duration-300"
@@ -124,7 +124,7 @@ export default function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
-                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:border-[#FF3B30]/30 hover:bg-[#FF3B30]/10 hover:text-[#FF3B30]"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:border-[#DC2626]/30 hover:bg-[#DC2626]/10 hover:text-[#DC2626]"
                   aria-label={social.label}
                 >
                   <span className="text-xs font-medium">{social.label.charAt(0)}</span>

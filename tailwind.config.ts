@@ -5,32 +5,50 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Premium Charcoal Dark Theme
-        base: '#1C1C1E',
-        elevated: '#2C2C2E',
-        card: '#36363A',
-        hover: '#48484A',
-        input: '#3A3A3C',
-        
-        // Brand Red
-        red: {
-          primary: '#FF3B30',
-          hover: '#FF453A',
-          pressed: '#FF2D20',
-          bg: 'rgba(255, 59, 48, 0.1)',
-          border: 'rgba(255, 59, 48, 0.2)',
+        // Industrial Charcoal Dark Theme
+        base: '#0A0A0A',
+        elevated: '#111111',
+        card: '#1A1A1A',
+        hover: '#242424',
+        input: '#1A1A1A',
+
+        // Zonex Red - Brand color
+        zonex: {
+          50: '#FEF2F2',
+          100: '#FEE2E2',
+          200: '#FECACA',
+          300: '#FCA5A5',
+          400: '#F87171',
+          500: '#DC2626',
+          600: '#B91C1C',
+          700: '#991B1B',
+          800: '#7F1D1D',
+          900: '#601414',
+          DEFAULT: '#DC2626',
+          bg: 'rgba(220, 38, 38, 0.1)',
+          border: 'rgba(220, 38, 38, 0.25)',
         },
-        
+
+        // Concrete/Industrial grays
+        concrete: {
+          50: '#F5F5F5',
+          100: '#E5E5E5',
+          200: '#D4D4D4',
+          300: '#A3A3A3',
+          400: '#737373',
+          500: '#525252',
+          600: '#404040',
+          700: '#262626',
+          800: '#171717',
+          900: '#0A0A0A',
+        },
+
         // Legacy color mappings
         void: {
-          base: '#1C1C1E',
-          obsidian: '#1C1C1E',
-          charcoal: '#2C2C2E',
-          slate: '#36363A',
-        },
-        industrial: {
-          orange: '#FF3B30',
-          ember: '#FF453A',
+          base: '#0A0A0A',
+          obsidian: '#0A0A0A',
+          charcoal: '#111111',
+          slate: '#1A1A1A',
         },
         navy: {
           900: 'var(--bg-base)',
@@ -107,7 +125,7 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'glow-conic': 'conic-gradient(from 180deg at 50% 50%, #FF3B30, #FF453A, #FF2D20, #FF453A, #FF3B30)',
+        'glow-conic': 'conic-gradient(from 180deg at 50% 50%, #DC2626, #EF4444, #B91C1C, #EF4444, #DC2626)',
       },
     },
   },

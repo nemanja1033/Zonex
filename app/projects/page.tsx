@@ -11,7 +11,7 @@ export default function ProjectsPage() {
         title="Naši projekti"
         subtitle={site.projectsIntro}
       />
-      <section className="relative py-16 lg:py-24 bg-[#1C1C1E]">
+      <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.02]"
@@ -25,7 +25,7 @@ export default function ProjectsPage() {
         />
 
         {/* Glow accent */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
         <Container className="relative z-10">
           <ProjectsGrid />

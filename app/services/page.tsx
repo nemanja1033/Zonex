@@ -17,7 +17,7 @@ export default function ServicesPage() {
       />
       
       {/* Services grid */}
-      <section className="relative py-16 lg:py-24 bg-[#2C2C2E]">
+      <section className="relative py-16 lg:py-24 bg-[#242424]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.03]"
@@ -52,13 +52,13 @@ export default function ServicesPage() {
                 key={service.title}
                 variants={staggerItem}
                 whileHover={{ y: -5 }}
-                className="group relative p-6 lg:p-8 rounded-2xl bg-[#36363A] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative z-10">
-                  <h2 className="text-xl font-bold text-white mb-3 group-hover:text-[#FF3B30] transition-colors duration-300">
+                  <h2 className="text-xl font-bold text-white mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
                     {service.title}
                   </h2>
                   <p className="text-sm text-white/60 leading-relaxed">
@@ -67,7 +67,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Corner accent */}
-                <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tr-lg transition-all duration-300" />
+                <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-lg transition-all duration-300" />
               </motion.div>
             ))}
           </motion.div>
@@ -75,7 +75,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Process section */}
-      <section className="relative py-16 lg:py-24 bg-[#1C1C1E]">
+      <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.02]"
@@ -89,7 +89,7 @@ export default function ServicesPage() {
         />
 
         {/* Glow accent */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
         <Container className="relative z-10">
           <motion.div
@@ -100,8 +100,8 @@ export default function ServicesPage() {
             className="mb-10"
           >
             <div className="inline-flex items-center gap-3 mb-4">
-              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                 Proces
               </span>
             </div>
@@ -129,16 +129,16 @@ export default function ServicesPage() {
                 key={step.title}
                 variants={staggerItem}
                 whileHover={{ y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative z-10">
                   <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">
                     Faza {index + 1}
                   </p>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FF3B30] transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#DC2626] transition-colors duration-300">
                     {step.title}
                   </h3>
                   <p className="text-sm text-white/60 leading-relaxed">
@@ -147,7 +147,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Number badge */}
-                <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#FF3B30]/20 text-xs font-bold text-[#FF3B30]">
+                <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#DC2626]/20 text-xs font-bold text-[#DC2626]">
                   {index + 1}
                 </div>
               </motion.div>

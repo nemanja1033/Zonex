@@ -11,7 +11,7 @@ export default function ProjectsShowcase() {
   const featured = projects.slice(0, 4)
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#1C1C1E] overflow-hidden">
+    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -25,7 +25,7 @@ export default function ProjectsShowcase() {
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
       
       <Container className="relative z-10">
         {/* Header */}
@@ -45,8 +45,8 @@ export default function ProjectsShowcase() {
                 transition={{ duration: 0.5, delay: 0.1, ease: EASING.power4 }}
                 className="inline-flex items-center gap-3"
               >
-                <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-                <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+                <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+                <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                   Projekti
                 </span>
               </motion.div>
@@ -128,7 +128,7 @@ export default function ProjectsShowcase() {
                 fill="none" 
                 stroke="currentColor" 
                 strokeWidth="1.5"
-                className="transition-colors duration-300 group-hover:stroke-[#FF3B30]"
+                className="transition-colors duration-300 group-hover:stroke-[#DC2626]"
               >
                 <path d="M5 12h14" strokeLinecap="round" />
                 <path d="M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />

@@ -85,13 +85,13 @@ export default function ProjectCard({
       className="group relative"
     >
       <Link href={href}>
-        <div className="relative bg-[#2C2C2E] rounded-3xl overflow-hidden border border-white/8 hover:border-white/12 transition-all duration-500">
+        <div className="relative bg-[#242424] rounded-3xl overflow-hidden border border-white/8 hover:border-white/12 transition-all duration-500">
           
           {/* Glow effect following cursor */}
           <motion.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
             style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(255, 59, 48, 0.12), transparent 40%)`,
+              background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(220, 38, 38, 0.12), transparent 40%)`,
             }}
           />
 
@@ -112,7 +112,7 @@ export default function ProjectCard({
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#36363A] to-[#2C2C2E]">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#2C2C2E] to-[#242424]">
                   <Image
                     src="/images/project-placeholder.svg"
                     alt={`${title} placeholder`}
@@ -135,7 +135,7 @@ export default function ProjectCard({
               )}
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2C2C2E] via-[#2C2C2E]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#242424] via-[#242424]/60 to-transparent" />
             </motion.div>
 
             {/* Tags floating above image */}
@@ -150,7 +150,7 @@ export default function ProjectCard({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 + i * 0.1, duration: 0.4, ease: EASING.power4 }}
-                    className="px-3 py-1.5 rounded-full bg-[#1C1C1E]/80 backdrop-blur-md border border-white/10 text-[10px] text-white/70 uppercase tracking-[0.15em] font-medium"
+                    className="px-3 py-1.5 rounded-full bg-[#1A1A1A]/80 backdrop-blur-md border border-white/10 text-[10px] text-white/70 uppercase tracking-[0.15em] font-medium"
                   >
                     {tag}
                   </motion.span>
@@ -170,7 +170,7 @@ export default function ProjectCard({
             </p>
 
             {/* Title */}
-            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#FF3B30] transition-colors duration-300">
+            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#DC2626] transition-colors duration-300">
               {title}
             </h3>
 
@@ -197,7 +197,7 @@ export default function ProjectCard({
 
             {/* CTA Link */}
             <motion.div
-              className="flex items-center gap-2 text-sm text-[#FF3B30] font-medium"
+              className="flex items-center gap-2 text-sm text-[#DC2626] font-medium"
               animate={isHovered ? { x: 5 } : { x: 0 }}
               transition={{ duration: 0.3, ease: EASING.power4 }}
             >
@@ -213,16 +213,16 @@ export default function ProjectCard({
 
           {/* 3D Shadow effect */}
           <motion.div
-            className="absolute -inset-4 bg-[#FF3B30]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+            className="absolute -inset-4 bg-[#DC2626]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
             style={reduceMotion ? {} : { transform: 'translateZ(-50px)' }}
           />
 
           {/* Border glow on hover */}
-          <div className="absolute inset-0 rounded-3xl border border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 transition-all duration-500 pointer-events-none" />
+          <div className="absolute inset-0 rounded-3xl border border-[#DC2626]/0 group-hover:border-[#DC2626]/20 transition-all duration-500 pointer-events-none" />
           
           {/* Bottom accent line */}
           <motion.div
-            className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#FF3B30] to-[#FF3B30]/50"
+            className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#DC2626] to-[#DC2626]/50"
             initial={{ scaleX: 0 }}
             animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
             style={{ transformOrigin: 'left' }}

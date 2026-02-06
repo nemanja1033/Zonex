@@ -16,7 +16,7 @@ export default function CtaSection() {
   ]
 
   return (
-    <section className="relative overflow-hidden bg-[#2C2C2E] py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-[#242424] py-24 lg:py-32">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
@@ -30,7 +30,7 @@ export default function CtaSection() {
       />
 
       {/* Glow accents */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FF3B30]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#DC2626]/5 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
@@ -46,10 +46,10 @@ export default function CtaSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1, ease: EASING.power4 }}
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#FF3B30]/20 bg-[#FF3B30]/5"
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#DC2626]/20 bg-[#DC2626]/5"
             >
-              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                 Kontakt
               </span>
             </motion.div>
@@ -62,7 +62,7 @@ export default function CtaSection() {
               className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white"
             >
               Spremni za projekat sa
-              <span className="block bg-gradient-to-r from-white via-white/90 to-[#FF3B30] bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-white via-white/90 to-[#DC2626] bg-clip-text text-transparent">
                 jasnim standardima?
               </span>
             </motion.h2>
@@ -110,8 +110,8 @@ export default function CtaSection() {
                   whileHover={reduceMotion ? {} : { scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF3B30]/10 border border-[#FF3B30]/20 group-hover:bg-[#FF3B30]/20 group-hover:border-[#FF3B30]/30 transition-all duration-300">
-                    <CheckCircle2 className="h-6 w-6 text-[#FF3B30]" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#DC2626]/10 border border-[#DC2626]/20 group-hover:bg-[#DC2626]/20 group-hover:border-[#DC2626]/30 transition-all duration-300">
+                    <CheckCircle2 className="h-6 w-6 text-[#DC2626]" />
                   </div>
                 </motion.div>
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">

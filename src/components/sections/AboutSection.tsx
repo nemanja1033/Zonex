@@ -9,7 +9,7 @@ export default function AboutSection() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative py-20 lg:py-28 bg-[#2C2C2E] overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-[#242424] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
@@ -23,7 +23,7 @@ export default function AboutSection() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#FF3B30]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}
@@ -36,8 +36,8 @@ export default function AboutSection() {
             className="space-y-4"
           >
             <div className="inline-flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[#FF3B30]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[#FF3B30] font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
+              <span className="text-xs uppercase tracking-[0.2em] text-[#DC2626] font-medium">
                 O nama
               </span>
             </div>
@@ -80,17 +80,17 @@ export default function AboutSection() {
               key={item.title}
               variants={staggerItem}
               whileHover={reduceMotion ? {} : { y: -5 }}
-              className="group relative p-6 lg:p-8 rounded-2xl bg-[#36363A] border border-white/8 hover:border-white/12 transition-all duration-300"
+              className="group relative p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
             >
               {/* Hover glow */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF3B30]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative z-10">
                 <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.2em] text-white/40 mb-4">
                   <span>0{index + 1}</span>
                   <span>Princip</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#FF3B30] transition-colors duration-300">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
                   {item.title}
                 </h3>
                 <p className="text-sm text-white/60 leading-relaxed">
@@ -99,7 +99,7 @@ export default function AboutSection() {
               </div>
 
               {/* Corner accent */}
-              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#FF3B30]/0 group-hover:border-[#FF3B30]/20 rounded-tr-lg transition-all duration-300" />
+              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-lg transition-all duration-300" />
             </motion.div>
           ))}
         </motion.div>
