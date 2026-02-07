@@ -38,6 +38,11 @@ export const projects: Project[] = [
       'Kontrola kvaliteta završne obrade i standarda brenda.',
     ],
     focus: ['Vreme', 'Kvalitet', 'Standardi'],
+    image: '/images/projects/kfc-zrenjanin-02.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin-02.jpg', alt: "McDonald's Zrenjanin - gradilište" },
+      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: "McDonald's Zrenjanin - konstrukcija" },
+    ],
   },
   {
     slug: 'mcdonalds-ruklada',
@@ -57,6 +62,11 @@ export const projects: Project[] = [
       'Precizna koordinacija i kontrola detalja završne obrade.',
     ],
     focus: ['Standardi', 'Vreme', 'Kvalitet'],
+    image: '/images/projects/kfc-zrenjanin-03.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: "McDonald's Ruklada - radovi" },
+      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: "McDonald's Ruklada - završni radovi" },
+    ],
   },
   {
     slug: 'zlatiborski-konaci',
@@ -76,6 +86,11 @@ export const projects: Project[] = [
       'Fazna koordinacija i kontrola kvaliteta.',
     ],
     focus: ['Kvalitet', 'Standardi'],
+    image: '/images/projects/kfc-zrenjanin-04.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: 'Zlatiborski konaci - izgradnja' },
+      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'Zlatiborski konaci - radovi' },
+    ],
   },
   {
     slug: 'knez-petrol-simanovci',
@@ -95,6 +110,11 @@ export const projects: Project[] = [
       'Realizacija na zahtevnoj lokaciji visokog protoka.',
     ],
     focus: ['Bezbednost', 'Životna sredina', 'Standardi'],
+    image: '/images/projects/kfc-zrenjanin-05.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'Knez Petrol - gradilište' },
+      { src: '/images/projects/kfc-zrenjanin-01.jpg', alt: 'Knez Petrol - konstrukcija' },
+    ],
   },
   {
     slug: 'kfc-zrenjanin',

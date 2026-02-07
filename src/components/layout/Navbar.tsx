@@ -9,7 +9,7 @@ import Container from '@/components/ui/Container'
 import { EASING, SPRING } from '@/lib/animations'
 
 const navItems = [
-  { label: 'Pocetna', href: '/' },
+  { label: 'Početna', href: '/' },
   { label: 'Projekti', href: '/projects' },
   { label: 'Usluge', href: '/services' },
   { label: 'O nama', href: '/company' },

@@ -199,10 +199,9 @@ export default function ServicesCarousel() {
               transition={{ duration: 0.6, delay: 0.1, ease: EASING.power4 }}
               className="space-y-2 md:space-y-4"
             >
-              <h2 className="font-display text-[24px] leading-[1.15] text-white md:text-5xl xl:text-6xl">
-                Integrisane usluge{' '}
-                <span className="md:block text-white/50">sa preciznim</span>{' '}
-                <span className="md:block text-white/50">fazama isporuke.</span>
+              <h2 className="font-display text-[22px] leading-[1.2] text-white md:text-5xl xl:text-6xl">
+                <span className="block">Integrisane usluge</span>
+                <span className="block text-white/50">sa preciznim fazama isporuke.</span>
               </h2>
             </motion.div>
 
@@ -214,10 +213,10 @@ export default function ServicesCarousel() {
               className="space-y-3 md:space-y-4"
             >
               <p className="text-[13px] text-white/50 md:text-lg leading-relaxed">
-                Svaka usluga je strukturisana kroz rokove, kontrolne tacke i jasnu dokumentaciju koju investitori ocekuju.
+                Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
               </p>
               <p className="hidden text-sm text-white/35 md:block md:text-base">
-                Operativa, koordinacija i zavrsni standardi u jednoj liniji isporuke.
+                Operativa, koordinacija i završni standardi u jednoj liniji isporuke.
               </p>
             </motion.div>
 
@@ -275,7 +274,7 @@ export default function ServicesCarousel() {
                   }`}
                   whileHover={activeIndex !== services.length - 1 ? { scale: 1.05 } : {}}
                   whileTap={activeIndex !== services.length - 1 ? { scale: 0.95 } : {}}
-                  aria-label="Sledeca usluga"
+                  aria-label="Sledeća usluga"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -289,11 +288,11 @@ export default function ServicesCarousel() {
           <div className="lg:col-span-7">
             {isMobile ? (
               <div className="space-y-3 overflow-x-clip">
-                <div className="px-4">
+                <div className="pl-4 pr-0">
                   <div
                     ref={scrollerRef}
-                    className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
-                    style={{ scrollPaddingInline: '16px' }}
+                    className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-0 pr-4 [-webkit-overflow-scrolling:touch] overscroll-x-contain"
+                    style={{ scrollPaddingInline: '24px' }}
                   >
                     {services.map((service, index) => (
                       <div
@@ -301,7 +300,7 @@ export default function ServicesCarousel() {
                         ref={(node) => {
                           cardRefs.current[index] = node
                         }}
-                        className="w-[calc(100vw-48px)] flex-shrink-0 snap-center box-border"
+                        className="w-[calc(100vw-56px)] flex-shrink-0 snap-center box-border first:ml-0"
                       >
                         <ServiceCard service={service} reduceMotion={reduceMotion} />
                       </div>
@@ -391,7 +390,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
 
         {/* Content */}
         <div className="relative">
-          <div className="space-y-3 px-4 pb-4 pt-4 md:space-y-5 md:px-10 md:pb-8 md:pt-10">
+          <div className="space-y-3 px-5 pb-4 pt-5 md:space-y-5 md:px-10 md:pb-8 md:pt-10">
             <div className="flex items-center justify-between">
               <motion.span
                 className="hidden text-[80px] font-bold leading-none text-[#DC2626]/[0.08] md:inline-block lg:text-[100px]"
@@ -400,20 +399,20 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
               >
                 {service.number}
               </motion.span>
-              <span className="rounded-full border border-[#DC2626]/25 bg-[#DC2626]/10 px-3 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] text-[#DC2626] md:px-4 md:py-2 md:text-[10px] md:tracking-[0.25em]">
+              <span className="rounded-full border border-[#DC2626]/25 bg-[#DC2626]/10 px-3 py-1.5 text-[9px] font-medium uppercase tracking-[0.15em] text-[#DC2626] md:px-4 md:py-2 md:text-[10px] md:tracking-[0.25em]">
                 Usluga {service.number}
               </span>
             </div>
 
             <motion.h3
-              className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-[#DC2626] md:text-3xl lg:text-4xl"
+              className="text-[17px] font-bold text-white transition-colors duration-300 group-hover:text-[#DC2626] md:text-3xl lg:text-4xl leading-tight"
               animate={isHovered && !reduceMotion ? { x: 8 } : { x: 0 }}
               transition={{ duration: 0.3 }}
             >
               {service.title}
             </motion.h3>
 
-            <p className="max-w-md text-[12px] text-white/50 md:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
+            <p className="text-[12px] text-white/50 md:text-base leading-relaxed line-clamp-3 md:line-clamp-none">
               {service.description}
             </p>
 

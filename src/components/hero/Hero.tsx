@@ -15,10 +15,10 @@ export default function Hero() {
   }, [])
 
   const stats = [
-    { value: '30+', label: 'Godina iskustva' },
-    { value: '1993', label: 'Godina osnivanja' },
-    { value: 'Kljuc u ruke', label: 'Model isporuke', isText: true },
-    { value: 'ISO', label: 'Standardi kvaliteta', isText: true },
+    { value: '30+', label: 'Godina iskustva', highlight: true },
+    { value: '1993', label: 'Osnivanje', sublabel: 'Beograd' },
+    { value: 'Ključ u ruke', label: 'Model isporuke', isText: true },
+    { value: 'ISO 9001', label: 'Sertifikovan', isText: true },
   ]
 
   const containerVariants = {
@@ -164,7 +164,7 @@ export default function Hero() {
               style={{ transformOrigin: 'left', width: 48 }}
             />
             <span className="text-[#DC2626] text-[11px] font-semibold tracking-[0.25em] uppercase">
-              Generalni izvodjac
+              Generalni izvođač
             </span>
             <motion.span
               className="h-1.5 w-1.5 rounded-full bg-[#DC2626]"
@@ -178,8 +178,8 @@ export default function Hero() {
             variants={itemVariants}
             className="font-display text-[clamp(2.8rem,8vw,5.5rem)] text-white leading-[0.95] tracking-[0.02em] max-w-[950px] mb-8"
           >
-            Inzenjering koji<br />
-            isporucuje u rokovima,<br />
+            Inženjering koji<br />
+            isporučuje u rokovima,<br />
             <span className="relative">
               <span className="text-[#DC2626]">sa proverljivim</span>
               <motion.span
@@ -213,7 +213,7 @@ export default function Hero() {
                 whileHover={{ x: '200%' }}
                 transition={{ duration: 0.6 }}
               />
-              <span className="relative z-10">Nasi projekti</span>
+              <span className="relative z-10">Naši projekti</span>
               <motion.svg
                 className="relative z-10 w-4 h-4"
                 fill="none"
@@ -228,11 +228,11 @@ export default function Hero() {
             </Link>
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-3 border border-white/20 text-white px-8 py-4 text-[13px] font-semibold tracking-[0.12em] uppercase transition-all duration-500 hover:border-white/40 hover:bg-white/[0.05] backdrop-blur-sm"
+              className="group relative inline-flex items-center gap-3 border-2 border-white/30 text-white/90 px-8 py-4 text-[13px] font-semibold tracking-[0.12em] uppercase transition-all duration-500 hover:border-white/50 hover:text-white hover:bg-white/[0.08] backdrop-blur-sm"
             >
               <span>Kontaktirajte tim</span>
               <motion.svg
-                className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity"
+                className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -247,9 +247,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator - repositioned */}
+      {/* Scroll indicator - hidden on mobile */}
       <motion.div
-        className="absolute bottom-44 md:bottom-36 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+        className="hidden md:flex absolute bottom-36 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-3"
         initial={{ opacity: 0, y: 20 }}
         animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, delay: 1.5 }}
@@ -268,7 +268,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Stats bar - enhanced */}
+      {/* Stats bar - premium asymmetric design */}
       <div className="absolute bottom-0 left-0 right-0 z-10">
         {/* Top border with gradient */}
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
@@ -280,11 +280,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            <div className="grid grid-cols-2 md:grid-cols-4">
+            <div className="grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
-                  className={`group relative py-6 md:py-8 ${i > 0 ? 'border-l border-white/[0.12]' : ''} ${i < 2 ? 'border-b md:border-b-0 border-white/[0.12]' : ''} px-4 md:px-6 hover:bg-white/[0.04] transition-colors duration-300`}
+                  className={`group relative py-6 md:py-8 ${i > 0 ? 'border-l border-white/[0.12]' : ''} ${i < 2 ? 'border-b md:border-b-0 border-white/[0.12]' : ''} ${stat.highlight ? 'px-4 md:px-8' : 'px-4 md:px-6'} hover:bg-white/[0.04] transition-colors duration-300`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 1.4 + i * 0.1 }}
@@ -292,14 +292,29 @@ export default function Hero() {
                   {/* Hover glow */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  <div className="relative">
+                  {/* Highlight accent for first stat */}
+                  {stat.highlight && (
                     <motion.div
-                      className={`${stat.isText ? 'text-lg md:text-xl' : 'text-2xl md:text-3xl'} font-bold text-white mb-1`}
-                      whileHover={reduceMotion ? undefined : { scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {stat.value}
-                    </motion.div>
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#DC2626] to-[#DC2626]/30 rounded-r"
+                      initial={{ scaleY: 0 }}
+                      animate={mounted ? { scaleY: 1 } : { scaleY: 0 }}
+                      transition={{ duration: 0.5, delay: 1.6 }}
+                    />
+                  )}
+
+                  <div className="relative">
+                    <div className="flex items-baseline gap-2">
+                      <motion.div
+                        className={`${stat.highlight ? 'text-3xl md:text-4xl' : stat.isText ? 'text-base md:text-lg' : 'text-2xl md:text-3xl'} font-bold ${stat.highlight ? 'text-[#DC2626]' : 'text-white'} mb-1`}
+                        whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {stat.value}
+                      </motion.div>
+                      {stat.sublabel && (
+                        <span className="text-xs text-white/30 font-medium">{stat.sublabel}</span>
+                      )}
+                    </div>
                     <div className="text-[10px] text-white/50 tracking-[0.15em] uppercase">
                       {stat.label}
                     </div>
