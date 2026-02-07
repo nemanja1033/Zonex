@@ -134,7 +134,7 @@ export default function ServicesCarousel() {
   return (
     <section className="relative overflow-x-hidden py-8 md:py-28 lg:py-36">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#141414] to-[#0A0A0A]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#2D2D32] to-[#27272A]" />
 
       {/* Grid pattern */}
       <div
@@ -380,7 +380,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
       onMouseLeave={() => setIsHovered(false)}
       className="group relative"
     >
-      <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F] shadow-[0_24px_80px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-white/[0.12] group-hover:shadow-[0_32px_100px_rgba(0,0,0,0.7)]">
+      <div className="relative overflow-hidden rounded-3xl border border-white/[0.12] bg-gradient-to-br from-[#303036] to-[#2A2A30] shadow-[0_24px_80px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:border-white/[0.18] group-hover:shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
         {/* Cursor glow */}
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
@@ -434,7 +434,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
 
           {/* Image */}
           <div className="relative aspect-[16/10] max-h-[200px] overflow-hidden md:max-h-none lg:h-[400px] lg:aspect-auto">
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/50 to-transparent" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#303036] via-[#303036]/50 to-transparent" />
             <motion.div
               className="relative w-full h-full"
               animate={isHovered && !reduceMotion ? { scale: 1.08 } : { scale: 1.02 }}

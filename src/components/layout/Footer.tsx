@@ -26,9 +26,9 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/[0.06]">
+    <footer className="relative overflow-hidden border-t border-white/[0.12]">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] to-[#050505]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] to-[#222226]" />
 
       {/* Grid pattern */}
       <div
@@ -184,7 +184,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3, ease: EASING.power4 }}
-          className="mt-16 flex flex-col gap-4 border-t border-white/[0.06] pt-8 text-xs text-white/30 md:flex-row md:items-center md:justify-between"
+          className="mt-16 flex flex-col gap-4 border-t border-white/[0.12] pt-8 text-xs text-white/35 md:flex-row md:items-center md:justify-between"
         >
           <p>
             {currentYear} {site.company.name}. Sva prava zadrzana.

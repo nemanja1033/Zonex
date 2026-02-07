@@ -14,7 +14,7 @@ export default function ProcessSection() {
   return (
     <section ref={sectionRef} className="relative py-28 lg:py-40 overflow-hidden">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#111111] to-[#0A0A0A]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#2D2D32] to-[#27272A]" />
 
       {/* Animated gradient background */}
       <motion.div
@@ -211,7 +211,7 @@ function ProcessCard({
       <motion.div
         whileHover={reduceMotion ? {} : { y: -12, scale: 1.02 }}
         transition={{ duration: 0.4, ease: EASING.power4 }}
-        className="relative mt-12 md:mt-16 overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F] p-8 lg:p-10 transition-all duration-500 hover:border-white/[0.12] hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+        className="relative mt-12 md:mt-16 overflow-hidden rounded-2xl border border-white/[0.12] bg-gradient-to-br from-[#303036] to-[#2A2A30] p-8 lg:p-10 transition-all duration-500 hover:border-white/[0.18] hover:shadow-[0_30px_80px_rgba(0,0,0,0.4)]"
       >
         {/* Cursor glow effect */}
         <motion.div

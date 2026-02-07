@@ -73,7 +73,7 @@ export default function MagneticButton({
       case 'primary':
         return 'bg-[#DC2626] text-white hover:shadow-[0_8px_32px_rgba(220,38,38,0.4)] border border-[#DC2626]'
       case 'secondary':
-        return 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_4px_24px_rgba(255,255,255,0.1)]'
+        return 'bg-white/5 text-white border border-white/12 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_4px_24px_rgba(255,255,255,0.1)]'
       case 'ghost':
         return 'bg-transparent text-white border border-white/20 hover:bg-white/5 hover:border-white/30'
       default:
@@ -81,7 +81,7 @@ export default function MagneticButton({
     }
   }
 
-  const classes = `magnetic-button group relative inline-flex min-h-[48px] items-center gap-3 rounded-full px-7 py-3.5 font-medium text-sm uppercase tracking-[0.1em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DC2626] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A] active:scale-[0.97] transition-all duration-300 overflow-hidden ${getVariantStyles()} ${className}`
+  const classes = `magnetic-button group relative inline-flex min-h-[48px] items-center gap-3 rounded-full px-7 py-3.5 font-medium text-sm uppercase tracking-[0.1em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DC2626] focus-visible:ring-offset-2 focus-visible:ring-offset-[#303036] active:scale-[0.97] transition-all duration-300 overflow-hidden ${getVariantStyles()} ${className}`
 
   const content = (
     <>

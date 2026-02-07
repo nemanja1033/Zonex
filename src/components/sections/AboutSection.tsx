@@ -9,7 +9,7 @@ export default function AboutSection() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative py-20 lg:py-28 bg-[#242424] overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-[#2D2D32] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
@@ -80,7 +80,7 @@ export default function AboutSection() {
               key={item.title}
               variants={staggerItem}
               whileHover={reduceMotion ? {} : { y: -5 }}
-              className="group relative p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+              className="group relative p-6 lg:p-8 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
             >
               {/* Hover glow */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

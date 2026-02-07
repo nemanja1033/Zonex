@@ -85,7 +85,7 @@ export default function ProjectCard({
       className="group relative"
     >
       <Link href={href}>
-        <div className="relative bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F] rounded-3xl overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+        <div className="relative bg-gradient-to-br from-[#303036] to-[#2A2A30] rounded-3xl overflow-hidden border border-white/[0.12] hover:border-white/[0.18] transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.4)]">
 
           {/* Glow effect following cursor */}
           <motion.div
@@ -116,7 +116,7 @@ export default function ProjectCard({
                   />
                 </motion.div>
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A1A] to-[#0F0F0F]">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#303036] to-[#2A2A30]">
                   <Image
                     src="/images/project-placeholder.svg"
                     alt={`${title} placeholder`}
@@ -139,7 +139,7 @@ export default function ProjectCard({
               )}
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#303036] via-[#303036]/50 to-transparent" />
             </motion.div>
 
             {/* Tags floating above image */}
@@ -154,7 +154,7 @@ export default function ProjectCard({
                     initial={{ opacity: 0, scale: 0.8, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ delay: 0.4 + i * 0.1, duration: 0.4, ease: EASING.power4 }}
-                    className="px-3 py-1.5 rounded-full bg-[#0A0A0A]/70 backdrop-blur-md border border-white/[0.08] text-[10px] text-white/60 uppercase tracking-[0.15em] font-medium"
+                    className="px-3 py-1.5 rounded-full bg-[#27272A]/80 backdrop-blur-md border border-white/[0.12] text-[10px] text-white/60 uppercase tracking-[0.15em] font-medium"
                   >
                     {tag}
                   </motion.span>
@@ -188,7 +188,7 @@ export default function ProjectCard({
             </p>
 
             {/* Meta info */}
-            <div className="flex flex-wrap gap-x-10 gap-y-4 mb-8 pb-8 border-b border-white/[0.06]">
+            <div className="flex flex-wrap gap-x-10 gap-y-4 mb-8 pb-8 border-b border-white/[0.12]">
               <div>
                 <span className="block text-[10px] text-white/30 mb-1.5 uppercase tracking-[0.2em]">
                   Rok

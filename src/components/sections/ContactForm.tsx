@@ -63,7 +63,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="p-6 md:p-8 rounded-2xl bg-[#242424] border border-white/8 space-y-6"
+      className="p-6 md:p-8 rounded-2xl bg-[#303036] border border-white/12 space-y-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -193,7 +193,7 @@ function Field({
       </label>
       <Component
         id={fieldId}
-        className="mt-2 w-full rounded-lg border border-white/10 bg-[#2C2C2E] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/30 focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/20"
+        className="mt-2 w-full rounded-lg border border-white/12 bg-[#3A3A42] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/40 focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/20"
         placeholder={label}
         value={value}
         onChange={onChange}

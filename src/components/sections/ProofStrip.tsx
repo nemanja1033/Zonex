@@ -12,7 +12,7 @@ export default function ProofStrip() {
   return (
     <section className="relative py-20 lg:py-28 overflow-hidden">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#111111] to-[#0A0A0A]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#2D2D32] to-[#27272A]" />
 
       {/* Animated gradient mesh */}
       <motion.div
@@ -137,7 +137,7 @@ function StatCard({
       transition={{ duration: 0.4, ease: EASING.power4 }}
       className="group relative"
     >
-      <div className="relative p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-[#1A1A1A] to-[#141414] border border-white/[0.06] overflow-hidden transition-all duration-500 hover:border-white/[0.12] hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+      <div className="relative p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-[#303036] to-[#2A2A30] border border-white/[0.12] overflow-hidden transition-all duration-500 hover:border-white/[0.18] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
         {/* Cursor glow effect */}
         <motion.div
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"

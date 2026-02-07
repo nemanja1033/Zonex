@@ -17,7 +17,7 @@ export default function ServicesPage() {
       />
       
       {/* Services grid */}
-      <section className="relative py-16 lg:py-24 bg-[#242424]">
+      <section className="relative py-16 lg:py-24 bg-[#2D2D32]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.03]"
@@ -52,7 +52,7 @@ export default function ServicesPage() {
                 key={service.title}
                 variants={staggerItem}
                 whileHover={{ y: -5 }}
-                className="group relative p-6 lg:p-8 rounded-2xl bg-[#2C2C2E] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 lg:p-8 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
               >
                 {/* Hover glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -75,7 +75,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Process section */}
-      <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
+      <section className="relative py-16 lg:py-24 bg-[#27272A]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.02]"
@@ -129,7 +129,7 @@ export default function ServicesPage() {
                 key={step.title}
                 variants={staggerItem}
                 whileHover={{ y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
               >
                 {/* Hover glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

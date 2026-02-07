@@ -11,7 +11,7 @@ export default function ProjectsPage() {
         title="Naši projekti"
         subtitle={site.projectsIntro}
       />
-      <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
+      <section className="relative py-16 lg:py-24 bg-[#27272A]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.02]"

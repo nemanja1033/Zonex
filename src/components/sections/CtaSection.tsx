@@ -18,7 +18,7 @@ export default function CtaSection() {
   return (
     <section className="relative overflow-hidden py-32 lg:py-44">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#0D0D0D] to-[#0A0A0A]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#2A2A2E] to-[#27272A]" />
 
       {/* Grid pattern */}
       <div
@@ -155,7 +155,7 @@ export default function CtaSection() {
                 whileHover={reduceMotion ? {} : { y: -8, scale: 1.02 }}
                 className="group relative"
               >
-                <div className="relative p-8 rounded-2xl bg-gradient-to-br from-[#1A1A1A]/80 to-[#0F0F0F]/80 border border-white/[0.06] backdrop-blur-sm transition-all duration-500 hover:border-white/[0.12] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+                <div className="relative p-8 rounded-2xl bg-gradient-to-br from-[#303036]/90 to-[#2A2A30]/90 border border-white/[0.12] backdrop-blur-sm transition-all duration-500 hover:border-white/[0.18] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
                   {/* Hover glow */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

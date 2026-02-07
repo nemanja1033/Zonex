@@ -12,7 +12,7 @@ export default function FeaturedProjects() {
   const featured = projects.slice(0, 3)
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-24 lg:py-32 bg-[#27272A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"

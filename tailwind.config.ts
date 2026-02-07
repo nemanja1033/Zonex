@@ -5,12 +5,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Industrial Charcoal Dark Theme
-        base: '#0A0A0A',
-        elevated: '#111111',
-        card: '#1A1A1A',
-        hover: '#242424',
-        input: '#1A1A1A',
+        // Lighter Charcoal/Slate Dark Theme
+        base: '#27272A',
+        elevated: '#2D2D32',
+        card: '#303036',
+        hover: '#3A3A42',
+        input: '#303036',
 
         // Zonex Red - Brand color
         zonex: {
@@ -29,7 +29,7 @@ const config: Config = {
           border: 'rgba(220, 38, 38, 0.25)',
         },
 
-        // Concrete/Industrial grays
+        // Concrete/Industrial grays - Lighter palette
         concrete: {
           50: '#F5F5F5',
           100: '#E5E5E5',
@@ -38,17 +38,17 @@ const config: Config = {
           400: '#737373',
           500: '#525252',
           600: '#404040',
-          700: '#262626',
-          800: '#171717',
-          900: '#0A0A0A',
+          700: '#3A3A42',
+          800: '#303036',
+          900: '#27272A',
         },
 
-        // Legacy color mappings
+        // Legacy color mappings - Updated for lighter theme
         void: {
-          base: '#0A0A0A',
-          obsidian: '#0A0A0A',
-          charcoal: '#111111',
-          slate: '#1A1A1A',
+          base: '#27272A',
+          obsidian: '#27272A',
+          charcoal: '#2D2D32',
+          slate: '#303036',
         },
         navy: {
           900: 'var(--bg-base)',

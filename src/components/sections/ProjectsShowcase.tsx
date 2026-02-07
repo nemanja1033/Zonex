@@ -13,7 +13,7 @@ export default function ProjectsShowcase() {
   return (
     <section className="relative py-28 lg:py-40 overflow-hidden">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#080808] to-[#0A0A0A]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#252528] to-[#27272A]" />
 
       {/* Grid pattern */}
       <div

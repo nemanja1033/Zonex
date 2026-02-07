@@ -25,7 +25,7 @@ export default function ProjectDetailContent({
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMUMxQzFFIi8+PC9zdmc+'
 
   return (
-    <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
+    <section className="relative py-16 lg:py-24 bg-[#27272A]">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -50,7 +50,7 @@ export default function ProjectDetailContent({
           transition={{ duration: 0.5, ease: EASING.power4 }}
           className="grid gap-6 md:grid-cols-2"
         >
-          <div className="p-6 lg:p-8 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300">
+          <div className="p-6 lg:p-8 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Pregled</p>
             <h2 className="text-2xl font-bold text-white mb-6">Osnovne informacije</h2>
             <div className="grid gap-6 text-sm md:grid-cols-2">
@@ -73,7 +73,7 @@ export default function ProjectDetailContent({
             </div>
           </div>
           
-          <div className="p-6 lg:p-8 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300">
+          <div className="p-6 lg:p-8 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Ključne tačke</p>
             <h3 className="text-xl font-bold text-white mb-4">Fokus realizacije</h3>
             <ul className="space-y-3">
@@ -110,7 +110,7 @@ export default function ProjectDetailContent({
                 <motion.div
                   key={image.src}
                   variants={staggerItem}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
+                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
                 >
                   <Image
                     src={image.src}
@@ -167,7 +167,7 @@ export default function ProjectDetailContent({
         >
           <Link 
             href={`/projects/${prev.slug}`}
-            className="group p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
+            className="group p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
           >
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">← Prethodni</p>
             <h3 className="text-lg font-bold text-white group-hover:text-[#DC2626] transition-colors duration-300">
@@ -177,7 +177,7 @@ export default function ProjectDetailContent({
           </Link>
           <Link 
             href={`/projects/${next.slug}`}
-            className="group p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300 text-right"
+            className="group p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300 text-right"
           >
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Sledeći →</p>
             <h3 className="text-lg font-bold text-white group-hover:text-[#DC2626] transition-colors duration-300">

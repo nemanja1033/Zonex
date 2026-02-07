@@ -14,7 +14,7 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0A0A] pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <section className="relative overflow-hidden bg-[#27272A] pt-32 pb-16 lg:pt-40 lg:pb-20">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"

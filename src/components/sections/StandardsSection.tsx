@@ -27,7 +27,7 @@ export default function StandardsSection() {
   ]
 
   return (
-    <section className="relative py-20 lg:py-28 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-[#27272A] overflow-hidden">
       {/* Background grid */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -88,7 +88,7 @@ export default function StandardsSection() {
                 key={item.title}
                 variants={staggerItem}
                 whileHover={reduceMotion ? {} : { y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#242424] border border-white/8 hover:border-white/12 transition-all duration-300"
+                className="group relative p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
               >
                 {/* Hover glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

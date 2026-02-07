@@ -11,7 +11,7 @@ export default function ContactPage() {
         title="Razgovor o projektu."
         subtitle="Pošaljite osnovne informacije i dobićete predlog obima, faza i dinamike."
       />
-      <section className="relative py-16 lg:py-24 bg-[#0A0A0A]">
+      <section className="relative py-16 lg:py-24 bg-[#27272A]">
         {/* Background grid */}
         <div 
           className="absolute inset-0 opacity-[0.02]"
@@ -31,7 +31,7 @@ export default function ContactPage() {
           <ContactForm />
           <div className="space-y-6">
             <ContactCard />
-            <div className="p-6 rounded-2xl bg-[#242424] border border-white/8">
+            <div className="p-6 rounded-2xl bg-[#303036] border border-white/12">
               <p className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Šta sledi</p>
               <p className="text-sm text-white/60">
                 U roku od 48h vraćamo se sa predlogom obima, faza i narednih koraka.
