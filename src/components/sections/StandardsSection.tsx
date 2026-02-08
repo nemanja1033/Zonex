@@ -41,7 +41,7 @@ export default function StandardsSection() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-[#DC2626]/3 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">

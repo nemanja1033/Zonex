@@ -26,7 +26,7 @@ export default function FeaturedProjects() {
       />
 
       {/* Glow accent */}
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#DC2626]/5 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}

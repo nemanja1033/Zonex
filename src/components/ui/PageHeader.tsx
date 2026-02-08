@@ -28,7 +28,7 @@ export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#DC2626]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[300px] h-[300px] bg-[#DC2626]/5 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10">
         <motion.div

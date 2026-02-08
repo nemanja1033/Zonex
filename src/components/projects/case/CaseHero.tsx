@@ -35,7 +35,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#DC2626]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-[#DC2626]/5 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="grid gap-8 md:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

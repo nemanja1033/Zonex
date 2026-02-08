@@ -81,7 +81,7 @@ export default function Navbar() {
     <motion.header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#27272A]/85 backdrop-blur-2xl border-b border-white/[0.12] shadow-[0_4px_30px_rgba(0,0,0,0.25)]'
+          ? 'bg-[#27272A]/95 backdrop-blur-sm border-b border-white/[0.12] shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
           : 'bg-transparent border-b border-transparent'
       }`}
       variants={{
@@ -187,7 +187,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: EASING.power4 }}
-            className="lg:hidden border-t border-white/[0.12] bg-[#27272A]/95 backdrop-blur-2xl overflow-hidden"
+            className="lg:hidden border-t border-white/[0.12] bg-[#27272A] overflow-hidden"
             onKeyDown={handleTrap}
           >
             <Container className="flex flex-col gap-2 py-6">

@@ -25,7 +25,7 @@ export default function ContactPage() {
         />
         
         {/* Glow accent */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#DC2626]/3 rounded-full blur-3xl pointer-events-none" />
 
         <Container className="relative z-10 grid gap-10 md:grid-cols-[1.2fr_0.8fr]">
           <ContactForm />

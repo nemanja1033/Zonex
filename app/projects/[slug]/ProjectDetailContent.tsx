@@ -39,7 +39,7 @@ export default function ProjectDetailContent({
       />
 
       {/* Glow accent */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#DC2626]/3 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10 space-y-16">
         {/* Project Info */}

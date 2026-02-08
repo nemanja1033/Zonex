@@ -1,13 +1,12 @@
 "use client"
 
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { site } from '../../../data/site'
 import { EASING } from '@/lib/animations'
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -33,13 +32,12 @@ export default function Hero() {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: EASING.power4,
       },
     },
@@ -62,18 +60,10 @@ export default function Hero() {
       {/* Layer 1: Base gradient with depth - LIGHTER */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_20%_-10%,#3A3A42_0%,#27272A_45%,#27272A_100%)]" />
 
-      {/* Layer 2: Animated mesh gradient */}
-      <motion.div
+      {/* Layer 2: Static mesh gradient */}
+      <div
         className="absolute inset-0 opacity-30"
-        animate={reduceMotion ? undefined : {
-          background: [
-            'radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.08) 0%, transparent 50%)',
-            'radial-gradient(circle at 40% 40%, rgba(220, 38, 38, 0.08) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 50%)',
-          ],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+        style={{ background: 'radial-gradient(circle at 30% 70%, rgba(220, 38, 38, 0.08) 0%, transparent 50%)' }}
       />
 
       {/* Layer 3: Grain texture */}
@@ -104,49 +94,16 @@ export default function Hero() {
         }}
       />
 
-      {/* Layer 6: Red ambient glow - top left */}
-      <motion.div
-        className="absolute -top-32 -left-32 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%)',
-        }}
-        animate={reduceMotion ? undefined : {
-          scale: [1, 1.1, 1],
-          opacity: [0.6, 0.8, 0.6],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Layer 6: Red ambient glow - top left (static) */}
+      <div
+        className="absolute -top-32 -left-32 w-[700px] h-[700px] rounded-full pointer-events-none opacity-70"
+        style={{ background: 'radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%)' }}
       />
 
-      {/* Layer 7: Secondary glow - bottom right */}
-      <motion.div
-        className="absolute -bottom-48 -right-48 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(220, 38, 38, 0.06) 0%, transparent 60%)',
-        }}
-        animate={reduceMotion ? undefined : {
-          scale: [1.1, 1, 1.1],
-          opacity: [0.4, 0.6, 0.4],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Layer 8: Floating orbs */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-2 h-2 rounded-full bg-[#DC2626]/40 blur-sm"
-        animate={reduceMotion ? undefined : {
-          y: [-20, 20, -20],
-          x: [-10, 10, -10],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/3 w-1 h-1 rounded-full bg-white/30 blur-sm"
-        animate={reduceMotion ? undefined : {
-          y: [10, -10, 10],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      {/* Layer 7: Secondary glow - bottom right (static) */}
+      <div
+        className="absolute -bottom-48 -right-48 w-[600px] h-[600px] rounded-full pointer-events-none opacity-50"
+        style={{ background: 'radial-gradient(circle, rgba(220, 38, 38, 0.06) 0%, transparent 60%)' }}
       />
 
       {/* Content */}
@@ -166,11 +123,7 @@ export default function Hero() {
             <span className="text-[#DC2626] text-[11px] font-semibold tracking-[0.25em] uppercase">
               Generalni izvođač
             </span>
-            <motion.span
-              className="h-1.5 w-1.5 rounded-full bg-[#DC2626]"
-              animate={reduceMotion ? undefined : { scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626]" />
           </motion.div>
 
           {/* Title */}
@@ -250,22 +203,12 @@ export default function Hero() {
       {/* Scroll indicator - hidden on mobile */}
       <motion.div
         className="hidden md:flex absolute bottom-36 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-3"
-        initial={{ opacity: 0, y: 20 }}
-        animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.8, delay: 1.5 }}
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: 1 }}
       >
         <span className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-medium">Scroll</span>
-        <motion.div
-          className="w-[1px] h-12 relative overflow-hidden"
-          animate={reduceMotion ? undefined : { opacity: [0.3, 0.8, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-[#DC2626] via-[#DC2626]/50 to-transparent"
-            animate={reduceMotion ? undefined : { y: ['-100%', '100%'] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-[#DC2626] to-transparent opacity-50" />
       </motion.div>
 
       {/* Stats bar - premium asymmetric design */}
@@ -274,43 +217,28 @@ export default function Hero() {
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
         <motion.div
-          className="backdrop-blur-md bg-[#27272A]/70"
-          initial={{ opacity: 0, y: 20 }}
-          animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          className="bg-[#27272A]/95"
+          initial={{ opacity: 0 }}
+          animate={mounted ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
         >
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
               {stats.map((stat, i) => (
-                <motion.div
+                <div
                   key={i}
                   className={`group relative py-6 md:py-8 ${i > 0 ? 'border-l border-white/[0.12]' : ''} ${i < 2 ? 'border-b md:border-b-0 border-white/[0.12]' : ''} ${stat.highlight ? 'px-4 md:px-8' : 'px-4 md:px-6'} hover:bg-white/[0.04] transition-colors duration-300`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 1.4 + i * 0.1 }}
                 >
-                  {/* Hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                   {/* Highlight accent for first stat */}
                   {stat.highlight && (
-                    <motion.div
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#DC2626] to-[#DC2626]/30 rounded-r"
-                      initial={{ scaleY: 0 }}
-                      animate={mounted ? { scaleY: 1 } : { scaleY: 0 }}
-                      transition={{ duration: 0.5, delay: 1.6 }}
-                    />
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#DC2626] to-[#DC2626]/30 rounded-r" />
                   )}
 
                   <div className="relative">
                     <div className="flex items-baseline gap-2">
-                      <motion.div
-                        className={`${stat.highlight ? 'text-3xl md:text-4xl' : stat.isText ? 'text-base md:text-lg' : 'text-2xl md:text-3xl'} font-bold ${stat.highlight ? 'text-[#DC2626]' : 'text-white'} mb-1`}
-                        whileHover={reduceMotion ? undefined : { scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                      >
+                      <div className={`${stat.highlight ? 'text-3xl md:text-4xl' : stat.isText ? 'text-base md:text-lg' : 'text-2xl md:text-3xl'} font-bold ${stat.highlight ? 'text-[#DC2626]' : 'text-white'} mb-1`}>
                         {stat.value}
-                      </motion.div>
+                      </div>
                       {stat.sublabel && (
                         <span className="text-xs text-white/30 font-medium">{stat.sublabel}</span>
                       )}
@@ -319,7 +247,7 @@ export default function Hero() {
                       {stat.label}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

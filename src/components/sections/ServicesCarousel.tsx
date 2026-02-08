@@ -474,9 +474,7 @@ function ServiceCard({ service, reduceMotion }: ServiceCardProps) {
       </div>
 
       {/* Background glow */}
-      <motion.div
-        className="pointer-events-none absolute -bottom-8 -right-8 h-48 w-48 rounded-full bg-[#DC2626]/10 opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100"
-      />
+      <div className="pointer-events-none absolute -bottom-4 -right-4 h-32 w-32 rounded-full bg-[#DC2626]/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
     </motion.div>
   )
 }
