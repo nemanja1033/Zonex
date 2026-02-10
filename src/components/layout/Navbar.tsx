@@ -151,7 +151,7 @@ export default function Navbar() {
               href="/contact"
               className="group relative px-7 py-3 bg-[#DC2626] text-white text-[13px] font-semibold uppercase tracking-[0.1em] rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_40px_rgba(220,38,38,0.4)]"
             >
-              <span className="relative z-10">Zapocnite projekat</span>
+              <span className="relative z-10">Započnite projekat</span>
 
               {/* Hover shine effect */}
               <motion.div
@@ -238,7 +238,7 @@ export default function Navbar() {
                   className="flex items-center justify-center min-h-[56px] rounded-xl bg-[#DC2626] text-white text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 hover:bg-[#EF4444] hover:shadow-[0_8px_32px_rgba(220,38,38,0.3)]"
                   onClick={() => setIsOpen(false)}
                 >
-                  Zapocnite projekat
+                  Započnite projekat
                 </Link>
               </motion.div>
             </Container>

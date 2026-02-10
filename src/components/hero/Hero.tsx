@@ -129,7 +129,7 @@ export default function Hero() {
           {/* Title */}
           <motion.h1
             variants={itemVariants}
-            className="font-display text-[clamp(2.8rem,8vw,5.5rem)] text-white leading-[0.95] tracking-[0.02em] max-w-[950px] mb-8"
+            className="font-display text-[clamp(2.2rem,7vw,5.5rem)] text-white leading-[1.05] tracking-[0.01em] max-w-[950px] mb-8 break-words"
           >
             Inženjering koji<br />
             isporučuje u rokovima,<br />

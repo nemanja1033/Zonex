@@ -12,7 +12,7 @@ export default function CtaSection() {
   const benefits = [
     { label: 'Odgovor', value: '24-48h', icon: '01' },
     { label: 'Jasna struktura', value: 'Plan + rok', icon: '02' },
-    { label: 'Transparentnost', value: 'Budzet', icon: '03' },
+    { label: 'Transparentnost', value: 'Budžet', icon: '03' },
   ]
 
   return (
@@ -91,7 +91,7 @@ export default function CtaSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1, ease: EASING.power4 }}
-            className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] mb-8"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.15] mb-8 break-words"
           >
             Spremni za projekat sa
             <motion.span
@@ -115,7 +115,7 @@ export default function CtaSection() {
             transition={{ duration: 0.6, delay: 0.3, ease: EASING.power4 }}
             className="mx-auto max-w-2xl text-lg text-white/50 lg:text-xl leading-relaxed mb-12"
           >
-            Posaljite osnovne informacije o projektu, a mi vracamo strukturu, obim i predlog dinamike.
+            Pošaljite osnovne informacije o projektu, a mi vraćamo strukturu, obim i predlog dinamike.
           </motion.p>
 
           {/* CTA Button */}
@@ -127,7 +127,7 @@ export default function CtaSection() {
             className="flex justify-center mb-20"
           >
             <MagneticButton href="/contact" variant="primary" className="text-base px-12 py-5">
-              Zapocnite razgovor
+              Započnite razgovor
             </MagneticButton>
           </motion.div>
 

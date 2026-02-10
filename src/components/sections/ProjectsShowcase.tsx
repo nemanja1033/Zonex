@@ -87,9 +87,9 @@ export default function ProjectsShowcase() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2, ease: EASING.power4 }}
-                className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1]"
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.15] break-words"
               >
-                Projekti koji potvrdjuju
+                Projekti koji potvrđuju
                 <span className="block text-white/40 mt-2">tempo, standard i disciplinu.</span>
               </motion.h2>
             </div>
@@ -101,7 +101,7 @@ export default function ProjectsShowcase() {
               transition={{ duration: 0.5, delay: 0.3, ease: EASING.power4 }}
               className="text-base text-white/45 max-w-md leading-relaxed"
             >
-              Selekcija projekata u kojima su kontrola, brzina i preciznost bili jednako vazni kao i konacna isporuka.
+              Selekcija projekata u kojima su kontrola, brzina i preciznost bili jednako važni kao i konačna isporuka.
             </motion.p>
           </div>
 

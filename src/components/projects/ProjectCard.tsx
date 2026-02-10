@@ -37,7 +37,7 @@ export default function ProjectCard({
       transition={{ duration: 0.4, delay: index * 0.05, ease: EASING.power4 }}
       className="group"
     >
-      <Link href={href}>
+      <Link href={href} className="block transition-transform duration-300 hover:-translate-y-1">
         <div className="relative bg-[#303036] rounded-2xl overflow-hidden border border-white/[0.12] hover:border-white/[0.20] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.25)]">
 
           {/* Image Section */}
@@ -51,17 +51,15 @@ export default function ProjectCard({
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    loading="lazy"
                   />
                 </div>
               ) : (
-                <div className="absolute inset-0 bg-[#303036]">
-                  <Image
-                    src="/images/project-placeholder.svg"
-                    alt={`${title} placeholder`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain p-10 opacity-30"
-                  />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#2a2a32] to-[#1f1f23] flex flex-col items-center justify-center gap-3">
+                  <svg className="w-10 h-10 text-white/[0.08]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2 6l6-4 6 4 6-4v14l-6 4-6-4-6 4V6z" />
+                  </svg>
+                  <span className="text-white/20 text-[10px] tracking-[0.2em] uppercase">Foto uskoro</span>
                 </div>
               )}
 

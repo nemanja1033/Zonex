@@ -96,10 +96,10 @@ export default function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2, ease: EASING.power4 }}
-            className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1]"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.15] break-words"
           >
             Proces sa jasnim
-            <span className="block text-white/40 mt-2">kontrolnim tackama.</span>
+            <span className="block text-white/40 mt-2">kontrolnim tačkama.</span>
           </motion.h2>
 
           {/* Description */}

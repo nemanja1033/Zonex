@@ -21,6 +21,35 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'kfc-zrenjanin',
+    name: 'KFC Zrenjanin',
+    category: 'Fast food',
+    location: 'BIG Shopping Center, Zrenjanin',
+    city: 'Zrenjanin',
+    delivery: 'Grubi radovi',
+    scope: 'Grubi radovi i priprema za završne radove investitora.',
+    timeline: '120 dana',
+    opened: 'Decembar 2025',
+    summary:
+      'Objekat realizovan kao nastavak uspešne saradnje sa investitorom, uz precizno planiranje rokova.',
+    highlights: [
+      'Usklađivanje sa postojećim objektima u okviru kompleksa.',
+      'Isporuka u planiranom roku.',
+      'Jasno definisan obim i koordinacija sa timom investitora.',
+    ],
+    focus: ['Vreme', 'Kvalitet', 'Standardi'],
+    image: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-01.jpg',
+    images: [
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-01.jpg', alt: 'KFC Zrenjanin - gradilište' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-02.jpg', alt: 'KFC Zrenjanin - konstrukcija u toku' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-03.jpg', alt: 'KFC Zrenjanin - fasadni radovi' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-04.jpg', alt: 'KFC Zrenjanin - završni radovi' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-05.jpg', alt: 'KFC Zrenjanin - izrada ploča' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-06.jpg', alt: 'KFC Zrenjanin - detalji' },
+      { src: '/images/projects/kfc-zrenjanin/kfc-zrenjanin-07.jpg', alt: 'KFC Zrenjanin - finalizacija' },
+    ],
+  },
+  {
     slug: 'mcdonalds-zrenjanin',
     name: "McDonald's Zrenjanin",
     category: 'Fast food',
@@ -38,10 +67,13 @@ export const projects: Project[] = [
       'Kontrola kvaliteta završne obrade i standarda brenda.',
     ],
     focus: ['Vreme', 'Kvalitet', 'Standardi'],
-    image: '/images/projects/kfc-zrenjanin-02.jpg',
+    image: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-01.jpg',
     images: [
-      { src: '/images/projects/kfc-zrenjanin-02.jpg', alt: "McDonald's Zrenjanin - gradilište" },
-      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: "McDonald's Zrenjanin - konstrukcija" },
+      { src: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-01.jpg', alt: "McDonald's Zrenjanin - gradilište" },
+      { src: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-02.jpg', alt: "McDonald's Zrenjanin - konstrukcija" },
+      { src: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-03.jpg', alt: "McDonald's Zrenjanin - radovi" },
+      { src: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-04.jpg', alt: "McDonald's Zrenjanin - završni radovi" },
+      { src: '/images/projects/mcdonalds-zrenjanin/mcdonalds-zrenjanin-05.jpg', alt: "McDonald's Zrenjanin - finalizacija" },
     ],
   },
   {
@@ -62,10 +94,12 @@ export const projects: Project[] = [
       'Precizna koordinacija i kontrola detalja završne obrade.',
     ],
     focus: ['Standardi', 'Vreme', 'Kvalitet'],
-    image: '/images/projects/kfc-zrenjanin-03.jpg',
+    image: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-01.jpg',
     images: [
-      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: "McDonald's Ruklada - radovi" },
-      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: "McDonald's Ruklada - završni radovi" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-01.jpg', alt: "McDonald's Ruklada - radovi" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-02.jpg', alt: "McDonald's Ruklada - konstrukcija" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-03.jpg', alt: "McDonald's Ruklada - završni radovi" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-04.jpg', alt: "McDonald's Ruklada - finalizacija" },
     ],
   },
   {
@@ -86,11 +120,8 @@ export const projects: Project[] = [
       'Fazna koordinacija i kontrola kvaliteta.',
     ],
     focus: ['Kvalitet', 'Standardi'],
-    image: '/images/projects/kfc-zrenjanin-04.jpg',
-    images: [
-      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: 'Zlatiborski konaci - izgradnja' },
-      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'Zlatiborski konaci - radovi' },
-    ],
+    // Nema sliku - prikazaće se placeholder
+    images: [],
   },
   {
     slug: 'knez-petrol-simanovci',
@@ -110,37 +141,7 @@ export const projects: Project[] = [
       'Realizacija na zahtevnoj lokaciji visokog protoka.',
     ],
     focus: ['Bezbednost', 'Životna sredina', 'Standardi'],
-    image: '/images/projects/kfc-zrenjanin-05.jpg',
-    images: [
-      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'Knez Petrol - gradilište' },
-      { src: '/images/projects/kfc-zrenjanin-01.jpg', alt: 'Knez Petrol - konstrukcija' },
-    ],
-  },
-  {
-    slug: 'kfc-zrenjanin',
-    name: 'KFC Zrenjanin',
-    category: 'Fast food',
-    location: 'BIG Shopping Center, Zrenjanin',
-    city: 'Zrenjanin',
-    delivery: 'Grubi radovi',
-    scope: 'Grubi radovi i priprema za završne radove investitora.',
-    timeline: '120 dana',
-    opened: 'Decembar 2025',
-    summary:
-      'Objekat realizovan kao nastavak uspešne saradnje sa investitorom, uz precizno planiranje rokova.',
-    highlights: [
-      'Usklađivanje sa postojećim objektima u okviru kompleksa.',
-      'Isporuka u planiranom roku.',
-      'Jasno definisan obim i koordinacija sa timom investitora.',
-    ],
-    focus: ['Vreme', 'Kvalitet', 'Standardi'],
-    image: '/images/projects/kfc-zrenjanin-01.jpg',
-    images: [
-      { src: '/images/projects/kfc-zrenjanin-01.jpg', alt: 'KFC Zrenjanin - gradilište' },
-      { src: '/images/projects/kfc-zrenjanin-02.jpg', alt: 'KFC Zrenjanin - konstrukcija u toku' },
-      { src: '/images/projects/kfc-zrenjanin-03.jpg', alt: 'KFC Zrenjanin - fasadni radovi' },
-      { src: '/images/projects/kfc-zrenjanin-04.jpg', alt: 'KFC Zrenjanin - završni radovi' },
-      { src: '/images/projects/kfc-zrenjanin-05.jpg', alt: 'KFC Zrenjanin - izrada ploča' },
-    ],
+    // Nema sliku - prikazaće se placeholder
+    images: [],
   },
 ]
