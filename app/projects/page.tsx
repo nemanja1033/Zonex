@@ -1,7 +1,13 @@
+import { Metadata } from 'next'
 import Container from '@/components/ui/Container'
 import PageHeader from '@/components/ui/PageHeader'
 import ProjectsGrid from '@/components/projects/ProjectsGrid'
 import { site } from '../../data/site'
+
+export const metadata: Metadata = {
+  title: 'Projekti',
+  description: 'Pogledajte realizovane projekte Zonex Inženjering — McDonald\'s, KFC, Zlatiborski konaci, benzinske stanice i drugi objekti.',
+}
 
 export default function ProjectsPage() {
   return (

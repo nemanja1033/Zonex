@@ -1,6 +1,12 @@
+import { Metadata } from 'next'
 import PageHeader from '@/components/ui/PageHeader'
 import AboutSection from '@/components/sections/AboutSection'
 import { site } from '../../data/site'
+
+export const metadata: Metadata = {
+  title: 'O nama',
+  description: 'Zonex Inženjering — preko 30 godina iskustva u građevinarstvu. ISO 9001 sertifikovana firma iz Beograda.',
+}
 
 export default function CompanyPage() {
   return (

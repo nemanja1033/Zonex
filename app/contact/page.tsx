@@ -1,7 +1,13 @@
+import { Metadata } from 'next'
 import Container from '@/components/ui/Container'
 import PageHeader from '@/components/ui/PageHeader'
 import ContactForm from '@/components/sections/ContactForm'
 import ContactCard from '@/components/ui/ContactCard'
+
+export const metadata: Metadata = {
+  title: 'Kontakt',
+  description: 'Kontaktirajte Zonex Inženjering za vaš sledeći građevinski projekat. Beograd, Srbija.',
+}
 
 export default function ContactPage() {
   return (

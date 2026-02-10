@@ -131,11 +131,14 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Scroll indicator - right side */}
-          <div className="hero-scroll absolute right-6 md:right-12 lg:right-20 bottom-32 opacity-0 hidden md:block">
-            <span className="text-gray-500 text-[10px] tracking-[0.3em] uppercase writing-vertical">
-              SCROLL
+          {/* Scroll indicator - right side with animated line */}
+          <div className="hero-scroll absolute right-6 md:right-12 lg:right-20 bottom-32 opacity-0 hidden md:flex flex-col items-center gap-3">
+            <span className="text-gray-500 text-[10px] tracking-[0.2em] uppercase">
+              Scroll
             </span>
+            <div className="w-[1px] h-12 bg-gray-700 relative overflow-hidden">
+              <div className="absolute inset-x-0 h-full bg-[#DC2626] animate-scroll-pulse" />
+            </div>
           </div>
         </div>
       </div>

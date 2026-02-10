@@ -644,6 +644,16 @@ body {
 .hero-animate > *:nth-child(3) { animation: heroFadeUp 0.8s ease-out 0.4s both; }
 .hero-animate > *:nth-child(4) { animation: heroFadeUp 0.8s ease-out 0.55s both; }
 
+/* Scroll indicator animation */
+@keyframes scroll-pulse {
+  0% { top: -100%; height: 100%; }
+  50% { top: 100%; height: 100%; }
+  100% { top: 100%; height: 100%; }
+}
+.animate-scroll-pulse {
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+
 /* Media queries */
 @media (max-width: 1024px) {
   :root {
