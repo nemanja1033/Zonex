@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SiteLayout from '@/components/layout/SiteLayout'
+import SmoothScroll from '@/components/SmoothScroll'
 
 export const metadata: Metadata = {
   title: 'Zonex Inženjering d.o.o. - Inženjering izvrsnosti od 1993.',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="sr">
       <body>
-        <SiteLayout>{children}</SiteLayout>
+        <SmoothScroll>
+          <SiteLayout>{children}</SiteLayout>
+        </SmoothScroll>
       </body>
     </html>
   )

@@ -172,8 +172,18 @@ body {
   overflow-x: hidden;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
@@ -684,5 +694,51 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* === GSAP Animation Performance === */
+[data-reveal], .hero-title-line, .reveal-overlay, .parallax-img {
+  will-change: transform, opacity;
+}
+
+/* Navbar scrolled state */
+header.nav-scrolled {
+  background: rgba(26, 26, 30, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Section divider animation */
+.section-divider-animated {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  overflow: hidden;
+}
+.section-divider-animated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: none;
+}
+.section-divider-animated.revealed::after {
+  animation: expandLine 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes expandLine {
+  from { width: 0; left: 50%; }
+  to { width: 100%; left: 0; }
+}
+
+/* Disable heavy animations on mobile */
+@media (max-width: 768px) {
+  .parallax-img {
+    transform: none !important;
   }
 }

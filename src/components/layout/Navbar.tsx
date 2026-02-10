@@ -2,7 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const navItems = [
   { label: 'Projekti', href: '/projects' },
@@ -14,14 +18,52 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+    if (!navRef.current) return
+
+    // Navbar hide/show based on scroll direction
+    ScrollTrigger.create({
+      start: 'top -80',
+      end: 99999,
+      onUpdate: (self) => {
+        if (!navRef.current) return
+
+        if (self.direction === 1 && self.scroll() > 300) {
+          // Scrolling down — hide
+          gsap.to(navRef.current, {
+            yPercent: -100,
+            duration: 0.3,
+            ease: 'power2.in',
+          })
+        } else {
+          // Scrolling up — show
+          gsap.to(navRef.current, {
+            yPercent: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          })
+        }
+      },
+    })
+
+    // Background blur on scroll
+    ScrollTrigger.create({
+      start: 'top -50',
+      onToggle: (self) => {
+        if (!navRef.current) return
+        if (self.isActive) {
+          navRef.current.classList.add('nav-scrolled')
+        } else {
+          navRef.current.classList.remove('nav-scrolled')
+        }
+      },
+    })
+
+    return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill())
     }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
@@ -37,11 +79,11 @@ export default function Navbar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      ref={navRef}
+      className="fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-500"
       style={{
-        background: isScrolled ? 'rgba(30,30,34,0.92)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
+        background: 'transparent',
+        borderBottom: '1px solid transparent',
       }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-16">
@@ -58,9 +100,10 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`hover:text-white transition-colors ${isActive ? 'text-white' : ''}`}
+                className={`relative group hover:text-white transition-colors ${isActive ? 'text-white' : ''}`}
               >
                 {item.label}
+                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-[#DC2626] transition-all duration-300 group-hover:w-full" />
               </Link>
             )
           })}
