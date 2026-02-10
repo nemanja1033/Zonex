@@ -5,79 +5,59 @@ export const site = {
     location: 'Beograd, Srbija',
   },
   hero: {
-    title: 'Inženjering koji isporučuje u rokovima, sa proverljivim kvalitetom.',
-    subtitle:
-      'Zonex vodi projekte kroz jasne faze, kontrolu kvaliteta i preciznu koordinaciju svih učesnika. Fokus je na stabilnoj realizaciji i dugoročnim rezultatima.',
+    tagline: 'Od 1993. godine',
+    title: 'Gradimo ozbiljno.',
+    titleAccent: 'Već 30 godina.',
+    subtitle: 'Generalni izvođač za objekte koji zahtevaju standard, rok i odgovornost.',
   },
   stats: [
-    { label: 'Iskustvo', value: '30+ godina' },
-    { label: 'Osnivanje', value: '1993' },
-    { label: 'Model isporuke', value: 'Ključ u ruke' },
-    { label: 'Standardi', value: 'Kvalitet i bezbednost' },
+    { value: '30+', label: 'godina' },
+    { value: '1993', label: 'Beograd' },
+    { value: 'ISO 9001', label: 'sertifikovan' },
+    { value: 'Ključ u ruke', label: 'model' },
   ],
   services: [
     {
       title: 'Ključ u ruke',
-      description: 'Kompletna realizacija objekta, od planiranja do primopredaje.',
-    },
-    {
-      title: 'Grubi radovi',
-      description: 'Organizacija gradilišta i precizno izvođenje ključnih građevinskih faza.',
+      description: 'Kompletna realizacija — od prvog plana do primopredaje ključeva. Vi dobijete objekat, mi preuzimamo sve između.',
+      tags: ['Planiranje', 'Izvođenje', 'Predaja'],
     },
     {
       title: 'Završni radovi',
-      description: 'Finishing radovi sa kontrolom detalja i standarda brenda.',
+      description: 'Finalizacija enterijera i eksterijera sa pažnjom na svaki detalj.',
+      tags: ['Enterijer', 'Eksterijer'],
     },
     {
-      title: 'Instalacije i koordinacija',
-      description: 'Usklađivanje instalaterskih timova i tehničkih zahteva investitora.',
+      title: 'Projektno vođenje',
+      description: 'Koordinacija timova, rokova i budžeta od početka do kraja.',
+      tags: ['Koordinacija', 'Nadzor'],
     },
     {
-      title: 'Kontrola standarda investitora',
-      description: 'Jasna dokumentacija, testiranja i stabilna isporuka kvaliteta.',
+      title: 'Konsalting',
+      description: 'Tehnička analiza, procena troškova i planiranje pre početka radova.',
+      tags: ['Analiza', 'Procena'],
     },
   ],
   process: [
-    {
-      title: 'Planiranje',
-      description: 'Definisanje obima, rokova, budžeta i kritičnih tačaka.',
-    },
-    {
-      title: 'Izvođenje',
-      description: 'Koordinacija timova i precizno vođenje gradilišta.',
-    },
-    {
-      title: 'Kontrola kvaliteta',
-      description: 'Inspekcije, zapisnici i praćenje standarda tokom svih faza.',
-    },
-    {
-      title: 'Primopredaja',
-      description: 'Tehnička dokumentacija i uredna isporuka objekta.',
-    },
-  ],
-  values: [
-    {
-      title: 'Vreme',
-      description: 'Rokovi su sastavni deo ugovora, planiranja i svakodnevnog praćenja.',
-    },
-    {
-      title: 'Kvalitet',
-      description: 'Jasni standardi i kontrolne tačke na svakoj etapi.',
-    },
-    {
-      title: 'Bezbednost',
-      description: 'Sistemski protokoli za ljude, opremu i lokacije.',
-    },
-    {
-      title: 'Životna sredina',
-      description: 'Usklađenost sa zahtevima lokacije i propisima zaštite.',
-    },
+    { title: 'Planiranje', description: 'Obim, rokovi, budžet.' },
+    { title: 'Izvođenje', description: 'Koordinacija i gradilište.' },
+    { title: 'Kontrola', description: 'Inspekcije i standardi.' },
+    { title: 'Primopredaja', description: 'Dokumentacija i ključevi.' },
   ],
   about: {
     title: 'O nama',
-    body:
-      'Zonex inženjering d.o.o. više od 30 godina uspešno posluje u oblasti građevinarstva. Od osnivanja 1993. godine do danas fokusirani smo na brzu, efikasnu i kvalitetnu realizaciju projekata. Posvećenost, stručnost i iskustvo omogućavaju nam da ispunimo zahteve klijenata i uspešno vodimo projekte od početnog planiranja do najsitnijih detalja.',
+    body: 'Zonex Inženjering gradi od 1993. Stotine završenih projekata — restorani, benzinske pumpe, stambeni objekti. Radimo brzo, poštujemo rokove, držimo se dogovorenog.',
   },
-  projectsIntro:
-    'Naši projekti obuhvataju objekte visokog intenziteta rada, sa jasno definisanim rokovima, obimom i standardima isporuke.',
+  cta: {
+    title: 'Imate projekat?',
+    description: 'Javite nam osnovne detalje. Odgovaramo u roku od 48 sati sa konkretnim predlogom, rokom i budžetom.',
+    button: 'Kontaktirajte nas',
+  },
+  projectsIntro: 'Pogledajte šta smo uradili u poslednjih 30 godina.',
+  values: [
+    { title: 'Vreme', description: 'Rokovi su deo dogovora.' },
+    { title: 'Kvalitet', description: 'Kontrola na svakom koraku.' },
+    { title: 'Bezbednost', description: 'Protokoli za ljude i opremu.' },
+    { title: 'Odgovornost', description: 'Držimo se reči.' },
+  ],
 }

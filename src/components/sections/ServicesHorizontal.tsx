@@ -1,129 +1,90 @@
 "use client"
 
-import { motion, useReducedMotion } from 'framer-motion'
-import Container from '@/components/ui/Container'
 import { site } from '../../../data/site'
-import { EASING, staggerContainer, staggerItem } from '@/lib/animations'
 
 export default function ServicesHorizontal() {
-  const reduceMotion = useReducedMotion()
   const services = site.services.slice(0, 4)
+  const [mainService, ...otherServices] = services
 
   return (
-    <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#27272A] via-[#2D2D32] to-[#27272A]" />
-
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      {/* Glow accents */}
-      <motion.div
-        className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(220, 38, 38, 0.05) 0%, transparent 60%)' }}
-        animate={reduceMotion ? undefined : { scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      <Container className="relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASING.power4 }}
-          className="mb-12 md:mb-16"
-        >
+    <section className="py-24 md:py-32 bg-[#1e1e22]">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+        {/* Header - left aligned */}
+        <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-3 mb-4">
             <span className="h-[2px] w-8 bg-[#DC2626]" />
             <span className="text-[#DC2626] text-[11px] font-medium tracking-[0.15em] uppercase">
               Usluge
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-            Integrisane usluge
-            <span className="block text-white/50">sa preciznim fazama isporuke.</span>
-          </h2>
-          <p className="text-base text-white/50 max-w-xl leading-relaxed">
-            Svaka usluga je strukturisana kroz rokove, kontrolne tačke i jasnu dokumentaciju koju investitori očekuju.
-          </p>
-        </motion.div>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Šta radimo
+            </h2>
+            <p className="text-gray-500 text-base max-w-md">
+              Od temelja do ključa — preuzimamo odgovornost za ceo proces.
+            </p>
+          </div>
+        </div>
 
-        {/* Services Grid 2x2 */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={staggerContainer(0.1, 0.2)}
-          className="grid md:grid-cols-2 gap-4 md:gap-6"
-        >
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              variants={staggerItem}
-              className="group bg-[#2a2a32] border border-white/[0.06] p-7 md:p-8 transition-all duration-400 hover:border-[#DC2626]/20 hover:bg-[#2f2f38] rounded-xl"
-            >
-              {/* Number */}
-              <span className="text-[#DC2626]/30 text-4xl md:text-5xl font-bold leading-none">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-
-              {/* Separator */}
-              <div className="h-[1px] w-8 bg-[#DC2626]/30 my-5" />
-
-              {/* Title */}
-              <h3 className="text-white text-xl font-semibold mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed mb-5">
-                {service.description}
-              </p>
-
-              {/* Tags */}
+        {/* Asymmetric grid - 1 big left + 3 small stacked right */}
+        <div className="grid lg:grid-cols-12 gap-4">
+          {/* Main service - big card */}
+          <div className="lg:col-span-7 bg-[#2a2a32] p-8 md:p-10 border border-white/[0.04] group hover:border-[#DC2626]/15 transition-all duration-500">
+            <span className="text-[#DC2626]/25 text-6xl font-bold">01</span>
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mt-4 mb-3 group-hover:text-[#DC2626] transition-colors">
+              {mainService.title}
+            </h3>
+            <p className="text-gray-400 text-base leading-relaxed mb-6 max-w-md">
+              {mainService.description}
+            </p>
+            {mainService.tags && (
               <div className="flex flex-wrap gap-2">
-                {['Obim', 'Rok', 'Standard'].map(tag => (
-                  <span
-                    key={tag}
-                    className="text-[10px] tracking-[0.08em] uppercase text-gray-500 border border-white/[0.06] px-2.5 py-1 rounded"
-                  >
+                {mainService.tags.map(tag => (
+                  <span key={tag} className="text-[10px] tracking-wider uppercase text-gray-500 border border-white/[0.06] px-3 py-1">
                     {tag}
                   </span>
                 ))}
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            )}
+          </div>
 
-        {/* CTA Link */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4, ease: EASING.power4 }}
-          className="mt-10 md:mt-12"
-        >
+          {/* Other services - small cards stacked */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            {otherServices.map((service, i) => (
+              <div
+                key={service.title}
+                className="bg-[#2a2a32] p-6 border border-white/[0.04] group hover:border-[#DC2626]/15 transition-all duration-500 flex items-start gap-5"
+              >
+                <span className="text-[#DC2626]/20 text-3xl font-bold shrink-0">
+                  {String(i + 2).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-1.5 group-hover:text-[#DC2626] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Link */}
+        <div className="mt-10">
           <a
             href="/services"
-            className="inline-flex items-center gap-3 text-sm text-[#DC2626] font-medium hover:gap-4 transition-all duration-300"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors"
           >
-            <span className="uppercase tracking-[0.1em]">Sve usluge</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+            Sve usluge
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
-        </motion.div>
-      </Container>
+        </div>
+      </div>
     </section>
   )
 }
