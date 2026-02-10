@@ -5,16 +5,18 @@ export const site = {
     location: 'Beograd, Srbija',
   },
   hero: {
-    tagline: 'Od 1993. godine',
-    title: 'Gradimo ozbiljno.',
-    titleAccent: 'Već 30 godina.',
-    subtitle: 'Generalni izvođač za objekte koji zahtevaju standard, rok i odgovornost.',
+    eyebrow: 'GENERALNI IZVOĐAČ',
+    title: ['INŽENJERING KOJI', 'ISPORUČUJE U ROKOVIMA,'],
+    titleAccent: ['SA PROVERLJIVIM', 'KVALITETOM.'],
+    subtitle: 'Zonex vodi projekte kroz jasne faze, kontrolu kvaliteta i preciznu koordinaciju svih učesnika. Fokus je na stabilnoj realizaciji i dugoročnim rezultatima.',
+    ctaPrimary: 'NAŠI PROJEKTI',
+    ctaSecondary: 'KONTAKTIRAJTE TIM',
   },
   stats: [
-    { value: '30+', label: 'godina' },
-    { value: '1993', label: 'Beograd' },
-    { value: 'ISO 9001', label: 'sertifikovan' },
-    { value: 'Ključ u ruke', label: 'model' },
+    { value: '30+', label: 'GODINA ISKUSTVA' },
+    { value: '1993', label: 'GODINA OSNIVANJA' },
+    { value: 'Ključ u ruke', label: 'MODEL ISPORUKE' },
+    { value: 'ISO', label: 'STANDARDI KVALITETA' },
   ],
   services: [
     {
@@ -60,4 +62,16 @@ export const site = {
     { title: 'Bezbednost', description: 'Protokoli za ljude i opremu.' },
     { title: 'Odgovornost', description: 'Držimo se reči.' },
   ],
+  nav: {
+    logo: 'ZONEX',
+    logoSuffix: 'INŽENJERING',
+    items: [
+      { label: 'Početna', href: '/' },
+      { label: 'Projekti', href: '/projects' },
+      { label: 'Usluge', href: '/services' },
+      { label: 'O nama', href: '/company' },
+      { label: 'Kontakt', href: '/contact' },
+    ],
+    cta: 'ZAPOČNITE PROJEKAT',
+  },
 }

@@ -5,15 +5,9 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { site } from '../../../data/site'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const navItems = [
-  { label: 'Projekti', href: '/projects' },
-  { label: 'Usluge', href: '/services' },
-  { label: 'O nama', href: '/company' },
-  { label: 'Kontakt', href: '/contact' },
-]
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -80,47 +74,55 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-500"
-      style={{
-        background: 'transparent',
-        borderBottom: '1px solid transparent',
-      }}
+      className="fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-500 bg-[#0A0A0A]/80 backdrop-blur-sm"
     >
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-16">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-20">
         {/* Logo */}
-        <Link href="/" className="text-white font-semibold text-base tracking-wide">
-          Zonex
+        <Link href="/" className="flex items-center gap-2 text-white">
+          <span className="font-bold text-lg tracking-wide">{site.nav.logo}</span>
+          <span className="text-gray-500 font-light">—</span>
+          <span className="text-gray-400 text-sm tracking-wide">{site.nav.logoSuffix}</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 text-[13px] text-gray-400">
-          {navItems.map((item) => {
+        <nav className="hidden lg:flex items-center gap-8">
+          {site.nav.items.map((item) => {
             const isActive = pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects/'))
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative group hover:text-white transition-colors ${isActive ? 'text-white' : ''}`}
+                className={`relative text-[13px] tracking-wide transition-colors ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'}`}
               >
                 {item.label}
-                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-[#DC2626] transition-all duration-300 group-hover:w-full" />
               </Link>
             )
           })}
         </nav>
 
+        {/* CTA Button */}
+        <Link
+          href="/contact"
+          className="hidden lg:inline-flex items-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-5 py-2.5 text-xs font-semibold tracking-wider uppercase rounded transition-colors"
+        >
+          {site.nav.cta}
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
+
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-white p-2"
+          className="lg:hidden text-white p-2"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Meni"
         >
           {isOpen ? (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
@@ -129,25 +131,28 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#1e1e22] border-t border-white/[0.05]">
-          <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
-            <Link
-              href="/"
-              className="text-gray-400 hover:text-white transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Početna
-            </Link>
-            {navItems.map((item) => (
+        <div className="lg:hidden bg-[#0A0A0A] border-t border-white/[0.05]">
+          <nav className="container mx-auto px-6 py-8 flex flex-col gap-1">
+            {site.nav.items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-gray-400 hover:text-white transition-colors py-2"
+                className="text-gray-400 hover:text-white transition-colors py-3 text-lg"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/contact"
+              className="mt-6 inline-flex items-center justify-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-6 py-4 text-sm font-semibold tracking-wider uppercase rounded transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {site.nav.cta}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </nav>
         </div>
       )}

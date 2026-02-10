@@ -7,12 +7,12 @@
 :root {
   /* === ZONEX INDUSTRIAL DARK THEME === */
 
-  /* Backgrounds - Lighter charcoal/slate */
-  --bg-base: #27272A;
-  --bg-elevated: #2D2D32;
-  --bg-card: #303036;
-  --bg-hover: #3A3A42;
-  --bg-input: #303036;
+  /* Backgrounds - Very dark, almost black */
+  --bg-base: #0A0A0A;
+  --bg-elevated: #111111;
+  --bg-card: #161616;
+  --bg-hover: #1C1C1C;
+  --bg-input: #161616;
 
   /* Text */
   --text-primary: #FFFFFF;
@@ -229,8 +229,14 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #27272A; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
 ::-webkit-scrollbar-thumb { background: #DC2626; border-radius: 2px; }
+
+/* Writing mode for vertical text */
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
 
 /* Section divider */
 .section-divider {
@@ -704,10 +710,15 @@ body {
 
 /* Navbar scrolled state */
 header.nav-scrolled {
-  background: rgba(26, 26, 30, 0.9);
+  background: rgba(10, 10, 10, 0.95) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Hero line animation styles */
+.hero-line {
+  will-change: transform;
 }
 
 /* Section divider animation */
