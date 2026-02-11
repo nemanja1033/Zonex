@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
@@ -11,18 +11,6 @@ gsap.registerPlugin(ScrollTrigger)
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null)
   const pathname = usePathname()
-  const prevPathnameRef = useRef(pathname)
-
-  // CRITICAL: Kill ScrollTriggers DURING render, BEFORE unmount cleanup runs
-  // This makes the component cleanup much faster since triggers are already dead
-  useMemo(() => {
-    if (prevPathnameRef.current !== pathname) {
-      // Route changed! Kill all ScrollTriggers immediately
-      ScrollTrigger.getAll().forEach(t => t.kill(false)) // false = don't restore styles
-      gsap.globalTimeline.clear() // Clear any pending animations
-      prevPathnameRef.current = pathname
-    }
-  }, [pathname])
 
   // Initialize Lenis once
   useEffect(() => {
@@ -52,24 +40,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
   }, [])
 
-  // Handle route change - kill ScrollTriggers and reset scroll
+  // Reset scroll position on route change
   useEffect(() => {
-    // Kill all ScrollTriggers immediately to prevent expensive cleanup during unmount
-    // This is much faster than letting each component kill its own triggers
-    const triggers = ScrollTrigger.getAll()
-    triggers.forEach(trigger => trigger.kill())
-
-    // Reset scroll position
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true })
     }
-
-    // Refresh ScrollTrigger after new page content loads
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh()
-    }, 100)
-
-    return () => clearTimeout(refreshTimer)
   }, [pathname])
 
   return <>{children}</>
