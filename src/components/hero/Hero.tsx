@@ -75,6 +75,15 @@ export default function Hero() {
         }}
       />
 
+      {/* Hero radial glow behind title */}
+      <div
+        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-[0.06] pointer-events-none z-[1]"
+        style={{
+          background: 'radial-gradient(ellipse, #DC2626 0%, transparent 60%)',
+          filter: 'blur(80px)',
+        }}
+      />
+
       {/* Main content */}
       <div className="relative z-10 flex-1 flex items-center">
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-32">

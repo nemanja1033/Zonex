@@ -7,7 +7,12 @@ export default function ProcessSection() {
   const ref = useScrollReveal()
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-[#1e1e22]">
+    <section ref={ref} className="relative py-20 md:py-28 bg-[#1e1e22] overflow-hidden">
+      {/* Top gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px]">
+        <div className="h-full bg-gradient-to-r from-transparent via-[#DC2626]/30 to-transparent" />
+      </div>
+
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="mb-12 md:mb-16">

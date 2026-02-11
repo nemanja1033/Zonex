@@ -104,8 +104,22 @@ export default function ProjectsShowcase() {
   }, { scope: ref })
 
   return (
-    <section ref={ref} className="py-32 md:py-40 bg-[#1a1a1e]">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+    <section ref={ref} className="relative py-32 md:py-40 bg-[#1a1a1e] overflow-hidden">
+      {/* Shimmer line at top */}
+      <div className="absolute top-0 left-0 w-full h-[1px] overflow-hidden">
+        <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+      </div>
+
+      {/* Accent glow - right side */}
+      <div
+        className="absolute -right-[200px] top-1/3 w-[400px] h-[600px] opacity-[0.03] pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse, #DC2626 0%, transparent 60%)',
+          filter: 'blur(100px)',
+        }}
+      />
+
+      <div className="relative container mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-3 mb-4" data-reveal data-reveal-delay="0">

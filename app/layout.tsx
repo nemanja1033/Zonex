@@ -1,9 +1,16 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import SiteLayout from '@/components/layout/SiteLayout'
 import SmoothScroll from '@/components/SmoothScroll'
-import Preloader from '@/components/Preloader'
-import CustomCursor from '@/components/CustomCursor'
+
+// Dynamic imports for client-only components (better performance)
+const Preloader = dynamic(() => import('@/components/Preloader'), { ssr: false })
+const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false })
+const AmbientBackground = dynamic(() => import('@/components/AmbientBackground'), { ssr: false })
+const GridPattern = dynamic(() => import('@/components/GridPattern'), { ssr: false })
+const NoiseTexture = dynamic(() => import('@/components/NoiseTexture'), { ssr: false })
+const Vignette = dynamic(() => import('@/components/Vignette'), { ssr: false })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://zonextest.vercel.app'),
@@ -82,10 +89,23 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Background layers (z-0 to z-3) */}
+        <AmbientBackground />
+        <GridPattern />
+        <NoiseTexture />
+        <Vignette />
+
+        {/* UI components */}
         <Preloader />
         <CustomCursor />
+
+        {/* Main content (z-10) */}
         <SmoothScroll>
-          <SiteLayout>{children}</SiteLayout>
+          <SiteLayout>
+            <main className="relative z-10">
+              {children}
+            </main>
+          </SiteLayout>
         </SmoothScroll>
       </body>
     </html>

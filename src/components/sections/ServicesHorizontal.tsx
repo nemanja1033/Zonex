@@ -9,8 +9,17 @@ export default function ServicesHorizontal() {
   const [mainService, ...otherServices] = services
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-[#1e1e22]">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+    <section ref={ref} className="relative py-24 md:py-32 bg-[#1e1e22] overflow-hidden">
+      {/* Accent glow - left side */}
+      <div
+        className="absolute -left-[200px] top-1/2 -translate-y-1/2 w-[400px] h-[600px] opacity-[0.04] pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse, #DC2626 0%, transparent 60%)',
+          filter: 'blur(100px)',
+        }}
+      />
+
+      <div className="relative container mx-auto px-6 md:px-12 lg:px-20">
         {/* Header - left aligned */}
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-3 mb-4" data-reveal="up">

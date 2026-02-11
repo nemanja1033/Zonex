@@ -763,3 +763,31 @@ header.nav-scrolled {
     transform: none !important;
   }
 }
+
+/* === AMBIENT BACKGROUND STYLES === */
+
+/* Shimmer animation for section accents */
+@keyframes shimmer-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+.animate-shimmer {
+  animation: shimmer-line 8s ease-in-out infinite;
+}
+
+/* Orb animation performance */
+.orb {
+  will-change: transform;
+}
+
+/* Reduced motion support for ambient effects */
+@media (prefers-reduced-motion: reduce) {
+  .orb {
+    animation: none !important;
+    transform: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

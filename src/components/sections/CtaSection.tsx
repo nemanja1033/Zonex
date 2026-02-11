@@ -8,8 +8,17 @@ export default function CtaSection() {
   const ref = useScrollReveal()
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-[#1a1a1e]">
-      <div className="max-w-xl mx-auto px-6 text-center">
+    <section ref={ref} className="relative py-24 md:py-32 bg-[#1a1a1e] overflow-hidden">
+      {/* Radial uplift glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] opacity-[0.06] pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 100%, #DC2626 0%, transparent 60%)',
+          filter: 'blur(80px)',
+        }}
+      />
+
+      <div className="relative max-w-xl mx-auto px-6 text-center">
         <h2
           className="text-3xl md:text-4xl font-bold text-white mb-5"
           data-reveal="up"
