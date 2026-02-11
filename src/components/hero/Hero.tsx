@@ -6,6 +6,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { site } from '../../../data/site'
 import AnimatedCounter from '../AnimatedCounter'
+import HeroSlideshow from './HeroSlideshow'
 
 gsap.registerPlugin(useGSAP)
 
@@ -65,26 +66,29 @@ export default function Hero() {
   }, { scope: heroRef })
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-[#0F1114]">
-      {/* Grain overlay */}
+    <section ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* Background slideshow with Ken Burns effect */}
+      <HeroSlideshow />
+
+      {/* Grain overlay - above slideshow */}
       <div
-        className="absolute inset-0 z-[2] opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 z-[2] opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: '128px',
         }}
       />
 
-      {/* Hero radial glow behind title */}
+      {/* Hero radial glow behind title - subtle accent */}
       <div
-        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-[0.06] pointer-events-none z-[1]"
+        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-[0.08] pointer-events-none z-[3]"
         style={{
           background: 'radial-gradient(ellipse, #DC2626 0%, transparent 60%)',
           filter: 'blur(80px)',
         }}
       />
 
-      {/* Main content */}
+      {/* Main content - above slideshow */}
       <div className="relative z-10 flex-1 flex items-center">
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-32">
           <div className="max-w-5xl">

@@ -791,3 +791,46 @@ header.nav-scrolled {
     transform: none !important;
   }
 }
+
+/* ===== HERO SLIDESHOW ===== */
+
+/* Ken Burns — slow zoom + pan */
+@keyframes heroKenBurns {
+  from { transform: var(--kb-start); }
+  to   { transform: var(--kb-end); }
+}
+
+.hero-kb-animate {
+  animation: heroKenBurns linear forwards;
+  will-change: transform;
+}
+
+/* Progress bar — fills from left to right */
+@keyframes heroProgress {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.hero-progress-bar {
+  animation: heroProgress linear infinite;
+}
+
+/* On mobile — no Ken Burns (performance) */
+@media (max-width: 768px) {
+  .hero-kb-animate {
+    animation: none !important;
+    transform: scale(1.02) !important;
+  }
+}
+
+/* Reduced motion for slideshow */
+@media (prefers-reduced-motion: reduce) {
+  .hero-kb-animate {
+    animation: none !important;
+    transform: scale(1) !important;
+  }
+  .hero-progress-bar {
+    animation: none !important;
+    width: 100% !important;
+  }
+}
