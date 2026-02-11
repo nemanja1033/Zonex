@@ -73,7 +73,7 @@ export default function ProjectCard({
                 {tags.slice(0, 3).map((tag, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 rounded-full bg-[#27272A]/90 border border-white/[0.12] text-[10px] text-white/60 uppercase tracking-[0.15em] font-medium"
+                    className="px-3 py-1.5 bg-[#27272A]/90 border border-white/[0.12] text-[10px] text-white/60 uppercase tracking-[0.15em] font-medium"
                   >
                     {tag}
                   </span>

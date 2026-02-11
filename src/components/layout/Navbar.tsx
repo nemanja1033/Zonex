@@ -103,7 +103,7 @@ export default function Navbar() {
         {/* CTA Button */}
         <Link
           href="/contact"
-          className="hidden lg:inline-flex items-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-5 py-2.5 text-xs font-semibold tracking-wider uppercase rounded transition-colors"
+          className="hidden lg:inline-flex items-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-5 py-2.5 text-xs font-semibold tracking-wider uppercase transition-colors"
         >
           {site.nav.cta}
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -145,7 +145,7 @@ export default function Navbar() {
             ))}
             <Link
               href="/contact"
-              className="mt-6 inline-flex items-center justify-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-6 py-4 text-sm font-semibold tracking-wider uppercase rounded transition-colors"
+              className="mt-6 inline-flex items-center justify-center gap-2 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-6 py-4 text-sm font-semibold tracking-wider uppercase transition-colors"
               onClick={() => setIsOpen(false)}
             >
               {site.nav.cta}

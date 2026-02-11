@@ -94,8 +94,12 @@ export const projects: Project[] = [
       'Precizna koordinacija i kontrola detalja završne obrade.',
     ],
     focus: ['Standardi', 'Vreme', 'Kvalitet'],
-    image: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-01.jpg',
+    image: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-05.jpeg',
     images: [
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-05.jpeg', alt: "McDonald's Ruklada - eksterijer" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-06.jpeg', alt: "McDonald's Ruklada - eksterijer 2" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-07.jpeg', alt: "McDonald's Ruklada - eksterijer 3" },
+      { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-08.jpeg', alt: "McDonald's Ruklada - eksterijer 4" },
       { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-01.jpg', alt: "McDonald's Ruklada - radovi" },
       { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-02.jpg', alt: "McDonald's Ruklada - konstrukcija" },
       { src: '/images/projects/mcdonalds-ruklada/mcdonalds-ruklada-03.jpg', alt: "McDonald's Ruklada - završni radovi" },
@@ -141,7 +145,10 @@ export const projects: Project[] = [
       'Realizacija na zahtevnoj lokaciji visokog protoka.',
     ],
     focus: ['Bezbednost', 'Životna sredina', 'Standardi'],
-    // Nema sliku - prikazaće se placeholder
-    images: [],
+    image: '/images/projects/knez-petrol/knez-petrol-01.jpeg',
+    images: [
+      { src: '/images/projects/knez-petrol/knez-petrol-01.jpeg', alt: 'Knez Petrol Šimanovci - eksterijer' },
+      { src: '/images/projects/knez-petrol/knez-petrol-02.jpeg', alt: 'Knez Petrol Šimanovci - eksterijer 2' },
+    ],
   },
 ]
