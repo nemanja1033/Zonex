@@ -3,7 +3,7 @@
 export default function GridPattern() {
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[1] opacity-[0.02]"
+      className="grid-pattern pointer-events-none fixed inset-0 z-[1] opacity-[0.02]"
       style={{
         backgroundImage: `
           linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),

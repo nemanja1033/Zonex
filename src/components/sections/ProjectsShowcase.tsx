@@ -17,16 +17,22 @@ export default function ProjectsShowcase() {
   useGSAP(() => {
     if (!ref.current) return
 
+    // Use smaller animations on mobile for better performance
+    const isMobile = window.innerWidth < 768
+    const headerOffset = isMobile ? 15 : 40
+    const cardOffset = isMobile ? 20 : 60
+    const duration = isMobile ? 0.4 : 0.8
+
     // Header elements
     const headerElements = ref.current.querySelectorAll('[data-reveal]')
     headerElements.forEach((el) => {
       const delay = parseFloat(el.getAttribute('data-reveal-delay') || '0')
       gsap.fromTo(el,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: headerOffset },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration,
           delay,
           ease: 'power2.out',
           scrollTrigger: {
@@ -46,11 +52,11 @@ export default function ProjectsShowcase() {
 
       // Card fade up
       gsap.fromTo(card,
-        { opacity: 0, y: 60 },
+        { opacity: 0, y: cardOffset },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration,
           delay: 0.1 + i * 0.1,
           ease: 'power2.out',
           scrollTrigger: {

@@ -41,7 +41,7 @@ export default function AmbientBackground() {
   if (isMobile) return null
 
   return (
-    <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div ref={containerRef} className="ambient-bg pointer-events-none fixed inset-0 z-0 overflow-hidden">
       {/* Red orb - top right */}
       <div
         className="orb absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full opacity-[0.04]"

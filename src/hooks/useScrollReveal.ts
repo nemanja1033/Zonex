@@ -13,6 +13,11 @@ export function useScrollReveal() {
   useGSAP(() => {
     if (!ref.current) return
 
+    // Use smaller animations on mobile for better performance
+    const isMobile = window.innerWidth < 768
+    const offset = isMobile ? 15 : 40
+    const duration = isMobile ? 0.4 : 0.8
+
     const elements = ref.current.querySelectorAll('[data-reveal]')
 
     elements.forEach((el) => {
@@ -20,15 +25,15 @@ export function useScrollReveal() {
       const delay = parseFloat(el.getAttribute('data-reveal-delay') || '0')
 
       const from: gsap.TweenVars = { opacity: 0 }
-      if (direction === 'up') from.y = 40
-      if (direction === 'left') from.x = -40
-      if (direction === 'right') from.x = 40
+      if (direction === 'up') from.y = offset
+      if (direction === 'left') from.x = -offset
+      if (direction === 'right') from.x = offset
 
       gsap.fromTo(el, from, {
         opacity: 1,
         x: 0,
         y: 0,
-        duration: 0.8,
+        duration,
         delay,
         ease: 'power2.out',
         scrollTrigger: {

@@ -757,10 +757,70 @@ header.nav-scrolled {
   to { width: 100%; left: 0; }
 }
 
-/* Disable heavy animations on mobile */
+/* ===== MOBILE PERFORMANCE OPTIMIZATIONS ===== */
 @media (max-width: 768px) {
-  .parallax-img {
+  /* Custom cursor - hide completely */
+  .custom-cursor,
+  [class*="custom-cursor"] {
+    display: none !important;
+  }
+
+  /* Ken Burns / hero slideshow - static image, no animation */
+  .hero-kb-animate {
+    animation: none !important;
+    transform: scale(1.02) !important;
+  }
+
+  /* Parallax effects - disable */
+  .parallax-img,
+  [style*="parallax"],
+  [data-parallax] {
     transform: none !important;
+  }
+
+  /* Ambient background (gradient orbs) - hide */
+  .ambient-bg,
+  [class*="ambient"] {
+    display: none !important;
+  }
+
+  /* Grain overlay - hide */
+  .grain-overlay,
+  .site-noise,
+  .hero-noise {
+    display: none !important;
+  }
+
+  /* Hero radial glow - hide */
+  .hero-glow {
+    display: none !important;
+  }
+
+  /* Reduce scroll animations - smaller movement, faster duration */
+  [data-reveal] {
+    --reveal-y: 15px !important;
+    --reveal-duration: 0.4s !important;
+  }
+
+  /* Grid pattern - hide for performance */
+  .grid-pattern {
+    display: none !important;
+  }
+
+  /* Vignette - simplify */
+  .vignette {
+    opacity: 0.3 !important;
+  }
+
+  /* Orbs - ensure hidden */
+  .orb {
+    display: none !important;
+  }
+
+  /* Reduce will-change for better mobile performance */
+  .hero-line,
+  .reveal-overlay {
+    will-change: auto !important;
   }
 }
 
