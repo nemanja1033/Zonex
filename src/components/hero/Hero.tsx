@@ -10,11 +10,22 @@ import HeroSlideshow from './HeroSlideshow'
 
 gsap.registerPlugin(useGSAP)
 
+// Check if this is first visit (preloader needs to run)
+const getInitialDelay = () => {
+  if (typeof window === 'undefined') return 0.1
+  const hasVisited = sessionStorage.getItem('zonex-visited')
+  if (!hasVisited) {
+    sessionStorage.setItem('zonex-visited', 'true')
+    return 2.2 // Wait for preloader on first visit
+  }
+  return 0.1 // Instant on subsequent visits
+}
+
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 2.2 }) // Wait for preloader
+    const tl = gsap.timeline({ delay: getInitialDelay() })
 
     // 1. Eyebrow line expands
     tl.fromTo('.hero-accent-line',
