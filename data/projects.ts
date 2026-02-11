@@ -107,27 +107,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'zlatiborski-konaci',
-    name: 'Zlatiborski konaci',
-    category: 'Residential',
-    location: 'Zlatibor',
-    city: 'Zlatibor',
-    delivery: 'Kompleksna izgradnja',
-    scope: 'Više objekata u okviru apartmanskog kompleksa.',
-    timeline: 'Višefazna realizacija',
-    opened: 'Nije navedeno',
-    summary:
-      'Apartmanski kompleks na više od 3 hektara sa više objekata i desetinama konaka.',
-    highlights: [
-      'Kompleks na više od 3 hektara.',
-      'Više objekata u okviru jedne celine.',
-      'Fazna koordinacija i kontrola kvaliteta.',
-    ],
-    focus: ['Kvalitet', 'Standardi'],
-    // Nema sliku - prikazaće se placeholder
-    images: [],
-  },
-  {
     slug: 'knez-petrol-simanovci',
     name: 'Knez Petrol – Šimanovci',
     category: 'Retail',
@@ -150,5 +129,26 @@ export const projects: Project[] = [
       { src: '/images/projects/knez-petrol/knez-petrol-01.jpeg', alt: 'Knez Petrol Šimanovci - eksterijer' },
       { src: '/images/projects/knez-petrol/knez-petrol-02.jpeg', alt: 'Knez Petrol Šimanovci - eksterijer 2' },
     ],
+  },
+  {
+    slug: 'zlatiborski-konaci',
+    name: 'Zlatiborski konaci',
+    category: 'Residential',
+    location: 'Zlatibor',
+    city: 'Zlatibor',
+    delivery: 'Kompleksna izgradnja',
+    scope: 'Više objekata u okviru apartmanskog kompleksa.',
+    timeline: 'Višefazna realizacija',
+    opened: 'Nije navedeno',
+    summary:
+      'Apartmanski kompleks na više od 3 hektara sa više objekata i desetinama konaka.',
+    highlights: [
+      'Kompleks na više od 3 hektara.',
+      'Više objekata u okviru jedne celine.',
+      'Fazna koordinacija i kontrola kvaliteta.',
+    ],
+    focus: ['Kvalitet', 'Standardi'],
+    // Nema sliku - prikazaće se placeholder
+    images: [],
   },
 ]
