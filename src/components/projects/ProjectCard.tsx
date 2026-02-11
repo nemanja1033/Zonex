@@ -38,7 +38,7 @@ export default function ProjectCard({
       className="group"
     >
       <Link href={href} className="block transition-transform duration-300 hover:-translate-y-1">
-        <div className="relative bg-[#303036] rounded-2xl overflow-hidden border border-white/[0.12] hover:border-white/[0.20] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.25)]">
+        <div className="relative overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.25)]">
 
           {/* Image Section */}
           <div className="relative h-[280px] lg:h-[320px] overflow-hidden">

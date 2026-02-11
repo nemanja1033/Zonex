@@ -40,7 +40,7 @@ export default function ProjectsGrid() {
     <div className="space-y-10">
       <motion.div
         layout={!disableLayout}
-        className="flex flex-wrap items-start gap-8 rounded-2xl bg-[#303036] border border-white/12 p-6"
+        className="flex flex-wrap items-start gap-8 border border-white/[0.06] p-6"
         initial={shouldReduce ? undefined : isLite ? { opacity: 0, y: 8 } : { opacity: 0, y: 12 }}
         animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
         transition={
@@ -108,10 +108,10 @@ function FilterGroup({ label, items, value, onChange }: FilterGroupProps) {
             type="button"
             onClick={() => onChange(item.value)}
             aria-pressed={value === item.value}
-            className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${
+            className={`relative px-4 py-2 text-xs font-medium uppercase tracking-wider transition-all duration-200 ${
               value === item.value
-                ? 'bg-[#DC2626]/10 text-[#DC2626] border border-[#DC2626]/20'
-                : 'bg-white/5 text-white/60 border border-white/12 hover:bg-white/10 hover:text-white'
+                ? 'bg-[#DC2626] border border-[#DC2626] text-white'
+                : 'border border-white/[0.08] text-gray-500 hover:border-white/[0.15] hover:text-white'
             }`}
           >
             {item.label}

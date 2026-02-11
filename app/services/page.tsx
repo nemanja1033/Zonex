@@ -51,23 +51,32 @@ export default function ServicesPage() {
               <motion.div
                 key={service.title}
                 variants={staggerItem}
-                whileHover={{ y: -5 }}
-                className="group relative p-6 lg:p-8 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
+                whileHover={{ y: -3 }}
+                className="group relative p-8 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300"
               >
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+                {/* Red top line on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#DC2626] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
                 <div className="relative z-10">
-                  <h2 className="text-xl font-bold text-white mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
+                  <span className="text-[#DC2626] text-xs font-semibold tracking-[0.2em] uppercase">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h2 className="text-xl font-bold text-white uppercase mt-3 mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
                     {service.title}
                   </h2>
-                  <p className="text-sm text-white/60 leading-relaxed">
+                  <p className="text-sm text-white/50 leading-relaxed">
                     {service.description}
                   </p>
                 </div>
 
-                {/* Corner accent */}
-                <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-lg transition-all duration-300" />
+                {/* Arrow icon */}
+                <div className="mt-6 flex justify-end">
+                  <div className="w-9 h-9 border border-white/[0.08] flex items-center justify-center group-hover:border-[#DC2626] group-hover:bg-[#DC2626] transition-all duration-300">
+                    <svg className="w-3.5 h-3.5 text-gray-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -128,27 +137,25 @@ export default function ServicesPage() {
               <motion.div
                 key={step.title}
                 variants={staggerItem}
-                whileHover={{ y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
+                whileHover={{ y: -3 }}
+                className="group relative p-6 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300"
               >
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+                {/* Red top line on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#DC2626] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
                 <div className="relative z-10">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">
-                    Faza {index + 1}
-                  </p>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#DC2626] transition-colors duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[#DC2626] text-sm font-mono">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[10px] text-gray-600 uppercase tracking-[0.15em]">FAZA</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white uppercase mb-2 group-hover:text-[#DC2626] transition-colors duration-300">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-white/60 leading-relaxed">
+                  <p className="text-sm text-white/50 leading-relaxed">
                     {step.description}
                   </p>
-                </div>
-
-                {/* Number badge */}
-                <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#DC2626]/20 text-xs font-bold text-[#DC2626]">
-                  {index + 1}
                 </div>
               </motion.div>
             ))}

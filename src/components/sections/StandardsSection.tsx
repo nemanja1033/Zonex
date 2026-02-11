@@ -87,23 +87,20 @@ export default function StandardsSection() {
               <motion.div
                 key={item.title}
                 variants={staggerItem}
-                whileHover={reduceMotion ? {} : { y: -5 }}
-                className="group relative p-6 rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
+                whileHover={reduceMotion ? {} : { y: -3 }}
+                className="group relative p-6 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300"
               >
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#DC2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+                {/* Red top line on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#DC2626] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
                 <div className="relative z-10">
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-white uppercase mb-3 group-hover:text-[#DC2626] transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-white/60 leading-relaxed">
+                  <p className="text-sm text-white/50 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
-
-                {/* Corner accent */}
-                <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-lg transition-all duration-300" />
               </motion.div>
             ))}
           </motion.div>

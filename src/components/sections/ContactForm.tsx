@@ -63,7 +63,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="p-6 md:p-8 rounded-2xl bg-[#303036] border border-white/12 space-y-6"
+      className="p-6 md:p-8 border border-white/[0.06] space-y-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -93,7 +93,7 @@ export default function ContactForm() {
         shake={shake}
       />
       <div className="space-y-3">
-        <motion.div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+        <motion.div className="h-[2px] w-full overflow-hidden bg-white/10" aria-hidden="true">
           <motion.div
             className="h-full bg-[#DC2626]"
             initial={{ scaleX: 0 }}
@@ -104,7 +104,7 @@ export default function ContactForm() {
         </motion.div>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-3 rounded-full bg-[#DC2626] py-4 text-sm font-medium uppercase tracking-[0.1em] text-white transition-all duration-300 hover:shadow-[0_8px_32px_rgba(220,38,38,0.3)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-3 bg-[#DC2626] py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:bg-[#b91c1c] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
         >
@@ -193,7 +193,7 @@ function Field({
       </label>
       <Component
         id={fieldId}
-        className="mt-2 w-full rounded-lg border border-white/12 bg-[#3A3A42] px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-white/40 focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/20"
+        className="mt-2 w-full border border-white/[0.06] bg-white/[0.03] px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-gray-600 focus:border-[#DC2626]/50"
         placeholder={label}
         value={value}
         onChange={onChange}
