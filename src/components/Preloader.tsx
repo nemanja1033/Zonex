@@ -32,7 +32,7 @@ export default function Preloader() {
   if (!visible) return null
 
   return (
-    <div className="preloader fixed inset-0 z-[9999] bg-[#0A0A0A] flex flex-col items-center justify-center gap-8">
+    <div className="preloader fixed inset-0 z-[9999] bg-[#0F1114] flex flex-col items-center justify-center gap-8">
       <span className="text-white font-bold text-xl tracking-[0.3em] uppercase">
         ZONEX
       </span>

@@ -74,7 +74,7 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-500 bg-[#0A0A0A]/80 backdrop-blur-sm"
+      className="fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-500 bg-[#0F1114]/80 backdrop-blur-sm"
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-20">
         {/* Logo */}
@@ -131,7 +131,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="lg:hidden bg-[#0A0A0A] border-t border-white/[0.05]">
+        <div className="lg:hidden bg-[#0F1114] border-t border-white/[0.05]">
           <nav className="container mx-auto px-6 py-8 flex flex-col gap-1">
             {site.nav.items.map((item) => (
               <Link

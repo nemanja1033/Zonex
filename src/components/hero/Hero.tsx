@@ -65,7 +65,7 @@ export default function Hero() {
   }, { scope: heroRef })
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-[#0A0A0A]">
+    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-[#0F1114]">
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-[2] opacity-[0.03] pointer-events-none"
