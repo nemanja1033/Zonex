@@ -16,10 +16,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const reduceMotion = useReducedMotion()
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-  }, [pathname])
+  // Note: Scroll reset is handled by SmoothScroll component with Lenis
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
