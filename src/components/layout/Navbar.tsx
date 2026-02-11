@@ -18,7 +18,7 @@ export default function Navbar() {
     if (!navRef.current) return
 
     // Navbar hide/show based on scroll direction
-    ScrollTrigger.create({
+    const hideShowTrigger = ScrollTrigger.create({
       start: 'top -80',
       end: 99999,
       onUpdate: (self) => {
@@ -30,6 +30,7 @@ export default function Navbar() {
             yPercent: -100,
             duration: 0.3,
             ease: 'power2.in',
+            overwrite: true,
           })
         } else {
           // Scrolling up — show
@@ -37,13 +38,14 @@ export default function Navbar() {
             yPercent: 0,
             duration: 0.3,
             ease: 'power2.out',
+            overwrite: true,
           })
         }
       },
     })
 
     // Background blur on scroll
-    ScrollTrigger.create({
+    const blurTrigger = ScrollTrigger.create({
       start: 'top -50',
       onToggle: (self) => {
         if (!navRef.current) return
@@ -56,7 +58,8 @@ export default function Navbar() {
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill())
+      hideShowTrigger.kill()
+      blurTrigger.kill()
     }
   }, [])
 

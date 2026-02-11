@@ -7,7 +7,7 @@ type MetaGridProps = {
 
 export default function MetaGrid({ project }: MetaGridProps) {
   return (
-    <div className="card-surface grid gap-6 rounded-lg p-6 md:grid-cols-3">
+    <div className="card-surface grid gap-6 p-6 md:grid-cols-3 border border-white/[0.06]">
       <ProjectMeta label="Scope" value={project.scope ?? '—'} />
       <ProjectMeta label="Delivery model" value={project.deliveryModel ?? '—'} />
       <ProjectMeta label="Works performed" value={project.works ?? '—'} />

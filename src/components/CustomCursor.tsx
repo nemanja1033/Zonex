@@ -26,24 +26,40 @@ export default function CustomCursor() {
       gsap.to(dot.current, { scale: 1, duration: 0.3 })
     }
 
-    window.addEventListener('mousemove', move)
+    // Track bound elements for cleanup
+    const boundElements = new Set<Element>()
 
     const bindHoverEvents = () => {
       document.querySelectorAll('a, button, [role="button"]').forEach(el => {
-        el.addEventListener('mouseenter', enter)
-        el.addEventListener('mouseleave', leave)
+        if (!boundElements.has(el)) {
+          el.addEventListener('mouseenter', enter)
+          el.addEventListener('mouseleave', leave)
+          boundElements.add(el)
+        }
       })
     }
 
+    window.addEventListener('mousemove', move)
     bindHoverEvents()
 
-    // Re-bind when DOM changes
-    const observer = new MutationObserver(bindHoverEvents)
+    // Re-bind when DOM changes (debounced)
+    let debounceTimer: NodeJS.Timeout
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(bindHoverEvents, 100)
+    })
     observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
       window.removeEventListener('mousemove', move)
       observer.disconnect()
+      clearTimeout(debounceTimer)
+      // Clean up all bound event listeners
+      boundElements.forEach(el => {
+        el.removeEventListener('mouseenter', enter)
+        el.removeEventListener('mouseleave', leave)
+      })
+      boundElements.clear()
     }
   }, [])
 

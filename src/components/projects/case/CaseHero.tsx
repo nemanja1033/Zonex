@@ -101,9 +101,9 @@ export default function CaseHero({ project }: CaseHeroProps) {
               className="flex flex-wrap gap-2"
             >
               {project.focus.map((badge) => (
-                <span 
+                <span
                   key={badge}
-                  className="px-3 py-1.5 rounded-full bg-[#DC2626]/10 border border-[#DC2626]/20 text-[10px] uppercase tracking-[0.15em] text-[#DC2626]"
+                  className="px-3 py-1.5 border border-[#DC2626]/30 text-[10px] uppercase tracking-[0.15em] text-[#DC2626]"
                 >
                   {badge}
                 </span>
@@ -116,7 +116,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
             initial={reduceMotion ? undefined : { opacity: 0, scale: 0.95 }}
             animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3, ease: EASING.power4 }}
-            className="group relative overflow-hidden rounded-2xl bg-[#303036] border border-white/12 hover:border-white/18 transition-all duration-300"
+            className="group relative overflow-hidden bg-[#303036] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
           >
             <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden">
               <motion.div style={reduceMotion ? {} : { y }} className="absolute inset-0">
@@ -139,7 +139,7 @@ export default function CaseHero({ project }: CaseHeroProps) {
             </div>
 
             {/* Corner accent */}
-            <div className="absolute top-4 right-4 w-10 h-10 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 rounded-tr-xl transition-all duration-300" />
+            <div className="absolute top-4 right-4 w-10 h-10 border-t border-r border-[#DC2626]/0 group-hover:border-[#DC2626]/20 transition-all duration-300" />
           </motion.div>
         </div>
       </Container>

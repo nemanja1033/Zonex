@@ -41,7 +41,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
   }, [chapters])
 
   return (
-    <div className="card-surface sticky top-28 space-y-6 rounded-lg p-6">
+    <div className="card-surface sticky top-28 space-y-6 p-6 border border-white/[0.06]">
       <div>
         <p className="eyebrow">Poglavlja</p>
         <div className="mt-2 h-[2px] w-full bg-white/10">

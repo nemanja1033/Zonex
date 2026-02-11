@@ -39,10 +39,11 @@ export default function HeroSlideshow() {
   const [transitioning, setTransitioning] = useState(false)
   const [key, setKey] = useState(0)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const fadeTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const advance = useCallback(() => {
     setTransitioning(true)
-    setTimeout(() => {
+    fadeTimerRef.current = setTimeout(() => {
       setCurrent((prev) => (prev + 1) % slides.length)
       setNext((prev) => (prev + 1) % slides.length)
       setTransitioning(false)
@@ -54,6 +55,7 @@ export default function HeroSlideshow() {
     timerRef.current = setInterval(advance, DURATION)
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
+      if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current)
     }
   }, [advance])
 

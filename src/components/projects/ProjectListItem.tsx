@@ -15,9 +15,9 @@ export default function ProjectListItem({ project }: ProjectListItemProps) {
       layout
       whileHover={{ x: 6 }}
       transition={transition.fast}
-      className="group relative grid gap-6 rounded-lg border border-white/10 px-4 py-8 transition-colors duration-300 hover:bg-white/5 md:grid-cols-[200px_1.2fr_0.8fr]"
+      className="group relative grid gap-6 border border-white/[0.06] px-4 py-8 transition-colors duration-300 hover:bg-white/[0.02] hover:border-white/[0.12] md:grid-cols-[200px_1.2fr_0.8fr]"
     >
-      <div className="h-28 w-full overflow-hidden rounded-lg bg-[linear-gradient(140deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] transition-transform duration-500 group-hover:scale-[1.02]" />
+      <div className="h-28 w-full overflow-hidden bg-[linear-gradient(140deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] border border-white/[0.06] transition-transform duration-500 group-hover:scale-[1.02]" />
       <div>
         <p className="eyebrow">Projekt</p>
         <h3 className="mt-2 font-display text-h3">{project.name}</h3>

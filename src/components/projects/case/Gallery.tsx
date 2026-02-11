@@ -13,7 +13,7 @@ export default function Gallery({ title = 'Gallery' }: GalleryProps) {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="card-surface relative h-48 overflow-hidden rounded-lg"
+            className="card-surface relative h-48 overflow-hidden border border-white/[0.06]"
           />
         ))}
       </div>
