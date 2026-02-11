@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -23,8 +23,18 @@ const getInitialDelay = () => {
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
+  // Check if mobile on mount
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
+  // GSAP animations - desktop only
+  // Mobile uses pure CSS animations for better performance
   useGSAP(() => {
+    if (isMobile) return // CSS handles mobile animations
+
     const tl = gsap.timeline({ delay: getInitialDelay() })
 
     // 1. Eyebrow line expands
@@ -74,7 +84,7 @@ export default function Hero() {
       { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
       '-=0.2'
     )
-  }, { scope: heroRef })
+  }, { scope: heroRef, dependencies: [isMobile] })
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
@@ -105,8 +115,11 @@ export default function Hero() {
           <div className="max-w-5xl">
             {/* Eyebrow */}
             <div className="flex items-center gap-4 mb-8">
-              <span className="hero-accent-line h-[2px] w-12 bg-[#DC2626] block" style={{ transform: 'scaleX(0)' }} />
-              <span className="hero-eyebrow-text text-[#DC2626] text-[11px] font-medium tracking-[0.2em] uppercase opacity-0">
+              <span
+                className="hero-accent-line h-[2px] w-12 bg-[#DC2626] block"
+                style={isMobile ? undefined : { transform: 'scaleX(0)' }}
+              />
+              <span className={`hero-eyebrow-text text-[#DC2626] text-[11px] font-medium tracking-[0.2em] uppercase ${isMobile ? '' : 'opacity-0'}`}>
                 {site.hero.eyebrow}
               </span>
             </div>
@@ -128,7 +141,7 @@ export default function Hero() {
             </h1>
 
             {/* Description */}
-            <p className="hero-desc text-gray-400 text-base md:text-lg max-w-lg mb-10 opacity-0 leading-relaxed">
+            <p className={`hero-desc text-gray-400 text-base md:text-lg max-w-lg mb-10 leading-relaxed ${isMobile ? '' : 'opacity-0'}`}>
               {site.hero.subtitle}
             </p>
 
@@ -136,7 +149,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/projects"
-                className="hero-btn group inline-flex items-center gap-3 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-7 py-4 text-sm font-semibold tracking-wider uppercase transition-colors opacity-0"
+                className={`hero-btn group inline-flex items-center gap-3 bg-[#DC2626] hover:bg-[#b91c1c] text-white px-7 py-4 text-sm font-semibold tracking-wider uppercase transition-colors ${isMobile ? '' : 'opacity-0'}`}
               >
                 {site.hero.ctaPrimary}
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -145,7 +158,7 @@ export default function Hero() {
               </Link>
               <Link
                 href="/contact"
-                className="hero-btn group inline-flex items-center gap-3 border border-white/20 hover:border-white/40 text-white px-7 py-4 text-sm font-semibold tracking-wider uppercase transition-colors opacity-0"
+                className={`hero-btn group inline-flex items-center gap-3 border border-white/20 hover:border-white/40 text-white px-7 py-4 text-sm font-semibold tracking-wider uppercase transition-colors ${isMobile ? '' : 'opacity-0'}`}
               >
                 {site.hero.ctaSecondary}
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -174,7 +187,7 @@ export default function Hero() {
             {site.stats.map((stat, i) => (
               <div
                 key={i}
-                className={`hero-stat py-6 px-4 md:px-6 opacity-0 ${i > 0 ? 'border-l border-white/[0.08]' : ''}`}
+                className={`hero-stat py-6 px-4 md:px-6 ${isMobile ? '' : 'opacity-0'} ${i > 0 ? 'border-l border-white/[0.08]' : ''}`}
               >
                 <div className="font-bold text-lg md:text-xl text-white mb-1">
                   {stat.value.includes('+') ? (

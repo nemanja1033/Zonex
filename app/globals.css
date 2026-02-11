@@ -757,30 +757,20 @@ header.nav-scrolled {
   to { width: 100%; left: 0; }
 }
 
-/* ===== MOBILE PERFORMANCE OPTIMIZATIONS ===== */
+/* ===== MOBILE PERFORMANCE OPTIMIZATIONS (Awwwards level) ===== */
 @media (max-width: 768px) {
+  /* === DISABLE HEAVY EFFECTS === */
+
   /* Custom cursor - hide completely */
   .custom-cursor,
   [class*="custom-cursor"] {
     display: none !important;
   }
 
-  /* Ken Burns / hero slideshow - static image, no animation */
-  .hero-kb-animate {
-    animation: none !important;
-    transform: scale(1.02) !important;
-  }
-
-  /* Parallax effects - disable */
-  .parallax-img,
-  [style*="parallax"],
-  [data-parallax] {
-    transform: none !important;
-  }
-
   /* Ambient background (gradient orbs) - hide */
   .ambient-bg,
-  [class*="ambient"] {
+  [class*="ambient"],
+  .orb {
     display: none !important;
   }
 
@@ -796,15 +786,16 @@ header.nav-scrolled {
     display: none !important;
   }
 
-  /* Reduce scroll animations - smaller movement, faster duration */
-  [data-reveal] {
-    --reveal-y: 15px !important;
-    --reveal-duration: 0.4s !important;
-  }
-
-  /* Grid pattern - hide for performance */
+  /* Grid pattern - hide */
   .grid-pattern {
     display: none !important;
+  }
+
+  /* Parallax effects - disable */
+  .parallax-img,
+  [style*="parallax"],
+  [data-parallax] {
+    transform: none !important;
   }
 
   /* Vignette - simplify */
@@ -812,15 +803,159 @@ header.nav-scrolled {
     opacity: 0.3 !important;
   }
 
-  /* Orbs - ensure hidden */
-  .orb {
-    display: none !important;
-  }
-
-  /* Reduce will-change for better mobile performance */
+  /* Reduce will-change for better performance */
   .hero-line,
   .reveal-overlay {
     will-change: auto !important;
+  }
+
+  /* === CSS-ONLY HERO SLIDESHOW === */
+  /* Pure GPU animation, no JS state changes */
+
+  .hero-slideshow-mobile {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-slideshow-mobile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    will-change: opacity, transform;
+    animation: mobileSlide 24s infinite;
+    transform: scale(1.03);
+  }
+
+  /* 3 images × 8s = 24s cycle */
+  .hero-slideshow-mobile img:nth-child(1) { animation-delay: 0s; }
+  .hero-slideshow-mobile img:nth-child(2) { animation-delay: 8s; }
+  .hero-slideshow-mobile img:nth-child(3) { animation-delay: 16s; }
+
+  @keyframes mobileSlide {
+    0%    { opacity: 0; transform: scale(1.03); }
+    4%    { opacity: 1; }
+    33%   { opacity: 1; transform: scale(1.0); }
+    37%   { opacity: 0; transform: scale(1.0); }
+    100%  { opacity: 0; transform: scale(1.03); }
+  }
+
+  /* Progress dots - synced with slideshow */
+  .hero-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .hero-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: dotPulse 24s infinite;
+  }
+
+  .hero-dot:nth-child(1) { animation-delay: 0s; }
+  .hero-dot:nth-child(2) { animation-delay: 8s; }
+  .hero-dot:nth-child(3) { animation-delay: 16s; }
+
+  @keyframes dotPulse {
+    0%, 4%   { background: #DC2626; }
+    33%      { background: #DC2626; }
+    37%, 100% { background: rgba(255, 255, 255, 0.2); }
+  }
+
+  /* === PREMIUM MOBILE ANIMATIONS === */
+
+  /* Hero text stagger - pure CSS */
+  .hero-line {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: mFadeUp 0.5s ease-out forwards;
+  }
+  .hero-line:nth-child(1) { animation-delay: 0.1s; }
+  .hero-line:nth-child(2) { animation-delay: 0.18s; }
+  .hero-line:nth-child(3) { animation-delay: 0.26s; }
+  .hero-line:nth-child(4) { animation-delay: 0.34s; }
+
+  @keyframes mFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hero accent line expand */
+  .hero-accent-line {
+    transform-origin: left;
+    animation: lineExpand 0.5s ease-out 0.05s both;
+  }
+
+  /* Hero buttons fade in */
+  .hero-btn {
+    opacity: 0;
+    animation: mFadeUp 0.4s ease-out 0.5s forwards;
+  }
+
+  /* Hero eyebrow text */
+  .hero-eyebrow-text {
+    opacity: 0;
+    animation: mFadeUp 0.4s ease-out 0.15s forwards;
+  }
+
+  /* Hero description */
+  .hero-desc {
+    opacity: 0;
+    animation: mFadeUp 0.45s ease-out 0.4s forwards;
+  }
+
+  /* Hero stats */
+  .hero-stat {
+    opacity: 0;
+    animation: mFadeUp 0.4s ease-out forwards;
+  }
+  .hero-stat:nth-child(1) { animation-delay: 0.55s; }
+  .hero-stat:nth-child(2) { animation-delay: 0.6s; }
+  .hero-stat:nth-child(3) { animation-delay: 0.65s; }
+  .hero-stat:nth-child(4) { animation-delay: 0.7s; }
+
+  /* Tap feedback on cards */
+  .project-card:active,
+  .service-card:active {
+    transform: scale(0.98);
+    transition: transform 0.12s ease;
+  }
+
+  /* Navbar blur on scroll */
+  header.nav-scrolled {
+    background: rgba(15, 17, 20, 0.88) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  /* Page transition - instant fade */
+  main {
+    animation: pageFade 0.25s ease-out;
+  }
+
+  @keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Scroll reveal - lighter */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+  }
+
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -875,13 +1010,7 @@ header.nav-scrolled {
   animation: heroProgress linear infinite;
 }
 
-/* On mobile — no Ken Burns (performance) */
-@media (max-width: 768px) {
-  .hero-kb-animate {
-    animation: none !important;
-    transform: scale(1.02) !important;
-  }
-}
+/* On mobile — Ken Burns handled by CSS-only slideshow in mobile section above */
 
 /* Reduced motion for slideshow */
 @media (prefers-reduced-motion: reduce) {
